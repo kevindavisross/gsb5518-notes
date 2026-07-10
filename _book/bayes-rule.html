@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>References – GSB518 Notes</title>
+<title>4&nbsp; Bayes Rule – GSB518 Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,26 +23,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -52,7 +33,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./distribution-summary.html" rel="prev">
+<link href="./independence.html" rel="next">
+<link href="./conditional-probability.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -91,6 +73,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -103,7 +114,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./bayes-rule.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bayes Rule</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -154,7 +165,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./bayes-rule.html" class="sidebar-item-text sidebar-link">
+  <a href="./bayes-rule.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bayes Rule</span></span></a>
   </div>
 </li>
@@ -190,7 +201,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -199,15 +210,21 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">4.1</span> Exercises</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">References</h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bayes Rule</span></h1>
 </div>
 
 
@@ -224,11 +241,226 @@ div.csl-indent {
 </header>
 
 
-<div id="refs" role="list" style="display: none">
-
+<ul>
+<li><em>Bayes’ rule</em> describes how to update uncertainty in light of new information, evidence, or data.</li>
+</ul>
+<div id="exm-bayes-rule1" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4.1</strong></span> There exist multiple penguin species throughout Antarctica, including the <em>Adelie</em> (A), <em>Chinstrap</em> (C), and <em>Gentoo</em> (G). Suppose that among Antarctic penguins<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> of these three species, 44.2% of Adelie, 19.8% are Chinstrap, and 36.0% are Gentoo. Suppose that</p>
+<ul>
+<li>83.4% of Adelie penguins are below average weight,</li>
+<li>89.7% of Chinstrap penguins are below average weight, and</li>
+<li>4.9% of Gentoo penguins are below average weight (that is, below 4200g).</li>
+</ul>
 </div>
+<ol type="1">
+<li>Use the information to construct an appropriate two-way table of probabilities.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute the probability that a randomly selected penguin is below average weight. How is this related to the values 0.834, 0.897, 0.049?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>If the selected penguin is below average weight, what is the probability that it is species A? Species C? Species G?<br>
+<br>
+<br>
+<br>
+&nbsp;</li>
+</ol>
+<ul>
+<li><strong>Bayes’ rule for events</strong> specifies how a prior probability <span class="math inline">\(P(H)\)</span> of event <span class="math inline">\(H\)</span> is updated in response to the evidence <span class="math inline">\(E\)</span> to obtain the posterior probability <span class="math inline">\(P(H|E)\)</span>. <span class="math display">\[
+\text{P}(H|E) = \frac{\text{P}(E|H)\text{P}(H)}{\text{P}(E)}
+\]</span></li>
+<li>Event <span class="math inline">\(H\)</span> represents a particular hypothesis (or model or case)</li>
+<li>Event <span class="math inline">\(E\)</span> represents observed evidence (or data or information)</li>
+<li><span class="math inline">\(\text{P}(H)\)</span> is the unconditional or <strong>prior probability</strong> of <span class="math inline">\(H\)</span> (prior to observing evidence <span class="math inline">\(E\)</span>)</li>
+<li><span class="math inline">\(\text{P}(H|E)\)</span> is the conditional or <strong>posterior probability</strong> of <span class="math inline">\(H\)</span> after observing evidence <span class="math inline">\(E\)</span>.</li>
+<li><span class="math inline">\(\text{P}(E|H)\)</span> is the <strong>likelihood</strong> of evidence <span class="math inline">\(E\)</span> given hypothesis (or model or case) <span class="math inline">\(H\)</span></li>
+</ul>
+<div id="exm-bayes-rule2" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4.2</strong></span> Continuing <a href="#exm-bayes-rule1" class="quarto-xref">Example&nbsp;<span>4.1</span></a>. Randomly select a penguin and suppose it is below average weight. We are interested in classifying the species of the penguin.</p>
+</div>
+<ol type="1">
+<li><p>Frame this problem in the context of Bayes rule: Identify the hypotheses, prior probabilities, evidence, likelihood, and posterior probabilities.<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>Prior to observing the penguin’s weight, how many times more likely is it to be Adelie than to be Gentoo?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>How many times more likely is it for a penguin to be below average weight given that it is Adelie than given that it is Gentoo?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>Compute the posterior probability of each species given that the penguin is below average weight. Given that the penguin is below average weight, how many times more likely is it to be Adelie than to be Gentoo?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>How are the ratios in the three previous parts related?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>Apply the same logic to compare species A and C.<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+</ol>
+<ul>
+<li>Bayes rule is often used when there are multiple hypotheses or cases. Suppose <span class="math inline">\(H_1,\ldots, H_k\)</span> is a series of distinct hypotheses which together account for all possibilities, and <span class="math inline">\(E\)</span> is any event (evidence).</li>
+<li>Combining Bayes’ rule with the law of total probability, <span class="math display">\[\begin{align*}
+P(H_j |E) &amp; = \frac{P(E|H_j)P(H_j)}{P(E)}\\
+&amp; = \frac{P(E|H_j)P(H_j)}{\sum_{i=1}^k P(E|H_i) P(H_i)}\\
+&amp; \\
+P(H_j |E) &amp; \propto P(E|H_j)P(H_j)
+\end{align*}\]</span></li>
+<li>The symbol <span class="math inline">\(\propto\)</span> is read “is proportional to”. The relative <em>ratios</em> of the posterior probabilities of different hypotheses are determined by the product of the prior probabilities and the likelihoods, <span class="math inline">\(P(E|H_j)P(H_j)\)</span>. The marginal probability of the evidence, <span class="math inline">\(P(E)\)</span>, in the denominator simply normalizes the numerators to ensure that the updated probabilities sum to 1 over all the distinct hypotheses.</li>
+<li><strong>In short, Bayes’ rule says</strong> <span class="math display">\[
+\textbf{posterior} \propto \textbf{likelihood} \times \textbf{prior}
+\]</span></li>
+</ul>
+<div id="exm-bayes-rule3" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4.3</strong></span> Continuing <a href="#exm-bayes-rule2" class="quarto-xref">Example&nbsp;<span>4.2</span></a>. Randomly select a penguin. We are interested in classifying the species of the penguin depending on whether or not it is below average weight.</p>
+</div>
+<ol type="1">
+<li><p>Before you know the weight of the penguin (or any other information) what specify would you predict it to be? Why? What is the probability that your classification is correct?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>If the penguin is below average weight, what species would you classify it as? Why?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>Now suppose that the penguin is not below average weight. Use a Bayes table to compute the posterior probability of each species given that the penguin is not below average weight. If the penguin is not below average weight, what species would you classify it as? Why?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>Suppose that you classify any randomly selected penguin based on whether or not it is below average weight as in the two previous parts. What is the posterior probability that you classify the penguin correctly? How does this compare to your probability of being correct before you observed the penguin’s weight?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+</ol>
+<ul>
+<li>Bayesian analysis is often an iterative process.</li>
+<li>Posterior probabilities are updated after observing some information or data. These probabilities can then be used as prior probabilities before observing new data.</li>
+<li>Posterior probabilities can be sequentially updated as new data becomes available, with the posterior probabilities after the previous stage serving as the prior probabilities for the next stage.</li>
+<li>The final posterior probabilities only depend upon the cumulative data. It doesn’t matter if we sequentially update the posterior after each new piece of data or only once after all the data is available; the final posterior probabilities will be the same either way. Also, the final posterior probabilities are not impacted by the order in which the data are observed.</li>
+</ul>
+<section id="exercises" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.1</span> Exercises</h2>
+<div id="exr-bayes-rule-iterative1" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 4.1</strong></span> A <a href="https://www.pewresearch.org/science/2019/03/28/what-americans-know-about-science/">recent survey</a> of American adults asked: “Based on what you have heard or read, which of the following two statements best describes the scientific method?”</p>
+<ul>
+<li>70% selected “The scientific method produces findings meant to be continually tested and updated over time”. (We’ll call this the “iterative” opinion.)</li>
+<li>14% selected “The scientific method identifies unchanging core principles and truths”. (We’ll call this the “unchanging” opinion).</li>
+<li>16% were not sure which of the two statements was best.</li>
+</ul>
+<p>How does the response to this question change based on education level? Suppose education level is classified as: high school or less (HS), some college but no Bachelor’s degree (college), Bachelor’s degree (Bachelor’s), or postgraduate degree (postgraduate). The education breakdown is</p>
+<ul>
+<li>Among those who agree with “iterative”: 31.3% HS, 27.6% college, 22.9% Bachelor’s, and 18.2% postgraduate.</li>
+<li>Among those who agree with “unchanging”: 38.6% HS, 31.4% college, 19.7% Bachelor’s, and 10.3% postgraduate.</li>
+<li>Among those “not sure”: 57.3% HS, 27.2% college, 9.7% Bachelor’s, and 5.8% postgraduate</li>
+</ul>
+</div>
+<ol type="1">
+<li>Consider the conditional probability that a randomly selected American adult agrees that the scientific method is “iterative” given that they have a postgraduate degree. Identify the prior probability, hypothesis, evidence, likelihood, and posterior probability, and use Bayes’ rule to compute the posterior probability.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find the conditional probability that a randomly selected American adult with a postgraduate degree agrees that the scientific method is “unchanging”.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find the conditional probability that a randomly selected American adult with a postgraduate degree is not sure about which statement is best.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>How many times more likely is it for an <em>American adult</em> to agree with the “iterative” statement than to agree with the “unchanging” statement?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>How many times more likely is it for an American adult to have a postgraduate degree when the adult agrees with the iterative statement than when the adult agree with the unchanging statement?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>How many times more likely is it for an <em>American adult with a postgraduate degree</em> to agree with the “iterative” statement than to agree with the “unchanging” statement?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>How are the values in the three previous parts related?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<div id="exr-bayes-rule-iterative3" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 4.2</strong></span> Now suppose we want to compute the posterior probabilities for an American adult’s perception of the scientific method given that the randomly selected American adult has some college but no Bachelor’s degree (“college”).</p>
+</div>
+<ol type="1">
+<li>Before computing, make an educated guess for the posterior probabilities. In particular, will the changes from prior to posterior be more or less extreme given the American has some college but no Bachelor’s degree than when given the American has a postgraduate degree? Why?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Construct a Bayes table and compute the posterior probabilities. Compare to the posterior probabilities given postgraduate degree from the previous examples.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<div id="exr-base-rate-neglect" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 4.3</strong></span> Within both the colleges of Agriculture and Architecture at Cal Poly, about 49% of admitted students are female, about 84% of admitted students went to high school in CA, and the median GPA of admitted students is about 4.1.</p>
+<p>An orientation group of 100 newly admitted Cal Poly students includes 75 students in Agriculture and 25 students in Architecture. A student is randomly selected from this group. The selected student is Maddie, who is female, went to high school in CA, and had a high school GPA of 4.1.</p>
+</div>
+<p>Donny Don’t says, “The information about Maddie applies equally well to Agriculture or Architecture and doesn’t help us decide which college she’s in, so it’s just 50/50. Given the information about Maddie, the conditional probability that she is in Agriculture is 0.5.” Do you agree? If not, what is the conditional probability that Maddie is in the college of Agriculture given the information about her?</p>
 
 
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Throughout “penguin” refers to an Antarctic penguin of one of these three species. This example is based on the famous <a href="https://allisonhorst.github.io/palmerpenguins/">Palmer penguins data set</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -633,11 +865,14 @@ div.csl-indent {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./distribution-summary.html" class="pagination-link" aria-label="Summary of Some Common Distributions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Summary of Some Common Distributions</span>
+      <a href="./conditional-probability.html" class="pagination-link" aria-label="Conditional Probability">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional Probability</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./independence.html" class="pagination-link" aria-label="Independence of Events">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Independence of Events</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

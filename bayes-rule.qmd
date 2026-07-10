@@ -1,0 +1,276 @@
+# Bayes Rule
+
+
+
+
+
+-   *Bayes' rule* describes how to update uncertainty in light of new information, evidence, or data.
+
+
+
+
+::: {#exm-bayes-rule1}
+
+There exist multiple penguin species throughout Antarctica, including the *Adelie* (A), *Chinstrap* (C), and *Gentoo* (G). 
+Suppose that among Antarctic penguins[^penguins] of these three species, 44.2% of Adelie, 19.8% are Chinstrap, and 36.0% are Gentoo.
+Suppose that
+
+-   83.4% of Adelie penguins are below average weight,
+-   89.7% of Chinstrap penguins are below average weight, and
+-   4.9% of Gentoo penguins are below average weight (that is, below 4200g).
+:::
+
+[^penguins]: Throughout "penguin" refers to an Antarctic penguin of one of these three species. This example is based on the famous [Palmer penguins data set](https://allisonhorst.github.io/palmerpenguins/).
+
+
+1.  Use the information to construct an appropriate two-way table of probabilities.
+\
+\
+\
+\
+\
+1.  Compute the probability that a randomly selected penguin is below average weight. 
+How is this related to the values 0.834, 0.897, 0.049?
+\
+\
+\
+\
+\
+1.  If the selected penguin is below average weight, what is the probability that it is species A? Species C? Species G?
+\
+\
+\
+\
+\ 
+
+
+
+-   **Bayes' rule for events** specifies how a prior probability $P(H)$ of event $H$ is updated in response to the evidence $E$ to obtain the posterior probability $P(H|E)$.
+    $$
+    \text{P}(H|E) = \frac{\text{P}(E|H)\text{P}(H)}{\text{P}(E)}
+    $$
+-   Event $H$ represents a particular hypothesis (or model or case)
+-   Event $E$ represents observed evidence (or data or information)
+-   $\text{P}(H)$ is the unconditional or **prior probability** of $H$ (prior to observing evidence $E$)
+-   $\text{P}(H|E)$ is the conditional or **posterior probability** of $H$ after observing evidence $E$.
+-   $\text{P}(E|H)$ is the **likelihood** of evidence $E$ given hypothesis (or model or case) $H$
+
+
+
+
+
+::: {#exm-bayes-rule2}
+
+Continuing @exm-bayes-rule1.
+Randomly select a penguin and suppose it is below average weight.
+We are interested in classifying the species of the penguin.
+
+:::
+
+1.  Frame this problem in the context of Bayes rule: Identify the hypotheses, prior probabilities, evidence, likelihood, and posterior probabilities. 
+\
+\
+\
+\
+\
+
+1.  Prior to observing the penguin's weight, how many times more likely is it to be Adelie than to be Gentoo?
+\
+\
+\
+\
+\
+
+1.  How many times more likely is it for a penguin to be below average weight given that it is Adelie than given that it is Gentoo?
+\
+\
+\
+\
+\
+
+1.  Compute the posterior probability of each species given that the penguin is below average weight. 
+Given that the penguin is below average weight, how many times more likely is it to be Adelie than to be Gentoo?
+\
+\
+\
+\
+\
+
+1. How are the ratios in the three previous parts related?
+\
+\
+\
+\
+\
+
+1.  Apply the same logic to compare species A and C.
+\
+\
+\
+\
+\
+
+
+
+-   Bayes rule is often used when there are multiple hypotheses or cases. Suppose $H_1,\ldots, H_k$ is a series of distinct hypotheses which together account for all possibilities, and $E$ is any event (evidence).
+-   Combining Bayes' rule with the law of total probability, \begin{align*}
+    P(H_j |E) & = \frac{P(E|H_j)P(H_j)}{P(E)}\\
+    & = \frac{P(E|H_j)P(H_j)}{\sum_{i=1}^k P(E|H_i) P(H_i)}\\
+    & \\
+    P(H_j |E) & \propto P(E|H_j)P(H_j)
+    \end{align*}
+-   The symbol $\propto$ is read "is proportional to". The relative *ratios* of the posterior probabilities of different hypotheses are determined by the product of the prior probabilities and the likelihoods, $P(E|H_j)P(H_j)$. The marginal probability of the evidence, $P(E)$, in the denominator simply normalizes the numerators to ensure that the updated probabilities sum to 1 over all the distinct hypotheses.
+-   **In short, Bayes' rule says**
+    $$
+    \textbf{posterior} \propto \textbf{likelihood} \times \textbf{prior}
+    $$
+
+
+
+::: {#exm-bayes-rule3}
+
+Continuing @exm-bayes-rule2.
+Randomly select a penguin.
+We are interested in classifying the species of the penguin depending on whether or not it is below average weight.
+
+:::
+
+1.  Before you know the weight of the penguin (or any other information) what specify would you predict it to be? 
+Why? 
+What is the probability that your classification is correct?
+\
+\
+\
+\
+\
+
+1.  If the penguin is below average weight, what species would you classify it as?
+Why?
+\
+\
+\
+\
+\
+
+
+1.  Now suppose that the penguin is not below average weight.
+Use a Bayes table to compute the posterior probability of each species given that the penguin is not below average weight.
+If the penguin is not below average weight, what species would you classify it as?
+Why?
+\
+\
+\
+\
+\
+
+1.  Suppose that you classify any randomly selected penguin based on whether or not it is below average weight as in the two previous parts.
+What is the posterior probability that you classify the penguin correctly? 
+How does this compare to your probability of being correct before you observed the penguin's weight?
+\
+\
+\
+\
+\
+
+
+
+-   Bayesian analysis is often an iterative process.
+-   Posterior probabilities are updated after observing some information or data. These probabilities can then be used as prior probabilities before observing new data.
+-   Posterior probabilities can be sequentially updated as new data becomes available, with the posterior probabilities after the previous stage serving as the prior probabilities for the next stage.
+-   The final posterior probabilities only depend upon the cumulative data. It doesn't matter if we sequentially update the posterior after each new piece of data or only once after all the data is available; the final posterior probabilities will be the same either way. Also, the final posterior probabilities are not impacted by the order in which the data are observed.
+
+
+
+## Exercises
+
+
+
+
+::: {#exr-bayes-rule-iterative1}
+A [recent survey](https://www.pewresearch.org/science/2019/03/28/what-americans-know-about-science/) of American adults asked: "Based on what you have heard or read, which of the following two statements best describes the scientific method?"
+
+-   70% selected "The scientific method produces findings meant to be continually tested and updated over time". (We'll call this the "iterative" opinion.)
+-   14% selected "The scientific method identifies unchanging core principles and truths". (We'll call this the "unchanging" opinion).
+-   16% were not sure which of the two statements was best.
+
+How does the response to this question change based on education level?
+Suppose education level is classified as: high school or less (HS), some college but no Bachelor's degree (college), Bachelor's degree (Bachelor's), or postgraduate degree (postgraduate).
+The education breakdown is
+
+-   Among those who agree with "iterative": 31.3% HS, 27.6% college, 22.9% Bachelor's, and 18.2% postgraduate.
+-   Among those who agree with "unchanging": 38.6% HS, 31.4% college, 19.7% Bachelor's, and 10.3% postgraduate.
+-   Among those "not sure": 57.3% HS, 27.2% college, 9.7% Bachelor's, and 5.8% postgraduate
+:::
+
+
+
+1.  Consider the conditional probability that a randomly selected American adult agrees that the scientific method is "iterative" given that they have a postgraduate degree. Identify the prior probability, hypothesis, evidence, likelihood, and posterior probability, and use Bayes' rule to compute the posterior probability.\
+    \
+    \
+    \
+    \
+1.  Find the conditional probability that a randomly selected American adult with a postgraduate degree agrees that the scientific method is "unchanging".\
+    \
+    \
+    \
+    \
+1.  Find the conditional probability that a randomly selected American adult with a postgraduate degree is not sure about which statement is best.\
+    \
+    \
+    \
+    \
+1.  How many times more likely is it for an *American adult* to agree with the "iterative" statement than to agree with the "unchanging" statement?\
+    \
+    \
+    \
+    \
+1.  How many times more likely is it for an American adult to have a postgraduate degree when the adult agrees with the iterative statement than when the adult agree with the unchanging statement?\
+    \
+    \
+    \
+    \
+1.  How many times more likely is it for an *American adult with a postgraduate degree* to agree with the "iterative" statement than to agree with the "unchanging" statement?\
+    \
+    \
+    \
+    \
+1. How are the values in the three previous parts related?\
+    \
+    \
+    \
+    \
+
+
+
+    
+::: {#exr-bayes-rule-iterative3}
+Now suppose we want to compute the posterior probabilities for an American adult's perception of the scientific method given that the randomly selected American adult has some college but no Bachelor's degree ("college").
+:::
+
+1.  Before computing, make an educated guess for the posterior probabilities. In particular, will the changes from prior to posterior be more or less extreme given the American has some college but no Bachelor's degree than when given the American has a postgraduate degree? Why?\
+    \
+    \
+    \
+    \
+2.  Construct a Bayes table and compute the posterior probabilities. Compare to the posterior probabilities given postgraduate degree from the previous examples.\
+    \
+    \
+    \
+    \
+
+
+
+::: {#exr-base-rate-neglect}
+Within both the colleges of Agriculture and Architecture at Cal Poly, about 49% of admitted students are female, about 84% of admitted students went to high school in CA, and the median GPA of admitted students is about 4.1.
+
+An orientation group of 100 newly admitted Cal Poly students includes 75 students in Agriculture and 25 students in Architecture.
+A student is randomly selected from this group.
+The selected student is Maddie, who is female, went to high school in CA, and had a high school GPA of 4.1.
+:::
+
+Donny Don't says, "The information about Maddie applies equally well to Agriculture or Architecture and doesn't help us decide which college she's in, so it's just 50/50. Given the information about Maddie, the conditional probability that she is in Agriculture is 0.5."
+Do you agree?
+If not, what is the conditional probability that Maddie is in the college of Agriculture given the information about her? 
+
+
+

@@ -3,6 +3,19 @@
 {{< include _r_setup.qmd >}}
 
 
+
+## Problem 6
+
+
+
+Suppose the number of earthquakes per hour, for a certain range of magnitudes in a certain region, follows a Poisson distribution with parameter 0.7.
+
+a. Compute and interpret the probability that there is at least one earthquake of this size in the region in any given hour.
+a. Compute and interpret the probability that there are exactly 3 earthquakes of this size in the region in any given hour.
+a. Interpret the value 0.7 in context.
+a. Construct a table, plot, and spinner corresponding to a Poisson(0.7) distribution.
+
+
 ## Problem 1
 
 In a certain region, times (minutes) between occurrences of earthquakes (of any magnitude) have a distribution with percentiles displayed in the table below.

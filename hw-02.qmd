@@ -2,16 +2,57 @@
 
 
 
-
-  
-
-
-Note: you can typically use software to compute probabilities for named distributions.
-But to get some practice with formulas, you should compute probabilities by hand for this assignment.
-
-
-
 ## Problem 1
+
+
+
+A standard deck of playing cards has 52 cards, 13 cards (2 through 10, jack, king, queen, ace) in each of 4 suits (hearts, diamonds, clubs, spades).
+Shuffle a deck and deals cards one at a time without replacement.
+
+
+1.  What is the probability that the first card dealt is a heart? 
+1.  What is the probability that the second card dealt is a heart? Just make a guess now before proceeding, but you'll revisit this a few parts down.
+1.  What is the probability that the second card dealt is a heart if the first card dealt is a heart? 
+1.  What is the probability that the second card dealt is a heart if the first card dealt is not a heart? 
+1.  Revisit part 2.
+What is the probability that the second card dealt is a heart?
+Hint: your answer should be a single number, but show all your work.
+1.   Find the probability that the first two cards dealt are hearts.
+1.   Find the probability that the first two cards dealt are hearts and the third card dealt is a diamond.
+
+
+
+## Problem 2
+
+The ELISA test for HIV was widely used in the mid-1990s for screening blood donations. 
+As with most medical diagnostic tests, the ELISA test is not perfect. 
+If a person actually carries the HIV virus, experts estimate that this test gives a positive result 97.7% of the time. 
+(This number is called the *sensitivity* of the test.) 
+If a person does not carry the HIV virus, ELISA gives a negative (correct) result 92.6% of the time (the *specificity* of the test). 
+Estimates at the time were that 0.5% of the American public carried the HIV virus.
+
+Suppose that a randomly selected American tests positive; we are interested in the conditional probability that the person actually carries the virus.
+
+ 
+
+1.  Before proceeding, make a guess for the probability in question. Which range do you think it's in: 0-20%, 20-40%, 40-60%, 60-80%, or 80-100%?
+1.  Denote the probabilities provided in the setup using proper notation
+1.  Construct an appropriate two-way table and use it to compute the probability of interest.
+1.  Construct a Bayes table and use it to compute the probability of interest.
+1.  Explain why this probability is small, compared to the sensitivity and specificity.
+1.  By what factor has the probability of carrying HIV increased, given a positive test result, as compared to before the test?
+1.  Now suppose that 5% of individuals in a high-risk group carry the HIV virus.
+Consider a randomly selectd person from this group who takes the test. 
+Given that the test is positive, how many times more likely is it for the person not to have HIV than to have it?
+Answer without first computing a two-way or Bayes table.
+1.  Using the result from the previous part, compute the conditional probability that a person in this risk group who tests positive has HIV.
+1.  Is the posterior probability influenced by the prior probability?
+Discuss.
+
+
+
+
+## Problem 3
 
 
 Consider three tennis players Arya ("A"), Brienne ("B"), and Cersei ("C").
@@ -21,26 +62,38 @@ But you do not know which player is the best.
 Based on watching the players warm up, you start with subjective probabilities of 0.5 that A is the best, 0.35 that B is the best, and 0.15 that C is the best.
 A and B will play the first match.
 
-1. Suppose that A beats B in the first match.
+1.  Suppose that A beats B in the first match.
 Compute your posterior probability that each of A, B, C is best given that A beats B in the first match.
-1. Compare the posterior probabilities from the previous part to the prior probabilities.
+1.  Compare the posterior probabilities from the previous part to the prior probabilities.
 Explain how your probabilities changed, and why that makes sense.
-1. **Coding required.** Code and run a simulation to simulate (1) who is the best player according to your prior distribution, (2) who wins the first match given who is the best player; then use the results to approximate the probabilities from part a.
-1. Suppose instead that B beats A in the first match. Compute your posterior probability that each of A, B, C is best given that B beats A in the first match.
-1. Compare the posterior probabilities from the previous part to the prior probabilities.
+1.  **Coding required.** Code and run a simulation to simulate (1) who is the best player according to your prior distribution, (2) who wins the first match given who is the best player; then use the results to approximate the probabilities from the first part.
+1.  Suppose instead that B beats A in the first match. Compute your posterior probability that each of A, B, C is best given that B beats A in the first match.
+1.  Compare the posterior probabilities from the previous part to the prior probabilities.
 Explain how your probabilities changed, and why that makes sense.
-1. Now suppose again that A beats B in the first match, and also that A beats C in the second match.
+1.  Now suppose again that A beats B in the first match, and also that A beats C in the second match.
 Compute your posterior probability that each of A, B, C is best given the results of the first two matches.
 (Hint: use as the prior your posterior probabilities from the previous part.)
 Explain how your probabilities changed, and why that makes sense.
 
 
 
-## Problem 2
+## Problem 4
 
-Solve @exm-counting-lottery.
+In the Powerball lottery, a player picks five different whole numbers between 1 and 69, and another whole number between 1 and 26 that is called the Powerball.  In the drawing, the 5 numbers are drawn without replacement from a "hopper" with balls labeled 1 through 69, but the Powerball is drawn from a separate hopper with balls labeled 1 through 26. The player wins the jackpot if both the first 5 numbers match those drawn, in any order, and the Powerball is a match.
+Under this set up, there are 292,201,338 possible winning numbers.
 
-## Problem 3
+
+1.  What is the probability the next winning number is 6-7-16-23-26, plus the Powerball number, 4.
+1.  What is the probability the next winning number is 1-2-3-4-5, plus the Powerball number, 6.
+1.  The Powerball drawing happens twice a week. Suppose you play the same Powerball number, twice a week, every week for over 50 years.  Let's say you purchase a ticket for 6000 drawings in total.  What is the probability that you win at least once?
+1.  Instead of playing for 50 years, you decide only to play one lottery, but you buy 6000 tickets, each with a different Powerball number.  What is the probability that at least one of your tickets wins?  How does this compare to the previous part?  Why?
+1.  Each ticket costs 2 dollars, but the jackpot changes from drawing to drawing.  Suppose you buy 6000 tickets for a single drawing. How large does the jackpot need to be for your "expected" profit to be positive?  To be \$100,000? (We're ignoring inflation, taxes, transaction costs, and any changes in the rules.)
+
+
+
+
+
+## Problem 5
 
 
 
@@ -48,93 +101,15 @@ Consider a "best-of-5" series of games between two teams: games are played until
 (Hint: It's helpful to first construct a two-way table of probabilities with the number of games played and which team wins, and then use it to answer the following questions. It will also help to list some outcomes, like AABA (team A wins game 1, 2, and 4, and B wins game 3).)
 
 
-a. Compute the probability that team A wins the series in 3 games.
-a. Compute the probability that the series ends in 3 games.
-a. Compute the probability that team A wins the series.
-a. Are the events "team A wins the series" and "the series ends in 3 games" independent?  Explain by comparing relevant probabilities.
-a. Let $X$ represent the number of games played in the series.  Find the distribution of $X$.
-
-
-
-## Problem 4
-
-
-Randomly select a county in the U.S.
-Let $X$ be the leading digit in the county's population.
-[For example](https://en.wikipedia.org/wiki/List_of_counties_in_California), if the county's population is 10,040,000 (Los Angeles County) then $X=1$; if 3,170,000 (Orange County) then $X=3$; if 283,000 (SLO County) then $X=2$; if 30,600 (Lassen County) then $X=3$.
-The possible values of $X$ are $1, 2, \ldots, 9$.
-You might think that $X$ is equally likely to be any of its possible values.
-However, a more appropriate model is to assume that $X$ has pmf
-$$
-p_X(x) = 
-\begin{cases}
-\log_{10}(1+\frac{1}{x}), & x = 1, 2, \ldots, 9,\\
-0, & \text{otherwise}
-\end{cases}
-$$
-This distribution is known as [Benford's law](https://en.wikipedia.org/wiki/Benford's_law).
-
-a.  Construct a table specifying the distribution of $X$, and the corresponding spinner.\
-a.  Find $\text{P}(X \ge 3)$\
-a.  **Coding required.** Code and run a simulation and use the results to approximate the distribution of $X$. (In R, there are built in functions to simulate Benford's law, but I want you to use the `sample` function. In R, `log` is natural log; `log10` is base-10 log.)
-   
-
-## Problem 5
-
-
-Maya is a basketball player who makes 40% of her three point field goal attempts. 
-Suppose that at the end of every practice session, she attempts three pointers until she makes one and then stops.
-Let $X$ be the total number of shots she attempts in a practice session.
-Assume shot attempts are independent, each with probability of 0.4 of being successful.
-
-a. What are the possible values that $X$ can take?  Is $X$ discrete or continuous?
-a. Explain why $X$ does *not* have a Binomial distribution.
-a. Describe in detail how you could, in principle, conduct a simulation using physical objects (coins, cards, dice, etc) and how you would use the results to approximate the distribution of $X$.
-a. Compute and interpret $\text{P}(X=1)$.
-a. Compute and interpret $\text{P}(X=2)$.
-a. Compute and interpret $\text{P}(X=3)$.
-a. Find the probability mass function of $X$. Be sure to specify the possible values.
-a. Construct a table, plot, and spinner corresponding to the distribution of $X$.
-a. Compute $\text{P}(X>5)$ without summing. (Hint: what needs to be true about the first 5 attempts for $X > 5$?)
+1.  Compute the probability that team A wins the series in 3 games.
+1.  Compute the probability that the series ends in 3 games.
+1.  Compute the probability that team A wins the series.
+1.  Are the events "team A wins the series" and "the series ends in 3 games" independent?  Explain by comparing relevant probabilities.
+1.  Let $X$ represent the number of games played in the series.  Find the distribution of $X$.
 
 
 
 
 
-## Problem 6
 
 
-
-Suppose the number of earthquakes per hour, for a certain range of magnitudes in a certain region, follows a Poisson distribution with parameter 0.7.
-
-a. Compute and interpret the probability that there is at least one earthquake of this size in the region in any given hour.
-a. Compute and interpret the probability that there are exactly 3 earthquakes of this size in the region in any given hour.
-a. Interpret the value 0.7 in context.
-a. Construct a table, plot, and spinner corresponding to a Poisson(0.7) distribution.
-
-## Problem 7
-
-
-Suppose that a total of 350 students at a college are taking a particular statistics course.
-The college offers five sections of the course, each taught by a different instructor.
-The class sizes are shown in the following table.
-
-|                    |     |     |     |     |     |
-|:-------------------|----:|----:|----:|----:|----:|
-| Section            |   A |   B |   C |   D |   E |
-| Number of students |  35 |  35 |  35 |  35 |  210|
-    
-We are interested in: What is the average class size?
-
-a. Suppose we randomly select one of the 5 *instructors*.
-Let $X$ be the class size for the selected instructor.
-Specify the distribution of $X$. (A table is fine.)
-a. Compute and interpret $\text{E}(X)$.
-a. Compute and interpret $\text{P}(X = \text{E}(X))$.
-a. Suppose we randomly select one of the 350 *students*.
-Let $Y$ be the class size for the selected student.
-Specify the distribution of $Y$. (A table is fine.)
-a. Compute and interpret $\text{E}(Y)$.
-a. Compute and interpret $\text{P}(Y = \text{E}(Y))$.
-a. Comment on how these two expected values compare, and explain why they differ as they do.
-Which average would you say is more relevant?

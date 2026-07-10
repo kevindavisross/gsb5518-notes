@@ -3,6 +3,54 @@
 {{< include _r_setup.qmd >}}
 
 
+## Problem 5
+
+
+Maya is a basketball player who makes 40% of her three point field goal attempts. 
+Suppose that at the end of every practice session, she attempts three pointers until she makes one and then stops.
+Let $X$ be the total number of shots she attempts in a practice session.
+Assume shot attempts are independent, each with probability of 0.4 of being successful.
+
+a. What are the possible values that $X$ can take?  Is $X$ discrete or continuous?
+a. Explain why $X$ does *not* have a Binomial distribution.
+a. Describe in detail how you could, in principle, conduct a simulation using physical objects (coins, cards, dice, etc) and how you would use the results to approximate the distribution of $X$.
+a. Compute and interpret $\text{P}(X=1)$.
+a. Compute and interpret $\text{P}(X=2)$.
+a. Compute and interpret $\text{P}(X=3)$.
+a. Find the probability mass function of $X$. Be sure to specify the possible values.
+a. Construct a table, plot, and spinner corresponding to the distribution of $X$.
+a. Compute $\text{P}(X>5)$ without summing. (Hint: what needs to be true about the first 5 attempts for $X > 5$?)
+
+
+
+
+## Problem 7
+
+
+Suppose that a total of 350 students at a college are taking a particular statistics course.
+The college offers five sections of the course, each taught by a different instructor.
+The class sizes are shown in the following table.
+
+|                    |     |     |     |     |     |
+|:-------------------|----:|----:|----:|----:|----:|
+| Section            |   A |   B |   C |   D |   E |
+| Number of students |  35 |  35 |  35 |  35 |  210|
+    
+We are interested in: What is the average class size?
+
+a. Suppose we randomly select one of the 5 *instructors*.
+Let $X$ be the class size for the selected instructor.
+Specify the distribution of $X$. (A table is fine.)
+a. Compute and interpret $\text{E}(X)$.
+a. Compute and interpret $\text{P}(X = \text{E}(X))$.
+a. Suppose we randomly select one of the 350 *students*.
+Let $Y$ be the class size for the selected student.
+Specify the distribution of $Y$. (A table is fine.)
+a. Compute and interpret $\text{E}(Y)$.
+a. Compute and interpret $\text{P}(Y = \text{E}(Y))$.
+a. Comment on how these two expected values compare, and explain why they differ as they do.
+Which average would you say is more relevant?
+
 
 ## Problem 1
 
