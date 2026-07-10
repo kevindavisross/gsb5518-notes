@@ -1,0 +1,140 @@
+# Homework 2 {.unnumbered}
+
+
+
+
+  
+
+
+Note: you can typically use software to compute probabilities for named distributions.
+But to get some practice with formulas, you should compute probabilities by hand for this assignment.
+
+
+
+## Problem 1
+
+
+Consider three tennis players Arya ("A"), Brienne ("B"), and Cersei ("C").
+One of these players is better than the other two, who are equally good/bad.
+When the best player plays either of the others, she has a 2/3 probability of winning the match.   When the other two players play each other, each has a 1/2 probability of winning the match.
+But you do not know which player is the best.
+Based on watching the players warm up, you start with subjective probabilities of 0.5 that A is the best, 0.35 that B is the best, and 0.15 that C is the best.
+A and B will play the first match.
+
+1. Suppose that A beats B in the first match.
+Compute your posterior probability that each of A, B, C is best given that A beats B in the first match.
+1. Compare the posterior probabilities from the previous part to the prior probabilities.
+Explain how your probabilities changed, and why that makes sense.
+1. **Coding required.** Code and run a simulation to simulate (1) who is the best player according to your prior distribution, (2) who wins the first match given who is the best player; then use the results to approximate the probabilities from part a.
+1. Suppose instead that B beats A in the first match. Compute your posterior probability that each of A, B, C is best given that B beats A in the first match.
+1. Compare the posterior probabilities from the previous part to the prior probabilities.
+Explain how your probabilities changed, and why that makes sense.
+1. Now suppose again that A beats B in the first match, and also that A beats C in the second match.
+Compute your posterior probability that each of A, B, C is best given the results of the first two matches.
+(Hint: use as the prior your posterior probabilities from the previous part.)
+Explain how your probabilities changed, and why that makes sense.
+
+
+
+## Problem 2
+
+Solve @exm-counting-lottery.
+
+## Problem 3
+
+
+
+Consider a "best-of-5" series of games between two teams: games are played until one of the teams has won 3 games (requiring at most 5 games total). Suppose one team, team A, is better than the other, having a 0.55 probability of winning any particular game. Assume the results of the games are independent (and ignore advantage, etc).  Let $X$ represent the number of games played in the series.
+(Hint: It's helpful to first construct a two-way table of probabilities with the number of games played and which team wins, and then use it to answer the following questions. It will also help to list some outcomes, like AABA (team A wins game 1, 2, and 4, and B wins game 3).)
+
+
+a. Compute the probability that team A wins the series in 3 games.
+a. Compute the probability that the series ends in 3 games.
+a. Compute the probability that team A wins the series.
+a. Are the events "team A wins the series" and "the series ends in 3 games" independent?  Explain by comparing relevant probabilities.
+a. Let $X$ represent the number of games played in the series.  Find the distribution of $X$.
+
+
+
+## Problem 4
+
+
+Randomly select a county in the U.S.
+Let $X$ be the leading digit in the county's population.
+[For example](https://en.wikipedia.org/wiki/List_of_counties_in_California), if the county's population is 10,040,000 (Los Angeles County) then $X=1$; if 3,170,000 (Orange County) then $X=3$; if 283,000 (SLO County) then $X=2$; if 30,600 (Lassen County) then $X=3$.
+The possible values of $X$ are $1, 2, \ldots, 9$.
+You might think that $X$ is equally likely to be any of its possible values.
+However, a more appropriate model is to assume that $X$ has pmf
+$$
+p_X(x) = 
+\begin{cases}
+\log_{10}(1+\frac{1}{x}), & x = 1, 2, \ldots, 9,\\
+0, & \text{otherwise}
+\end{cases}
+$$
+This distribution is known as [Benford's law](https://en.wikipedia.org/wiki/Benford's_law).
+
+a.  Construct a table specifying the distribution of $X$, and the corresponding spinner.\
+a.  Find $\text{P}(X \ge 3)$\
+a.  **Coding required.** Code and run a simulation and use the results to approximate the distribution of $X$. (In R, there are built in functions to simulate Benford's law, but I want you to use the `sample` function. In R, `log` is natural log; `log10` is base-10 log.)
+   
+
+## Problem 5
+
+
+Maya is a basketball player who makes 40% of her three point field goal attempts. 
+Suppose that at the end of every practice session, she attempts three pointers until she makes one and then stops.
+Let $X$ be the total number of shots she attempts in a practice session.
+Assume shot attempts are independent, each with probability of 0.4 of being successful.
+
+a. What are the possible values that $X$ can take?  Is $X$ discrete or continuous?
+a. Explain why $X$ does *not* have a Binomial distribution.
+a. Describe in detail how you could, in principle, conduct a simulation using physical objects (coins, cards, dice, etc) and how you would use the results to approximate the distribution of $X$.
+a. Compute and interpret $\text{P}(X=1)$.
+a. Compute and interpret $\text{P}(X=2)$.
+a. Compute and interpret $\text{P}(X=3)$.
+a. Find the probability mass function of $X$. Be sure to specify the possible values.
+a. Construct a table, plot, and spinner corresponding to the distribution of $X$.
+a. Compute $\text{P}(X>5)$ without summing. (Hint: what needs to be true about the first 5 attempts for $X > 5$?)
+
+
+
+
+
+## Problem 6
+
+
+
+Suppose the number of earthquakes per hour, for a certain range of magnitudes in a certain region, follows a Poisson distribution with parameter 0.7.
+
+a. Compute and interpret the probability that there is at least one earthquake of this size in the region in any given hour.
+a. Compute and interpret the probability that there are exactly 3 earthquakes of this size in the region in any given hour.
+a. Interpret the value 0.7 in context.
+a. Construct a table, plot, and spinner corresponding to a Poisson(0.7) distribution.
+
+## Problem 7
+
+
+Suppose that a total of 350 students at a college are taking a particular statistics course.
+The college offers five sections of the course, each taught by a different instructor.
+The class sizes are shown in the following table.
+
+|                    |     |     |     |     |     |
+|:-------------------|----:|----:|----:|----:|----:|
+| Section            |   A |   B |   C |   D |   E |
+| Number of students |  35 |  35 |  35 |  35 |  210|
+    
+We are interested in: What is the average class size?
+
+a. Suppose we randomly select one of the 5 *instructors*.
+Let $X$ be the class size for the selected instructor.
+Specify the distribution of $X$. (A table is fine.)
+a. Compute and interpret $\text{E}(X)$.
+a. Compute and interpret $\text{P}(X = \text{E}(X))$.
+a. Suppose we randomly select one of the 350 *students*.
+Let $Y$ be the class size for the selected student.
+Specify the distribution of $Y$. (A table is fine.)
+a. Compute and interpret $\text{E}(Y)$.
+a. Compute and interpret $\text{P}(Y = \text{E}(Y))$.
+a. Comment on how these two expected values compare, and explain why they differ as they do.
+Which average would you say is more relevant?

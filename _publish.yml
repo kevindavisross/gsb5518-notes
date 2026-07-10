@@ -1,0 +1,6 @@
+- source: project
+  quarto-pub:
+    - id: b07a65c5-31eb-443a-9c83-a0b320af8654
+      url: https://kevin-davisross.quarto.pub/exit
+    - id: 4f74e7f8-f33b-4e81-8ef7-17f01f13950f
+      url: https://kevin-davisross.quarto.pub/gsb518-notes

@@ -1,0 +1,257 @@
+# Percentiles
+
+{{< include _r_setup.qmd >}}
+
+
+::: {#exm-height-percentile}
+Maggie and Seamus are babies who have just turned one.
+At their one-year visits to their pediatrician:
+
+-   Maggie is 76cm tall and in the [75th percentile of height for girls](https://www.cdc.gov/growthcharts/data/set1clinical/cj41l018.pdf).
+-   Seamus is 72cm tall and in the [10th percentile of height for boys](https://www.cdc.gov/growthcharts/data/set1clinical/cj41l017.pdf).
+
+Explain what these percentiles mean.
+:::
+
+\
+\
+\
+\
+\
+
+-   A distribution is characterized by its percentiles.
+-   Roughly, the value $x$ is the $p$th **percentile** (a.k.a. quantile) of a distribution of a random variable $X$ if $p$ percent of values of the variable are less than or equal to $x$: $\text{P}(X\le x) = p$.
+-   Any distribution can be represented by a spinner. A spinner basically describes a distribution by specifying all the percentiles. For example,
+    -   The 25th percentile goes 25% of the way around the axis (at "3 o'clock")
+    -   The 50th percentile goes 50% of the way around the axis (at "6 o'clock")
+    -   The 75th percentile goes 75% of the way around the axis (at "9 o'clock")
+
+## Cumulative Distribution Functions
+
+-   Roughly, the value $x$ is the $p$th percentile of a distribution of a random variable $X$ if $p$ percent of values of the variable are less than or equal to $x$: $\text{P}(X\le x) = p$.
+-   The *cumulative distribution function (cdf)* of a random variable fills in the blank for any given $x$: $x$ is the (blank) percentile. That is, for an input $x$, the cdf outputs $\text{P}(X\le x)$.
+-   The **cumulative distribution function (cdf)** of a random variable $X$ is the function, $F_X$ defined by $F_X(x) = \text{P}(X\le x)$. A cdf is defined for all real numbers $x$ regardless of whether $x$ is a possible value of $X$.
+
+::: {#exm-meeting-nonuniform-cdf}
+Continuing @exm-meeting-nonuniform-pdf where Regina's arrival time $X$ (minutes after noon) has pdf
+$$
+f_X(x) = (2/3600) x, \qquad 0<x<60.
+$$
+Let $F_X$ be the cdf of $X$.
+:::
+
+1.  Compute and interpret $F_X(15)$.\
+    \
+    \
+    \
+    \
+2.  Compute and interpret $F_X(45)$.\
+    \
+    \
+    \
+    \
+3.  Compute and interpret $F_X(45) - F_X(15)$.\
+    \
+    \
+    \
+    \
+4.  Compute $F_X(-0.2)$\
+    \
+    \
+    \
+    \
+5.  Compute $F_X(70)$\
+    \
+    \
+    \
+    \
+6.  Find the cdf of $X$.\
+    \
+    \
+    \
+    \
+
+```{r}
+#| label: fig-cdf-illustration
+#| echo: false
+#| layout-ncol: 3
+#| fig-cap: 
+#|   - "PDF"
+#|   - "CDF"
+#|   - "Spinner"
+
+
+x0 = 60 * qbeta(0.6, shape1 = 2, shape2 = 1)
+x<-seq(0, 60, 0.001)
+y<-dbeta(x / 60, shape1 = 2, shape = 1)
+xddf <- data.frame(x = x, y = y)
+# qplot(x, y , data = xddf, geom = "line")+
+ggplot(xddf, aes(x = x, y = y)) + 
+  geom_line() +
+  geom_ribbon(data=subset(xddf ,x>0 & x<x0),aes(ymax=y),ymin=0,
+              fill="orange",colour=NA)+
+  scale_y_continuous(limits=c(0, max(y)), expand=c(0, 0)) +
+  theme_classic() +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()) +
+  scale_x_continuous(breaks = x0, labels = expression(x)) +
+  theme(axis.text.x = element_text(color = c("black")),
+        axis.ticks.x = element_line(color = c("black"))) +
+  ylab(expression(f[X](x)))
+
+
+y<- pbeta(x / 60, shape1 = 2, shape2 = 1)
+y0 = pbeta(x0 / 60, shape1 = 2, shape2 = 1)
+xddf <- data.frame(x = x, y = y)
+ggplot(xddf, aes(x = x, y = y)) + 
+  geom_line() +
+  scale_y_continuous(limits=c(0, max(y)), expand=c(0, 0.01)) +
+  theme_classic() +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank()) +
+  scale_x_continuous(breaks = x0, labels = expression(x)) +
+  theme(axis.text.x = element_text(color = c("black")),
+        axis.ticks.x = element_line(color = c("black"))) +
+  ylab(expression(F[X](x))) +
+  geom_segment(x=x0, xend=x0, y=0, yend=y0, linewidth = 2, linetype=2, colour="orange") +
+  geom_segment(x=0, xend=x0, y=y0, yend=y0, linewidth = 2, linetype=2, colour="orange")
+
+
+
+p = 0.4
+
+df <- data.frame(
+  group = c(">x", "<= x"),
+  value = c(1-p, p)
+  )
+
+cdfpie <- ggplot(df, aes(x="", y=value, fill=group)) +
+  geom_bar(width = 1, stat = "identity", color='black') +
+  theme_void() +
+  scale_y_continuous(breaks=c(1-p, p), labels=c("x", "")) +
+  coord_polar("y") +
+  scale_fill_manual(values=c("white", "orange")) +
+  geom_text(aes(y = value/2 + c(0, cumsum(value)[-length(value)]), 
+            label = c("P(X <= x)", "")), size=5) +
+  theme(legend.position = "none")
+
+cdfpie
+
+
+
+```
+
+::: {#exm-binomial-cdf}
+Let $X$ be the number of heads in 3 flips of a fair coin.
+:::
+
+1.  Find the pmf of $X$ and sketch a plot of it.\
+    \
+    \
+    \
+    \
+2.  Find the cdf of $X$ and sketch a plot of it.\
+    \
+    \
+    \
+    \
+3.  Let $Y$ be the number of tails in 3 flips of a fair coin. Find the cdf of $Y$.\
+    \
+    \
+    \
+    \
+
+-   A cdf is defined for all values of $x$, regardless if $x$ is a possible value of the RV.
+-   A cdf is a non-decreasing function: if $x_1 \le x_2$ then $F_X(x_1)\le F_X(x_2)$.
+-   A cdf approaches 0 as the input approaches $-\infty$: $\lim_{x\to-\infty}F_X(x) = 0$
+-   A cdf approaches 1 as the input approaches $\infty$: $\lim_{x\to\infty}F_X(x) = 1$
+-   The cdf of a *discrete* random variable is a step function.
+    -   The steps occur at the possible values of the random variable.
+    -   The height of a particular step corresponds to the probability of that value, given by the pmf.
+-   The cdf of a *continuous* random variable is a continuous function.
+    -   The cdf of a *continuous* random variable is obtained by integrating the pdf, so
+    -   The pdf of a *continuous* random variable is obtained by differentiating the cdf
+    $$
+    F_X' = f_X \qquad \text{if $X$ is continuous}
+    $$
+-   For any random variable $X$ with cdf $F_X$
+    $$
+    F_X(b) - F_X(a) = \text{P}(a<X \le b)
+    $$
+    Whether the inequalities in the above event are strict ($<$) or not ($\le$) matters for discrete random variables, but not for continuous.
+-   Random variables $X$ and $Y$ **have the same distribution** if their cdfs are the same, that is, if $F_X(u) = F_Y(u)$ for all $u$.
+-   That is, two random variables have the same distribution if all the percentiles are the same.
+
+## Quantile functions
+
+-   The *quantile function* (essentially the inverse cdf) fills in the following blank for a given $p\in[0, 1]$: the $100p$th percentile is (blank).
+
+::: {#exm-meeting-nonuniform-quantile}
+Continuing @exm-meeting-nonuniform-pdf where Regina's arrival time $X$ (minutes) had pdf
+$$
+f_X(x) = (2/3600)x, \qquad 0<x<60.
+$$
+:::
+
+1.  Find the median (i.e., 50th percentile) of $X$.\
+    \
+    \
+    \
+2.  Find the 25th percentile of $X$.\
+    \
+    \
+    \
+3.  Find the quantile function of $X$.\
+    \
+    \
+    \
+    \
+4.  Construct a spinner for simulating values of $X$ according to its distribution.\
+    \
+    \
+    \
+    \
+
+-   For a *continuous* random variable $X$ with cdf $F_X$, the **quantile function** $Q_X$ is the inverse of the cdf, $Q_X(p) = F_X^{-1}(p)$.
+-   The *quantile function* (essentially the inverse cdf) fills in the following blank for a given $p\in[0, 1]$: the $100p$th percentile is (blank).
+-   For example, evaluating the quantile function at $p=0.25$ outputs the 25th percentile.
+-   The quantile function can be used to create a spinner for a distribution. Basically, the values on the outside boundary of the spinner are scaled based on the quantile function (which is determined by the cdf). Intervals corresponding to regions of higher density ("more likely") values are stretched out on the spinner boundary; intervals corresponding regions of lower density ("less likely" values) are shrunk.
+
+```{r}
+#| label: fig-meeting-nonuniform-spinner
+#| echo: false
+#| fig-cap: "Spinner for $X$ in @exm-meeting-nonuniform-pdf. The axis is transformed according to the quantile function"
+
+
+n = 12
+
+xp <- data.frame(
+  x = (0:(n-1))/n,
+  p = rep(1/n, n)
+  )
+
+cdf = c(0, cumsum(xp$p))
+
+plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
+  
+ggplot(xp, aes(x="", y=p, fill=x))+
+  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
+  coord_polar("y", start=0) +
+  theme_void() +
+  # plot the possible values on the outside
+  scale_y_continuous(breaks = xp$x, minor_breaks = (0:99)/100, labels=c("60|0", round(60 * sqrt(xp$x[-1]), 1))) +
+  theme(axis.text.x=element_text(size=12, face="bold")) +
+      annotate(geom="segment", y=(0:99)/100, yend = (0:99)/100,
+             x=1.48, xend= 1.52) +
+  # plot the probabilities as percents inside
+    ggtitle(paste("Spinner for pdf f(x) = (2/3600)x, 0<x<60", sep=""))
+  # ggtitle(paste("Spinner for pdf f(x) = 2x, 0<x<60;\n 60sqrt(U) for U ~ Uniform(0, 1)", sep=""))
+```
+
+-   **Universality of the Uniform (or "one spinner to rule them all").** Let $F$ be a cdf and $Q$ its corresponding quantile function. Let $U$ have a Uniform(0, 1) distribution and define the random variable $X=Q(U)$. Then the cdf of $X$ is $F$.
+-   Universality of the uniform might look complicated but all it basically says is that you can construct a spinner by putting the 25th percentile 25% of the way around, the 75th percentile 75% of the way around, etc.
+-   Actually, universality of the uniform says we don't have to create a new spinner. We can just spin the Uniform(0, 1) spinner and transform each resulting value by plugging it into the quantile function.

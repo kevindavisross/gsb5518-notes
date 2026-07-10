@@ -1,0 +1,453 @@
+# Homework 4 Solutions {.unnumbered}
+
+{{< include _r_setup.qmd >}}
+
+
+
+## Problem 1
+
+In a certain region, times (minutes) between occurrences of earthquakes (of any magnitude) have a distribution with percentiles displayed in the table below.
+
+a.  Construct a spinner corresponding to this distribution.
+b.  What percent of times are between 26.8 and 110.0 minutes?
+c.  Let $F$ be the cdf. Evaluate and interpret $F(42.8)$.
+d.  Let $Q$ be the quantile function. Evaluate and interpret $Q(0.9)$.
+e.  Sketch (by hand) a histogram of this distribution.
+
+```{r}
+#| echo: false
+exponential_spinner = data.frame(p = 0.1 * (1:9)) %>%
+  mutate(x = round(qexp(p, rate = 1 / 120), 1))
+
+exponential_spinner %>%
+  mutate(p = paste(100 * p, "th", sep = "")) %>%
+  kbl(col.names = c("Percentile", "Value (minutes)")) %>%
+  kable_styling()
+  
+  
+  
+```
+
+### Solution
+
+a.  See below. The 50th percentile goes at "6 o'clock" (50% of the way around), etc.
+b.  60% are below 110.0 and 20% are below 26.8, so 40% are between 26.8 and 110.0 minutes.
+c.  $F(42.8)=\text{P}(X \le 42.8) = 0.3$, since 42.8 minutes is the 30th percentile.
+d.  $Q(0.9) = 276.3$, since 276.3 minutes is the 90th percentile.
+e.  We always end with a histogram with even bins, but sometimes it helps to start sketching a histogram with unever bins. We know that 10% of the values are between 0 and 12.6, 10% are between 12.6 and 26.8, 10% are between 26.8 and 42.8, etc. So if we split the bins of the histogram based on these percentiles, each bin would correspond to a relative frequency of 10%. HOWEVER, AREA in a histogram represents relative frequency. So each of the bins would have the same area, but they are unequally spaced, so they would not have the same height. For example, the first bin has area of 10% over a base of (0, 12.6), while the 80-90 percentile bin has area 10% spread over the interval (193.1, 276.3), so the bar for (193.1, 276.3) will have a smaller height than the bar for (0, 12.6). Sketching a histogram with these unevenly spaced bins first gives an idea of the shape; then you can sketch a histogram with a similar shape but equally spaced bins. We can see that density is highest near 0 and decreases as $x$ increases; notice the stretching and shrinking on the spinner. (The highest percentile is the 90th, so we don't know what the upper bound is that almost all values fall below.)
+
+```{r}
+#| echo: false
+
+n = 10
+
+xp <- data.frame(
+  x = (0:(n-1))/n,
+  p = rep(1/n, n)
+  )
+
+cdf = c(0, cumsum(xp$p))
+
+plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
+  
+spinner <- ggplot(xp, aes(x="", y=p, fill=x))+
+  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
+  coord_polar("y", start=0) +
+  theme_void() +
+  # plot the possible values on the outside
+  scale_y_continuous(breaks = xp$x, minor_breaks = (0:99)/100, labels=c("?|0", exponential_spinner$x)) +
+  theme(axis.text.x=element_text(size=12, face="bold")) +
+      annotate(geom="segment", y=(0:99)/100, yend = (0:99)/100,
+             x=1.48, xend= 1.52) +
+  # plot the probabilities as percents inside
+    geom_text(aes(y = plotp,
+                label = format(percent(round(p, 2)),0)), size=4) +
+  ggtitle(paste("Marginal distribution of time (minutes)", sep=""))
+
+spinner
+```
+
+```{r}
+#| echo: false
+
+
+x = pmin(rexp(10000, rate = 1 / 120), 600)
+hist(x, breaks = c(0, exponential_spinner$x, 600), main = "Histogram - uneven bins")
+```
+
+```{r}
+#| echo: false
+
+
+x = pmin(rexp(10000, rate = 1 / 120), 600)
+hist(x, main = "Histogram - even bins", freq = FALSE)
+```
+
+## Problem 2
+
+(Continued.) In the Regina/Cady problem, let $W=|R-Y|$ be the amount of time the first person to arrive has to wait for the second person.
+Recall that $W$ is a continuous random variable with pdf
+
+$$
+f_W(w) = 2(1-w), \quad 0 < w < 1.
+$$
+
+a.  Let $F$ be the cdf. Evaluate and interpret $F(0.25)$.
+b.  Find an expression for the cdf of $W$. Set up an integral, but sketch a picture and use geometry to compute.
+c.  Find and interpret the 25th percentile of $W$. (You can do the next part first if you want, but it might help to start with a specific number like in this part.)
+d.  Find the quantile function of $W$.
+e.  Sketch a spinner corresponding to the distribution of $W$. Label the 25th, 50th, and 75th percentiles.
+f.  **Coding required.** Use your simulation results from before to approximate the 25th, 50th, and 75th percentiles.
+
+### Solutions
+
+a.  $F(0.25)=\text{P}(W \le 0.25)$, which we computed on a previous HW to be $1 - (1-0.25)^2 = 0.4375$. On about 44% of days Regina arrives within the first 15 minutes (0.25 hours).
+b.  Similar to computing $F_W(0.25) = \text{P}(W\le 0.25)$ from an earlier problem, but replace 0.25 with a generic $w$ (and remember to change the dummy variable of integration). For $0<w<1$,
+    $$
+    F_W(w) = \text{P}(W < w) = \int_0^{w} 2(1-u)du = -(1-u)^2 \Big\vert_{w =0}^{u=w} = 1 - (1-w)^2
+    $$
+     Technically the cdf is defined for any value of $w$, so it's really $$
+     F_W(w) =
+     \begin{cases}
+     0, & w \le 0\\
+     1 - (1-w)^2, & 0 < w < 1\\
+     1, & w\ge 1
+     \end{cases}
+     $$
+c.  The 25th percentile satisfies $$
+     0.25 = \text{P}(W \le w) = F_W(w) = 1 - (1 - w)^2
+     $$ Solve to get $w=1-\sqrt{1-0.25} = 0.134$ The waiting time is at most 0.134 hours (about 8 minutes) on 25% of days.
+d.  To find the $p$ percentile $q$, use the same process as in in the previous part. $$
+     p = \text{P}(W\le w) = F_W(w) = 1 - (1 - w)^2
+     $$ Solve to get $w=1-\sqrt{1-p}$. So the quantile function is $Q_W(p) = 1 - \sqrt{1-p}, 0\le p\le 1$.
+e.  See spinner below. We can use the quantile function to label the spinner.
+    -   The 25th percentile of $Q_W(0.25) = 1 - \sqrt{1-0.25} = 0.134$ hours (8 minutes) would go at the 3 o'clock point.
+    -   The 50th percentile of $Q_W(0.5) = 1 - \sqrt{1-0.5} = 0.293$ hours (17.6 minutes) would go at the 6 o'clock point.
+    -   The 75th percentile of $Q_W(0.75) = 1 - \sqrt{1-0.75} = 0.5$ hours (30 minutes) would go at the 9 o'clock point.
+    -   Notice that the values around the spinner are unequally spaced. The density of $W$ is higher near 0 so intervals near 0 are stretched out; the density of $W$ is lower near 1 so intervals near 1 are shrunk.
+f. See simulation results below. Use the `quantile` function.
+
+```{r}
+#| echo: false
+n = 12
+
+xp <- data.frame(
+  x = (0:(n-1))/n,
+  p = rep(1/n, n)
+  )
+
+cdf = c(0, cumsum(xp$p))
+
+plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
+  
+spinner <- ggplot(xp, aes(x="", y=p, fill=x))+
+  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
+  coord_polar("y", start=0) +
+  theme_void() +
+  # plot the possible values on the outside
+  scale_y_continuous(breaks = xp$x, minor_breaks = (0:99)/100, labels=c("1|0", round(1 - sqrt(1- xp$x[-1]), 4))) +
+  theme(axis.text.x=element_text(size=12, face="bold")) +
+      annotate(geom="segment", y=(0:99)/100, yend = (0:99)/100,
+             x=1.48, xend= 1.52) +
+  # plot the probabilities as percents inside
+  ggtitle(paste("W spinner", sep=""))
+
+spinner
+```
+
+
+```{r}
+N_rep = 10000
+
+x = runif(N_rep, 0, 1)
+y = runif(N_rep, 0, 1)
+
+w = abs(x - y)
+
+hist(w)
+```
+
+```{r}
+
+quantile(w, 0.25)
+
+quantile(w, c(0.25, 0.5, 0.75))
+```
+
+## Problem 3
+
+Solve Example 11.3 from the Normal distribution handout (the problem on daily high temperatures in SLO.)
+
+### Solution
+
+See [Example 7.12 here](https://bookdown.org/kevin_davisross/probsim-book/normal-distributions.html)
+
+## Problem 4
+
+Solve Example 11.4 from the Normal distribution handout (the problem on "effect size".)
+
+### Solution
+
+See [Example 7.13 here](https://bookdown.org/kevin_davisross/probsim-book/normal-distributions.html)
+
+## Problem 5
+
+The latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3).
+Each package contains a single unknown prize.
+Suppose we only buy 3 packages and we consider as our sample space outcome the results of just these 3 packages (prize in package 1, prize in package 2, prize in package 3).
+For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package.
+Let $X$ be the number of distinct prizes obtained in these 3 packages.
+Let $Y$ be the number of these 3 packages that contain prize 1.
+Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages.
+There are 27 possible, equally likely outcomes
+
+```{r}
+#| echo: false
+
+k = 3
+
+outcomes = expand.grid(1:k, 1:k, 1:k)
+
+
+n_outcomes = nrow(outcomes)
+
+X = rep(NA, n_outcomes)
+Y = rep(NA, n_outcomes)
+
+for (i in 1:n_outcomes) {
+  X[i] = outcomes %>% slice(i) %>% unlist() %>% n_distinct()
+  Y[i] = sum(outcomes[i, ] == 1)
+}
+
+outcomes <- outcomes %>%
+  bind_cols(X, Y)
+
+names(outcomes) = c(paste("box", 1:k, sep = ""), "X", "Y")
+
+outcomes %>%
+  kbl() %>%
+  kable_styling(fixed_thead = TRUE)
+
+```
+
+a.  Evaluate $X$ and $Y$ for each of the outcomes.
+b.  Construct a two-way table representing the *joint distribution* of $X$ and $Y$.
+c.  Sketch a plot representing the joint distribution of $X$ and $Y$.
+d.  Construct a spinner corresponding to the joint distribution of $X$ and $Y$.
+e.  Describe two ways to simulate an $(X, Y)$ pair.
+f.  Identify the *marginal* distribution of $X$, and construct a corresponding spinner.
+g.  Identify the *marginal* distribution of $Y$, and construct a corresponding spinner.
+h.  Describe in detail in words how you could conduct a simulation and use the results to approximate. (This part is asking you to describe the process in words; not to write code.)
+    i.  $\text{P}(X = 3)$
+    ii. $\text{P}(X = 2, Y = 1)$ iii.$\text{E}(X)$ iii.$\text{E}(Y)$
+    iii. $\text{E}(XY)$
+    iv. $\text{SD}(X)$ iii.$\text{SD}(Y)$
+    v.  $\text{Cov}(X, Y)$
+    vi. $\text{Corr}(X, Y)$
+i.  **Coding required.** Code and run the simulation from the previous part and use the simulation results to approximate each of
+    i.  $\text{P}(X = 3)$
+    ii. $\text{P}(X = 2, Y = 1)$ iii.$\text{E}(X)$ iii.$\text{E}(Y)$
+    iii. $\text{E}(XY)$
+    iv. $\text{SD}(X)$ iii.$\text{SD}(Y)$
+    v.  $\text{Cov}(X, Y)$
+    vi. $\text{Corr}(X, Y)$
+j.  Compute
+    i.  $\text{P}(X = 3)$
+    ii. $\text{P}(X = 2, Y = 1)$ iii.$\text{E}(X)$ iii.$\text{E}(Y)$
+    iii. $\text{E}(XY)$
+    iv. $\text{SD}(X)$ iii.$\text{SD}(Y)$
+    v.  $\text{Cov}(X, Y)$
+    vi. $\text{Corr}(X, Y)$
+
+### Solution
+
+These don't quite match the assignment, but the ideas are similar.
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+k = 3
+
+outcomes = expand.grid(1:k, 1:k, 1:k)
+
+
+n_outcomes = nrow(outcomes)
+
+X = rep(NA, n_outcomes)
+Y = rep(NA, n_outcomes)
+
+for (i in 1:n_outcomes) {
+  X[i] = outcomes %>% slice(i) %>% unlist() %>% n_distinct()
+  Y[i] = sum(outcomes[i, ] == 1)
+}
+
+outcomes <- outcomes %>%
+  bind_cols(X, Y)
+
+names(outcomes) = c(paste("box", 1:k, sep = ""), "X", "Y")
+
+outcomes %>%
+  kbl() %>%
+  kable_styling(fixed_thead = TRUE)
+
+```
+
+
+a.  One dimension will have possible values of $x$, the other possible values of $y$.
+    The interior cells should contain the probability of each $(x, y)$ pair.
+
+    |       |      |       |      |      |       |
+    |:------|-----:|------:|-----:|-----:|------:|
+    |       |  $y$ |       |      |      |       |
+    | $x$   |    0 |     1 |    2 |    3 | Total |
+    | 1     | 2/27 |     0 |    0 | 1/27 |  3/27 |
+    | 2     | 6/27 |  6/27 | 6/27 |    0 | 18/27 |
+    | 3     |    0 |  6/27 |    0 |    0 |  6/27 |
+    | Total | 8/27 | 12/27 | 6/27 | 1/27 |     1 |
+
+b.  Make a tile plot with color or shading representing probability; see below.
+
+c.  The spinner is below; it returns the 6 possible $(x, y)$ pairs with the proper probabilities.
+
+d.  Method 1: Simulate from the probability space: Label 3 cards: 1, 2, 3.
+    Shuffle the cards and deal one, then replace the card and repeat, dealing a total of 3 cards, e.g., 212.
+    Measure $X$ and $Y$ for the outcome.
+
+    Method 2: Simulate from the distribution.
+    Spin the spinner from the previous part once to generate an $(X, Y)$ pair.
+
+e.  The possible values of $X$ are in the leftmost column and the probabilities are in the Total column.
+    See previous HW solutions for plot and spinner.
+
+f.  The possible values of $Y$ are in the top row (0, 1, 2, 3) and the probabilities are in the Total row.
+    See previous HW solutions for plot and spinner.
+
+g.  Method 1: Simulate from the probspace: Draw three "boxes" and observe the prize sequence, and measure $X$.
+
+    Method 2: Simulate from marginal dist: Spin the $X$ spinner once and observe the value.
+
+    Method 3: Simulate from joint dist: Spin the joint distribution spinner once to obtain an $(X, Y)$ pair, and ignore $Y$.
+    (This is the one we didn't see on a previous HW.)
+
+h.  Describe in detail how you could conduct a simulation to and use the results to approximate
+
+    a.  $\text{P}(X = 3)$. Simulate many values of $X$, count the number of simulated values equal to 3, and divide by the number of simulated values (i.e., find the simulated relative frequency of 3)
+    b.  $\text{P}(X = 2, Y = 1)$. Simulate many $(X, Y)$ *pairs*, count the number of simulated pairs in which $X = 2$ and $Y = 1$, and divide by the number of simulated values (i.e., find the simulated relative frequency of the event $\{X = 2, Y = 1\}$)
+    c.  The long run average value of $X$. Simulate many values of $X$ and compute their average (i.e., sum the simulated values of $X$ and divide by the number of simulated values.)
+    d.  The long run average value of $XY$. Simulate many $(X, Y)$ *pairs*, find the product $XY$ for each pair, and compute the average value of the products (i.e., sum the simulated values of $XY$ and divide by the number of simulated pairs.)
+
+```{r}
+#| echo: false
+
+x = c(1, 1, 2, 2, 2, 3)
+y = c(0, 3, 0, 1, 2, 1)
+p = c(2, 1, 6, 6, 6, 6) / 27
+
+
+data.frame(x, y, p) %>%
+  ggplot(aes(x = x,
+              y = y,
+              fill = p)) +
+  geom_tile(colour = "grey50") +
+  geom_text(aes(label = round(p, 3)), col = "white") +
+  scale_x_continuous(breaks = 1:3) +
+  labs(fill = "Probability") +
+  theme_classic()
+
+```
+
+```{r}
+#| echo: false
+#| eval: true
+
+include_graphics("_graphics/spinner-hw-collector-joint.png")
+```
+
+There are many ways of doing the simulation.
+I'll use a for loop
+
+```{r}
+
+# Number of repetitions
+N_rep = 10000
+
+# Initialize place holders for X and Y
+# Each of X and Y will eventually contain 10000 values
+# but initially they are empty
+X = vector(length = N_rep)
+Y = vector(length = N_rep)
+
+
+for (i in 1:N_rep) {
+  # within the loop a single repetition is performed
+  
+  # simulate the 3 prizes
+  outcome  = sample(1:3, size = 3, replace = TRUE)
+  
+  # find the number of distinct prizes
+  x = length(unique(outcome))
+  
+  # count the number of prize 1s
+  y = sum(outcome == 1)
+  
+  # record the values in X and Y
+  X[i] = x
+  Y[i] = y
+}
+
+# After the loop runs each of X and Y will have 10000 values
+
+# X counts
+table(X)
+
+# Rough plot of approximate distribution of X
+plot(table(X) / N_rep,
+     xlab = "X",
+     ylab = "Relative frequency")
+
+
+# Y counts
+table(Y)
+
+
+# Rough plot of approximate distribution of Y
+plot(table(Y) / N_rep,
+     xlab = "Y",
+     ylab = "Relative frequency")
+
+
+# (X, Y) counts
+table(X, Y)
+
+# Approximate E(X)
+mean(X)
+
+# Approximate E(Y)
+mean(Y)
+
+# Approximate SD(X)
+sd(X)
+
+# Approximate SD(Y)
+sd(Y)
+
+# Approximate E(XY)
+mean(X * Y)
+
+# Approximate Cov(X, Y)
+cov(X, Y)
+
+# Approximate Corr(X, Y)
+cor(X, Y)
+
+# Approximate P(X = 3)
+sum(X == 3) / N_rep
+
+# Approximate P(X = 2, Y = 1)
+sum((X == 2) * (Y == 1)) / N_rep
+
+
+```
+

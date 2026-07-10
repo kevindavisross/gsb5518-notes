@@ -1,0 +1,305 @@
+# From Probability to Statistics
+
+::: {#exm-prob-and-stat-questions}
+In each of the following scenarios, one of (i) and (ii)
+is a *probability* and one is a *statistics* question.
+Classify each
+question as "probability" or "statistics".
+Then discuss some general
+features of the probability questions, and some general features of the
+statistics questions
+:::
+
+1.  [U.S.
+    Satisfaction](https://news.gallup.com/poll/1669/general-mood-country.aspx)
+
+    -   Assume that 30% of Americans are satisfied with the way things
+        are going in the U.S. 
+        If a random sample of 1000 Americans is
+        selected, what are the chances that more than 330 Americans in
+        the sample are satisfied with the way things are going in the
+        U.S?
+
+    -   In a random sample of 1000 Americans, 330 Americans are
+        satisfied with the way things are going in the U.S. 
+        What percent
+        of all Americans are satisfied with the way things are going in
+        the U.S?
+
+2.  Great white shark length
+
+    -   Assume that lengths of female great white sharks follow a Normal
+        distribution with mean 16 ft and standard deviation 3 ft. 
+        If a
+        random sample of 40 female great white sharks is selected, what
+        are the chances that the average length in the sample is between
+        16.5 and 17.5 ft?
+
+    -   In a sample of 40 female great white sharks, the sample mean
+        length is 17.0 ft. 
+        What is the average length of female great
+        white sharks?
+
+3.  In a [clinical trial](https://beta.clinicaltrials.gov/), 200
+    subjects are randomly assigned to receive either an experimental
+    vaccine or no treatment (e.g., a placebo), and then each subject is
+    tested to see if they developed immunity.
+
+    -   If the vaccine is in reality not effective, what are the chances
+        that the proportion of subjects who develop immunity is twice as
+        large for those who received the vaccine than for those who did
+        not?
+
+    -   Among the 100 subjects who received the vaccine, 20 developed
+        immunity; among the 100 subjects who did not receive the
+        vaccine, 10 developed immunity. Is there evidence that the
+        vaccine is effective?
+
+4.  Snap streaks
+
+    -   Assume that lengths of streaks on Snapchat follow an Exponential
+        distribution, with mean 75 for teen users and mean 40 for adult
+        users. 
+        A random sample of 200 Snapchat users is selected, 100
+        teens and 100 adults. 
+        What are the chances that the sample mean
+        streak length for teens is with within 20 of the sample mean
+        streak length for adults?
+
+    -   In a random sample of 100 teen Snapchat users, the sample mean
+        streak length is 80. In a random sample of 100 adult Snapchat
+        users, the sample mean streak length is 35. 
+        In general, how much
+        longer do streak lengths for teen Snapchat users tend to be than
+        for adult Snapchat users?\
+    \
+    \
+    \
+    \
+    \
+    \
+    \
+    \
+
+-   **Probability:** Assume a model for a random (uncertain) process and
+    evaluate probabilities of potential outcomes or events --- what
+    might the data look like?
+
+    -   In probability, a model is assumed and parameters are assumed to
+        be known, but the data is unknown.
+
+    -   In probability, we typically call the model a "distribution" and
+        the data "random variables".
+
+-   **Statistical inference:** Observe sample data and make conclusions
+    about the process that generated the data
+
+    -   In statistics, the data is observed but parameters are unknown.
+
+    -   In statistics, we typically call the model the "population" and
+        the data the "sample".
+
+-   *Statistical inference* involves using sample data to make conclusions
+    about the population.
+
+    -   **Point estimation:** Estimate an unknown population parameter with
+        a single number based on sample data
+
+    -   **Interval estimation:** Estimate an unknown population parameter
+        with a plausible range of values based on sample data
+
+    -   **Hypothesis testing:** Assess the evidence that the sample data
+        provides regarding a particular claim about unknown population
+        parameters.
+
+-   The *population distribution* is the distribution of individual
+    values of the variable of interest. 
+    A *parameter*, generically
+    denoted $\theta$, is a number that summarizes the population
+    distribution.
+
+-   The **population distribution**, denoted $p_\theta$ or
+    $p_\theta(x)$, is a probability model for the distribution of values
+    of a variable[^1] $X$ over all *individuals* in the population.
+
+    -   If the variable $X$ is discrete, then $p_\theta$ represents a
+        probability mass function (pmf): $p_\theta(x) = \textrm{P}(X=x)$
+
+    -   If the variable $X$ is continuous, then $p_\theta$ represents a
+        probability density function (pdf):
+        $p_\theta(x) \approx \frac{1}{\epsilon}\textrm{P}(x - \epsilon/2 < X < x + \epsilon/2)$
+
+-   A **parameter**, generically denoted $\theta$, is a characteristic
+    of the population distribution, often computed as an expected value
+    of some function of $X$.
+
+    -   In some cases $\theta$ represents a vector of multiple
+        parameters.
+
+    -   For example, if $p_\theta$ represents a Normal distribution,
+        then $\theta$ might represent the pair
+        $\theta \equiv (\mu, \sigma)$ consisting of the population mean
+        and the population standard deviation.
+
+-   A parameter is a *fixed number* but its value is *unknown*[^3].
+
+-   Many statistical studies involve *random sampling* from a
+    population.
+
+-   A **(simple) random sample** of size $n$ is a collection of random
+    variables $X_1,\ldots,X_n$ that are *independent* and *identically
+    distributed* (i.i.d.)
+
+    -   Identically distributed --- each individual $X_i$ has the same
+        marginal distribution --- the population distribution --- since
+        they are sampled from the same population:
+        $$X_i \sim p_\theta \quad \text{for all $i=1, \ldots, n$}$$
+
+    -   Independent --- the values are sampled independently, so the
+        joint distribution[^2] is the product of marginal distributions:
+        $$p_\theta(x_1, \ldots, x_n) = p_\theta(x_1)p_\theta(x_2)\cdots p_\theta(x_n)\quad \text{for all $x_1,\ldots, x_n$}$$
+
+-   A **statistic** is a characteristic of the *sample* which can be
+    computed from the data. More precisely, a statistic is a function of
+    $X_1,\ldots,X_n$, but not of $\theta$.
+
+    -   That is, a statistic is itself a *random variable*, and
+        therefore has its own probability distribution, which describes
+        how values of the statistic would vary from sample-to-sample
+        over many (hypothetical) samples.
+
+    -   The probability distribution of a statistic is called a
+        **sampling distribution**.
+
+    -   The *distribution* of a statistic will depend on $\theta$, but
+        the *value* of a statistic will not.
+
+-   A statistic $\hat{\theta}\equiv T(X_1,\ldots,X_n)$ used to estimate
+    a parameter $\theta$ is called a **(point) estimator**.
+
+    -   Naturally, we hope that there is some correspondence between our
+        estimator $\hat{\theta}$ and the parameter it is estimating
+        $\theta$ --- for example, estimating the population mean with
+        the sample mean --- but the definition does not require this.
+
+    -   When the numerical value of a statistic is calculated from
+        observed sample data, its value is called a *(point) estimate*
+        of the parameter.
+
+    -   The estimator $\hat{\theta}$ is a RV whose value changes from
+        sample to sample; an estimate is the observed value computed
+        based on the results of a single sample.
+
+::: {#exm-intro-estimation}
+Jerry has just opened a car dealership in a new location.
+He assumes that the number of cars he'll sell in a day has a Poisson($\mu$) distribution.
+But he doesn't know the value of $\mu$, so he plans to use data from his first few days of business to estimate $\mu$.
+Let $X_1, \ldots, X_n$ represent the number of cars sold for a sample of $n$ days.
+:::
+
+1.  What plays the role of the population distribution?
+    What is the parameter?
+    How do you interpret the parameter in this context?\
+    \
+    \
+    \
+    \
+2.  Suggest one estimator of $\mu$.
+    (Hint: what does $\mu$ represent for a Poisson distribution?)\
+    \
+    \
+    \
+    \
+3.  Suppose he collects data on $n=3$ days and observes $x_1=3$ cars sold on day 1, $x_2=0$ cars sold on day 2, and $x_3 = 2$ cars sold on day 3.
+    Compute the value of your estimator from the previous part for this sample.
+    That is, what is your estimate of $\mu$ based on this sample?\
+    \
+    \
+    \
+    \
+4.  Suggest another estimator of $\mu$.
+    (Hint: what else does $\mu$ represent for a Poisson distribution?)\
+    \
+    \
+    \
+    \
+5.  For a Poisson($\mu$) distribution $\mu$ is both the population mean
+    and the population variance.
+    So one reasonable estimator of $\mu$ is the sample mean $\bar{X}$.
+    Another reasonable estimator is the sample variance.
+    But there are two commonly used formulas for the sample variance, each of which provides an estimator of $\mu$
+    $$
+    \begin{aligned}
+        \hat{\sigma}^2 & = \frac{1}{n}\sum_{i=1}^n\left(X_i-\bar{X}\right)^2\\
+        S^2 & = \frac{1}{n-1}\sum_{i=1}^n\left(X_i-\bar{X}\right)^2
+    \end{aligned}
+    $$
+    Compute the value of each of these estimators for the (3, 0, 2) sample.
+    That is, what is your estimate of $\mu$ based on this sample if you use each of these estimators?\
+    \
+    \
+    \
+    \
+6.  At his previous dealeship at a different location, Jerry sold 2.3 cars per day on average.
+    Consider the estimator of $\mu$: $\frac{n}{n+100}\bar{X}+ \frac{100}{n+100}(2.3)$. Explain in words what this estimator represents.
+    In particular, what happens as $n$ increases?
+    Then compute the value of this estimator for the (3, 0, 2) sample.\
+    \
+    \
+    \
+    \
+7.  According to the Poisson($\mu$) distribution, the
+    probability of selling 0 cars in a day is $p_0=e^{-\mu}$.
+    Rearranging, $\mu = -\log p_0$.
+    Therefore, if $\hat{p}_0$ is the sample proportion of days with 0 cars sold, then another estimator of $\mu$ is $-\log\hat{p}_0$.
+    Compute the value of this estimator for the (3, 0, 2) sample.\
+    \
+    \
+    \
+    \
+8.  We have seen a few different, seemingly reasonable estimators of
+    $\mu$, and each produced a different estimate of $\mu$ based on the
+    same (3, 0, 2) sample data.
+    Which of these numbers is the best *estimate* of $\mu$?
+    That is, which of these estimates is closest to $\mu$?\
+    \
+    \
+    \
+    \
+9.  How might you investigate which of the *estimators* corresponds to the best estimation *procedure*?\
+    \
+    \
+    \
+    \
+
+-   Because the true value of the parameter $\theta$ is unknown, we
+    never know if the sample data provides a reasonable estimate of
+    $\theta$
+-   Rather, we evaluate the estimation *procedure* for potential values
+    of $\theta$:
+    How does the estimation procedure perform over many
+    possible samples given potential values of $\theta$?
+-   Some questions of interest when estimating a parameter $\theta$
+    -   How do we find an estimator of $\theta$?
+    -   What are properties of "good" estimators?
+    -   How can we tell if one estimator is "better" than another?
+    -   Can we find a "best" estimator of $\theta$? (Short answer: no)
+    -   How do we determine the margin of error for an estimator?
+
+[^1]: Many problems of interest involve multiple variables (e.g.,
+    height, weight, income), in which case the population distribution
+    is a joint distribution. But it is simpler --- both conceptually and
+    notationally --- to consider just a single variable of interest.
+
+[^2]: Abuse of notation in the expression: $p_\theta$ on the left
+    represents the joint distribution of $(X_1, \ldots, X_n)$, a
+    function with $n$ inputs; $p_\theta$ on the right represents that
+    marginal distribution of each $X_i$ (since i.d.), a function with a
+    single input.
+
+
+[^3]: There are two main philosophical approaches to statistical inference that differ mainly in whether they emphasize "fixed number" or "unknown".
+The *frequentist* approach treats a parameter as a *fixed number*.
+The *Bayesian* approach treats an *unknown* parameter--- in other words, an *uncertain* parameter---as a *random variable* with a probability distribution that describes the degree of uncertainty.
+Both approaches are valid, each with advantages and disadvantages.
+The frequentist approach has been historically more prevalent, but the Bayesian approach has gained in popularity in the last 30 or so years.

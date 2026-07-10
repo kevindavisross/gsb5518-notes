@@ -1,0 +1,174 @@
+::: center
+**Handout 23\
+Sampling Distributions of Statistics, and the Central Limit Theorem**
+:::
+
+::::: my_itemize
+A **statistic** is a characteristic of the *sample* which can be
+computed from the data.
+
+::: my_itemize
+That is, a statistic is itself a *random variable*, and therefore has
+its own probability distribution, which describes how values of the
+statistic would vary from sample-to-sample over many (hypothetical)
+samples.
+
+The probability distribution of a statistic is called a **sampling
+distribution**.
+:::
+
+Statistics exhibit **sample-to-sample variability**: the value of a
+statistic varies from sample to sample.
+
+::: my_itemize
+We can estimate the degree of this variability by *simulating many
+hypothetical samples* and computing the value of the statistic for each
+sample.
+
+The resulting standard deviation, called the **standard error**,
+measures the sample-to-sample variability of the statistic over many
+(hypothetical) samples of the same size.
+
+However, *in practice usually only a single sample is selected* and a
+single value of the statistic is observed.
+:::
+
+For many statistics (e.g., proportions, means, differences in means) ---
+but not all --- statistics from larger random samples vary less, from
+sample to sample, than statistics from smaller random samples.
+:::::
+
+::: exer
+**Exercise 1**. In a previous example, we consider a discrete population
+with a population mean of $\mu = 72$ and a population standard deviation
+of $\sigma = 69.4$. Now we'll consider several other populations with a
+population mean of 72 and a population standard deviation of 69.4. We'll
+use an
+[applet](http://www.rossmanchance.com/applets/2021/sampling/OneSample.html?population=model)
+to simulate the sampling distribution of the sample mean $\bar{X}$ for
+samples of size $n$ from several different populations. Enter 72 in the
+box for population mean, and 69.4 in the box for population SD.
+:::
+
+::: my_enumerate
+Regardless of the shape of the population, what will
+$\textrm{E}(\bar{X})$ be? How we do interpret this?
+
+**Solution:** 72. Average of sample means over many samples.
+
+Regardless of the shape of the population, what will
+$\textrm{SD}(\bar{X})$ be? How do we interpret this?
+
+**Solution:** $69.4/\sqrt{n}$. Sample-to-sample variability of sample
+means over many samples.
+
+Choose a super-small sample size, like $n=2$. Choose a population shape,
+and then run the simulation to generate many values of the sample mean.
+Then repeat for different population shapes. When the sample size is
+small, does the shape of the sample-to-sample distribution of sample
+means (plot on right) depend on the shape of the population (plot on the
+left)?
+
+**Solution:** Yes. (See video for simulations.)
+
+Now increase the sample size, and repeat for the several populations.
+What happens to the shape of the sample-to-sample distribution of sample
+means as the sample size increases?
+
+**Solution:** As the sample size increases, the shape of the
+sample-to-sample distribution of sample means becomes more Normal,
+regardless of shape of population distribution.
+
+Now choose a not-super-small sample size, like $n=500$. Choose a
+population, and simulate *a single sample*. Look at the simulated sample
+(the middle plot), then repeat to simulate a few samples. Then repeat
+for the different populations. Does the *distribution of individual
+values within the sample* depend on the shape of the population?
+
+**Solution:** Yes! Samples are supposed to represent the population. So
+if the population is skewed to the right, the distribution of individual
+values in the sample should be skewed to the right. Don't confuse the
+observed distribution of individual values within the sample with the
+hypothetical sample-to-sample distribution of sample means.
+
+When the sample size is large, does the *sample-to-sample distribution
+of sample means* depend on the shape of the population?
+
+**Solution:** No! If the sample size is large enough the pattern of
+sample-to-sample variability of sample means follows a Normal
+distribution, regardless of the shape of the population distribution of
+individual values of the variable.
+:::
+
+::::: my_itemize
+For a representative random sample, the distribution of individual
+values within the observed sample should resemble the population
+distribution
+
+::: my_itemize
+Regardless of the sample size
+:::
+
+For many statistics (e.g., proportions, means, differences of means) ---
+but not all --- if the sample size is large enough the pattern of
+sample-to-sample variability of values of the statistic follows a Normal
+distribution
+
+::: my_itemize
+Regardless of the shape of the population distribution of individual
+values of the variable.
+:::
+
+The **Central Limit Theorem (CLT)** says that if $n$ is large enough,
+$$\text{$\bar{X}_n$ has an approximate $N\left(\mu,\frac{\sigma}{\sqrt{n}}\right)$ distribution.}$$
+
+The CLT says that if the sample size is large enough, the
+sample-to-sample distribution of sample means is approximately Normal,
+*regardless of the shape of the population distribution.*
+:::::
+
+::: exer
+**Exercise 2**. Recall the population where every individual has an
+income of 10, 70, or 200 with probability 0.4, 0.4, 0.2. Now suppose
+that every individual has an income of 10, 70, 200, or 2000 with
+probability 0.4, 0.4, 0.19, 0.01. Simulate sample means for many samples
+of size $n=30$ from this population. Is the distribution of sample means
+approximately Normal? What if $n=100$?
+:::
+
+**Solution:** See simulation results. The distribution doesn't look
+anything like a Normal distribution when $n=30$. When $n=100$ the
+distribution is closer to Normal than when $n=30$, but still definitely
+not Normal. The individuals with incomes of 2000 throw the averages off,
+even when the sample size isn't super small.
+
+As the sample size gets larger, the outliers have less affect on the
+mean and the overall average characteristics take over. But if the
+outliers are very large, it might take a large sample size for the CLT
+to kick in.
+
+:::: my_itemize
+How large a sample size is required for normality of the sampling
+distribution of sample means does depend on the shape of the population
+distribution of individual values.
+
+::: my_itemize
+If the population distribution is Normal, then the sample-to-sample
+distribution of sample means is Normal for any sample size.
+
+If the population distribution is "close to Normal" --- e.g. symmetric,
+light tails --- then smaller samples sizes are sufficient for the
+sample-to-sample distribution of sample means to be approximately
+Normal.
+
+If the population distribution is "far from Normal" --- e.g. severe
+skewness, heavy tails, extreme outliers --- then larger sample sizes are
+required for the sample-to-sample distribution of sample means to be
+approximately Normal.
+:::
+
+You should certainly be aware that some population distributions require
+a large sample size for the CLT to kick in. However, in many situations
+the sample-to-sample distributions of sample means (or other statistics)
+is approximately Normal even for small or moderate sample sizes.
+::::

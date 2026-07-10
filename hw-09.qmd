@@ -1,0 +1,100 @@
+# Homework 9 {.unnumbered}
+
+
+## Problem 1
+
+The following table displays the time (measured continuously in minutes) until the first goal was scored in each of 20 professional hockey games.  The sample mean is 12.1 minutes, the sample median is 8.9 minutes, and the sample SD is 13.1 minutes.
+
+|     |      |     |      |     |      |      |     |      |      |
+|----:|-----:|----:|-----:|----:|-----:|-----:|----:|-----:|-----:|
+| 4.4 | 14.9 | 2.8 |  1.4 | 1.1 |  8.1 | 11.7 | 3.9 |  2.4 | 15.7 |
+| 8.8 |  0.6 | 5.1 | 10.4 | 9.1 | 13.7 | 27.8 | 9.0 | 46.0 | 44.7 |
+
+1.  You wish to estimate the population *median* time until the first goal is scored. Describe in detail in words how you could use the sample data and simulation to find an appropriate
+95% bootstrap percentile confidence interval.
+1.  **Coding required.** Code and run the simulation from the previous part using the [hockey data](https://raw.githubusercontent.com/kevindavisross/data301/refs/heads/main/data/hockey.csv). Summarize the results; provide a histogram of the bootstrap distribution, the value of the bootstrap SE, and a 95% bootstrap percentile confidence interval.
+1.  The following summarizes the bootstrap distribution of the sample median based on the sample data and an appropriate simulation.
+
+    |  Min | 2.5th percentile | Median | 97.5th percentile |   Max | Mean |   SD |
+    |-----:|-----------------:|-------:|------------------:|------:|-----:|-----:|
+    | 1.25 |             4.15 |   8.90 |             12.70 | 19.75 | 8.52 | 2.10 |
+
+    Using the above information, compute the endpoints of each of the following bootstrap 95\% confidence intervals for the population median.
+    a.  Normal interval
+    a.  Percentile interval
+1.  Write a clearly worded sentence reporting the bootstrap percentile confidence interval from the previous part in
+context.
+
+## Problem 2
+
+Two different machines (A and B) that fill packages of a certain candy are calibrated to a weight of 50 grams. Naturally, the
+weights of individual packages vary somewhat in the production process, but too much variation is undesirable.  A small sample of packages is taken from each machine; the weights (grams) are in the following table.
+
+| Machine |      |      |      |      |      | Mean |  SD |
+|:--------|-----:|-----:|-----:|-----:|-----:|-----:|----:|
+| A       | 47.1 | 48.7 | 50.1 | 50.2 | 50.5 | 49.3 | 1.4 |
+| B       | 48.6 | 50.5 | 50.6 | 51.4 | 52.0 | 50.6 | 1.3 |
+
+
+
+1.  Describe in detail in words how you could use the sample data and simulation to find a 95% bootstrap percentile confidence interval for the *ratio of the variances* of packages weights for the two machines.
+1.  **Coding required.** Write code to implement the procedure from the previous part, and run the simulation to find a 95% bootstrap percentile confidence interval.  Include your code and output.
+1.  Write a clearly worded sentence reporting the confidence interval from the previous part in context.
+
+## Problem 3 
+
+Continuing Problem 2.
+
+Describe in detail how you could use simulation to approximate the p-value of the permutation test which uses the ratio of variances as the test statistic.
+
+	
+## Problem 4
+
+Scores are on a certain standardized test (e.g. GRE) are approximately normally distributed with mean 525 and standard deviation 100 (assume that the scale is 200-800).  An agency claims that students who take their test preparation class have a higher mean score than the national average.  To test the validity of the claim we consider
+$$
+H_0: \mu = 525\qquad H_a: \mu>525,
+$$
+where $\mu$ is the mean test score of all students who take the preparation class.  Suppose that we take a simple random sample of $n$ students who have taken the class, and let $\bar{y}$ be the mean test score for the sample. You can assume that $\sigma = 100$ and just use the usual empirical rule (that is, don't worry about $t$ distributions.)
+
+
+1.  Compute the $p$-value of the test if $n=100$ and $\bar{y}=541.4$. 
+1.  Compute the $p$-value of the test if $n=100$ and $\bar{y}=541.5$.
+1.  Compute the $p$-value of the test if $n=100,000$ and $\bar{y}=526$.
+1.  Write a short paragraph explaining why (1) we should not rely on cutoffs like $\alpha=0.05$ strictly; (2) why the term statistically "significant" is a poor choice of words which should not be used.
+Use the results from the previous parts and this context to support your explanation.
+
+## Problem 5
+
+Psychologists have shown that we are often able to "chunk" information which allows us to remember more information (typically about seven chunks).  A study was performed in previous statistics classes to investigate this idea. Students were given 20 seconds to memorize a sequence of 30 letters. After 20 seconds, everyone was asked to write down, in order, as many of the letters as they could.  Every student saw the same sequence of 20 letters, JFKCIAFBIUSASATGPABFFLOLNBACPR, but students were randomly assigned to see the letters presented (chunked) in one of two different ways
+
+-   a "meaningful" grouping: JFK-CIA-FBI-USA-SAT-GPA-BFF-LOL-NBA-CPR
+-   a "not meaningful" grouping: JFKC-IAF-BIU-SASA-TGP-ABF-FLO-LN-BAC-PR
+
+Each person's score was the number of correct letters in a row before the first mistake.  (For example, JFKCIABIUSAT yields a score of 6 because of missing the F.)  We want to know whether those given the meaningful "JFK" sequence (with the letters grouped into familiar acronyms) would tend to remember more letters in sequence, on average, than those given the not meaningful "JFKC" sequence.
+
+1.  **Coding required.** Use Python to summarize the [letters data](https://raw.githubusercontent.com/kevindavisross/data301/refs/heads/main/data/letters.csv).
+1.  State the null and alternative hypothesis in words and symbols
+1.  Explain in detail how, in principle, you would use index cards to conduct an appropriate simulation and use the simulation results to compute the p-value.
+1.  Compute by hand the t-statistic and the p-value.
+1.  **Coding required.** Use Python to conduct the hypothesis test, and compare the results to what you computed by hand.
+1.  Write a clearly worded sentence reporting the conclusion of the hypothesis test in context.
+1.  Compute by hand an appropriate 95% confidence interval.
+1.  **Coding required.** Use Python to compute the confidence interval, and compare the results to what you computed by hand.
+1.  Write a clearly worded sentence reporting the conclusion of the confidence interval in context.
+
+
+## Problem 6
+
+The data in this exercise comes from the study: [Singh R, Meier T, Kuplicki R, Savitz J, et al., "Relationship of Collegiate Football Experience and Concussion With Hippocampal Volume and Cognitive Outcome," JAMA, 311(18), 2014](https://pubmed.ncbi.nlm.nih.gov/24825643/).
+
+The study included 3 groups, with 25 cases in each group. The control group consisted of healthy individuals with no history of brain trauma who were comparable to the other groups in age, sex, and education. The second group consisted of NCAA Division 1 college football players with no history of concussion, while the third group consisted of NCAA Division 1 college football players with a history of concussion. High resolution MRI was used to collect brain hippocampus volume (microliters).
+
+1.  **Coding required.** Use Python to summarize the [brain data](https://raw.githubusercontent.com/kevindavisross/data301/refs/heads/main/data/FootballBrain2.csv).
+1.  Compute by hand the ANOVA F statistic.
+1.  Describe in full detail how (in principle) you could use index cards to simulate the null distribution of the ANOVA F statistic and how you would use the simulation results to find the p-value.  (You don't have to compute the p-value; just explain how you could find it after you performed the simulation.)
+1.  Optional: use this [applet to perform the permutation test and approximate the p-value](https://www.rossmanchance.com/applets/2021/anovashuffle/AnovaShuffle.htm).
+1.  **Coding required.** Use Python to conduct the hypothesis test, and compare the results to what you computed by hand.
+1.  Write a clearly worded sentence containing the conclusion of the hypothesis test in the context of the problem.
+1.  **Coding required.** Use Python to compute Tukey pairwise 95% confidence intervals.
+1.  Which of the confidence intervals contain 0, and which do not?  Explain what this means.
+1.  Write a clearly worded sentence interpreting each of the three confidence intervals in context.

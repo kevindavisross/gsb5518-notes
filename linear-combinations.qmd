@@ -1,0 +1,198 @@
+# Expected Values of Linear Combinations of Random Variables
+
+{{< include _r_setup.qmd >}}
+
+
+
+
+## Linear rescaling
+
+
+If $X$ is a random variable and $a, b$ are non-random constants then
+
+\begin{align*}
+\text{E}(aX + b) & = a\text{E}(X) + b\\
+\text{SD}(aX + b) & = |a|\text{SD}(X)\\
+\text{Var}(aX + b) & = a^2\text{Var}(X)
+\end{align*}
+
+
+
+## Linearity of expected value
+
+
+
+
+::: {#exm-sat-compare-ev}
+Refer to the tables and plots in [Example 5.29 here](https://bookdown.org/kevin_davisross/probsim-book/expected-values-of-linear-combinations-of-random-variables.html#exm:sat-compare-ev).
+Each scenario contains SAT Math ($X$) and Reading ($Y$) scores for 10 hypothetical students, along with the total score ($T  =  X + Y$) and the difference between the Math and Reading scores ($D = X - Y$, negative values indicate lower Math than Reading scores).
+Note that the 10 $X$ values are the same in each scenario, and the 10 $Y$ values are the same in each scenario, but the $(X, Y)$ values are paired in different ways: the correlation is 0.78 in scenario 1, -0.04 (essentially 0) in scenario 2, and -0.94 in scenario 3.
+
+:::
+
+1.  What is the mean of $T = X + Y$ in each scenario? How does it relate to the means of $X$ and $Y$?
+Does the correlation affect the mean of $T = X + Y$?
+\
+\
+\
+1.  What is the mean of $D = X - Y$ in each scenario? How does it relate to the means of $X$ and $Y$?
+Does the correlation affect the mean of $D = X - Y$?
+\
+\
+\
+
+-   **Linearity of expected value.** For *any* two random variables $X$ and $Y$,
+\begin{align*}
+\text{E}(X + Y) & = \text{E}(X) + \text{E}(Y)
+\end{align*}
+-   That is, the expected value of the sum is the sum of expected values, regardless of how the random variables are related.
+-   Therefore, you only need to know the marginal distributions of $X$ and $Y$ to find the expected value of their sum.  (But keep in mind that the *distribution* of $X+Y$ will depend on the joint distribution of $X$ and $Y$.)
+-   Whether in the short run or the long run,
+\begin{align*}
+\text{Average of $X + Y$ } & = \text{Average of $X$} + \text{Average of $Y$}
+\end{align*}
+regardless of the joint distribution of $X$ and $Y$.
+-   A **linear combination** of two random variables $X$ and $Y$ is of the form $aX + bY$ where $a$ and $b$ are non-random constants.  Combining properties of linear rescaling with linearity of expected value yields the expected value of a linear combination.
+    $$
+    \text{E}(aX + bY) = a\text{E}(X)+b\text{E}(Y)
+    $$
+-   Linearity of expected value extends naturally to more than two random variables.
+
+## Variance of linear combinations of random variables
+
+::: {#exm-sat-compare-var}
+Recall @exm-sat-compare-ev.
+:::
+
+1.  In which of the three scenarios is $\text{Var}(X + Y)$ the largest?
+Can you explain why?
+\
+\
+\
+1.  In which of the three scenarios is $\text{Var}(X + Y)$ the smallest?
+Can you explain why?
+\
+\
+\
+1.  In which scenario is $\text{Var}(X + Y)$ roughly equal to the sum of $\text{Var}(X)$ and $\text{Var}(Y)$?
+\
+\
+\
+1.  In which of the three scenarios is $\text{Var}(X - Y)$ the largest?
+Can you explain why?
+\
+\
+\
+1.  In which of the three scenarios is $\text{Var}(X - Y)$ the smallest?
+Can you explain why?
+\
+\
+\
+1.  In which scenario is $\text{Var}(X - Y)$ roughly equal to the *sum* of $\text{Var}(X)$ and $\text{Var}(Y)$?
+\
+\
+\
+
+-   **Variance of sums and differences of random variables.**
+\begin{align*}
+\text{Var}(X + Y) & = \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X, Y)\\
+\text{Var}(X - Y) & = \text{Var}(X) + \text{Var}(Y) - 2\text{Cov}(X, Y)
+\end{align*}
+
+::: {#exm-sat-var-calc-sum}
+Assume that SAT Math ($X$) and Reading ($Y$) scores follow a Bivariate Normal distribution, Math  scores have mean 527 and standard deviation 107, and Reading scores have mean 533 and standard deviation 100.  Compute $\text{Var}(X + Y)$ and $\text{SD}(X+Y)$ for each of the following correlations.
+:::
+
+1.  $\text{Corr}(X, Y) = 0.77$
+\
+\
+\
+\
+\
+1.  $\text{Corr}(X, Y) = 0.40$
+\
+\
+\
+\
+\
+1.  $\text{Corr}(X, Y) = 0$
+\
+\
+\
+\
+\
+1.  $\text{Corr}(X, Y) = -0.77$
+\
+\
+\
+\
+\
+
+
+::: {#exm-sat-var-calc-diff}
+Continuing the previous example. Compute $\text{Var}(X - Y)$ and $\text{SD}(X-Y)$ for each of the following correlations.
+
+:::
+
+1.  $\text{Corr}(X, Y) = 0.77$
+\
+\
+\
+\
+\
+1.  $\text{Corr}(X, Y) = 0.40$
+\
+\
+\
+\
+\
+1.  $\text{Corr}(X, Y) = 0$
+\
+\
+\
+\
+\
+1.  $\text{Corr}(X, Y) = -0.77$
+\
+\
+\
+\
+\
+
+-   The variance of the sum is the sum of the variances if and only if $X$ and $Y$ are uncorrelated.
+\begin{align*}
+\text{Var}(X+Y)  & = \text{Var}(X) + \text{Var}(Y)\qquad \text{if $X, Y$ are uncorrelated}\\
+\text{Var}(X-Y)  & = \text{Var}(X) + \text{Var}(Y)\qquad \text{if $X, Y$ are uncorrelated}
+\end{align*}
+-   The variance of the difference of uncorrelated random variables is the *sum* of the variances
+-   If $a, b, c$ are non-random constants and $X$ and $Y$ are random variables then
+$$
+\text{Var}(aX + bY + c) = a^2\text{Var}(X) + b^2\text{Var}(Y) + 2ab\text{Cov}(X, Y)
+$$
+
+
+::: {#exm-bvn-sat-linear}
+Suppose that SAT Math ($M$) and Reading ($R$) scores of CalPoly students have a Bivariate Normal distribution.  Math scores have mean 640 and SD 80, Reading scores have mean 610 and SD 70, and the correlation between scores is 0.7.
+:::
+
+
+1.  Find the probability that a student has a total score above 1500.
+\
+\
+\
+\
+\
+1.  Find the probability that a student has a higher Math than Reading score.
+\
+\
+\
+\
+\
+
+
+
+
+-   $X$ and $Y$ have a Bivariate Normal distribution if and only if every linear combination of $X$ and $Y$ has a Normal distribution. That is, $X$ and $Y$ have a Bivariate Normal distribution if and only if $aX+bY+c$ has a  Normal distribution for all $a$, $b$, $c$. 
+-   In particular, if $X$ and $Y$ are independent and each has a Normal distribution then  $aX+bY+c$ has a  Normal distribution.
+
+

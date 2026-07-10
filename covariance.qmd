@@ -1,0 +1,166 @@
+# Covariance and Correlation
+
+{{< include _r_setup.qmd >}}
+
+
+
+Quantities like expected value and variance summarize characteristics of the *marginal* distribution of a single random variable.
+When there are multiple random variables their *joint* distribution is of interest.
+Covariance and correlation summarize a characteristic of the joint distribution of two random variables, namely, the degree to which they "co-deviate from the their respective means".
+
+## Covariance
+
+-   The **covariance** between two random variables $X$ and $Y$ is
+    \begin{align*}
+    \text{Cov}(X,Y) & = \text{E}\left[\left(X-\text{E}[X]\right)\left(Y-\text{E}[Y]\right)\right]\\
+    & = \text{E}(XY) - \text{E}(X)\text{E}(Y)
+    \end{align*}
+-   Covariance is the long run average of the products of the paired deviations from the mean
+-   Covariance is the expected value of the product minus the product of expected values.
+
+::: {#exm-dice-covariance}
+Roll a fair four-sided die twice and let $X$ be the sum of the two rolls, and $Y$ the larger of the two rolls.
+:::
+
+1.  Specify the joint pmf of $X$ and $Y$. (These first few parts are review of things we have covered before.)\
+    \
+    \
+2.  Find the marginal pmf of $X$ and $\text{E}(X)$.\
+    \
+    \
+3.  Find the marginal pmf of $Y$ and $\text{E}(Y)$.\
+    \
+    \
+4.  Find $\text{E}(XY)$. Is it equal to $\text{E}(X)\text{E}(Y)$?\
+    \
+    \
+    \
+    \
+5.  Find $\text{Cov}(X, Y)$. Why is the covariance positive?\
+    \
+    \
+    \
+    \
+6.  Describe how you would use simulation to approximate $\text{Cov}(X, Y)$.\
+    \
+    \
+    \
+    \
+
+-   $\text{Cov}(X,Y)>0$ (positive association): above average values of $X$ tend to be associated with above average values of $Y$
+-   $\text{Cov}(X,Y)<0$ (negative association): above average values of $X$ tend to be associated with below average values of $Y$
+-   $\text{Cov}(X,Y)=0$ indicates that the random variables are **uncorrelated**: there is no overall positive or negative association. But be careful: if $X$ and $Y$ are uncorrelated there can still be a relationship between $X$ and $Y$; there is just no overall positive or negative association.. We will see examples that demonstrate that being uncorrelated does not necessarily imply that random variables are independent.
+
+::: {#exm-dice-covariance-sign}
+Continuing @exm-dice-covariance.
+Let $X$ be the sum of the two rolls, $Y$ the larger of the two rolls, $W$ the number of rolls equal to 4, and $Z$ the number of rolls equal to 1.
+:::
+
+1.  Is $\text{Cov}(X, W)$ positive, negative, or zero? Why?\
+    \
+    \
+    \
+    \
+1.  Is $\text{Cov}(X, Z)$ positive, negative, or zero? Why?\
+    \
+    \
+    \
+    \
+1.  Let $V=W+Z$. Is $\text{Cov}(X, V)$ positive, negative, or zero? Why?\
+    \
+    \
+    \
+    \
+1.  Is $\text{Cov}(W, Z)$ positive, negative, or zero? Why?\
+    \
+    \
+    \
+    \
+
+
+::: {#exm-variance-covariance}
+What is another name for $\text{Cov}(X, X)$?
+:::
+
+\
+\
+\
+\
+\
+
+## Correlation
+
+::: {#exm-football-cov}
+The covariance between height in inches and weight in pounds for football players is 96.
+:::
+
+1.  What are the measurement units of the covariance?\
+    \
+    \
+2.  Suppose height were measured in feet instead of inches. Would the shape of the joint distribution change? Would the strength of the association between height and weight change? Would the value of covariance change?\
+    \
+    \
+    \
+    \
+
+-   The **correlation (coefficient)** between random variables $X$ and $Y$ is
+    \begin{align*}  
+    \text{Corr}(X,Y) & = \text{Cov}\left(\frac{X-\text{E}(X)}{\text{SD}(X)},\frac{Y-\text{E}(Y)}{\text{SD}(Y)}\right)\\
+    & = \frac{\text{Cov}(X, Y)}{\text{SD}(X)\text{SD}(Y)}
+    \end{align*}
+-   The correlation for two random variables is the covariance between the corresponding standardized random variables. Therefore, correlation is a *standardized* measure of the association between two random variables.
+-   A correlation coefficient has no units and is measured on a universal scale. Regardless of the original measurement units of the random variables $X$ and $Y$ $$
+    -1\le \textrm{Corr}(X,Y)\le 1
+    $$
+-   $\textrm{Corr}(X,Y) = 1$ if and only if $Y=aX+b$ for some $a>0$
+-   $\textrm{Corr}(X,Y) = -1$ if and only if $Y=aX+b$ for some $a<0$
+-   Therefore, correlation is a standardized measure of the strength of the *linear* association between two random variables.
+-   Covariance is the correlation times the product of the standard deviations. $$
+    \text{Cov}(X, Y) = \text{Corr}(X, Y)\text{SD}(X)\text{SD}(Y)
+    $$
+
+::: {#exm-football-corr}
+The covariance between height in inches and weight in pounds for football players is 96.
+Heights have mean 74 and SD 3 inches.
+Weights have mean 250 pounds and SD 45 pounds.
+Find the correlation between weight and height.
+:::
+
+\
+\
+\
+\
+\
+
+::: {#exm-dice-corr}
+Consider the probability space corresponding to two rolls of a fair four-sided die.
+Let $X$ be the sum of the two rolls, $Y$ the larger of the two rolls.
+Compute $\text{Corr}(X, Y)$.
+:::
+
+\
+\
+\
+\
+\
+
+
+::: {#exm-guess-corr}
+Try the [Guessing Correlations applet](https://www.rossmanchance.com/applets/2021/guesscorrelation/GuessCorrelation.html)!
+:::
+
+\
+\
+\
+\
+\
+
+::: {#exm-corr-zero-scatter}
+Sketch a scatterplot where $X$ and $Y$ have a correlation of 0, but they are not independent.
+:::
+
+\
+\
+\
+\
+\

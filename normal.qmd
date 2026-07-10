@@ -1,0 +1,368 @@
+# Normal Distributions
+
+{{< include _r_setup.qmd >}}
+
+
+
+-   Normal distributions are probably the most important distributions in probability and statistics.
+-   A continuous random variable $X$ has a **Normal** (a.k.a., Gaussian) distribution with mean $\mu\in (-\infty,\infty)$ and standard deviation $\sigma>0$ if its pdf is $$
+    f_X(x) = \frac{1}{\sigma\sqrt{2\pi}}\,\exp\left(-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2\right), \quad -\infty<x<\infty
+    $$
+-   If $X$ has a Normal($\mu$, $\sigma$) distribution then
+    \begin{align*}
+    \text{E}(X) & = \mu\\
+    \text{SD}(X) & = \sigma
+    \end{align*}
+-   A Normal density is a particular "bell-shaped" curve which is symmetric about its mean $\mu$. The mean $\mu$ is a *location* parameter: $\mu$ indicates where the center and peak of the distribution is.
+-   The standard deviation $\sigma$ is a *scale* parameter: $\sigma$ indicates the distance from the mean to where the concavity of the density changes. That is, there are inflection points at $\mu\pm \sigma$.
+
+::: {#exm-normal-pdf-matching}
+The pdfs in the plot below represent the distribution of hypothetical test scores in three classes.
+The test scores in each class follow a Normal distribution.
+Identify the mean and standard deviation for each class.
+:::
+
+
+```{r}
+#| label: fig-normal-pdfs
+#| echo: false 
+
+knitr::include_graphics(c("_graphics/normal-pdfs.png"))
+
+```
+
+```{python}
+#| eval: false
+#| echo: false
+
+plt.figure()
+Normal(60, 10).plot()
+Normal(70, 10).plot()
+Normal(70, 5).plot()
+plt.show()
+
+```
+
+-   Any Normal distribution follows the "empirical rule" which determines the percentiles that give a Normal distribution its particular bell shape.
+-   For a Normal distribution:
+    -   38% of values are within 0.5 standard deviations of the mean
+    -   68% of values are within 1 standard deviation of the mean
+    -   87% of values are within 0.5 standard deviations of the mean
+    -   95% of values are within 2 standard deviations of the mean
+    -   99% of values are within 2.6 standard deviations of the mean
+    -   99.7% of values are within 3 standard deviations of the mean
+-   The table below lists some percentiles of a Normal distribution.
+
+```{r}
+#| echo: false
+#| label: tbl-empirical-rule
+#| tbl-cap: "Selected percentiles for a Normal distribution"
+
+p = c(0.001, 0.005, 0.01, 0.025, 0.10, pnorm(-1), 0.25, pnorm(-0.5), 0.5, pnorm(0.5), 0.75, pnorm(1), 0.90, 0.975, 0.99, 0.995, 0.999)
+
+z = round(qnorm(p), 2)
+
+data.frame(p = paste(round(100 * p, 1), "%", sep = ""),
+           z = paste(abs(z), "SDs", if_else(z<0, "below", "above"), "the mean")) %>%
+  kbl(col.names = c("Percentile", "SDs away from the mean"),
+      align = c('r', 'l')) %>%
+  kable_styling(fixed_thead = TRUE)
+
+```
+
+```{r}
+#| label: fig-normal-empirical-rule
+#| echo: false
+
+knitr::include_graphics(c("_graphics/normal_empirical.png"))
+
+```
+
+```{r}
+#| label: fig-standard-normal-spinner
+#| echo: false
+#| layout-ncol: 2
+#| fig-cap: "A standard Normal(0, 1) spinner. The same spinner is displayed on both sides, with different features highlighted on the left and right. Only selected rounded values are displayed, but in the idealized model the spinner is infinitely precise so that any real number is a possible outcome. Notice that the values on the axis are *not* evenly spaced."
+
+n = 12
+
+xp <- data.frame(
+  x = (0:(n-1))/n,
+  p = rep(1/n, n)
+  )
+
+cdf = c(0, cumsum(xp$p))
+
+plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
+  
+spinner1 <- ggplot(xp, aes(x="", y=p, fill=x))+
+  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
+  coord_polar("y", start=0) +
+  theme_void() +
+  # plot the possible values on the outside
+  scale_y_continuous(breaks = xp$x, minor_breaks = (0:99)/100, labels=c("...|...", round(0 + 1 * qnorm(xp$x[-1]), 2))) +
+  theme(axis.text.x=element_text(size=12, face="bold")) +
+      annotate(geom="segment", y=(0:99)/100, yend = (0:99)/100,
+             x=1.48, xend= 1.52) +
+  # plot the probabilities as percents inside
+  ggtitle(paste("Standard Normal(0, 1) model", sep=""))
+
+spinner1
+
+
+x = c("","<-2",-1, 0, 1, ">2")
+p = c(pnorm(-2), pnorm(-1:2) - pnorm(-2:1), 1-pnorm(2))
+
+xp <- data.frame(x, p)
+
+cdf = c(0, cumsum(xp$p))
+
+
+
+plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
+  
+spinner2 <- ggplot(xp, aes(x="", y=p, fill=x))+
+  geom_bar(width = 1, stat = "identity", color="black", fill="white", linetype=1) + 
+  # coord_polar("y", start=0) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  # plot the possible values on the outside
+  scale_y_continuous(breaks = cdf[-c(1, length(cdf))], labels=c(-2, -1, 0, 1, 2)) +
+  # theme(axis.text.x=element_text(angle=c(90-180/50*(0:49), -90-180/50*(50:99)), size=8)) +
+  theme(axis.text.x=element_text(angle = 0, size=12, face="bold")) +
+  annotate(geom="segment", y=(0:11)/12+0.000, yend = (0:11)/12+0.000,
+           x=1.48, xend= 1.52) +
+  # plot the probabilities as percents inside
+    geom_text(aes(y = plotp,
+                label = percent(p, accuracy = 0.1)), size=4, color=c("white",rep("black",4), rep("white",1))) +
+  ggtitle(paste("Standard Normal(0, 1) model", sep=""))
+
+spinner2
+```
+
+-   The Normal(0, 1) distribution (mean 0, SD 1) is called the "Standard Normal" distribution
+-   Standardization:
+    -   If $X$ has a Normal($\mu$, $\sigma$) distribution then $Z = \frac{X-\mu}{\sigma}$ has a Normal(0, 1) distribution
+    -   If $Z$ has a Normal(0, 1) distribution then $X = \mu + \sigma Z$ has a Normal($\mu$, $\sigma$) distribution
+
+::: {#exm-normal-weight}
+The wrapper of a package of candy lists a weight of 47.9 grams.
+Naturally, the weights of individual packages vary somewhat.
+Suppose package weights have an approximate Normal distribution with a mean of 49.8 grams and a standard deviation of 1.3 grams.
+:::
+
+1.  Sketch the distribution of package weights. Carefully label the variable axis. It is helpful to draw two axes: one in the measurement units of the variable, and one in standardized units.\
+    \
+    \
+    \
+    \
+2.  Why wouldn't the company print the mean weight of 49.8 grams as the weight on the package?\
+    \
+    \
+    \
+    \
+3.  Estimate the probability that a package weighs less than the printed weight of 47.9 grams.\
+    \
+    \
+    \
+    \
+4.  Estimate the probability that a package weighs between 47.9 and 53.0 grams.\
+    \
+    \
+    \
+    \
+5.  Suppose that the company only wants 1% of packages to be underweight. Find the weight that must be printed on the packages.\
+    \
+    \
+    \
+    \
+6.  Find the 25th percentile (a.k.a., first (lower) quartile) of package weights.\
+    \
+    \
+    \
+    \
+7.  Find the 75th percentile (a.k.a., third (upper) quartile) of package weights. How can you use the work you did in the previous part?\
+    \
+    \
+    \
+    \
+
+```{r}
+#| echo: false
+#| layout-ncol: 2
+
+mu = 49.8
+sig = 1.3
+
+z = seq(-3, 3, 0.0001)
+za = -3:3
+xa = mu + za * sig
+
+
+plot(z, dnorm(z), xlim=range(z),
+     type = "l",
+     yaxt='n', xaxt='n', ylab = "", xlab = "", lwd = 2,
+     main = "Normal(49.8, 1.3)") 
+axis(1, at = za, labels = xa, line=0.5,cex.axis=1.0)
+axis(1, at = za, labels = za, line=2.7,cex.axis=1.0)
+# axis(1, at = xa, labels = seq(-4, 4, 1), line=2.7,cex.axis=1.0)
+mtext("standard units",cex=0.80, side=1, line=3.5, at=-3.7)
+mtext("grams",cex=0.80,side=1,line=1.3,at=-3.7)
+      
+   
+
+
+mu = 49.8
+sig = 1.3
+xl = 47.9
+zl = round((xl-mu)/sig,2)
+xr = 51.0
+zr = round((xr-mu)/sig,2)
+zlim = 3.0
+xlim1 = mu-zlim*sig
+xlim2 = mu+zlim*sig
+cols = "orange"
+
+# area to the left
+x=xl
+z=zl
+par(mar=c(5,4,2,2)+0.1)
+curve(dnorm(x,0,1),xlim=c(-zlim,zlim),ylim=c(0,dnorm(0)),main="",col="black",lwd=3,xlab="",ylab="density",xaxt='n', yaxt = 'n') 
+axis(1, at = c(-zlim,0,zlim),labels=c("",mu,""),line=0.5,cex.axis=1.0)
+axis(1, at=c(-zlim,0,zlim),labels=c("",0,""),cex.axis=1.0,line=2.7)
+axis(1, at=c(-zlim,z),labels=c("",x),cex.axis=1.0,line=0.5,col=cols,lwd=6)#tck=0
+axis(1, at=c(-zlim,z),labels=c("",z),cex.axis=1.0,line=2.7,col=cols,lwd=6)
+mtext("standard units",cex=0.80,side=1,line=3.5,at=-3.7)
+mtext("grams",cex=0.80,side=1,line=1.3,at=-4.0)
+#mtext("data units",cex=0.80,side=1,line=3.5,at=-3.9)
+cord.x <- c(-zlim,seq(-zlim,z,0.01),z) 
+cord.y <- c(0,dnorm(seq(-zlim,z,0.01)),0) 
+polygon(cord.x,cord.y,col=cols)
+
+
+
+
+```
+
+
+::: {#exm-normal-temp}
+Daily high temperatures (degrees Fahrenheit) in San Luis Obispo in August follow (approximately) A Normal distribution with a mean of 76.9 degrees F.
+The temperature exceeds 100 degrees Fahrenheit on about 1.5% of August days.
+:::
+
+1.  What is the standard deviation?\
+    \
+    \
+    \
+    \
+2.  Suppose the mean increases by 2 degrees Fahrenheit. On what percentage of August days will the daily high temperature exceed 100 degrees Fahrenheit? (Assume the standard deviation does not change.)\
+    \
+    \
+    \
+    \
+3.  A mean of 78.9 is 1.02 times greater than a mean of 76.9. By what (multiplicative) factor has the percentage of 100-degree days increased? What do you notice?\
+    \
+    \
+    \
+    \
+
+::: {#exm-effect-size}
+In a large class, scores on midterm 1 follow (approximately) a Normal$(\mu_1, \sigma)$ distribution and scores on midterm 2 follow (approximately) a Normal$(\mu_2, \sigma)$ distribution.
+Note that the SD $\sigma$ is the same on both exams.
+The 40th percentile of midterm 1 scores is equal to the 70th percentile of midterm 2 scores.
+Compute
+
+$$
+\frac{\mu_1-\mu_2}{\sigma}
+$$
+
+(This is one statistical measure of *effect size*.)
+:::
+
+\
+\
+\
+\
+\
+
+
+::: {#exm-normal-errors}
+A bank uses an applicant's score on some criteria to decide whether or not to approve their loan application.
+Based on past history, the bank has determined that 
+:::
+- Scores for those who repay the loan follow a Normal distribution with mean 60 and SD 8
+- Scores for those who do NOT repay the loan follow a Normal distribution with mean 40 and SD 12
+ 
+When someone applies for a loan the bank does not know whether the applicant will eventually repay the loan.
+How can the bank use the applicant's score to decide whether or not to approve the loan?
+
+1. Draw sketches of these two normal curves on the same axis.\ 
+    \
+    \
+    \
+    \
+1. Suggest a decision rule, based on an applicant's score, for deciding whether or not to approve the applicant's loan.\
+    \
+    \
+    \
+    \
+1. Describe the two kinds of classification errors that could be made in this situation.\
+    \
+    \
+    \
+    \
+1. Determine the probability that we incorrectly reject the application of someone who would repay.
+Shade in the corresponding region under the Normal curve, and interpret this probability.\
+    \
+    \
+    \
+    \
+1. Determine the probability that we incorrectly approve the application of someone who would NOT repay.
+Shade in the corresponding region under the Normal curve, and interpret this probability.\
+    \
+    \
+    \
+    \
+1. In which direction --- smaller or larger --- would you need to change the decision rule's cutoff value in order to decrease the probability that an applicant who would repay the loan is incorrectly rejected?\
+    \
+    \
+    \
+    \
+1. Would the probability of the other kind of error --- incorrectly approving a loan for an applicant who would not repay it --- increase or decrease with this new cutoff value?\
+    \
+    \
+    \
+    \
+1. Determine the cutoff value needed to decrease the probability that an applicant who would repay the loan is incorrectly rejected to 0.05.\
+    \
+    \
+    \
+    \
+1. Determine the other error probability with this new cut-off rule.\ 
+    \
+    \
+    \
+    \
+1. Now repeat the two previous parts with the goal of decreasing to 0.05 the probability of incorrectly approving an applicant who would not repay the loan.\
+    \
+    \
+    \
+    \
+1. If you consider the two kinds of errors to be equally serious, how might you decide which of the three decision rules considered so far is the best?\
+    \
+    \
+    \
+    \
+1. Which error do you think the bank would consider more serious?
+In which direction would that move the threshold?\
+    \
+    \
+    \
+    \
+
+
+- Making decisions/predictions based on data often involves trade-offs.
+- Decreasing the probability of one kind of error often comes at the expense of increasing the probability of another kind of error.
+
+
+

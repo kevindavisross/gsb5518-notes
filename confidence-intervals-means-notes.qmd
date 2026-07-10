@@ -1,0 +1,256 @@
+::: center
+**Handout 25\
+Confidence Intervals for Means**
+:::
+
+::: exer
+**Exercise 1**. When newborn babies eat, how long do they tend to eat
+for? We'll investigate using a small sample of two-week-old bottle-fed
+babies.
+:::
+
+1.  Define the parameter of interest in words.
+
+    **Solution:** $\mu$ is the population mean feeding length (minutes)
+    of newborn babies.
+
+2.  Use R to summarize the sample data.
+
+    **Solution:** See R. The sample size is $n=67$, the sample mean is
+    $\bar{x}=$ 14.1 minutes and the sample SD is $s =$ 7.0 minutes.
+
+3.  Recall the confidence interval formula we saw previously. Explain
+    why it's not a practically useful formula. Then suggest how we can
+    fix it.
+
+    **Solution:** $\bar{X}\pm z^* \sigma / \sqrt{n}$ is not useful
+    because the population SD $\sigma$ is unknown. Estimate it with the
+    sample SD $s$ and use $\bar{X}\pm z^* s / \sqrt{n}$. But not we have
+    to adjust the margin of error to account for the fact that we now
+    have two quantities --- $\bar{x}$ and $s$ --- that vary from
+    sample-to-sample but the $z^*$ factor only accounts for the
+    variability of one ($\bar{x}$). Replace $z^*$ with a slightly larger
+    multiple: $\bar{X}\pm t^* s / \sqrt{n}$.
+
+4.  Compute a 95% confidence interval based on the sample data
+
+    **Solution:** SE is $s/\sqrt{n}=7.0/\sqrt{67} = 0.86$. Margin of
+    error for 95% confidence is $2(0.86) = 1.7$. Endpoints of CI:
+    $14.1 \pm 2(0.86)\Rightarrow14.1\pm 1.7$.
+
+5.  Write a clearly worded sentence interpreting the confidence interval
+    in context. (Comment briefly on generalizability.)
+
+    **Solution:** We estimate with 95% confidence that the population
+    mean feeding length of newborn babies is between 12.3 and 15.8
+    minutes. (All babies in the sample were 2 weeks old and bottle-fed,
+    so want to be cautious about generalizing to other ages or other
+    feeding methods as these variables plausibly influence feeding
+    length.)
+
+-   A **one-sample $t$ confidence interval for a population mean** $\mu$
+    has endpoints $$\bar{X}\pm t^* \frac{S}{\sqrt{n}}$$
+
+-   where $S$ is the sample standard deviation
+    $S = \sqrt{\frac{1}{n-1}\sum_{i=1}^n\left(X_i - \bar{X}\right)^2}$
+    and $t^*$, the multiple corresponding to the confidence level, is
+    from the $t$ distribution with $n-1$ degrees of freedom.
+
+    -   $t^*$ is a little bigger than $z^*$ to account for the
+        additional sample-to-sample variability in $S$.
+
+    -   But in most situations, $t^*$ and $z^*$ are practically the
+        same.
+
+-   Assumptions:
+
+    -   Simple random sample from a large population, that is,
+        independent observations
+
+    -   No bias in data collection
+
+    -   Population mean is the parameter you want to estimate
+
+::: exer
+**Exercise 2**. In a recent study, the wedding planning website The Knot
+released the results of its annual "Real Weddings Survey," a survey of
+nearly 27,000 U.S. couples with accounts on TheKnot.com who were married
+in 2019. The survey reported[^1] that the average wedding (honeymoon
+excluded) cost \$33,900 in 2019. The sample SD was not reported; assume
+it's \$100,000.
+:::
+
+1.  Find an appropriate 95% confidence interval and write a sentence
+    reporting your conclusion.
+
+    **Solution:** SE is $100000/\sqrt{27000}= 608$ so CI is
+    $33900 \pm 2 \times 608$: $[32700, 35100]$. We estimate with 95%
+    confidence that the population mean price of a wedding, honeymoon
+    excluded, in the U.S. is between 32700 and 35100 dollars.
+
+2.  Consider the distribution of wedding prices. What shape do you
+    expect this distribution to have? Why?
+
+    **Solution:** Probably skewed to the right. Most weddings are cheap
+    or moderately priced, but there are some expensive weddings that
+    stretch over a wide range of values.
+
+3.  A student says, "The distribution of marriage prices is clearly
+    skewed to the right. Since it's not Normal the confidence interval
+    you computed in part (a), and the resulting conclusion about the
+    population mean, is not valid." Do you agree with this critique?
+    Explain.
+
+    **Solution:** This is actually OK. If we want a CI about the
+    population mean, it's the sample-to-sample distribution of sample
+    means that's important, not the distribution of individual values of
+    the variable. Since the sample size is so large here, the
+    sample-to-sample distribution of sample means will be relatively
+    Normal regardless of the shape of the population distribution of
+    individual values.
+
+4.  Considering that the distribution of marriage prices is skewed to
+    the right, suggest a valid criticism of what you did in part (a).
+
+    **Solution:** If the population distribution is skewed then the
+    population *median* might be a more appropriate measure of center
+    than the population mean. (What's a "typical" wedding price?).
+
+    -   The $t$ interval for the population mean is valid as long as the
+        sample size is large enough, regardless of the shape of the
+        population distribution.
+
+    -   However, if the population distribution is highly skewed, then
+        the population *median* might be a more appropriate parameter to
+        consider as a measure of center.
+
+    -   Which is more appropriate, the population mean or the population
+        median, depends on the purpose for the inference.
+
+    -   ALWAYS PLOT YOUR DATA, and consider the distribution of the
+        variable. If the values in a representative sample are skewed or
+        include large outliers, the same is also plausibly true for the
+        population.\
+
+5.  To what extent would you be willing to generalize your results? Why?
+
+    **Solution:** This is probably a biased sample. All the couples had
+    accounts on a wedding planning website. Couples with accounts on a
+    wedding planning website probably tend to spend more than couples
+    who don't have accounts. So we could generalize to "planned"
+    weddings, but the values are probably overestimates when applied to
+    all weddings in the U.S.\
+
+    -   The confidence interval procedures we will encounter assume that
+        the data are collected in an unbiased way from a random sample.
+
+    -   If there is bias present in data collection then the observed
+        statistic (i.e. the center of the confidence interval) is likely
+        to be a poor estimate of the parameter.
+
+    -   The margin of error in a confidence interval only accounts for
+        sampling variability, NOT bias.
+
+    -   To see if bias is present --- in which case the confidence
+        interval cannot be trusted --- ask: how were the data
+        collected?\
+
+::: exer
+**Exercise 3**. Do newborns from mothers who smoke tend to weigh less at
+birth than newborns from mothers who don't smoke? The following
+summarizes data on a sample of cases in North Carolina over a one year
+period.
+
+![image](C:/Users/kjross/Documents/Handout_graphs/babysmoke.png){width="50%"}
+:::
+
+1.  Suggest a reasonable statistic that could be used to construct a
+    confidence interval to address the question of interest.
+
+    **Solution:** Difference in sample means,
+    $\bar{x}_{NS}-\bar{x}_S = 7.14 - 6.83 = 0.31$ pounds.\
+
+2.  Compute and interpret the SE of the statistic from the previous
+    part.
+
+    **Solution:** Assuming the samples are independent, $\bar{X}_{NS}$
+    and $\bar{X}_S$ are independent, so
+    $$\textrm{Var}(\bar{X}_{NS} - \bar{X}_S) = \textrm{Var}(\bar{X}_{NS}) + \textrm{Var}(\bar{X}_S)$$
+    Therefore $$\begin{aligned}
+    \textrm{SE}(\bar{X}_{NS} - \bar{X}_S) & = \sqrt{\textrm{SE}^2(\bar{X}_{NS}) + \textrm{SE}^2(\bar{X}_S)}\\
+    & = \sqrt{\left(\frac{1.52}{\sqrt{873}}\right)^2+ \left(\frac{1.39}{\sqrt{126}}\right)^2}\\
+    = & \sqrt{0.051^2 + 0.124^2} = 0.131
+    \end{aligned}$$ Measures the sample-to-sample variability of
+    differnences in meansm over many sets of (non-smoker, smoker)
+    samples.\
+
+    -   We are often interested in comparing parameters for two (or
+        more) populations.
+
+    -   If two samples are selected *independently* from each of two
+        populations, then an approximate $1-\alpha$ CI for
+        $\theta_1-\theta_2$ has endpoints
+        $$\hat{\theta}_1 - \hat{\theta}_2 \pm t^*\, \textrm{SE}(\hat{\theta}_1 - \hat{\theta}_2)$$
+        where
+        $$\textrm{SE}(\hat{\theta}_1 - \hat{\theta}_2) = \sqrt{\textrm{SE}(\hat{\theta}_1)^2 + \textrm{SE}(\hat{\theta}_2)^2}$$
+
+    -   The above assumes that $\hat{\theta}_1$ and $\hat{\theta}_2$
+        each have an approximate Normal distribution, and so, since they
+        are independent, $\hat{\theta}_1 - \hat{\theta}_2$ also has an
+        approximate Normal distribution.
+
+    -   A difference provides an absolute comparison between groups.
+
+        -   Ratios can be used to provide relative comparisons (but the
+            CI formulas are more complicated)\
+
+3.  Compute and interpret an appropriate 95% confidence interval.
+
+    **Solution:** Would use $t^*$; degrees of freedom can get tricky -
+    let software do it for you. But unless degrees of freedom are small
+    or you're far out in the tails, $t$ and Normal are pretty
+    interchangeable.
+
+    95% CI has endpoints:
+    $0.31 \pm 2\times 0.131\Rightarrow [0.05, 0.57]$ pounds.
+
+    We estimate with 95% confidence that the population mean birthweight
+    is between 0.05 to 0.57 *pounds* larger for babies of non-smokers
+    than for babies of smokers.
+
+4.  Can we reasonably conclude that newborns from mothers who smoke tend
+    to weigh less at birth than newborns from mothers who don't smoke?
+    Explain.
+
+    **Solution:** A value of 0 indicates no difference in population
+    means. The CI does not contain 0; all plausible values indicate a
+    greater mean birthweight for non-smokers that smokers. Yes, with 95%
+    confidence we can conclude that newborns from mothers who smoke tend
+    to weigh less at birth than newborns from mothers who don't smoke.
+
+    But remember, any conclusions like this assume we have a
+    representative sample. Always investigate how the data were
+    collected to identify plausible sources of meaningful bias. We
+    weren't given much information about how the data were collected.
+    One potential source of bias is that all the births were from NC, a
+    "big tobacco" state. Habits of smokers in NC could be different than
+    habits of smokers in other places. Also, just because there wasn't
+    much impact in terms of birthweights, there could still be many
+    other potential negative health outcomes associated with smoking.
+
+5.  Can we reasonably conclude that newborns from mothers who smoke tend
+    to weigh less at birth than newborns from mothers who don't smoke
+    *because* the mother smokes?
+
+    **Solution:** No, could be other ways in which the smoking and
+    non-smoking mothers and one of these other differences might be the
+    cause of the difference in birthweight. There are many potential
+    *confounding variables*, such as general level of health.
+
+    -   Maybe mothers who are healthier in general tend to be
+        non-smokers
+
+    -   Maybe mothers who are healthier in general tend to have higher
+        birthweight babies.
+
+[^1]: Source: <https://www.theknot.com/content/average-wedding-cost>

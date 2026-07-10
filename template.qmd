@@ -1,0 +1,6 @@
+# Independence of Events
+
+{{< include _r_setup.qmd >}}
+
+{{< include _python_setup.qmd >}}
+

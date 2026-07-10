@@ -1,0 +1,131 @@
+# Maximum Likelihood Principle
+
+::: {#exm-ml-principle}
+Suppose we are willing to assume a Poisson($\mu$) model
+for the number of cars sold in a day at a particular car dealership.
+But we don't know the value of $\mu$, so we'll collect
+data and use it to estimate $\mu$.
+Suppose first that we observe just a single day; let $X$ be the number of cars sold on this day.
+(We'll look at a sample of $n$ days soon.)
+:::
+
+1.  Does $X$ take values on a discrete or continuous scale? What about
+    $\mu$?
+
+    **Solution:** The variable $X$ counts HRs and takes values on a
+    discrete scale, 0, 1, 2, $\ldots$.
+
+    The parameter $\mu$ can take any value on the continuous scale
+    $\mu>0$.\
+
+2.  *First some probability questions.* Assume $\mu=2.3$. Find the pmf
+    of $X$ and sketch a plot of it; what is this a function of? Find and
+    interpret the probability that in a single game there are 3 home
+    runs.
+
+    **Solution:** The pmf is a function of values of the variable $X$
+    $$\begin{aligned}
+    p_{\mu = 2.3}(x) &  = e^{-2.3}\frac{2.3^x}{x!}, \qquad x = 0, 1, 2, \ldots\\
+    p_{\mu = 2.3}(0) & = e^{-2.3}\frac{2.3^0}{0!} = 0.10\\
+    p_{\mu = 2.3}(3) & = e^{-2.3}\frac{2.3^3}{3!} = 0.20
+    \end{aligned}$$ About 10% of games have 0 HRs, and about 20% of
+    games has 3 HRs.\
+
+3.  *Now back to some statistics questions.* Now remember that in
+    reality $\mu$ is unknown. Suppose that $x=3$ home runs are observed
+    in a single game. Now write the pmf plugging in everything we know;
+    what is this a function of? Is this function a pmf?
+
+    **Solution:** This likelihood function is a function of the
+    parameter $\mu$
+    $$L(\mu) \equiv L_{x=3}(\mu) = p_\mu(3) = e^{-\mu}\mu^3/3!, \qquad \mu > 0$$
+    This is NOT a pmf. It provides the probability only of observing
+    $x = 3$, but for different potential values of $\mu$.
+
+4.  Compute and intepret the probability that in a single game there are
+    3 home runs if $\mu = 2.3$.
+
+    **Solution:** $$L(2.3) = e^{-2.3}2.3^3/3! = 0.203$$ If over many
+    games home runs follow a Poisson distribution with parameter
+    $\mu = 2.3$, then 20.3% of games have 3 home runs.
+
+5.  Compute and interpret the probability that in a single game there
+    are 3 home runs if $\mu = 1$.
+
+    **Solution:** $$L(1) = e^{-1}1^3/3! = 0.061$$ If over many games
+    home runs follow a Poisson distribution with parameter $\mu = 1$,
+    then 6.1% of games have 3 home runs.
+
+6.  Compute and interpret the probability that in a single game there
+    are 3 home runs if $\mu = 5$.
+
+    **Solution:** $$L(5) = e^{-5}5^3/3! = 0.140$$ If over many games
+    home runs follow a Poisson distribution with parameter $\mu = 5$,
+    then 14.0% of games have 3 home runs.
+
+7.  Compute and interpret the probability that in a single game there
+    are 3 home runs if $\mu = 3.5$.
+
+    **Solution:** $$L(3.5) = e^{-3.5}3.5^3/3! = 0.216$$ If over many
+    games home runs follow a Poisson distribution with parameter
+    $\mu = 3.5$, then 21.6% of games have 3 home runs.
+
+8.  Suppose that $x=3$ home runs are observed in a single game. Which
+    value --- 1, 2.3, 3.5, or 5 --- would you choose as your estimate
+    for $\mu$? Why?
+
+    **Solution:** Among these choices, $x=3$ has the highest probability
+    of occurring if $\mu = 3.5$. For example, $x=3$ home runs only
+    occurs in 6.1% of games when $\mu=1$ compared with 21.6% of games
+    when $\mu = 3.5$. In this sense, the data $x=3$ --- which is what we
+    actually observed --- seems more "consistent" with a value of
+    $\mu=3.5$ than for the other values. So we would choose 3.5 as our
+    estimate of $\mu$ from among these choices.\
+
+    ![image](C:/Users/kjross/Documents/Handout_graphs/likelihood){width="90%"}
+
+9.  We obviously have more choices for our estimate of $\mu$ than just
+    1, 2.3, 3.5, or 5. Describe in principle the process you would
+    follow to find the estimate of $\mu$ based on a single game with 3
+    home runs.
+
+    **Solution:** Given $x=3$, plot the likelihood function $L(\mu)$ as
+    a function of $\mu$ and find the value $\hat{\mu}$ which maximizes
+    the probability of observing $x=3$. In this sense, the data $x=3$
+    --- which is what we actually observed --- seems most "consistent"
+    with the value $\hat{\mu}$. Note that $\hat{\mu}$ depends on $x=3$;
+    observing a different $x$ would lead to a different likelihood
+    function and hence a different maximum likelihood estimate of $\mu$.
+
+
+
+-   Consider a single observation $X$ from a population $p_\theta$ with
+    parameter $\theta$: Let $X\sim p_\theta$. The **likelihood
+    function** given $X=x$ is defined as
+    $$L(\theta) \equiv  L_x(\theta) = p_\theta(x)$$
+
+-   That is, the likelihood function is the probability (or density for
+    continuous data $X$) of observing the given sample data $x$ viewed
+    as a *function of the unknown parameter(s)* $\theta$. The observed
+    value of $x$ (data) is treated as a fixed constant.
+
+-   The *maximum likelihood estimate* of $\theta$ is the value of
+    $\theta$ for which the observed data has the highest likelihood of
+    occurring.
+
+-   The **maximum likelihood estimator (MLE)** of $\theta$ is the RV
+    $\hat{\theta}$ which maximizes the likelihood, i.e. the value
+    $\hat{\theta}$ which satisfies
+    $$L(\hat{\theta}) \ge L(\theta) \text{ for all } \theta.$$
+
+-   Remember that an estimator $\hat{\theta}$ is a function of $X$, the
+    observed data.
+
+-   It is often convenient to consider the **log-likelihood function**
+    of $\theta$
+    $$\ell(\theta) \equiv \ell_x(\theta) = \log L_x(\theta)\\
+    $$
+
+-   Because $\log$ is an increasing function it follows that
+    $\hat{\theta}$ is the MLE of $\theta$ if and only if
+    $$\ell(\hat{\theta}) \ge \ell(\theta) \text{ for all } \theta.$$

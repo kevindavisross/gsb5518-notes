@@ -1,0 +1,508 @@
+::: center
+**Handout 24\
+Confidence Intervals: Concepts**
+:::
+
+-   The estimators we have considered so far are *point* estimators; we
+    estimate the population parameter $\theta$, an unknown number, by
+    the observed sample statistic $\hat{\theta}$, a number which can be
+    computed based on sample data.
+
+-   For a particular sample a particular numerical value of
+    $\hat{\theta}$ is observed, but there are many possible randomly
+    selected samples and many possible values of the random variable
+    $\hat{\theta}$.
+
+-   While for any particular sample we hope the observed value of
+    $\hat{\theta}$ is close to the true value of $\theta$, there will be
+    some error in estimation due to natural sample-to-sample
+    variability.
+
+-   Because of this natural sample-to-sample variability, it is better
+    to provide a range of values when estimating a parameter. This range
+    of values is often (but not always) of the form: point estimate
+    $\pm$ margin of error. The margin of error is chosen so that for
+    "most" samples, the resulting interval will contain the true
+    parameter value.
+
+::: exer
+**Exercise 1**. Suppose we wish to estimate the population mean $\mu$ of
+a Normal distribution based on a sample of size $n$. For now, we'll
+assume the population SD $\sigma$ is known. For example, suppose that
+body temperatures (degrees F) of healthy adults follow a Normal
+distribution with mean $\mu$ and SD $\sigma = 1.2$ degrees F. We wish to
+estimate $\mu$ based on data from a sample of 208 healthy adults with
+sample mean body temperature 97.7 degrees F[^1]. (Known population SD is
+an unrealistic assumption. We will see how to handle unknown $\sigma$
+later.)
+:::
+
+1.  Two choices for the plausible range for $\mu$ are
+    $97.7\pm 3 \Rightarrow [94.7, 100.7]$ and
+    $97.7\pm 0.001 \Rightarrow [97.699, 97.701]$. What are the
+    advantages and disadvantages of each?
+
+    **Solution:** The first interval is definitely correct; it's true
+    *average* healthy adult body temp is somewhere between 94.7 and
+    100.7 degrees F. But this interval is so imprecise that it doesn't
+    give us any useful information.
+
+    The second interval is much more precise. Saying average healthy
+    adult body temp is between 97.699 and 97.701 is a much more
+    informative conclusion. But is it correct? As an extreme, we could
+    have said average body temperature of healthy adults *in general* is
+    97.7 degrees F; a very precise statement but almost definitely
+    wrong, because why should the sample mean match the population mean
+    exactly? So there's a tradeoff between precision and accuracy.
+
+    -   In determining a plausible range of values, there is a trade-off
+        between
+
+        -   Accuracy: does the true parameter value fall within the
+            estimated range of values?
+
+        -   Precision: the width of the range of estimated values
+
+    -   The usual approach is to specify a desired degree of accuracy.
+        Specifically, interval estimates are constructed so that they
+        will be accurate "most of the time".
+
+    -   A **confidence interval** estimates a population parameter based
+        on sample data with
+
+        -   a plausible range of values and
+
+        -   a **confidence level** that the estimated range contains the
+            true parameter value.
+
+            -   By far, the most commonly used confidence level is 95%.
+                (But see the material about multiple CIs at the end of
+                this handout.)
+
+    -   The endpoints of a confidence interval are usually given by
+        $$\text{observed statistic} \pm \text{margin of error}$$
+
+2.  What do you think will affect the margin of error? Consider the
+    previous part. Also consider: what if the sample size had been 2080?
+    Would the margin of error be larger or smaller? Why? How about if
+    $\sigma$ were 0.6 degrees F?
+
+    **Solution:** One thing is our level of confidence; a greater degree
+    of confidence requires a wider interval and a larger margin of
+    error.
+
+    More importantly, the whole reason that we need an interval in the
+    first is because samples exhibit natural sample-to-sample
+    variability. If there is a lot of sample-to-sample variability ---
+    e.g., if one sample gives a sample mean of 97.7 and another of 96.3
+    and another of 98.9 --- then we need a wider interval. If there is
+    little variability ---- e.g., if one sample gives a sample mean of
+    97.7 and another of 97.9 and another of 97.6 --- then we can get
+    away with a narrower and more precise interval.
+
+    The main thing that impacts sample-to-sample variability of sample
+    means is sample size. As the sample size increases, the
+    sample-to-sample variability of sample means decreases. So the
+    larger the sample size, the smaller the required margin of error for
+    95% confidence, and the narrower and more precise the interval. The
+    sample-to-sample variability of sample means is also influenced by
+    the unit-to-unit population SD of individual value of the variables.
+
+    The more body temperatures vary from person to person, the more
+    sample means will vary from sample to sample, and the wider and less
+    precise the interval required.
+
+    -   The **margin of error** accounts for
+
+        -   the confidence level (e.g. 95%),
+
+            -   The larger the confidence level, the larger the margin
+                of error --- and the wider the range of plausible values
+                --- required to achieve that level of confidence.
+
+        -   and the degree of sample-to-sample variability (SE) of the
+            statistic.
+
+            -   In general, the less variable the statistic (from sample
+                to sample) the smaller the margin of error and the
+                narrower the interval.
+
+            -   In particular, the larger than sample size, the smaller
+                the SE of the statistic, the smaller the margin of error
+                and the narrower the interval.\
+
+3.  Fill in the blank with both a general expression and the numerical
+    value for this problem: for 95% of samples, the sample mean
+    $\bar{X}$ is within \[blank\] of the population mean $\mu$.
+
+    **Solution:** The sample-to-sample variability of $\bar{X}$ is
+    $\sigma/\sqrt{n} = 1.2/\sqrt{208} = 0.083$. Assuming $n$ is large
+    enough so that $\bar{X}$ has a Normal distribution (which is true
+    for any $n$ if the individual values are Normal), 95% of values of
+    $\bar{X}$ are within $2\sigma/\sqrt{n}=2(0.083) = 0.166$ of $\mu$.
+    (You might sometimes see 1.96 instead of 2; either is fine, 2 is
+    simpler and conveys less of a false sense of precision.)
+
+4.  Fill in $m$ with both a general expression and the numerical value
+    for this problem: for 95% of samples, the interval with endpoints
+    $\bar{X}\pm m$ will contain the population mean $\mu$.
+
+    **Solution:** $2\sigma/\sqrt{n}=2(0.083) = 0.166$. This is just a
+    restatement of the previous part. The samples where $\bar{X}$ is
+    within $2\sigma/\sqrt{n}$ are the samples where the interval with
+    endpoints $\bar{X}\pm  2\sigma/\sqrt{n}$ contains $\mu$.
+
+5.  Use the procedure in the previous part to estimate $\mu$ based on
+    the sample data ($n = 208$, $\bar{x}= 97.7$), and interpret your
+    estimate.
+
+    **Solution:** We're assuming $\sigma=1.2$ so with $n=208$ the margin
+    of error for 95% confidence is
+    $2\sigma/\sqrt{n} = 2(1.2)/\sqrt{208}=2(0.083)=0.166$. A 95%
+    confidence interval for $\mu$ has endpoints
+    $97.7\pm2(0.083)\Rightarrow 97.7\pm 0.166$ for an interval of
+    $[97.5, 97.9]$. We estimate with 95% confidence that the population
+    mean healthy human body temperature is between 97.5 and 97.9 deg F.
+
+6.  Does the 95% confidence interval you computed in the previous part
+    provide an accurate estimate of the corresponding parameter? That
+    is, is $\mu$ contained within the CI? Explain.
+
+    **Solution:** We don't know! We don't know what the true value of
+    $\mu$ is; that's why we need to estimate it. We're "95% confident"
+    that the interval contains the true value of $\mu$, but we don't
+    know for sure. We could be wrong.
+
+    Another issue is potential bias in data collection. Confidence
+    intervals only account for sample-to-sample variability, but what
+    about bias in data collection? We need to ask: How were the data
+    collected? See the part about generalizing below.
+
+    -   Because the value of the parameter is *unknown*, we never know
+        for sure whether any one confidence interval contains the
+        parameter or not.
+
+    -   But the procedure guarantees that in the long run --- that is,
+        over many unbiased random samples --- "most" confidence
+        intervals will contain the parameter, regardless of what the
+        true value of the parameter is. "Most" is determined by the
+        level of confidence.\
+
+7.  Could you reasonably conclude that population mean human body
+    temperature is less than 98.6 degrees F? Why?
+
+    **Solution:** The confidence interval lies entirely below the value
+    98.6. So yes, we can conclude with 95% confidence that population
+    mean body temp is less than 98.6 degrees F. But we could be wrong.
+    We're confident that we're right, but we'll never know for sure.
+    (There's lots of evidence that 98.6 is a very outdated number that
+    unfortunately persists; see the article links in the above
+    footnote.)
+
+    -   Any value within the confidence interval is a plausible value of
+        the parameter
+
+    -   Values outside of the confidence interval are not plausible
+        values of the parameter
+
+    -   The CI could be wrong; we are confident that it is correct, but
+        we'll never know for sure\
+
+8.  To what extent can you generalize your results? What are some issues
+    to consider?
+
+    **Solution:** We need to ask: How were the data collected? Assuming
+    it's a reasonably representative sample of healthy humans with
+    respect to body temperatures, there should be minimial bias. The
+    main thing to check would be to see where the temperatures were
+    collected to verify if the people could be reasonably considered
+    healthy. (If they were all taken during visits to the doctor, then
+    maybe some of the people where sick.)
+
+    When investigating bias, the crucial issue is who are the units in
+    the sample and how were they selected, rather than how many. Sample
+    size mainly affects sample-to-sample variability, and our margin of
+    error accounts for that.
+
+    -   There are two sources of differences between a statistic and a
+        corresponding parameter
+
+        -   systematic errors due to **bias**
+
+        -   "chance errors" due to **sampling variability**
+
+    -   While there is no bias inherent in simple random sampling from a
+        population, bias can be present in other ways, including
+        undercoverage, nonresponse, wording of questions, etc.
+
+    -   Bias concerns the *center* of the sampling distribution of a
+        statistic. A biased sampling procedure produces values which
+        consistently overestimate or consistently underestimate the
+        respective parameter.
+
+    -   The inference procedures --- confidence intervals and hypothesis
+        tests --- we will encounter assume that the data are collected
+        in an unbiased way from a random sample.
+
+    -   If there is bias present in data collection then the observed
+        statistic (i.e. the center of the confidence interval) is likely
+        to be a poor estimate of the parameter.
+
+    -   The margin of error in a confidence interval only accounts for
+        sampling variability, NOT bias.
+
+    -   To see if bias is present --- in which case the confidence
+        interval cannot be trusted --- ask: how were the data
+        collected?\
+
+9.  What if we wanted 95% confidence, but we wanted the margin of error
+    to be no bigger than 0.01. How could we achieve this?
+
+    **Solution:** Increase the sample size! Though this is sometimes
+    easier said than done. Collecting body temperatures for healthy
+    people is fairly easy. But in many situations there are many
+    obstacles to collecting more data: time, money, ethical
+    considerations, etc. (For example, testing on humans an experimental
+    vaccine for which the side effects are unknown.)
+
+-   A $1-\alpha$ **confidence interval** for $\theta$ is an *interval
+    estimator* of $\theta$ of the form\
+    $[L(X_1,\ldots,X_n), U(X_1,\ldots,X_n)]$ which satisfies
+    $$\textrm{P}_\theta\left(L(X_1,\ldots,X_n)\le \theta\le U(X_1,\ldots,X_n)\right) = 1-\alpha$$
+
+-   $L(X_1,\ldots,X_n)$ and $U(X_1,\ldots,X_n)$ represent, respectively,
+    the lower and upper endpoints of the interval. $L$ and $U$ are
+    *random variables* that vary from sample-to-sample.
+
+-   Typical values of $\alpha$ include 0.05 and 0.01. We express
+    $1-\alpha$ as a percentage. For example, $\alpha=0.05$ corresponds
+    to a 95% confidence interval.
+
+-   A confidence interval estimates a population parameter based on
+    sample data with
+
+    -   a plausible range of values and
+
+    -   a confidence level that the estimated range contains the true
+        parameter value.
+
+-   Often $L=\hat{\theta}-M$ and $U=\hat{\theta}+M$, where the **margin
+    of error** $M$ --- where $M$ can be a RV --- accounts for both the
+    sample-to-sample variability of $\hat{\theta}$ and the confidence
+    level.
+
+-   The margin of error is often of the form: multiple of standard error
+
+-   The multiple is determined by the confidence level and the
+    distribution of the point estimator $\hat{\theta}$ (e.g., 2 for 95%
+    confidence when the estimator follows a Normal distribution.)
+
+-   The **standard error** is the estimated sample-to-sample SD of the
+    estimator,
+    $\textrm{SE}(\hat{\theta})= \widehat{\textrm{SD}}(\hat{\theta})$.
+
+-   Many confidence intervals take the form
+    $$\text{statistic} \pm \text{multiple of its SE}$$
+
+-   The multiple (a.k.a. **critical value**) depends on the confidence
+    level and the shape of the sample-to-sample distribution of the
+    statistic over many samples.
+
+-   For many statistics (e.g. proportions, means, differences in means)
+    the sample-to-sample variation of values of the statistic over many
+    unbiased random samples has an approximate Normal shape centered at
+    the true value of the population parameter
+
+-   When the pattern of variation of the sample statistic can be
+    reasonably approximated by a Normal distribution, the multiple is
+    usually denoted $z^*$; common values include:\
+
+    ::: center
+      ------------------------------- ----- ----- ----- ------- --------
+      Confidence level ($1-\alpha$)     90%   95%   99%   99.7%   99.99%
+      Critical value ($z^*$)            1.7   2.0   2.6     3.0      4.0
+                                                                
+      ------------------------------- ----- ----- ----- ------- --------
+    :::
+
+    where $z^*$ is the critical value from the standard normal
+    distribution corresponding to level $1-\alpha$\
+
+::: exer
+**Exercise 2**. For each of the following statements, identify if it is
+a valid interpretation of the CI from the previous exercise. If not,
+explain why.
+:::
+
+1.  We estimate that 95% of the people in the population have body
+    temperatures between 97.5 and 97.9 degrees F.\
+
+    **Solution:** Not valid. Interval is about the mean, not individual
+    body temps.
+
+2.  We estimate with 95% confidence that the sample mean body
+    temperature is between 97.5 and 97.9 degrees F.\
+
+    **Solution:** Not valid. Interval is about the population mean; we
+    know what the sample mean is.
+
+3.  We estimate with 95% confidence that the population mean healthy
+    human body temperature is between 97.5 and 97.9 degrees F.\
+
+    **Solution:** Valid.
+
+4.  If many samples of size 208 were selected about 95% would produce a
+    CI of 97.5 to 97.9 degrees F.\
+
+    **Solution:** Not valid. The sample means and resulting intervals
+    will from sample to sample.
+
+5.  In about 95% of samples of size 208, the sample mean body
+    temperature will be between 97.5 and 97.9 degrees F.\
+
+    **Solution:** Not valid. Not making statements about the sample
+    mean.
+
+6.  In about 95% of samples of size 208, the population mean body
+    temperature will be between 97.5 and 97.9 degrees F.\
+
+    **Solution:** Not valid. $\mu$ is a number; it's either between 97.5
+    and 97.9 or not.
+
+7.  If many hypothetical unbiased random samples of size 208 were
+    selected, and a 95% confidence interval computed based on each
+    sample, about 95% of these confidence intervals would contain the
+    population mean body temperature.\
+
+    **Solution:** Valid. This is what "95% confidence" means.
+
+-   A CI is a conclusion about a population parameter --- a number that
+    *summarizes* the population (e.g. the population mean) --- and not
+    about individual values of a variable.
+
+-   The conclusions from inference regard the *population* from which
+    the random sample was selected; there is nothing to conclude for the
+    sample.
+
+-   No one particular sample (e.g. the one observed) or CI is
+    necessarily good or representative of the many other possible
+    samples or CIs.
+
+-   The randomness is in the *sampling procedure*, which determines $L$
+    and $U$, and not the parameter. The parameter $\theta$ is a fixed
+    number. After selecting the sample, there is no randomness left.
+    Either the CI contains the parameter or not; you just don't know
+    which it is.
+
+-   We are confident in our observed estimate because we are confident
+    in our estimation *procedure*
+
+    -   By considering what would happen over many hypothetical random
+        samples we are able to determine the necessary margin of error
+        so that our CIs would contain the parameter in 95% of samples.
+
+    -   Because the value of the parameter is unknown, we never know for
+        sure whether any one confidence interval contains the parameter
+        or not.
+
+    -   But the procedure guarantees that in the long run --- that is,
+        over many unbiased random samples --- "most" confidence
+        intervals will contain the parameter, regardless of what the
+        true value of the parameter is. "Most" is determined by the
+        level of confidence.
+
+![image](C:/Users/kjross/Documents/Handout_graphs/ci-applet-temp){width="80%"}
+
+::: exer
+**Exercise 3**. Suppose we wish to estimate population mean GPA of
+students at each of the 23 CSU campuses. For each campus, you select a
+random sample of students, collect the GPAs of the students, and then
+use the sample data to compute a 95% confidence interval. That is you
+compute 23 separate 95% confidence intervals, one for the population
+mean GPA at each campus.
+:::
+
+1.  First just consider Cal Poly. What is the probability that your
+    confidence interval based on the Cal Poly sample contains the true
+    population mean GPA at Cal Poly?
+
+    **Solution:** 0.95. 95% confidence means that for 95% of samples the
+    CI will contain the true parameter value. So the probability that we
+    get one of the "good" samples with a "good" interval is 0.95.
+
+2.  What is the probability that all 23 of your 95% confidence intervals
+    contain their respective population mean?
+
+    **Solution:** The probability that any single interval contains its
+    parameter is 0.95. The samples are selected independently, so the
+    probability that all 23 contain their respective parameters is
+    $0.95^{23} = 0.307$
+
+3.  How confident are you that all 23 of your 95% confidence intervals
+    contain their respective population mean?
+
+    **Solution:** Even though each interval is a 95% confidence
+    interval, we're only 30% confident that all the intervals contain
+    their respective parameters. Over many sets of 23 samples with 23
+    intervals, all the CIs contains their parameters in only 30% of
+    sets.
+
+    -   When computing multiple confidence intervals, the multiple
+        ($z^*$ or $t^*$) of each confidence interval should be increased
+        to account for the **issue of multiple comparisons**.
+
+        -   For example, with a multiple of 2 in a *single* confidence
+            interval, we are 95% confident that the interval contains
+            the corresponding parameter.
+
+        -   However, if we use a multiple of 2 for each of 10 confidence
+            intervals, we are only 60% confident[^2] that *all* of the
+            10 95% confidence intervals contain their respective
+            parameters.
+
+    -   A **Bonferroni** adjustment, splits the error rate evenly across
+        all intervals. For example, for simultaneous 95% confidence in
+        10 intervals (i.e. a total error rate of 0.05), use the
+        $z^*/t^*$ multiple for 99.5% confidence when constructing each
+        interval.
+
+        -   A Bonferroni adjustment guarantees **simultaneous
+            confidence**
+
+        -   But it is conservative, and tends to produce wider intervals
+            than necessary
+
+        -   There are other methods; for example, the *Tukey-Kramer
+            method* is often used for *all pairwise comparisons of
+            means* (e.g., in ANOVA)\
+
+4.  Suppose we want simultaneous 95% confidence that all 23 CIs contain
+    their respective mean. Find the $z^*$ multiple corresponding to a
+    Bonferroni adjustment. How many times wider will each CI be than the
+    unadjusted intervals?
+
+    **Solution:** The total error rate is 0.05, split over 23 intervals
+    gives 0.0022 for each, so we use the $z^*$ multiple for 99.78%
+    confidence. That is, we need to find the value $z^*$ which
+    satisfies: For a Normal distribution, 99.78% of values are within
+    $z^*$ SDs of the mean, so 0.11% in either tail. Using software
+    `qnorm(1 - 0.0011)` = 3.07.
+
+    Compared to the multiple of 2 for individual 95% confidence, each
+    interval is now 3.07/2 = 1.53 times wider, or about 53% wider.
+
+5.  How confident are you that all 23 of your adjusted confidence
+    intervals contain their respective population mean?
+
+    **Solution:** The probability that any single interval contains its
+    parameter is now 0.9978. The samples are selected independently, so
+    the probability that all 23 contain their respective parameters is
+    $0.9978^{23} = 0.951$. So we are simultaneously 95% confident that
+    all 23 of the CIs contain their respective population mean.
+
+[^1]: Source: <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6258625/>
+    and a [related
+    article](https://www.scientificamerican.com/article/are-human-body-temperatures-cooling-down/).
+
+[^2]: This number assumes independence of confidence intervals ---
+    $0.95^{10}\approx 0.60$ --- but similar ideas apply more generally.

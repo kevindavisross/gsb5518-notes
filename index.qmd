@@ -1,0 +1,3 @@
+# Preface {.unnumbered}
+
+This is a selection of Handouts for Cal Poly GSB 518, Essential Statistics for Business Analytics, covering topics in Probability and Statistics.

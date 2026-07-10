@@ -1,0 +1,98 @@
+# Homework 5 {.unnumbered}
+
+{{< include _r_setup.qmd >}}
+
+
+
+## Problem 1
+
+(Continuing from a previous HW) The latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3).
+Each package contains a single unknown prize.
+Suppose we only buy 3 packages and we consider as our sample space outcome the results of just these 3 packages (prize in package 1, prize in package 2, prize in package 3).
+For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package.
+Let $X$ be the number of distinct prizes obtained in these 3 packages.
+Let $Y$ be the number of these 3 packages that contain prize 1.
+Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages; let $\text{P}$ denote the corresponding probability measure.
+
+a.  Find the conditional distribution of $Y$ given $X=x$ for each possible value of $x$ of $X$.
+b.  Compute and interpret $\text{E}(Y|X=x)$ for each possible value of $x$ of $X$.
+c.  Find the conditional distribution of $X$ given $Y=y$ for each possible value of $y$ of $Y$.
+d.  Compute and interpret $\text{E}(X|Y=y)$ for each possible value of $y$ of $Y$.
+e.  Explain how you could use spinners to implement the "marginal then conditional" method to simulate an $(X, Y)$ pair.
+f.  Suppose you have simulated many $(X, Y)$ pairs. Explain how you could use the simulation results to approximate:
+    i.  $\text{P}(X = 1 | Y = 0)$
+    ii. the conditional distribution of $X$ given $Y=0$
+    iii. $\text{E}(X| Y = 0)$
+
+## Problem 2
+
+Xavier and Yolanda are playing roulette.
+They both place bets on red on the same 3 spins of the roulette wheel before Xavier has to leave.
+(Remember, the probability that any bet on red on a single spin wins is 18/38.) After Xavier leaves, Yolanda places bets on red on 2 more spins of the wheel.
+Let $X$ be the number of bets that Xavier wins and let $Y$ be the number that Yolanda wins.
+
+a.  Identify by name the marginal distribution of $X$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(X)$.
+b.  Identify by name the marginal distribution of $Y$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(Y)$.
+c.  The joint distribution of $X$ and $Y$ is represented in the table below. Explain why $p_{X, Y}(1, 4) = 0$ and $p_{X, Y}(2, 1) = 0$.
+d.  Compute $p_{X, Y}(2, 3)$. (Yes, the table tells you it's 0.1766, but you have to show how this number can be computed based on the assumptions of the problem.)
+e.  Are $X$ and $Y$ independent? Justify your answer with an appropriate calculation.
+f.  Compute and interpret $\text{P}(X + Y) = 4$.
+g.  Make a table representing the marginal distribution of $X+Y$.
+h.  Use the table from the previous part to compute $\text{E}(X+Y)$, and verify that it is equal to $\text{E}(X)+\text{E}(Y)$.
+i.  Without doing any computation, determine if $\text{Var}(X+Y)$ will be greater than, less than, or equal to $\text{Var}(X) + \text{Var}(Y)$. Explain your reasoning.
+
+| $x$, $y$ |      0 |      1 |      2 |      3 |      4 |      5 |
+|----------|-------:|-------:|-------:|-------:|-------:|-------:|
+| 0        | 0.0404 | 0.0727 | 0.0327 |      0 |      0 |      0 |
+| 1        |      0 | 0.1090 | 0.1963 | 0.0883 |      0 |      0 |
+| 2        |      0 |      0 | 0.0981 | 0.1766 | 0.0795 |      0 |
+| 3        |      0 |      0 |      0 | 0.0294 | 0.0530 | 0.0238 |
+
+## Problem 3
+
+Percent returns for assets $X$, $Y$, and $Z$ follow a joint distribution with
+
+-   Mean 10 and standard deviation 15 for asset X,
+-   Mean 5 and standard deviation 3 for asset Y,
+-   Correlation of −0.6 between asset X and asset Y
+-   Asset Z yields a constant return of 1 percent.
+
+An investment portfolio has 60% of its funds in asset X, 30% in asset Y, and 10% in asset Z.
+
+a.  Let $R$ be the portfolio return. Express $R$ in terms of $X, Y, Z$.
+b.  Compute $\text{E}(R)$.
+c.  Compute $\text{Cov}(X, Y)$.
+d.  Compute $\text{Cov}(X, Z)$.
+e.  Compute $\text{SD}(R)$.
+
+## Problem 4
+
+Devi and Paxton are meeting.
+Arrival times are measured in minutes after noon, with negative times representing arrivals before noon.
+Devi's arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton's arrival time follows a Normal distribution with mean 25 and SD 10 minutes, independently of each other.
+
+For each of the following, find the appropriate standardized value and make a ballpark estimate of the probability.
+Then use software to compute the probability.
+
+a.  Compute the probability that Devi arrives before noon.
+b.  Compute the probability that Devi arrives first.
+c.  Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
+d.  **Coding required.** Code and run a simulation and use the results to approximate the probability from the previous part (just part c). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
+
+## Problem 5
+
+(Continued.) Devi and Paxton are meeting.
+Arrival times are measured in minutes after noon, with negative times representing arrivals before noon.
+Devi's arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton's arrival time follows a Normal distribution with mean 25 and SD 10 minutes.
+
+For each of the following, find the appropriate standardized value and make a ballpark estimate of the probability.
+Then use software to compute the probability.
+
+1.  Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation 0.8
+    a.  Compute the probability that Devi arrives first given that Paxton arrives at 12:10.
+    b.  Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
+    c.  **This part is optional.** Code and run a simulation and use the results to approximate the probability from the previous part (just part b). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
+2.  Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation -0.7
+    a.  Compute the probability that Devi arrives first given that Paxton arrives at 12:10.
+    b.  Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
+    c.  **This part is optional.** Code and run a simulation and use the results to approximate the probability from the previous part (just part b). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.

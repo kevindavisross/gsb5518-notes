@@ -1,0 +1,229 @@
+# Homework 9 solutions {.unnumbered}
+
+**See code and results in [Colab notebook](https://colab.research.google.com/drive/1uESk3VQ89TThaqFjiUarlB3l7GJ00NJa?usp=sharing).**
+
+## Problem 1
+
+The following table displays the time (measured continuously in minutes) until the first goal was scored in each of 20 professional hockey games.  The sample mean is 12.1 minutes, the sample median is 8.9 minutes, and the sample SD is 13.1 minutes.
+
+|     |      |     |      |     |      |      |     |      |      |
+|----:|-----:|----:|-----:|----:|-----:|-----:|----:|-----:|-----:|
+| 4.4 | 14.9 | 2.8 |  1.4 | 1.1 |  8.1 | 11.7 | 3.9 |  2.4 | 15.7 |
+| 8.8 |  0.6 | 5.1 | 10.4 | 9.1 | 13.7 | 27.8 | 9.0 | 46.0 | 44.7 |
+
+1.  You wish to estimate the population *median* time until the first goal is scored. Describe in detail in words how you could use the sample data and simulation to find an appropriate
+95% bootstrap percentile confidence interval.
+1.  **Coding required.** Code and run the simulation from the previous part using the [hockey data](https://raw.githubusercontent.com/kevindavisross/data301/refs/heads/main/data/hockey.csv). Summarize the results; provide a histogram of the bootstrap distribution, the value of the bootstrap SE, and a 95% bootstrap percentile confidence interval.
+1.  The following summarizes the bootstrap distribution of the sample median based on the sample data and an appropriate simulation.
+
+    |  Min | 2.5th percentile | Median | 97.5th percentile |   Max | Mean |   SD |
+    |-----:|-----------------:|-------:|------------------:|------:|-----:|-----:|
+    | 1.25 |             4.15 |   8.90 |             12.70 | 19.75 | 8.52 | 2.10 |
+
+    Using the above information, compute the endpoints of each of the following bootstrap 95\% confidence intervals for the population median.
+    a.  Normal interval
+    a.  Percentile interval
+1.  Write a clearly worded sentence reporting the bootstrap percentile confidence interval from the previous part in
+context.
+
+### Solution
+
+1.  The statistic is the sample median.
+    -   Simulate a sample of size 20 with replacement from the observed sample and compute the sample median for the simulated sample.
+    -   Repeat many times to get the bootstrap distribution of sample medians over many bootstrap samples
+    -   The endpoints of a 95% bootstrap percentile interval would be the 2.5th percentile and 97.5th percentile of the simulated sample medians.
+1.  See Colab notebook.
+1.  Normal interval: Observed sample median is 8.9, from the original problem set up based
+on the actual sample of 20 values. Bootstrap SE is 2.10. The endpoints of the 95% CI are $8.9 \pm 2 × 2.10$ yielding an interval of [4.7, 13.1].
+
+    Percentile interval: From the bootstrap distribution: [4.15, 12.70]
+1.  We estimate with 95% confidence that the population median time until the first goal was scored in professional hockey games is between 4.15 and 12.70 minutes.
+
+
+## Problem 2
+
+Two different machines (A and B) that fill packages of a certain candy are calibrated to a weight of 50 grams. Naturally, the
+weights of individual packages vary somewhat in the production process, but too much variation is undesirable.  A small sample of packages is taken from each machine; the weights (grams) are in the following table.
+
+| Machine |      |      |      |      |      | Mean |  SD |
+|:--------|-----:|-----:|-----:|-----:|-----:|-----:|----:|
+| A       | 47.1 | 48.7 | 50.1 | 50.2 | 50.5 | 49.3 | 1.4 |
+| B       | 48.6 | 50.5 | 50.6 | 51.4 | 52.0 | 50.6 | 1.3 |
+
+
+
+1.  Describe in detail in words how you could use the sample data and simulation to find a 95% bootstrap percentile confidence interval for the *ratio of the variances* of packages weights for the two machines.
+1.  **Coding required.** Write code to implement the procedure from the previous part, and run the simulation to find a 95% bootstrap percentile confidence interval.  Include your code and output.
+1.  Write a clearly worded sentence reporting the confidence interval from the previous part in context.
+
+### Solution
+
+1.  The statistic is the ratio of sample variances
+    -   Simulate a sample of size 5 with replacement from the observed sample A and compute the sample variance (square of the sample SD)
+    -   Simulate a sample of size 5 with replacement from the observed sample B and compute the sample variance (square of the sample SD)
+    -   Compute the ratio of the two sample variances; this is the result of one repetition
+    -   Repeat many times to get the bootstrap distribution of the ratio of sample variances over many bootstrap samples
+    -   The endpoints of a 95% bootstrap percentile interval would be the 2.5th percentile and 97.5th percentile of the simulated ratio of sample variances.
+1.  See Colab notebook
+1.  We estimate with 95% that the variance of weights from machine A is between 0.01 and 14.4 times that for machine B
+(This interval contains 1 so there isn’t any
+evidence that the ratios are different. But because the sample size is so small, the
+interval is not very precise.)
+
+## Problem 3 
+
+Continuing Problem 2.
+
+Describe in detail how you could use simulation to approximate the p-value of the permutation test which uses the ratio of variances as the test statistic.
+
+
+### Solution
+
+Note carefully the differences between this simulation and the bootstrap simulation
+
+-   Write each of the 10 observed values on a card.
+-   Shuffle and deal 5 without replacement to represent A, and the other 5 to represent B.
+-  Compute the variance of the values in the A pile, the variance of values in the B pile, and the ratio of these two variances (A/B)
+-   Repeat the above steps many times to generate many hypothetical values of the ratio of
+variances (A/B) assuming the null hypothesis of no difference
+-   Find the proportion of simulated repetitions for which the simulated ratio of variance is greater than 1.42/1.32, the observed ratio of variances.
+This proportion approximates the p-value
+
+	
+## Problem 4
+
+Scores are on a certain standardized test (e.g. GRE) are approximately normally distributed with mean 525 and standard deviation 100 (assume that the scale is 200-800).  An agency claims that students who take their test preparation class have a higher mean score than the national average.  To test the validity of the claim we consider
+$$
+H_0: \mu = 525\qquad H_a: \mu>525,
+$$
+where $\mu$ is the mean test score of all students who take the preparation class.  Suppose that we take a simple random sample of $n$ students who have taken the class, and let $\bar{y}$ be the mean test score for the sample. You can assume that $\sigma = 100$ and just use the usual empirical rule (that is, don't worry about $t$ distributions.)
+
+
+1.  Compute the $p$-value of the test if $n=100$ and $\bar{y}=541.4$. 
+1.  Compute the $p$-value of the test if $n=100$ and $\bar{y}=541.5$.
+1.  Compute the $p$-value of the test if $n=100,000$ and $\bar{y}=526$.
+1.  Write a short paragraph explaining why (1) we should not rely on cutoffs like $\alpha=0.05$ strictly; (2) why the term statistically "significant" is a poor choice of words which should not be used.
+Use the results from the previous parts and this context to support your explanation.
+
+### Solution
+
+The sample mean (whether you call it $\bar{X}$ or $\bar{Y}$) has an approximate Normal distribution with mean $\mu$ and SD $\sigma/\sqrt{n} = 100/\sqrt{n}$. So if the null hypothesis is true then $\mu = 525$ and $\bar{Y}$ has a Normal(525, 100/$\sqrt{n}$) distribution.
+
+1.  If $n=100$ then $SD(\bar{Y})=100/\sqrt{100}=10$ so $\bar{Y}$ has a Normal(525, 10) distribution if the null hypothesis is true. The observed sample mean $\bar{y}=541.4$ is $\frac{541.4-525}{10} = 1.64$ SDs above the hypothesized mean of 525. For a Normal distribution, the probability of observing a value more than 1.64 SDs above the mean is 0.0505. That is, the p-value is 0.0505.
+1.  If $n=100$ then $SD(\bar{Y})=100/\sqrt{100}=10$ so $\bar{Y}$ has a Normal(525, 10) distribution if the null hypothesis is true. The observed sample mean $\bar{y}=541.5$ is $\frac{541.5-525}{10} = 1.65$ SDs above the hypothesized mean of 525. For a Normal distribution, the probability of observing a value more than 1.65 SDs above the mean is 0.0495. That is, the p-value is 0.0495.
+1.  If $n=100000$ then $SD(\bar{Y})=100/\sqrt{100000}=0.316$ so $\bar{Y}$ has a Normal(525, 0.316) distribution if the null hypothesis is true. The observed sample mean $\bar{y}=526$ is $\frac{526-525}{0.316} = 3.16$ SDs above the hypothesized mean of 525. For a Normal distribution, the probability of observing a value more than 3.16 SDs above the mean is 0.0008. That is, the p-value is 0.0008.
+1.  In the first two parts, in this context 541.5 and 541.5 are essentially the same sample means (scale of the scores is 200-800) so it makes no sense to reject the null hypothesis in one case and not in the other. But that is exactly what would happen if you treated 0.05 strictly. Rather than adhering to a strict threshold like 0.05, it is better to report the p-value so that the strength of evidence can be interpreted.
+The strength of evidence would be the same in both of the first two parts; in either case there is some but not strong evidence to reject the null hypothesis.
+
+    The p-value in part 3 is very small.
+However,this just means that there is strong evidence to reject the null hypothesis, i.e. to conclude
+that the mean of the students who take the class is greater than the national average. But
+the hypothesis test does not tell you anything else about what the true mean actually
+is; it could be just slightly greater than the national average, in which case there is
+no practical difference in the scores for students who take the class versus the national
+average. In order to get a better idea of the "plausible values" for the true mean based on
+the data, it is better to report a confidence interval. But in this case the observed sample mean is 526 so there is no practical difference between the observed mean and 525, even though the p-value is small.
+Especially when the sample size is very large, even a small and meaningless observed difference can result in a small p-value.
+
+
+
+
+## Problem 5
+
+Psychologists have shown that we are often able to "chunk" information which allows us to remember more information (typically about seven chunks).  A study was performed in previous statistics classes to investigate this idea. Students were given 20 seconds to memorize a sequence of 30 letters. After 20 seconds, everyone was asked to write down, in order, as many of the letters as they could.  Every student saw the same sequence of 20 letters, JFKCIAFBIUSASATGPABFFLOLNBACPR, but students were randomly assigned to see the letters presented (chunked) in one of two different ways
+
+-   a "meaningful" grouping: JFK-CIA-FBI-USA-SAT-GPA-BFF-LOL-NBA-CPR
+-   a "not meaningful" grouping: JFKC-IAF-BIU-SASA-TGP-ABF-FLO-LN-BAC-PR
+
+Each person's score was the number of correct letters in a row before the first mistake.  (For example, JFKCIABIUSAT yields a score of 6 because of missing the F.)  We want to know whether those given the meaningful "JFK" sequence (with the letters grouped into familiar acronyms) would tend to remember more letters in sequence, on average, than those given the not meaningful "JFKC" sequence.
+
+1.  **Coding required.** Use Python to summarize the [letters data](https://raw.githubusercontent.com/kevindavisross/data301/refs/heads/main/data/letters.csv).
+1.  State the null and alternative hypothesis in words and symbols
+1.  Explain in detail how, in principle, you would use index cards to conduct an appropriate simulation and use the simulation results to compute the p-value.
+1.  Compute by hand the t-statistic and the p-value.
+1.  **Coding required.** Use Python to conduct the hypothesis test, and compare the results to what you computed by hand.
+1.  Write a clearly worded sentence reporting the conclusion of the hypothesis test in context.
+1.  Compute by hand an appropriate 95% confidence interval.
+1.  **Coding required.** Use Python to compute the confidence interval, and compare the results to what you computed by hand.
+1.  Write a clearly worded sentence reporting the conclusion of the confidence interval in context.
+
+
+### Solution
+
+
+1.  See Colab notebook. The observed difference in sample means is $\bar{x}_M - \bar{x}_N = 16.25 - 12.71 = 3.54$
+1.  $H_0: \mu_M - \mu_N = 0$, there is no difference in treatment mean letter scores
+between the meaningful and not meaningful group; $H_a: \mu_M - \mu_N > 0$, the treatment mean letter score is greater for the meaningful group
+than for the not meaningful group
+1.  We would use 97 cards
+    -   On each card write an observed value of letter score
+    -   Shuffle the cards well and deal them without replacement into 2 piles
+    -   Deal 52 to represent meaningful
+    -   Deal 47 to represent not meaningul
+    -   Compute the hypothetical value of $\bar{x}_M - \bar{x}_N$ for this shuffle
+    -   Repeat the above process many times (thousands) to simulate the null distribution of $\bar{x}_M - \bar{x}_N$
+    -   Count the number of repetitions for which $\bar{x}_M - \bar{x}_N$ statistic is greater than the observed value 3.54 and divide by the total number of repetitions simulated to approximate the p-value.
+1.  The SE is $\sqrt{\frac{7.92^2}{52}+\frac{4.28^2}{45}} = 1.27$. The observed difference in means, 3.54, is
+$$
+\frac{\text{observed} - \text{hypothesized}}{\text{SE}} = \frac{3.54 - 0}{1.27} = 2.78
+$$
+SDs above the mean.
+Use the empirical rule; p-value is about 0.007.
+1.  See Colab notebook; results are similar.
+1.  With a p-value of 0.007 there is moderate evidence to reject the null
+hypothesis and conclude that the treatment mean letter score for people who would see
+the meaningful letter grouping is greater than the treatment mean letter score for people
+who would see the not meaningful letter grouping.
+1.  $3.54\pm 2 \times 1.27$ for an interval of [1.0, 6.1]
+1.  See Colab notebook.
+1.  We estimate with 95% confidence that the treatment mean letter score for
+the people who would see the meaningful letter grouping is between 1.0 and 6.1 letters
+greater than the treatment mean letter score for people who would see the not meaningful
+letter grouping.
+
+
+## Problem 6
+
+The data in this exercise comes from the study: [Singh R, Meier T, Kuplicki R, Savitz J, et al., "Relationship of Collegiate Football Experience and Concussion With Hippocampal Volume and Cognitive Outcome," JAMA, 311(18), 2014](https://pubmed.ncbi.nlm.nih.gov/24825643/).
+
+The study included 3 groups, with 25 cases in each group. The control group consisted of healthy individuals with no history of brain trauma who were comparable to the other groups in age, sex, and education. The second group consisted of NCAA Division 1 college football players with no history of concussion, while the third group consisted of NCAA Division 1 college football players with a history of concussion. High resolution MRI was used to collect brain hippocampus volume (microliters).
+
+1.  **Coding required.** Use Python to summarize the [brain data](https://raw.githubusercontent.com/kevindavisross/data301/refs/heads/main/data/FootballBrain2.csv).
+1.  Compute by hand the ANOVA F statistic.
+1.  Describe in full detail how (in principle) you could use index cards to simulate the null distribution of the ANOVA F statistic and how you would use the simulation results to find the p-value.  (You don't have to compute the p-value; just explain how you could find it after you performed the simulation.)
+1.  Optional: use this [applet to perform the permutation test and approximate the p-value](https://www.rossmanchance.com/applets/2021/anovashuffle/AnovaShuffle.htm).
+1.  **Coding required.** Use Python to conduct the hypothesis test, and compare the results to what you computed by hand.
+1.  Write a clearly worded sentence containing the conclusion of the hypothesis test in the context of the problem.
+1.  **Coding required.** Use Python to compute Tukey pairwise 95% confidence intervals.
+1.  Which of the confidence intervals contain 0, and which do not?  Explain what this means.
+1.  Write a clearly worded sentence interpreting each of the three confidence intervals in context.
+
+### Solution
+
+1.  See Colab notebook.
+1.  The mean of the group variances is $\frac{1074^2+779.7^2+593.4^2}{3} = 704510$.
+    The variance of the group means is $941.8^2 = 886987$.
+    The $F$ statistic is
+    $$
+    \frac{\text{group size}\times\text{variance of group means}}{\text{mean of group variances}} = \frac{25\times 886987}{704510} = 31.5
+    $$
+1.  We would use 75 cards
+    -   On each card write an observed value of hippocampus volume
+    -   Shuffle the cards well and deal them without replacement into 3 piles
+    -   Deal 25 to represent control
+    -   Deal 25 to represent football, no concussion
+    -   Deal 25 to represent football with concussion history
+    -   Treat the shuffled cards as if they were the real data For each pile of 25 find the mean and SD of hippocampus volumes and compute the hypothetical value of the $F$ statistic for the shuffle
+    -   Repeat the above process many times (thousands) to simulate the null distribution of the $F$ statistic
+    -   Count the number of repetitions for which the $F$ statistic is greater than the observed 31.5 and divide by the total number of repetitions simulated to approximate the p-value.
+1.  Optional: use this [applet to perform the permutation test and approximate the p-value](https://www.rossmanchance.com/applets/2021/anovashuffle/AnovaShuffle.htm).
+1.  See Colab notebook; the $F$ statistic is 31.5 and the p-value is essentially 0.
+1.  With a p-value <0.0001 there is very strong evidence to reject the null hypothesis and conclude that there is an association between hippocampus volume and football/concussion history.
+    In particular, we can conclude that the population mean hippocampus volume is not the same for all 3 concussions histories.
+1.  See Colab notebook.
+1.  None of the confidence intervals contains 0. This means there is evidence that the mean hippocampus volumes for all three groups are different from one another.
+1.  We estimate with simultaenous 95% confidence that
+    -   Mean hippocampus volume is between 670 and 1616 microliters greater for those with no football/concussion history than for those who have football experience but no concussion history
+    -   Mean hippocampus volume is between 1394 and 2341 microliters greater for those with no football/concussion history than for those who have football experience and a history of concussion
+    -   Mean hippocampus volume is between 251 and 1198 microliters greater for those who have football experience but no concussion history than for those who have football experience and a history of concussion
+

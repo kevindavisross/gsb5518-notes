@@ -1,0 +1,185 @@
+# Randomness and Probability
+
+{{< include _r_setup.qmd >}}
+
+
+Probability comes up in a wide variety of situations.
+Consider just a few examples.
+
+1.  The probability you win the next [Powerball lottery](https://www.powerball.com/) if you purchase a single ticket, 4-8-15-16-42, plus the Powerball number, 23.
+2.  The probability that a "randomly selected" Cal Poly student is a California resident.
+3.  The probability that the high temperature in San Luis Obispo next Friday is above 90 degrees F.
+4.  The probability that the San Francisco 49ers win the next Superbowl.
+5.  The probability that extraterrestrial life currently exists somewhere in the universe.
+6.  The probability that you ate an apple on April 17, 2009.
+
+::: {#exm-randomness}
+How are the situations above similar, and how are they different?
+What is one feature that all of the situations have in common?
+Is the interpretation of "probability" the same in all situations?
+The goal here is to just think about these questions, and not to compute any probabilities (or to even think about how you would).
+:::
+
+\
+\
+\
+\
+
+-   A phenomenon is **random** if there are multiple potential outcomes, and there is **uncertainty** about which outcome will occur.
+-   Uncertainty is understood in broad terms, and in particular does not only concern future occurrences.
+-   Many phenomena involve physical randomness, like flipping a coin or drawing powerballs at random from a bin, or in statistical applications of random sampling or random assignment.
+-   But in many other situations, randomness just vaguely reflects uncertainty.
+-   Random does *not* mean haphazard. In a random phenomenon, while individual outcomes are uncertain, there is a *regular distribution of outcomes over a large number of (hypothetical) repetitions*.
+-   Also, random does *not* necessarily mean equally likely. In a random phenomenon, certain outcomes or events might be more or less likely than others.
+-   The **probability** of an event associated with a random phenomenon is a number in the interval $[0, 1]$ measuring the event's likelihood or degree of uncertainty. A probability can take any value in the continuous scale from 0% to 100%.
+-   There are two main interpretations of probability.
+    -   **Long run relative frequency.** The probability of an event can be interpreted as the proportion of times that the event would occur in a very large number of hypothetical repetitions of the random phenomenon.
+    -   **Subjective probability.** There are many situations where the outcome is uncertain, but it does not make sense to consider the situation as repeatable. In such situations, a subjective (a.k.a., personal) probability describes the degree of likelihood a given individual ascribes to a certain event. Think of subjective probabilities as measuring relative degrees of likelihood rather than long run relative frequencies.
+-   Fortunately, the mathematics of probability work the same way regardless of the interpretation. In either case, the same basic logical consistency requirements must be satisfied.
+-   A **simulation** involves an artificial recreation of the random phenomenon, usually using a computer. The probability of an event can be approximated by simulating the random phenomenon a large number of times and determining the proportion of simulated repetitions on which the event occurred out of the total number of repetitions in the simulation.
+
+::: {#exm-galileo-dice}
+One of the oldest documented problems in probability is the following: If three fair six-sided dice are rolled, what is more likely: a sum of 9 or a sum of 10?
+:::
+
+1.  Explain how you could conduct a *simulation* to investigate this question.\
+    \
+    \
+    \
+    \
+2.  Use the simulation results to approximate the probability that the sum is 9; repeat for a sum of 10.\
+    \
+    \
+    \
+    \
+3.  It can be shown that the theoretical probability that the sum is 9 is 25/216 = 0.116. Write a clearly worded sentence interpreting this probability as a long run relative frequency.\
+    \
+    \
+    \
+    \
+4.  It can be shown that the theoretical probability that the sum is 10 is 27/216 = 0.125. How many times more likely is a sum of 10 than a sum of 9?\
+    \
+    \
+    \
+    \
+
+
+-   A probability can be interpreted as a theoretical long run relative frequency.
+-   A probability can be approximated by a relative frequency from a large number of simulated repetitions, but there is some simulation margin of error, due to natural variability in the simulation.
+-   The margin of error when approximating a single probability based on a simulated relative frequency is roughly on the order $1/\sqrt{N}$, where $N$ is the *number of independently simulated values used to calculate the relative frequency.* For example, if $N=10000$ then the margin of error is roughly $1/\sqrt{10000} = 0.01$. (But be careful when approximating *conditional* probabilities.)
+
+
+
+::: {#exm-worldseries}
+
+As of Jun 13, [FanGraphs](https://www.fangraphs.com/standings/playoff-odds/fg/mlb) listed the following probabilities for who will win the 2025 MLB World Series.
+:::
+
+
+
+| Team     | Probability |
+|----------|------------:|
+| Dodgers  |         21% |
+| Yankees  |         17% |
+| Tigers   |         10% |
+| Mets     |         10% |
+| Phillies |          7% |
+| Other    |             |
+
+According to FanGraphs (as of Jun 13):
+
+1.  Are the above percentages relative frequencies or subjective probabilities? Why?
+\
+\
+1.  What must be the probability that a team other than the above five teams wins the championship?
+That is, what value goes in the "Other" row in the table?
+\
+\
+\
+\
+\
+1.  The Dodgers are how many times more likely than the Phillies to win?
+\
+\
+\
+\
+\
+1.  What must be the probability that the Dodgers do *not* win the championship?
+How many times more likely are the Dodgers to not win than to win (this ratio is the "odds against" the Dodgers winning).
+\
+\
+\
+\
+\
+1.  How could you construct a circular spinner (like from a kids game) to simulate the World Series champion according to these probabilities? 
+According to this model, what would you expect the results of 10000 repetitions of a simulation of the champion to look like?
+\
+\
+\
+\
+\
+
+
+
+
+-   We will use the two interpretations --- long run relative frequencies and subjective probabilities --- interchangeably.
+-   With subjective probabilities it is often helpful to consider what might happen in a simulation.
+-   It is also useful to consider long run relative frequencies in terms of relative degrees of likelihood.
+-   Fortunately, the mathematics of probability work the same way regardless of the interpretation.
+-   A probability takes a value in the sliding scale from 0 to 100%.
+-   Don't just focus on computation; always remember to properly interpret probabilities.
+
+::: {#exm-probability-interpret1}
+In each of the following parts, which of the two probabilities, a or b, is larger, or are they equal?
+You should answer conceptually without attempting any calculations.
+Explain your reasoning.
+:::
+
+1.  Consider a Cal Poly student who frequently has blurry, bloodshot eyes, generally exhibits slow reaction time, always seems to have the munchies, and disappears at 4:20 each day.
+    Which of the following events, $A$ or $B$, has a *higher* probability?
+    (Assume the two probabilities are not equal.)
+
+    a.  The student has a GPA above 3.0.
+    b.  The student has a GPA above 3.0 and smokes marijuana regularly.
+
+2.  Randomly select a man.
+
+    b.  The probability that a randomly selected man is greater than six feet tall.
+    c.  The probability that a randomly selected man who plays in the NBA is greater than six feet tall.
+
+3.  Randomly select a man.
+
+    a.  The probability that a randomly selected man who is greater than six feet tall plays in the NBA.
+    b.  The probability that a randomly selected man who plays in the NBA is greater than six feet tall.
+
+4.  Flip a coin *which is known to be fair* 10 times.
+
+    a.  The probability that the results are, in order, HHHHHHHHHH.
+    b.  The probability that the results are, in order, HHTHTTTHHT.
+
+5.  Flip a coin which is known to be fair 10 times.
+
+    a.  The probability that all 10 flips land on H.
+    b.  The probability that exactly 5 flips land on H.
+
+6.  In the [Powerball lottery](https://www.powerball.com/) there are roughly 300 million possible winning number combinations, all equally likely.
+
+    a.  The probability you win the next Powerball lottery if you purchase a single ticket, 4-8-15-16-42, plus the Powerball number, 23
+    b.  The probability you win the next Powerball lottery if you purchase a single ticket, 1-2-3-4-5, plus the Powerball number, 6.
+
+7.  Continuing with the Powerball
+
+    a.  The probability that the numbers in the winning number are not in sequence (e.g., 4-8-15-16-42-23)
+    b.  The probability that the numbers in the winning number are in sequence (e.g., 1-2-3-4-5-6)
+
+8.  Continuing with the Powerball
+
+    a.  The probability that you win the next Powerball lottery if you purchase a single ticket.
+    b.  The probability that someone wins the next Powerball lottery. (FYI: especially when the jackpot is large, there are hundreds of millions of tickets sold.)
+
+-   Warning! Your psychological judgment of probabilities is often inconsistent with the mathematical logic of probabilities.
+-   When interpreting probabilities, consider the conditions under which the probabilities were computed, in the proper direction
+-   When interpreting probabilities, be careful not to confuse "the particular" with "the general".
+    -   **"The particular:"** A very specific event, surprising or not, often has low probability.
+    -   **"The general:"** While a very specific event often has low probability, if there are many like events their combined probability can be high.
+-   Even if an event has extremely small probability, given enough repetitions of the random phenomenon, the probability that the event occurs on *at least one* of the repetitions is often high.

@@ -1,0 +1,49 @@
+# Homework 6 {.unnumbered}
+
+## Problem 1
+
+You have a brand new coin and you want to estimate $p$, the probability that it lands on heads.
+You flip the coin $n$ times and observe $X$ heads.
+
+
+a. Suggest an estimator of $p$; it should be an expression involving $X$ and $n$. Describe in words what your estimator is. (Hint: what is the most obvious estimator you can think of?)
+a. Suppose you observe $x = 6$ heads in $n=10$ flips. Use your estimator to compute an estimate of $p$ based on this sample.
+a. Consider the estimator (called the "plus four" estimator)
+    $$
+    \frac{X + 2}{n + 4} = \left(\frac{4}{n+4}\right)\left(0.5\right) + \left(\frac{n}{n+4}\right)\left(\frac{X}{n}\right)
+    $$
+    Explain in words what this estimator does.
+    (The two expressions in the equation above are just different ways of expressing the estimator.)
+a. Use the estimator from the previous part and compute an estimate of $p$ based on a sample with 6 heads in 10 flips.
+a. If you observe 6 heads in 10 flips, which of your two estimates is a better estimate of $p$? Explain.
+a. Compute and interpret the probability of observing 6 heads in 10 flips if $p = 0.6$.
+a. Compute and intepret the probability of observing 6 heads in 10 flips if $p = 0.571$.
+a. Compare the values from the two previous parts. If you observed 6 heads in 10 flips, which of the values --- 0.6 or 0.571 --- would you choose as your estimate of $p$? Explain your reasoning.
+a. Suppose you observe 6 heads in 10 flips. Carefully write the likelihood function.
+a. Continuing the previous part, use any software of your choice and plot the likelihood function. Based on your plot, what value appears to be the maximum likelihood estimate of $p$ based on a sample with 6 heads in 10 flips?
+(You can do this just by zooming in on the plot.)
+a. Continuing the previous part, carefully write the log-likelihood function.
+a. Use calculus to find the maximum likelihood estimate of $p$ based on observing 6 heads in 10 flips.
+a. Now suppose you observe $x$ heads in 10 flips. Carefully write the likelihood function.
+a. Continuing the previous part, carefully write the log-likelihood function.
+a. Use calculus to find a general expression for the maximum likelihood estimate of $p$ based on observing $x$ heads in 10 flips. (Your answer will be an expression involving $x$.)
+
+
+
+## Problem 2
+
+
+Suppose that times (minutes) between earthquakes (of any magnitude in a certain region) follow an Exponential distribution with rate parameter $\lambda$.
+Let $X_1, \ldots, X_n$ be a random sample of times (minutes) between earthquakes for  $n$ earthquakes.
+It can be shown that the MLE of $\lambda$ is $1/\bar{X}$.
+
+1. Explain intuitively why $1/\bar{X}$ is a reasonable estimator of $\lambda$. 
+Hint: it's not just because it's the MLE; think of properties of Exponential distributions.
+1. Suppose the observed sample is: 20, 37, 13, 10, 25 minutes.
+Carefully write the likelihood function.
+(For a random sample from a continuous distribution, to find the likelihood function you plug each observed value into the pdf and then form the product.)
+1. Use any software you want to carefully plot the likelihood function from the previous part.
+Then use your plot to verify that the MLE of $\lambda$ based on this sample is $1/\bar{x} = 5/105 = 0.0476$.
+(You can just zoom in on the plot.)
+1. Write a clearly worded sentence reporting in context your estimate of $\lambda$ from the previous part.
+

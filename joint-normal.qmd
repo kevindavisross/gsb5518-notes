@@ -1,0 +1,270 @@
+# Joint Normal Distributions
+
+{{< include _r_setup.qmd >}}
+
+
+
+
+-   Jointly continuous random variables $X$ and $Y$ have a **Bivariate Normal** distribution with parameters $\mu_X$, $\mu_Y$, $\sigma_X>0$, $\sigma_Y>0$, and $-1<\rho<1$ if the joint pdf is
+\scriptsize{
+\begin{align*}
+f_{X, Y}(x,y) & = 
+ \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho^2}}\exp\left(-\frac{1}{2(1-\rho^2)}\left[\left(\frac{x-\mu_X}{\sigma_X}\right)^2+\left(\frac{y-\mu_Y}{\sigma_Y}\right)^2-2\rho\left(\frac{x-\mu_X}{\sigma_X}\right)\left(\frac{y-\mu_Y}{\sigma_Y}\right)\right]\right)
+\end{align*}
+}
+-   If the pair $(X, Y)$ has a BivariateNormal($\mu_X$, $\mu_Y$, $\sigma_X$, $\sigma_Y$, $\rho$) distribution
+\begin{align*}
+\text{E}(X) & =\mu_X\\
+\text{E}(Y) & =\mu_Y\\
+\text{SD}(X) & = \sigma_X\\
+\text{SD}(Y) & = \sigma_Y\\
+\text{Corr}(X, Y) & = \rho
+\end{align*}
+
+
+```{r}
+#| echo: false
+#| label: fig-bvn-pdf
+#| fig-cap: "Bivariate Normal distribution with means (0, 0), standard deviations (1, 1) and correlation 0.7."
+#| message: false
+#| warning: false
+
+
+dbvn <- function(x, y, mu_x, mu_y, sigma_x, sigma_y, rho) {
+  z_x = (x - mu_x) / sigma_x
+  z_y = (y - mu_y) / sigma_y
+  exp(-0.5 * (z_x ** 2 + z_y ** 2 - 2 * rho * z_x * z_y) / (1 - rho ** 2)) /
+    (2 * pi * sigma_x * sigma_y * sqrt(1 - rho ** 2))
+}
+
+
+z_grid = seq(-3, 3, 0.1)
+
+z_box <- expand_grid(x = z_grid, y = z_grid)
+
+z_box_prob <- z_box |>
+  mutate(bivariate_normal = dbvn(x, y, 0, 0, 1, 1, 0.7)) |>
+  mutate(bivariate_normal_sat = dbvn(x, y, 640, 610, 80, 70, 0.7))
+
+
+# z_box_max_prob = z_box_prob |>
+#   dplyr::select(!(1:2)) |>
+#   pivot_longer(cols = everything()) |>
+#   summarize(max(value)) |>
+#   pull()
+
+
+
+ggplot(z_box_prob,
+       aes(x = x,
+           y = y,
+           z = bivariate_normal)) +
+  geom_raster(aes(fill = bivariate_normal), interpolate = TRUE) +
+  geom_contour(color = "white") +
+  scale_x_continuous(expand = c(0, 0), limits = c(-3, 3)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(-3, 3)) +
+  scale_fill_viridis() +
+  labs(x = "X",
+       y = "Y",
+       fill = "Density") +
+  coord_fixed() +
+  theme_classic()
+
+
+```
+
+
+-   A Bivariate Normal Density has elliptical contours. For each height $c>0$ the set $\{(x,y): f_{X, Y}(x,y)=c\}$ is an ellipse. The density decreases as $(x, y)$ moves away from $(\mu_X, \mu_Y)$, most steeply along the minor axis of the ellipse, and least steeply along the major of the ellipse.
+-   A scatterplot of $(x,y)$ pairs generated from a Bivariate Normal distribution will have a rough linear association and the cloud of points will resemble an ellipse.
+-   If $X$ and $Y$ have a Bivariate Normal distribution, then the marginal distributions are also Normal: $X$ has a Normal$\left(\mu_X,\sigma_X\right)$ distribution and  $Y$ has a Normal$\left(\mu_Y,\sigma_Y\right)$.
+-   If $X$ and $Y$ have a Bivariate Normal distribution and $\text{Corr}(X, Y)=0$ then $X$ and $Y$ are independent. (Remember, in general it is possible to have situations where the correlation is 0 but the random variables are not independent.)
+-   $X$ and $Y$ have a Bivariate Normal distribution if and only if every linear combination of $X$ and $Y$ has a Normal distribution. That is, $X$ and $Y$ have a Bivariate Normal distribution if and only if $aX+bY+c$ has a  Normal distribution for all $a$, $b$, $c$. 
+
+
+
+```{r}
+#| echo: false
+#| label: fig-bvn-conditional-slice
+#| message: false
+#| warning: false
+#| layout-ncol: 2
+#| fig-cap:
+#|   - "Bivariate Normal distribution with two conditional *slices* highlighted."
+#|   - "Two conditional Normal distributions."
+
+
+ggplot(z_box_prob,
+       aes(x = x,
+           y = y,
+           z = bivariate_normal)) +
+  geom_raster(aes(fill = bivariate_normal), interpolate = TRUE) +
+  geom_contour(color = "white") +
+  scale_x_continuous(expand = c(0, 0), limits = c(-3, 3)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(-3, 3)) +
+  scale_fill_viridis() +
+  labs(x = "X",
+       y = "Y",
+       fill = "Density") +
+  coord_fixed() +
+  theme_classic() +
+  geom_vline(xintercept = c(-0.5, 1.5), linetype = "solid", 
+                 color = c("#CC79A7", "#E69F00"), size = 2, alpha = 0.5)
+
+
+ggplot(data = data.frame(u = c(-3, 3)),
+       mapping = aes(x = u)) +
+  stat_function(mapping = aes(colour = "x = 1.5"),
+                fun = dnorm,
+                args = list(mean = 0 + 0.7 * (1.5 - 0),
+                            sd = 1 * sqrt(1 - 0.7 ^ 2)),
+                size = 1.2) +
+  stat_function(mapping = aes(colour = "x = -0.5"),
+                fun = dnorm,
+                args = list(mean = 0 + 0.7 * (-0.5 - 0),
+                            sd = 1 * sqrt(1 - 0.7 ^ 2)),
+                size = 1.2) +
+  scale_colour_manual(values = c("#CC79A7", "#E69F00")) +
+  scale_x_continuous(breaks = seq(-3, 3, 0.5)) +
+  labs(x = "y",
+       y = "Density",
+       col = "Given value of X",
+       title = "Conditional densities of Y given X = x") +
+  theme_classic()
+
+```
+
+
+-   If $X$ and $Y$ have a Bivariate Normal distribution then any conditional distribution is Normal. The conditional distribution of $Y$ given $X=x$ is
+$$
+N\left(\mu_Y + \frac{\rho\sigma_Y}{\sigma_X}\left(x-\mu_X\right),\;\sigma_Y\sqrt{1-\rho^2}\right)
+$$
+-   The conditional expected value of $Y$ given $X=x$ is a *linear* function of $x$, called the *regression line of $Y$ on $X$*:
+    $$
+    \text{E}(Y | X=x) = \mu_Y + \rho\sigma_Y\left(\frac{x-\mu_X}{\sigma_X}\right)
+    $$
+    -   The regression line passes through the point of means $(\mu_X, \mu_Y)$ and has slope
+    $$
+    \frac{\rho \sigma_Y}{\sigma_X}
+    $$
+    -   The regression line estimates that if the given $x$ value is $z$ SDs above the mean of $X$, then the corresponding $Y$ values will be, on average, $\rho z$ SDs away from the mean of $Y$
+    $$
+    \frac{\text{E}(Y|X=x) - \mu_Y}{\sigma_Y} = \rho\left(\frac{x-\mu_X}{\sigma_X}\right)
+    $$
+    -   Since $|\rho|\le 1$, for a given $x$ value the corresponding $Y$ values will be, on average, relatively closer to the mean of $Y$ than the given $x$ value is to the mean of $X$.  This is known as *regression to the mean*.
+-   For Bivariate Normal distributions, the conditional variance of $Y$ given $X=x$ does not depend on $x$:
+    $$
+    \text{SD}(Y |X = x) = \sigma_Y\sqrt{1-\rho^2}
+    $$
+    
+
+
+
+
+
+::: {#exm-bvn-sat-calc}
+Suppose that SAT Math ($M$) and Reading ($R$) scores of CalPoly students have a Bivariate Normal distribution.  Math scores have mean 640 and SD 80, Reading scores have mean 610 and SD 70, and the correlation between scores is 0.7.
+:::
+
+1.  Identify the distribution of Math scores. Find the probability that a student has a Math score above 700.
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{E}(M|R = 700)$.
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{SD}(M|R = 700)$.
+\
+\
+\
+\
+\
+1.  Identify the conditional distribution of Math scores given the Reading score is 700. Find the probability that a student has a higher Math than Reading score if the student scores 700 on Reading.
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{E}(M|R = 550)$.
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{SD}(M|R = 550)$.
+\
+\
+\
+\
+\
+1.  Identify the conditional distribution of Math scores given the Reading score is 550. Find the probability that a student has a higher Math than Reading score if the student scores 550 on Reading.
+\
+\
+\
+\
+\
+1.  Describe how you could simulate a single $(M, R)$ pair.
+\
+\
+\
+\
+\
+1.  Find and interpret $\text{E}(M|R)$.
+\
+\
+\
+\
+\
+
+
+```{r}
+#| echo: false
+#| label: fig-bvn-sat
+#| fig-cap: "A Bivariate Normal distribution with some conditional distributions and conditional expected values highlighted."
+#| message: false
+#| warning: false
+
+
+z_grid = seq(450, 850, 10)
+
+z_box <- expand_grid(x = z_grid, y = z_grid)
+
+z_box_prob <- z_box |>
+  mutate(bivariate_normal_sat = dbvn(x, y, 610, 640, 70, 80, 0.7))
+
+xs = seq(500, 750, 50)
+
+ggplot(z_box_prob,
+       aes(x = x,
+           y = y,
+           z = bivariate_normal_sat)) +
+  geom_raster(aes(fill = bivariate_normal_sat), interpolate = TRUE) +
+  geom_contour(color = "white") +
+  scale_x_continuous(expand = c(0, 0), limits = c(450, 800)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(450, 850)) +
+  scale_fill_viridis() +
+  labs(x = "R",
+       y = "M",
+       fill = "Density") +
+  coord_fixed() +
+  theme_classic() +
+  geom_vline(xintercept = xs, linetype = "solid", 
+                 color = c("#E69F00"), size = 2, alpha = 0.3) +
+  geom_abline(intercept = 640 - 0.7 * 80 / 70 * 610, slope = 0.7 * 80 / 70, linetype = "solid", 
+                 color = c("#CC79A7"), size = 2, alpha = 0.5) +
+  geom_point(data = data.frame(x = xs, y = 640 + 0.7 * 80 / 70 * (xs - 610)),
+             aes(x = x, y = y, z = 0),
+             color = c("#CC79A7"), size = 3)
+```
+
+
+
+
+-  If the pair $(X,Y)$ has a joint Normal distribution then each of $X$ and $Y$ has a Normal distribution.
+-  But the converse is not true.  That is, if each of $X$ and $Y$ has a  Normal distribution, it is not necessarily true that the pair $(X, Y)$ has a joint Normal distribution
+-  However, if $X$ and $Y$ are *independent* and each of $X$ and $Y$ has a  Normal distribution, then the pair $(X, Y)$ has a joint Normal distribution. (But joint Normal is much more general that two independent Normal random variables.)
+

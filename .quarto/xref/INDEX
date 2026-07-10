@@ -1,0 +1,155 @@
+{
+  "index.qmd": {
+    "index.html": "8fc92f5e"
+  },
+  "intro.qmd": {
+    "intro.html": "5b6958ce"
+  },
+  "summary.qmd": {
+    "summary.html": "a7e216df"
+  },
+  "references.qmd": {
+    "references.html": "0d0bcad4"
+  },
+  "independence.qmd": {
+    "independence.html": "79b344fc"
+  },
+  "randomness-and-probability.qmd": {
+    "randomness-and-probability.html": "4c87f64b"
+  },
+  "working-with-probabilities.qmd": {
+    "working-with-probabilities.html": "6d6938c6"
+  },
+  "conditional-probability.qmd": {
+    "conditional-probability.html": "ebefc867"
+  },
+  "discrete-rv.qmd": {
+    "discrete-rv.html": "d4eb6e67"
+  },
+  "hw-01.qmd": {
+    "hw-01.html": "b1f830a1"
+  },
+  "hw-02.qmd": {
+    "hw-02.html": "f2a8320c"
+  },
+  "poisson-binomial.qmd": {
+    "poisson-binomial.html": "0c5e1b25"
+  },
+  "expected-value.qmd": {
+    "expected-value.html": "37bb6912"
+  },
+  "variance.qmd": {
+    "variance.html": "baafeca8"
+  },
+  "continuous-pdf.qmd": {
+    "continuous-pdf.html": "3353085f"
+  },
+  "cdf-and-quantile.qmd": {
+    "cdf-and-quantile.html": "7f421bf0"
+  },
+  "normal.qmd": {
+    "normal.html": "a44acb91"
+  },
+  "joint-distributions.qmd": {
+    "joint-distributions.html": "66bb48aa"
+  },
+  "covariance.qmd": {
+    "covariance.html": "8c7f7e2e"
+  },
+  "conditional-distributions.qmd": {
+    "conditional-distributions.html": "f739c09f"
+  },
+  "joint-normal.qmd": {
+    "joint-normal.html": "e88382ec"
+  },
+  "linear-combinations.qmd": {
+    "linear-combinations.html": "06d1df06"
+  },
+  "hw-03.qmd": {
+    "hw-03.html": "cb3a38d7"
+  },
+  "hw-04.qmd": {
+    "hw-04.html": "6d900056"
+  },
+  "hw-05.qmd": {
+    "hw-05.html": "b41aca76"
+  },
+  "from-probability-to-statistics.qmd": {
+    "from-probability-to-statistics.html": "96522530"
+  },
+  "maximum-likelihood-principle.qmd": {
+    "maximum-likelihood-principle.html": "988f7627"
+  },
+  "maximum-likelihood-estimation.qmd": {
+    "maximum-likelihood-estimation.html": "edf4ee3b"
+  },
+  "hw-06.qmd": {
+    "hw-06.html": "201f531b"
+  },
+  "hw-01-sol.qmd": {
+    "hw-01-sol.html": "27d1fb66"
+  },
+  "hw-02-sol.qmd": {
+    "hw-02-sol.html": "ad5b386e"
+  },
+  "hw-03-sol.qmd": {
+    "hw-03-sol.html": "ca5c83dc"
+  },
+  "estimators-bias.qmd": {
+    "estimators-bias.html": "8a0bd6ac"
+  },
+  "estimators-variance.qmd": {
+    "estimators-variance.html": "d20d09e3"
+  },
+  "estimators-mse.qmd": {
+    "estimators-mse.html": "13d9c0b1"
+  },
+  "hw-07.qmd": {
+    "hw-07.html": "a4ab73dc"
+  },
+  "hw-04-sol.qmd": {
+    "hw-04-sol.html": "6037b8d7"
+  },
+  "distribution-summary.qmd": {
+    "distribution-summary.html": "f8df34f6"
+  },
+  "hw-05-sol.qmd": {
+    "hw-05-sol.html": "173fcc0e"
+  },
+  "clt.qmd": {
+    "clt.html": "3e3f8ebc"
+  },
+  "confidence-intervals.qmd": {
+    "confidence-intervals.html": "71cc1938"
+  },
+  "bootstrapping.qmd": {
+    "bootstrapping.html": "ddfe2d1a"
+  },
+  "hw-08.qmd": {
+    "hw-08.html": "ba9c01d6"
+  },
+  "null-hypothesis-testing.qmd": {
+    "null-hypothesis-testing.html": "a6fa4aa4"
+  },
+  "nht-issues.qmd": {
+    "nht-issues.html": "fad01469"
+  },
+  "anova.qmd": {
+    "anova.html": "4f6832b0"
+  },
+  "hw-06-sol.qmd": {
+    "hw-06-sol.html": "7f3ce4bb"
+  },
+  "hw-09.qmd": {
+    "hw-09.html": "6b77d000"
+  },
+  "hw-07-sol.qmd": {
+    "hw-07-sol.html": "f8e69f48"
+  },
+  "hw-08-sol.qmd": {
+    "hw-08-sol.html": "17fb3004"
+  },
+  "hw-09-sol.qmd": {
+    "hw-09-sol.html": "8cd55001"
+  }
+}

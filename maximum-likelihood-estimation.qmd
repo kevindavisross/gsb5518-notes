@@ -1,0 +1,83 @@
+# Maximum Likelihood Estimation: Calculus
+
+::: {#exm-mle-calc-single}
+We wish to estimate the parameter $\mu$ for a Poisson($\mu$) distribution based on a single observed value $X$.
+:::
+
+1.  Suppose that $x=3$.
+    Carefully write the likelihood function.\
+    \
+    \
+    \
+    \
+2.  Suppose that $x=3$.
+    Carefully write the log-likelihood function.\
+    \
+    \
+    \
+    \
+3.  Use calculus to find the MLE of $\mu$ given $x=3$.
+    Compare to what we found previously using graphical methods.\
+    \
+    \
+    \
+    \
+4.  Now consider a general $x$.
+    Carefully write the likelihood function.\
+    \
+    \
+    \
+    \
+5.  Now consider a general $x$.
+    Carefully write the log-likelihood function.\
+    \
+    \
+    \
+    \
+6.  Use calculus to find the MLE of $\mu$ given $x$.
+    Compare to what we found previously using graphical methods.\
+    \
+    \
+    \
+    \
+
+::: {#exm-mle-calc-sample}
+We wish to estimate the parameter $\mu$ for a Poisson($\mu$) distribution based on a random sample of $n$ values $X_1\ldots, X_n$.
+:::
+
+1.  Suppose that $n=3$ and the sample is (3, 0, 2).
+    Carefully write the likelihood function.\
+    \
+    \
+    \
+    \
+2.  Suppose that $n=3$ and the sample is (3, 0, 2).
+    Carefully write the log-likelihood function.\
+    \
+    \
+    \
+    \
+3.  Use calculus to find the MLE of $\mu$ given $n=3$ and the sample (3, 0, 2).
+    Compare to what we found previously using graphical methods.\
+    \
+    \
+    \
+    \
+4.  Now consider a general sample of size $n$.
+    Carefully write the likelihood function.\
+    \
+    \
+    \
+    \
+5.  Now consider a general sample of size $n$.
+    Carefully write the log-likelihood function.\
+    \
+    \
+    \
+    \
+6.  Use calculus to find the MLE of $\mu$ given a sample of size $n$.
+    Compare to what we found previously using graphical methods.\
+    \
+    \
+    \
+    \

@@ -1,0 +1,585 @@
+::: center
+**Handout 27\
+Null Hypothesis Tests for Means**
+:::
+
+::: exer
+**Exercise 1**. Did the New England Patriots deliberately deflate
+footballs in an NFL playoff game against the Indianapolis Colts on
+January 18, 2015? The following table[^1] summarizes the decrease in air
+pressure (psi), from pre-game to halftime, for the footballs from each
+team that were checked at halftime by officials.
+:::
+
+  Team         Observed values of decrease in air pressure (psi)                                                                         Size    Mean      SD
+  ---------- --------------------------------------------------- ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------- -------
+  Patriots                                                  1.00   1.65   1.35   1.80   1.40   0.90   0.65   1.40   1.55   2.00   1.60     11   1.391   0.402
+  Colts                                                     0.30   0.25   0.50   0.45                                                       4   0.375   0.119
+
+1.  Compute the observed difference in sample means.
+
+    **Solution:** $\bar{x}_{P} - \bar{x}_C = 1.391 - 0.375 = 1.016$ psi\
+
+2.  Suppose we want to assess if it is plausible that the Patriots
+    didn't interfere with the footballs, and the observed difference in
+    means is just due to chance. What would we assume in order to run
+    our simulation? (For example, what we would assume about the two
+    footballs in the first column with observed values of 1.00 and
+    0.30?)
+
+    **Solution:** If there is no difference, assume value of the psi
+    decrease (response variable) would be the same regardless of team
+    (explanatory variable group)\
+
+3.  Specify how the "null distribution" of the statistic could be
+    simulated with cards.
+
+    -   We can use 15 cards cards.
+
+    -   On each card we would write an observed value of decrease in psi
+        (response), e.g., 1.00, 0.30m 1.65, 0.25, etc
+
+    -   Shuffle the cards and deal 11 to represent Pats.
+
+    -   The remaining 4 cards represent Colts.
+
+    -   After shuffling and dealing, compute the mean for Pats, the mean
+        for Colts, and the hypothetical difference in means
+        $\bar{x}_P-\bar{x}_C$.
+
+    -   Then repeat many times, each time recording the hypothetical
+        difference in means $\bar{x}_P-\bar{x}_C$.
+
+    -   To estimate the p-value: find the proportion of repetitions for
+        which the difference in means was as extreme as the observed
+        value 1.016\
+
+4.  Use cards to perform one repetition of the above simulation, record
+    the results here, and compute the appropriate difference in means.
+
+    ::: center
+      Team         *Shuffled* values of decrease in air pressure (psi)                                                                                             Size     Mean
+      ---------- ----------------------------------------------------- -------- -------- -------- -------- -------- -------- -------- -------- -------- -------- ------ --------
+      Patriots                                                                                                                                                       11         
+      Colts                                                                                          X        X        X        X        X        X        X          4 
+    :::
+
+5.  The following plot displays results from an applet used to run 10000
+    repetitions of the simulation (the plot on the left is the results
+    from just the first 100 repetitions). Estimate the probability of
+    observing a difference in means as extreme as 1.016 just by chance.
+
+    Enter observed difference in means, $\bar{x}_P-\bar{x}_C =1.016$
+    into the "as extreme as" box and find the proportion of repetitions
+    with a difference in means as extreme as 1.016
+
+    <figure>
+    <div class="minipage">
+    <img src="C:/Users/kjross/Documents/Handout_graphs/applet_patriots1"
+    style="width:70.0%" />
+    </div>
+    <div class="minipage">
+    <img src="C:/Users/kjross/Documents/Handout_graphs/applet_patriots2"
+    style="width:80.0%" />
+    </div>
+    </figure>
+
+6.  Is it plausible that the observed difference in means is just due to
+    random chance?
+
+    **Solution:** No. With a p-value $<0.0001$, we would not expect to
+    see a difference as large as 1.016 just by random chance. If there
+    were no difference in psi between the teams, we could only see a
+    difference in means as large as 1.016 in fewer than 0.01% of
+    samples. We have evidence that the Patriots footballs tended to
+    deflate more than the Colts footballs.\
+
+7.  Based on these data alone, do we have convincing evidence that the
+    Patriots deliberately deflated the footballs? That is, were the
+    Patriots the cause of the deflation?
+
+    **Solution:** Not an experiment; the footballs were not randomly
+    assigned to the teams. The teams brings their own footballs.
+    Possible confounding variables. Maybe Pats just got bad quality
+    footballs that tended to deflate more.\
+
+-   Statisticians view conjectures about a population as two competing
+    *hypotheses* about the population or process. These hypotheses
+    usually constitute claims about the values of certain parameters.
+
+-   A statistical **(null) hypothesis test** consists of using data to
+    make a decision regarding these two explanations (hypotheses).
+
+-   The **null hypothesis**, denoted $H_0$, represents the "status
+    quo/no difference/no effect/no association" hypothesis.
+
+    -   If the null hypothesis true then any observed
+        difference/effect/association is just due to "random chance"
+        resulting from natural sample-to-sample variability
+
+-   The **alternative hypothesis**, denoted $H_a$ (or $H_1$), typically
+    corresponds to what the researchers are hoping to gather evidence to
+    support, and thus is a statement in line with the research
+    conjecture
+
+-   A statistical hypothesis test assesses if the data provide evidence
+    to rule out the "random chance" explanation (which corresponds to
+    the null hypothesis) in favor of the explanation provided by the
+    research conjecture (alternative hypothesis).
+
+-   The null hypothesis is often of the form
+    $$H_0: \text{parameter} = \text{hypothesized value}$$ where the
+    hypothesized value is a specific number determined by the research
+    question (often 0 for "no difference").
+
+-   The alternative hypotheses is often of one of the followinf forms
+    $$\begin{aligned}
+        \text{Case 1a:}\quad  H_a: \text{parameter} &> \text{hypothesized value}\\
+        \text{Case 1b:}\quad H_a: \text{parameter} &< \text{hypothesized value}\\
+        \text{Case 2:}\quad H_a: \text{parameter} &\neq \text{hypothesized value (``two-sided'')}
+    \end{aligned}$$ Which of the three cases above is appropriate is
+    determined by the research conjecture. When in doubt, use a
+    two-sided ($\neq$) alternative.
+
+-   Confidence intervals and hypothesis tests are commonly used in
+    conjunction
+
+-   A confidence interval
+
+    -   provides a range of plausible values
+
+    -   but the cut-off between plausible and implausible is arbitrary
+        (e.g. 95% confidence corresponds to $\alpha_0=0.05$)
+
+        -   But be especially careful about interpreting confidence when
+            conducting multiple confidence intervals.
+
+-   A null hypothesis significance test
+
+    -   Considers the plausibility of only a single hypothesized value
+
+    -   But provides a precise measure --- the p-value --- of the
+        plausibility of the particular hypothesized value in light of
+        the observed data
+
+        -   But be especially careful about interpreting p-values when
+            conducting multiple hypothesis tests.
+
+-   To assess the plausibility of the random chance explanation for the
+    observed --- corresponding to the null hypothesis being true --- we
+    need to know the pattern of sample-to-sample variability of the
+    statistic that would be expected just due to random chance if the
+    null hypothesis were true. This is called the **null distribution**
+    of the statistic.
+
+-   If the actual observed value of the statistic is not consistent with
+    this pattern, then we have convincing evidence that the results did
+    not occur by random chance alone, and we have evidence to reject the
+    null hypothesis
+
+-   The (simulated) null distribution provides a picture of what typical
+    values of the statistic would be expected just by random chance
+    alone if the null hypothesis were true.
+
+-   The question is then: how surprising is the result we actually
+    observed from the perspective of the null distribution? If the
+    result would be very surprising, then "random chance" is not a
+    plausible explanation for the observed result.
+
+-   This gives us evidence to rule out a "random chance" explanation
+    like in favor of a "research conjecture" explanation.
+
+-   In other words, the more surprising the observed result would be
+    just due to random chance, the stronger the evidence to **reject the
+    null hypothesis** in favor of the alternative hypothesis.
+
+-   We quantify "how surprising" with a p-value.
+
+    -   The **p-value** is the probability of observing a value at least
+        as extreme as the value actually observed, when the null
+        hypothesis is true.
+
+    -   The p-value can be estimated by the proportion (out of the total
+        number of repetitions) of values in the simulated null
+        distribution that are *at least as extreme* as the actual
+        observed value of the statistic.
+
+        -   Which tail(s) constitutes "at least as extreme\" is
+            determined by the form of the *alternative hypothesis*
+
+-   The smaller the p-value --- that is, the closer the p-value is to 0
+    --- the less plausible it is that the observed result occurred just
+    by random chance alone.
+
+-   Thus, **the smaller the p-value the stronger the evidence to reject
+    the null hypothesis in favor of the alternative hypothesis.**
+
+-   If the observed results provide strong evidence that the data did
+    not arise by random chance alone --- that is, when the p-value is
+    small --- then there is evidence of a **statistical difference**.
+
+-   How small is small enough? You should think of a sliding scale: the
+    closer the p-value gets to 0 the stronger the evidence to reject the
+    null hypothesis in favor of the alternative. Some guidelines, which
+    should *not* be followed too strictly (especially when performing
+    many hypothesis tests simultaneously):
+
+    ::: center
+      p-value                  Evidence to reject the null hypothesis?
+      ------------------------ -----------------------------------------
+      Above 0.10               Little to no evidence
+      Between 0.01 and 0.10    Weak evidence
+      Between 0.001 and 0.01   Moderate evidence
+      Less than 0.001          Strong evidence
+    :::
+
+-   Do NOT rely strictly on arbitrary thresholds like p-value $<$ 0.05.\
+
+::: {#exer:backpack .exer}
+**Exercise 2**. Carrying a heavy backpack can be a source of "chronic,
+low-level trauma," and can cause chronic shoulder, neck, and back pain.
+The American Academy of Orthopedic Surgeons recommends that a backpack
+not weigh more than 10 percent of the wearer's body weight. Do Cal Poly
+students follow this recommendation? That is, do the backpacks of Cal
+Poly students weigh, on average, less than 10% of their bodyweight? The
+JMP output summarizes data on a sample of 100 Cal Poly students.
+:::
+
+![image](C:/Users/kjross/Documents/Handout_graphs/backpack2){width="80%"}
+
+1.  Identify the main parameter of interest with both words and an
+    appropriate symbol.
+
+    **Solution:** $\mu=$population mean backpack weight as percent of
+    bodyweight for CP students.\
+
+2.  Translate the research question into a hypothesis testing problem by
+    specifying, with both words and appropriate symbols, the null
+    hypothesis and the alternative hypothesis.
+
+    **Solution:** The hypothesized value comes from the 10 percent
+    recommendation.
+
+    $H_0:\mu = 10$, population mean backpack weight as percent of body
+    weight for CP students is 10 percent
+
+    $H_a:\mu < 10$, population mean backpack weight as percent of body
+    weight for CP students is less than 10 percent\
+
+3.  Identify the null distribution of sample means. Then compute the
+    p-value.
+
+    **Solution:** The SE $s/\sqrt{n} = 3.66/\sqrt{100} = 0.366$ measures
+    the sample-to-sample variability of sample mean backpack weight as
+    percent of body weight for many hypothetical samples of 100 students
+    each.
+
+    $$\frac{\text{observed}-\text{hypothesized}}{\text{SE}}
+    = \frac{7.71-10}{0.366} = \frac{-2.29}{0.366} = -6.3$$ The observed
+    sample mean of 7.71 percent is 6.3 SEs below what we would expect if
+    the null hypothesis were true. the p-value will be essentially 0.\
+
+4.  Write a carefully worded sentence reporting your conclusion in
+    context.
+
+    **Solution:** With a p-value $<0.0001$, we have strong evidence to
+    reject the null hypothesis and conclude population mean backpack
+    weight as percent of bodyweight for CP students is less than 10
+    percent.\
+
+5.  Compute an appropriate 99% confidence interval.
+
+    **Solution:** Observed $\pm$ multiple of SE. The multiple for 99%
+    confidence is 2.6. $7.71 \pm 2.6\times 0.366$: $7.71 \pm 0.95$:
+    $[6.7, 8.7]$\
+
+6.  Write a sentence reporting your confidence interval in context.
+
+    **Solution:** We estimate with 99% confidence that population mean
+    backpack weight as percent of bodyweight for CP students is between
+    6.7 and 8.7 percent. (The reason why "percent" here is because they
+    are the measurement units of the variable.)\
+
+7.  In generalizing your conclusions to Cal Poly students, what are you
+    assuming?
+
+    **Solution:** Reasonably representative random sample. Need to know
+    more information about how the data were collected to investigate.\
+
+8.  Do Cal Poly students follow the 10% recommendation? Is the analysis
+    above the only way to address this question? Can you suggest
+    another?
+
+    **Solution:** The above just tells us that the *mean* is less than
+    10%. But there might be individual students with backpacks that
+    weigh more than 10% of their bodyweight. What proportion of students
+    is this true for? For the sample, the 75th percentile is 9.6, so
+    about 25% of students have backpacks that weigh more than 10 pecent
+    of bodyweights. With $\hat{p}=0.25$, and SE of
+    $\sqrt{0.25(1-0.25)}/\sqrt{100}=  0.043$, the 95% CI is
+    $0.25 \pm 2 \times 0.043$: $[0.16, 0.34]$. We estimate with 95%
+    confidence that the population proportion of CP students with
+    backpacks that weigh more than 10 percent of their body weight is
+    between 0.16 and 0.34. That is, we estimate with 95% confidence that
+    between 16% and 34% of CP students have backpacks that weigh more
+    than 10 percent of their bodyweights.\
+
+-   **One-sample $t$ test**
+
+-   Situation: question concerns a single numerical variable of interest
+
+-   Parameter: $\mu$ is the population mean (i.e. the mean value of the
+    variable over all units in the population)
+
+-   Goal: assess the plausibility of a claim about $\mu$ regarding a
+    hypothesized value $\mu_0$
+
+-   The null hypothesis is $H_0: \mu= \mu_0$
+
+-   The alternative hypothesis is one of $H_a: \mu >\mu_0$,
+    $H_a: \mu<\mu_0$, or $H_a: \mu\neq \mu_0$
+
+-   Statistics: $\bar{x}$ is the sample mean; $s$ is the sample standard
+    deviation
+
+-   Test statistic: the standardized value of $\bar{x}$, where
+
+    -   the mean is computed assuming the null hypothesis,
+        $H_0: \mu=\mu_0$, is true, and
+
+    -   the unknown SD ($\sigma/\sqrt{n}$) is estimated with the
+        standard error $s/\sqrt{n}$
+
+    $$t = \frac{\bar{x}-\mu_0}{s/\sqrt{n}}$$
+
+-   The p-value is the probability of observing a value at least as
+    extreme as $t$, in the tail direction indicated by the alternative
+    hypothesis, for the $t$-distribution with $n-1$ degrees of freedom.
+    (When in doubt, use a two-sided alternative and a two-tailed
+    p-value.)
+
+-   Assumptions:
+
+    -   Simple random sample from a large population, that is,
+        independent observations
+
+    -   No bias in data collection
+
+    -   Population mean is the parameter you want to estimate
+
+::: exer
+**Exercise 3**. Do newborns from mothers who smoke tend to weight less
+at birth than newborns from mothers who don't smoke? The following
+summarizes data on a sample of cases in North Carolina over a one year
+period.
+:::
+
+![image](C:/Users/kjross/Documents/Handout_graphs/babysmoke.png){width="65%"}
+
+1.  How can we assess how strong is the evidence that there is a
+    difference? Conduct an appropriate analysis.
+
+    **Solution:**
+
+      ------------- --------------------------------- --------------------------------- -----------------------------------
+                                           Non-smoker                            Smoker                          Difference
+      Sample size                                 873                               126 
+      Sample mean                                7.14                              6.83                                0.31
+      Sample SD                                  1.52                              1.39 
+      SE              $\frac{1.52}{\sqrt{873}}=0.051$   $\frac{1.39}{\sqrt{126}}=0.123$   $\sqrt{0.051^2 + 0.123^2}= 0.134$
+      ------------- --------------------------------- --------------------------------- -----------------------------------
+
+    $$t = \frac{\text{observed} - \text{hypothesized}}{\text{SE}} = \frac{0.31 - 0}{0.134} = 2.36$$
+    With a p-value of 0.02 we have some/moderate evidence to reject the
+    null hypothesis and conclude that the population mean birthweight of
+    babies whose mothers are smokers is less than the population mean
+    birthweight of babies whose mothers are nonsmokers. There is some,
+    but not strong, evidence, that birthweight tends to be less on
+    average for babies of mothers who are smokers than for babies who
+    mothers are nonsmokers.
+
+2.  How can we assess the size of the difference? Conduct an appropriate
+    analysis.
+
+    **Solution:** 95% CI
+    $$\text{observed statistic} \pm \text{multiple} \times \text{SE:} \qquad 0.31 \pm 2 \times 0.123 \Longrightarrow \qquad [0.05, 0.58]$$
+    We estimate with 95% confidence that that the population mean
+    birthweight of babies whose mothers are smokers is between 0.05 and
+    0.58 pounds less than the population mean birthweight of babies
+    whose mothers are nonsmokers.
+
+-   **Two-sample $t$ test for a difference in population (or treatment)
+    means.**
+
+-   Situation: binary explanatory variable (population/treatment 1, 2)
+    and numerical response variable
+
+-   Parameter: $\mu_1-\mu_2$ is the difference in population means
+    (treatment means)
+
+-   Goal: assess the strength of the evidence against the "no
+    difference" or "no treatment effect" hypothesis
+
+-   The null hypothesis is $H_0: \mu_1-\mu_2=0$
+
+-   The alternative hypothesis is one of $H_a: \mu_1-\mu_2>0$,
+    $H_a: \mu_1-\mu_2<0$, or $H_a: \mu_1-\mu_2\neq0$
+
+-   Statistic: $\bar{x}_1-\bar{x}_2$ is the difference in sample means
+    for samples (groups) of size $n_1, n_2$
+
+-   The SE of the difference in sample means is
+    $$\textrm{SE}(\bar{x}_1-\bar{x}_2) = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}} = \sqrt{\textrm{SE}^2(\bar{x}_1)+\textrm{SE}^2(\bar{x}_2)}$$
+
+-   Test statistic:
+    $$t = \frac{\text{observed}-\text{hypothesized}}{\text{SE}} = \frac{\bar{x}_1-\bar{x}_2-0}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}$$
+
+-   The p-value is the probability of observing a value at least as
+    extreme as $t$, in the tail direction indicated by the alternative
+    hypothesis, for the $t$-distribution with $n-1$ degrees of freedom.
+    (When in doubt, use a two-sided alternative and a two-tailed
+    p-value.)
+
+-   Assumptions:
+
+    -   Either
+
+        -   The data are obtained through two unbiased and independent
+            random samples from large populations
+
+            -   Or from one unbiased random sample which is classified
+                according to two variables, and the two groups can be
+                considered independent of each other.
+
+        -   The data are obtained from an experiment in which subjects
+            were to two treatments.
+
+    -   No bias in data collection
+
+    -   Difference in population means is the parameter you want to
+        estimate
+
+-   The $t$ procedures for population means are valid as long as the
+    sample size is large enough, regardless of the shape of the
+    population distribution.
+
+-   **However, if the population distributions are highly skewed, then
+    the population *medians* might be more appropriate parameters to
+    consider as measures of center.**
+
+-   Which is more appropriate, the population means or the population
+    medians, depends on the purpose for the inference.
+
+-   Also remember that sample means and SDs, and hence $t$ procedures,
+    are sensitive to outliers and extreme values.
+
+-   ALWAYS PLOT YOUR DATA\
+    \
+
+::: exer
+**Exercise 4**. Continuing the previous exercise.
+:::
+
+1.  The observed difference in sample means is 0.31 pounds. Does that
+    seem like a large or meaningful difference?
+
+    **Solution:** Birthweights vary naturally from baby to baby by about
+    1.5 pounds (sample SD), so 0.3 pounds doesn't seem large relative to
+    the natural variability in birthweights.\
+
+2.  Would an observed difference of 1 pound seem like a large or
+    meaningful difference?
+
+    **Solution:** This is certainly a larger difference than 0.3 pounds.
+    A difference of 0.3 pounds is only about 0.2 SDs (0.3/1.5) but a
+    difference of 1 pound is 0.67 SDs (1/1.5).\
+
+3.  Suppose this had been a study comparing weights of adult smokers
+    versus non-smokers. Would an observed difference of 1 pound be a
+    large or meaningful difference?
+
+    **Solution:** There is a lot more variability in weights of adults
+    than in weights of babies. So a 1 pound difference looks much
+    smaller relative to the natural variability in weights of adults
+    than it does relative to the natural variability in weights of
+    babies.\
+
+    -   **Effect size** measures the magnitude of the difference between
+        groups
+
+    -   A confidence interval can be used to measure the absolute size
+        of the difference in the measurement units of the variable. But
+        effect size can also be measured as a relative difference.
+
+    -   The parameter $\mu_1-\mu_2$ measures the *absolute* difference
+        between the two population means in the measurement units of the
+        numerical response variable
+
+    -   The population **effect size** measures the magnitude of the
+        difference between group means *relative* to the population SD
+        $$\frac{|\mu_1 - \mu_2|}{\sigma}$$
+
+        -   The values of any quantitative variable vary naturally from
+            unit to unit.
+
+        -   The SD measures the degree to which individual values of the
+            variable vary naturally, so the SD provides a natural
+            "scale" for the variable
+
+        -   The effect size compares the magnitude of the difference in
+            means relative to the natural scale (SD) for the variable
+
+    -   The population effect size can be estimated with **Cohen's $d$
+        statistic** $$d = \frac{|\bar{x}_1 - \bar{x}_2|}{s}$$
+
+        -   $s$ is some estimate of $\sigma$, like the larger of the two
+            sample SDs $s_1$ and $s_2$ (or the pooled sample SD)
+
+    -   Rough guidelines for interpreting $d$:\
+        \
+
+          ------------- ------- -------- ------- ------------ ------
+                    $d$     0.2      0.5     0.8          1.2    2.0
+            Effect size   Small   Medium   Large   Very Large   Huge
+                                                              
+          ------------- ------- -------- ------- ------------ ------
+
+    -   For example, when the effect size is 1.0 the median of the
+        distribution with the higher mean is the 84th percentile of the
+        distribution with the lower mean (assuming population
+        distributions are Normal and the two population standard
+        deviations are equal)\
+
+    ![image](C:/Users/kjross/Documents/Handout_graphs/effect_size_plots){width="50%"}
+
+    ::: center
+      ------------------------------------ ------- -------- ------- ------ ------------ ------
+      $d$                                    0.2     0.5      0.8    1.0       1.2       2.0
+      Effect size                           Small   Medium   Large          Very Large   Huge
+      Median of population 1 is                                                         
+      (blank) percentile of population 2    58th     69th    79th    84th      89th      98th
+                                                                                        
+      ------------------------------------ ------- -------- ------- ------ ------------ ------
+    :::
+
+4.  Compute and interpret the effect size.
+
+    **Solution:** The two sample SDs are 1.52 and 1.39; just pick the
+    larger one.
+    $$\text{Effect size} = \frac{\text{Observed difference in means}}{\text{sample SD}} = \frac{0.31}{1.52} = 0.2$$
+    The observed mean birthweight for babies of nonsmokers is 0.2
+    *standard deviations* above the observed mean birthweight for babies
+    of smokers. This is a relatively small effect size.\
+
+5.  Describe in detail how you would use bootstrapping to find a
+    confidence interval for the *population effect size*. Then find and
+    interpret the confidence interval.
+
+    **Solution:** Similar to the previous part but the statistic is the
+    sample effect size (Cohen's $d$ statistic). We estimate with 95%
+    confidence that the population mean birthweight is between 0.04 to
+    0.39 *SDs* larger for babies of non-smokers than for babies of
+    smokers.
+
+[^1]: Source:
+    <http://a.espncdn.com/pdf/2015/0506/PatriotsWellsReport.pdf>

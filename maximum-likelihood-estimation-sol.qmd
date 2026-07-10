@@ -1,0 +1,360 @@
+
+
+-   Consider a single observation $X$ from a population $p_\theta$ with
+    parameter $\theta$: Let $X\sim p_\theta$. The **likelihood
+    function** given $X=x$ is defined as
+    $$L(\theta) \equiv  L_x(\theta) = p_\theta(x)$$
+
+-   That is, the likelihood function is the probability (or density for
+    continuous data $X$) of observing the given sample data $x$ viewed
+    as a *function of the unknown parameter(s)* $\theta$. The observed
+    value of $x$ (data) is treated as a fixed constant.
+
+-   The *maximum likelihood estimate* of $\theta$ is the value of
+    $\theta$ for which the observed data has the highest likelihood of
+    occurring.
+
+-   The **maximum likelihood estimator (MLE)** of $\theta$ is the RV
+    $\hat{\theta}$ which maximizes the likelihood, i.e. the value
+    $\hat{\theta}$ which satisfies
+    $$L(\hat{\theta}) \ge L(\theta) \text{ for all } \theta.$$
+
+-   Remember that an estimator $\hat{\theta}$ is a function of $X$, the
+    observed data.
+
+-   In order to find the MLE, it is often convenient to consider the
+    **log-likelihood function**
+    $$\ell(\theta) \equiv \ell_x(\theta) = \log L_x(\theta)\\
+    $$
+
+-   Because $\log$ is an increasing function it follows that
+    $\hat{\theta}$ is the MLE of $\theta$ if and only if
+    $$\ell(\hat{\theta}) \ge \ell(\theta) \text{ for all } \theta.$$
+
+::: exer
+Suppose we are willing to assume a Poisson($\mu$) model
+for the number of home runs home runs hit (in total by both teams) in a
+MLB game. But we don't know the value of $\mu$, so we we will collect
+data and use it to estimate $\mu$. Suppose first that we observe just a
+single game; let $X$ be the number of home runs in this game.
+:::
+
+1.  Suppose that we observe $x=3$ home runs in a single game. Carefully
+    write the likelihood function, and the log-likelihood function,
+    corresponding to $x=3$.
+
+    **Solution:** Plug $x=3$ into the Poisson($\mu$) pmf and view it as
+    a function of $\mu>0$; the likelihood function is
+    $$L(\mu)  = e^{-\mu}\mu^3 / 3!, \qquad \mu>0$$ Take logs to get the
+    log-likelihood function
+    $$\ell(\mu)  = \log L(\mu) = \log\left(e^{-\mu}\mu^3 / 3!\right) = -\mu + 3\log \mu - \log(3!)$$
+    Notice that $\log(3!)$ is just a constant which does not depend on
+    $\mu$.
+
+2.  Use calculus to find the MLE of $\mu$ given $x=3$ home runs observed
+    in a single game. Compare to what we found using graphical methods
+    in the previous handout.
+
+    **Solution:** Differentiate log-likelihood with respect to $\mu$ and
+    set the derivative to 0
+
+    $$\begin{aligned}
+        \ell(\mu) & = -\mu + 3\log \mu -\log(3!) & & \text{log-likelihood}\\
+        \Rightarrow \ell'(\mu) & = - 1 + \frac{3}{\mu}- 0 & & \text{derivative wrt $\mu$}\\
+        \text{set } \ell'(\hat{\mu})=0  \Rightarrow \ell'(\hat{\mu}) & = - 1 + \frac{3}{\hat{\mu}} = 0 & & \text{to find maximum}\\
+        \Rightarrow \hat{\mu} & = 3  & & \text{solve}
+    \end{aligned}$$ So the MLE of $\mu$ based on a single game with
+    $x=3$ home runs is 3. This is what we found using graphical methods.
+
+3.  Now consider a general value of $x$. Suppose that we observe $x$
+    home runs in a single game. Carefully write the likelihood function,
+    and the log-likelihood function, corresponding to $x$.
+
+    **Solution:** Plug $x$ into the Poisson($\mu$) pmf and view it as a
+    function of $\mu>0$; the likelihood function is
+    $$L(\mu)  = e^{-\mu}\mu^x / x!, \qquad \mu>0$$ Note that we are
+    viewing the Poisson pmf from a new perspective. From a probability
+    perspective, $\mu$ is fixed and the pmf is a function of the
+    variable $x$. But the likelihood views from a statistics
+    perspective: the observed data $x$ is treated as fixed and the
+    likelihood is a function of potential values of the unknown
+    parameter $\mu$.
+
+    Take logs to get the log-likelihood function
+    $$\ell(\mu)  = \log L(\mu) = \log\left(e^{-\mu}\mu^x / x!\right) = -\mu + x\log \mu - \log(x!)$$
+    Notice that $\log(x!)$ is just a constant which does not depend on
+    $\mu$.
+
+4.  Use calculus to find a general expression for the MLE of $\mu$ given
+    $X$ home runs observed in a single game.
+
+    **Hint:** it's easy to get lost in all the symbols. It helps to
+    consider specific examples first. For example, rather than finding a
+    general expression for the MLE in terms of the $X$'s, first assume a
+    particular sample of numbers and find the MLE for that sample (like
+    in the previous part.)
+
+    Differentiate log-likelihood with respect to $\mu$ and set the
+    derivative to 0. Note that $x$ is treated as a constant, just like 3
+    was in the previous parts. So the derivative of $\log(x!)$ with
+    respect to $\mu$ is just 0.
+
+    $$\begin{aligned}
+        \ell(\mu) & = -\mu + x\log \mu -\log(x!) & & \text{log-likelihood}\\
+        \Rightarrow \ell'(\mu) & = - 1 + \frac{x}{\mu} - 0 & & \text{derivative wrt $\mu$}\\
+        \text{set } \ell'(\hat{\mu})=0  \Rightarrow \ell'(\hat{\mu}) & = - 1 + \frac{x}{\hat{\mu}} = 0 & & \text{to find maximum}\\
+        \Rightarrow \hat{\mu} & = x  & & \text{solve}
+    \end{aligned}$$ So the MLE of $\mu$ based on a single game with $X$
+    home runs is $\hat{\mu} = X$.
+
+::: exer
+Continue to assume a Poisson($\mu$) model for the number
+of home runs hit (in total by both teams) in a MLB game. But now we
+estimate $\mu$ based on a sample of $n$ games. Let $X_1, \ldots, X_n$ be
+a random sample of home run counts for $n$ games. For example, suppose
+$n=3$ and we observe $x_1 = 3$, $x_2 = 0$, $x_3=2$.
+:::
+
+1.  *First some probability questions.* Assume $\mu=2.3$ and $n=3$. Find
+    the joint pmf of $(X_1, X_2, X_3)$; what is this a function of? Find
+    and interpret the probability of observing the sample\
+    $(x_1 = 3, x_2 = 0, x_3=2)$.
+
+    **Solution:** Since independent, the joint pmf is the product of the
+    marginal pmfs, and a function of the sample values, $x_1, x_2, x_3$.
+
+    $$\begin{aligned}
+    p_{\mu=2.3}(x_1, x_2, x_3) &  =  \left(e^{-2.3}\frac{2.3^{x_1}}{x_1!}\right)\left(e^{-2.3}\frac{2.3^{x_2}}{x_2!}\right)\left(e^{-2.3}\frac{2.3^{x_3}}{x_3!}\right)\\
+    & = e^{-3\times 2.3}2.3^{x_1+x_2+x_3}/(x_1!x_2!x_3!), \qquad x_1, x_2, x_3 = 0, 1, 2, \ldots\\
+    p_{\mu}(3, 0, 2) &  =  \left(e^{-2.3}\frac{2.3^{3}}{3!}\right)\left(e^{-2.3}\frac{2.3^{0}}{0!}\right)\left(e^{-2.3}\frac{2.3^{2}}{2!}\right) \\
+    & = e^{-3\times 2.3}2.3^5/(3!0!2!) = 0.005
+    \end{aligned}$$
+
+    About 0.5% of samples of 3 games have 3 HRs in the first game, 0 in
+    the second, and 2 in the third.\
+
+2.  *Now back to some statistics questions.* Now remember that in
+    reality $\mu$ is unknown. Suppose that the sample
+    $(x_1 = 3, x_2 = 0, x_3=2)$ is observed. Now write the joint pmf
+    plugging in everything we know; what is this a function of? Is this
+    function a pmf?
+
+    **Solution:** This likelihood is a function of the single parameter
+    $\mu$. $$\begin{aligned}
+    L(\mu) \equiv L_{x_1=3, x_2 = 0, x_3 = 2}(\mu) = p_{\mu}(3, 0, 2) &  =  \left(e^{-\mu}\frac{\mu^{3}}{3!}\right)\left(e^{-\mu}\frac{\mu^{0}}{0!}\right)\left(e^{-\mu}\frac{\mu^{2}}{2!}\right), \qquad \mu > 0 \\
+    & = e^{-3\mu}\mu^5/(3!0!2!), \qquad \mu >0\\
+    & \propto e^{-3\mu}\mu^5, \qquad \mu > 0 
+    \end{aligned}$$ Notice that to determine the shape of the likelihood
+    as a function of $\mu$, we only need to know the sample size and the
+    sum of the values (rather than the individual values).\
+
+3.  Compute the probability of observing the sample
+    $(x_1 = 3, x_2 = 0, x_3=2)$ if $\mu = 2.3$.
+
+    **Solution:** $$\begin{aligned}
+    L(2.3)  = e^{-3\times 2.3}2.3^5/(3!0!2!) = 0.005
+    \end{aligned}$$
+
+4.  Compute the probability of observing the sample
+    $(x_1 = 3, x_2 = 0, x_3=2)$ if $\mu = 1$.
+
+    **Solution:** $$\begin{aligned}
+    L(1)  = e^{-3\times 1}1^5/(3!0!2!) = 0.004
+    \end{aligned}$$
+
+5.  Compute the probability of observing the sample
+    $(x_1 = 3, x_2 = 0, x_3=2)$ if $\mu = 5$.
+
+    **Solution:** $$\begin{aligned}
+    L(5)  = e^{-3 \times 5}5^5/(3!0!2!) = 0.00008
+    \end{aligned}$$
+
+6.  Compute the probability of observing the sample
+    $(x_1 = 3, x_2 = 0, x_3=2)$ if $\mu = 3.5$.
+
+    **Solution:** $$\begin{aligned}
+    L(3.5)  = e^{-3 \times 3.5}3.5^5/(3!0!2!) = 0.001
+    \end{aligned}$$\
+
+7.  Suppose the sample $(x_1 = 3, x_2 = 0, x_3=2)$ is observed. Which
+    value --- 1, 2.3, 3.5, or 5 --- would you choose as your estimate
+    for $\mu$? Why?
+
+    **Solution:** Among these choices, $x_1=3, x_2 = 0, x_3 = 2$ has the
+    highest probability of occurring if $\mu = 2.3$. In this sense, the
+    data seem more "consistent" with a value of $\mu=2.3$ than for the
+    other values. So we would choose 2.3 as our estimate of $\mu$ from
+    among these choices.\
+
+8.  We obviously have more choices for our estimate of $\mu$ than just
+    1, 2.3, 3.5, or 5. Describe in principle the process you would
+    follow to find the estimate of $\mu$ based on observing the sample
+    $(x_1 = 3, x_2 = 0, x_3=2)$.
+
+    **Solution:** Given $(x_1 = 3, x_2 = 0, x_3=2)$, plot the likelihood
+    function $L(\mu)$ as a function of $\mu$ and find the value
+    $\hat{\mu}$ which maximizes the probability of observing
+    $(x_1 = 3, x_2 = 0, x_3=2)$. In this sense, the data
+    $(x_1 = 3, x_2 = 0, x_3=2)$ seems most "consistent" with the value
+    $\hat{\mu}$. Note that $\hat{\mu}$ depends on
+    $(x_1 = 3, x_2 = 0, x_3=2)$; observing a different sample would lead
+    to a different likelihood function and hence a different maximum
+    likelihood estimate of $\mu$.
+
+-   Consider a random sample of $n$ values from a population $p_\theta$
+    with parameter $\theta$: Let $X_1,\ldots,X_n$ be
+    i.i.d. $\sim p_\theta$.
+
+-   The **likelihood function** of $\theta$, given
+    $X_1=x_1, \ldots, X_n=x_n$, is
+    $$L(\theta)\equiv L_{x_1, \ldots, x_n}(\theta) = \prod_{i=1}^n p_\theta(x_i) = p_\theta(x_1)\times\cdots\times p_\theta(x_n)$$
+
+-   That is, the likelihood function is the joint density[^1] of the
+    sample $X_1,\ldots,X_n$, evaluated at the observed data values
+    $x_1,\ldots,x_n$, viewed as *a function of the (unknown)
+    parameter(s) $\theta$.*
+
+-   Note that $x_1, \ldots, x_n$ represent distinct values (like
+    $x_1=3, x_2=0, x_3=2$ in the example).
+
+-   The MLE of $\theta$ is the value of $\theta$ for which the observed
+    sample data has the highest likelihood of occurring.
+
+-   The **maximum likelihood estimator (MLE)** of $\theta$ is the RV
+    $\hat{\theta}$ which maximizes the likelihood, i.e. the value
+    $\hat{\theta}$ which satisfies
+    $$L(\hat{\theta}) \ge L(\theta) \text{ for all } \theta.$$
+
+-   Remember that an estimator $\hat{\theta}$ is a function of
+    $X_1, \ldots, X_n$.
+
+-   The **log-likelihood function** of $\theta$ is $$\begin{aligned}
+        \ell(\theta) \equiv \ell_{x_1, \ldots, x_n}(\theta)& = \log L(\theta)\\
+        & = \sum_{i=1}^n\log p_\theta(x_i) = \log p_\theta(x_1) + \cdots + \log p_\theta(x_n) 
+        
+    \end{aligned}$$
+
+-   Because $\log$ is an increasing function it follows that
+    $\hat{\theta}$ is the MLE of $\theta$ if and only if
+    $$\ell(\hat{\theta}) \ge \ell(\theta) \text{ for all } \theta.$$
+
+::: exer
+Continuing the previous problem, use calculus to find
+the MLE of $\mu$ given the observed sample $(x_1 = 3, x_2 = 0, x_3=2)$.
+:::
+
+**Solution:** Even though the sample size is 3, there is still just a
+single parameter, so the likelihood function is still a function of one
+variable. Differentiate log-likelihood with respect to $\mu$ and set the
+derivative to 0
+
+$$\begin{aligned}
+L(\mu) & = e^{-3\mu}\mu^5 / (3!0!2!) & & \\
+\Rightarrow \ell(\mu) & = -3\mu + 5\log \mu + \text{constants} & & \text{take logs}\\
+\Rightarrow \ell'(\mu) & = - 3 + \frac{5}{\mu} & & \text{differentiate wrt $\mu$}\\
+\Rightarrow \hat{\mu} & = \frac{5}{3} = 1.667  & & \text{set } \ell'(\hat{\mu})=0 \text{ and solve}
+\end{aligned}$$ The maximum likelihood estimate of $\mu$ is
+$\bar{x}= 5/3$, the sample mean number of HRs per game.
+
+::: exer
+Use calculus to find a general expression for the MLE of
+$\mu$ given a sample of $X_1, \ldots, X_n$ home runs observed in $n$
+games.
+:::
+
+**Solution:** In a sample of size $n$, there are $n$ observed values,
+$x_1, \ldots, x_n$. Don't confuse $x$ with $x_1, \ldots, x_n$. There is
+a factor in the likelihood for each observed value.
+
+$$\begin{aligned}
+L(\mu) & = \left(e^{-\mu}\mu^{x_1} / x_1!\right)\left(e^{-\mu}\mu^{x_2} / x_2!\right) \cdots \left(e^{-\mu}\mu^{x_n} / x_n!\right) & & \\
+& = e^{-n\mu}\mu^{x_1 + \cdots + x_n}/(x_1!\cdots x_n!) & & 
+\\\Rightarrow \ell(\mu) & = -n\mu + (x_1+\cdots + x_n)\log \mu + \text{constants} & & \text{take logs}\\
+\Rightarrow \ell'(\mu) & = - n + \frac{x_1+\cdots + x_n}{\mu} & & \text{differentiate wrt $\mu$}\\
+\Rightarrow \hat{\mu} & = \frac{x_1+\cdots+x_n}{n} = \bar{x}& & \text{set } \ell'(\hat{\mu})=0 \text{ and solve}
+\end{aligned}$$ The maximum likelihood estimator of $\mu$ is $\bar{X}$,
+the sample mean number of HRs per game.
+
+::: exer
+Suppose instead of observing the home run counts for
+individual games, you only knew that in a sample of 3 games there were 5
+home runs in total.
+:::
+
+1.  *Probability question.* If $X_1, \ldots, X_n$ are i.i.d.
+    Poisson($\mu$), what is the distribution of $S=X_1+\cdots+X_n$?
+
+    **Solution:** By Poisson aggregation the total number of home runs
+    in 3 games has a Poisson($3\mu$) distribution.
+
+2.  Write the likelihood function for a sample of 3 games in which a
+    total of 5 home runs are observed. How does this compare to the
+    likelihood function based on the sample $(3, 0, 2)$?
+
+    **Solution:** The likelihood is the probability of observing a value
+    of 5 from a Poisson($3\mu$) distribution.
+    $$L(\mu) = e^{-3\mu}(3\mu)^5/5! \propto  e^{-3\mu}\mu^5$$ As a
+    function of $\mu$, the likelihood function has the same shape as
+    before; it differs only by a constant factor.
+
+3.  Find the MLE of $\mu$ based on a sample of 3 games in which a total
+    of 5 home runs are observed.
+
+    **Solution:** By the previous part, the MLE is 5/3.
+
+4.  Now find a general expression for the MLE of $\mu$ based on a random
+    sample of $n$ games in which a total of $S$ home runs are observed.
+
+    **Solution:** As a function of $\mu$, the likelihood function is
+    proportional to $e^{-n\mu}\mu^s$, and so like before the MLE is
+    $\hat{\mu} = S/n=\bar{X}$, the sample mean.
+
+-   Maximum likelihood estimation procedures are widely applicable and
+    maximum likelihood estimators have many nice theoretical properties.
+    For example,
+
+-   **Invariance property of MLEs.** If $\hat{\theta}$ is the MLE of
+    $\theta$, then $g(\hat{\theta})$ is the MLE of $g(\theta)$.
+
+-   However, there are some drawbacks:
+
+    -   May require numerical maximization, which can be computationally
+        intensive (especially if many parameters)
+
+    -   May not be reliable estimators in small samples. (Many of the
+        nice theoretical properties of MLEs are true for large samples.)
+
+::: exer
+Let $\theta$ be the probability that a single game has
+no home runs. Find a general expression for the MLE of $\theta$ based on
+a random sample of $n$ games. Compute the value for the
+$(x_1 = 3, x_2 = 0, x_3 = 2)$ sample
+:::
+
+**Solution:** Since $\textrm{P}(X = 0) = e^{-\mu}\mu^0/0! = e^{-\mu}$,
+$\theta = e^{-\mu}$. By the invariance principle, since $\bar{X}$ is the
+MLE of $\mu$, $e^{-\bar{X}}$ is the MLE of $\theta = e^{-\mu}$. For the
+sample $x_1 = 3, x_2 = 0, x_3 = 2$ the maximum likelihood estimate of
+$\theta$ is $e^{-5/3} = 0.189$.\
+
+-   If $X_1, \ldots, X_n$ are i.i.d. Poisson($\mu$), the MLE of $\mu$ is
+    the sample mean $\bar{X}$
+
+-   If $X\sim$ Binomial($n$, $p$), with $n$ known, the MLE of $p$ is the
+    sample proportion $\hat{p} = X/n$.
+
+-   If $X_1, \ldots, X_n$ are i.i.d. Exponential($\lambda$), the MLE of
+    $\lambda$ is the sample rate $1/\bar{X}$.
+
+-   If $X_1, \ldots, X_n$ are i.i.d. Normal($\mu$, $\sigma$), with both
+    $\mu$ and $\sigma$ unknown, the MLEs of $\mu$, $\sigma^2$, and
+    $\sigma$, are, respectively $$\begin{aligned}
+        \hat{\mu} & = \bar{X}\\
+        \hat{\sigma}^2 & = \frac{1}{n} \sum_{i=1}^n\left(X_i - \bar{X}\right)^2\\
+        \hat{\sigma} & = \sqrt{\frac{1}{n} \sum_{i=1}^n\left(X_i - \bar{X}\right)^2}
+    \end{aligned}$$
+
+[^1]: We usually have i.i.d. observations and so the joint density is
+    just the product of the marginal densities as we have defined it.
+    However, for more general situations the likelihood can be defined
+    directly as the joint density.

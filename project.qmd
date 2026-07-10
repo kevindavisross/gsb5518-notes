@@ -1,0 +1,75 @@
+# Project  {.unnumbered}
+
+In this project you will create and solve your own probability problems relating to the materials from days 1 through 5.
+You are basically writing and completing your own midterm exam.
+
+For each problem you create:
+
+- Describe your problem set up and context, and specify the questions/problems to solve
+- Solve the problems, showing all your work and code
+- Interpret your solutions in context
+
+Collectively, your problems should involve application of all of the following in some way:
+
+- Basic probability and conditional probability calculations (e.g., two way tables)
+- Independence
+- Discrete random variables
+- Continuous random variables and probability density functions
+- Percentiles, cumulative distribution functions, or quantile functions
+- Expected value
+- Variance or standard deviation
+- Covariance or correlation
+- Joint and conditional distributions
+- Normal distributions or Bivariate Normal distributions
+- Simulation process ("how would you simulate?", "create a spinner", etc)
+- Simulation coding
+
+
+
+You can choose if you want a single problem set up/context with multiple parts, or multiple problems with different set ups/contexts.
+There doesn't necessarily need to be one part for each of the items in the list; you can have a single part that demonstrates your ability to work with several items from the list.
+
+One of the goals in writing your own problems is for you to think about how you can apply class material.
+Choose contexts and applications that are interesting to you personally.
+Be creative!
+
+Your problems should be as realistic as possible within your contexts.
+For example, if you specify the probability of an event in your set up, briefly justify why this is a reasonable value in context (possibly by providing a reference to a source).
+You do not have to find related data, but if you are able to, that is one way to justify your assumptions.
+(Be sure to cite any sources).
+Your assumptions, values, and set ups don't have to be perfect, but they should be reasonable for the context.
+As a specific example of what NOT to do, do NOT "assume the number of children in a randomly selected family has a Normal distribution with mean 15 and standard deviation 10", because: (1) number of children is discrete but Normal distributions are continuous, (2) a mean of 15 is way too high for number of children, (3) with a Normal(15, 10) distribution about 7% of families would have a negative number of children.
+
+
+
+Your problems do not necessarily need to be more difficult than the ones we have seen in class or on homework.
+Your objective is to demonstrate that you can apply the material we have covered in new contexts.
+If you think of a problem that turns out to be too hard to solve then try simulating it, and if that doesn't work then try to simplify it.
+
+In addition to writing the problems, you should write complete solutions, detailing all your steps as if you are teaching someone how to solve the problem.
+(You can assume the person you are teaching has seen all the topics and concepts that we have; they just haven’t seen your problems before.)
+
+You should rely on properties of probability and distributions as much as possible, and only use calculus/algebra when absolutely necessary.
+You can (and should) use software like WolframAlpha or Symbolab to do any calculus/algebra, but make sure you clearly set up the equations to solve or expressions to evaluate.
+For example, if you are computing an expected value of a continuous random variable, you need to clearly state the appropriate integral, but you can use software to evaluate it.
+You can use R functions like `pnorm`, `dpois`, `qexp`, etc., to do probability distribution calculations.
+
+
+The problems that you construct should be your own creation, and your solutions should be your own work.
+You can brainstorm ideas and discuss class topics with other students, but each student must individually write and solve their own problems.
+
+You are NOT allowed to copy material from outside sources, like other textbooks or websites.
+You are also not allowed to use AI like ChatGPT.
+You can consult sources, but you must CITE any sources that you consult and include references (e.g., to justify a numerical value of a probability in context).
+In particular, you can NOT just copy an exercise or its solution from a textbook or other online source.
+To repeat: The problems that you construct should be your own creation, and your solutions should be your own work.
+
+
+If we had a midterm exam, you would have 4 hours to take it, and there would also be some study time.
+This project takes the place of the exam and the study time.
+You are expected to spend about 8 hours completing this project.
+The work you submit should be neat and organized, but do NOT spend time making everything look perfect.
+Also, do NOT spend your time on technology issues; if you run into issues, ask me for help.
+You should spend your time thinking about how you can apply class material, writing relevant problems in reasonable contexts, and solving those problems to demonstrate what you have learned.
+
+

@@ -1,0 +1,430 @@
+::: center
+**Handout 28: Some issues with hypothesis testing\
+("significance" and multiple testing (p-hacking))**
+:::
+
+-   Remember: the smaller the p-value, the stronger the evidence to
+    reject the null hypothesis.
+
+    -   But how small is small enough?
+
+-   A "significance level", usually denoted $\alpha$, is a pre-specified
+    cut-off for how small the p-value must be in order to reject the
+    null hypothesis. Common values include $\alpha=0.01$ and
+    $\alpha=0.05$.
+
+    -   If the p-value is less than $\alpha$ the result is sometimes
+        referred to as "statistically significant" at level $\alpha$.
+        HOWEVER, we will see that this is a poor choice of words.
+
+    -   If the p-value is greater than $\alpha$ then we fail to reject
+        the null hypothesis at level $\alpha$.
+
+-   *HOWEVER*, in general, do NOT rely too strictly on a significance
+    level $\alpha$.
+
+-   Reporting the actual p-value and interpreting it as
+    strong/moderate/weak evidence to reject the null hypothesis is is
+    much more informative than just reporting "reject $H_0$ at level
+    $\alpha=0.05$" or "p-value $<0.05$".\
+
+::: exer
+**Exercise 1**. A 2007 paper[^1] suggests that in coin-tossing there is
+a particular "dynamical bias" that causes a coin to be slightly more
+likely to land the same way up as it started. That is, the paper claims
+that a coin is more likely to land facing Heads up if it starts facing
+Heads up than if it starts facing Tails up; likewise if it starts facing
+Tails up. Is this really true? Two students at Berkeley investigated
+this phenomenon by tossing a coin many, many times.
+:::
+
+1.  Define the parameter $p$ in words and state the null and alternative
+    hypotheses using symbols.
+
+    **Solution:** $p$ = probability that a coin lands the same way it
+    started; or $p=$ population proportion of coin flips that land the
+    same way they started; unit = coin flip, variable = whether or not
+    it lands same way it started.
+
+    $H_0:p = 0.5$
+
+    $H_a: p >0.5$; coin is more likely to land the same way it started
+    than on the other side.\
+
+2.  Suppose that out of 10000 flips, 5083 landed the same way they
+    started. Based on these data, can you conclude that a coin is more
+    likely to land the same way it started using a strict "significance
+    level" of $\alpha=0.05$? Use software to compute the $z$ statistic
+    and p-value and state your conclusion at level $\alpha=0.05$ in
+    context.
+
+    **Solution:**
+
+    If $X$ is number of H then $X$ has a Binomial(10000, $p$)
+    distribution. If $H_0: p = 0.5$ is true then $X$ has a
+    Binomial(10000, 0.5) distribution. p-value is
+    $\textrm{P}(X \ge 5083) = 1 - \textrm{P}(X \le 5082)$ if $X$ has a
+    Biomial(10000, 0.5) distribution: `1 - pbinom(5082, 10000, 0.5)` =
+    0.0475.
+
+    Since the p-value of 0.0475 is less than the "significance" level of
+    $\alpha = 0.05$ then, yes, there is evidence to reject the null
+    hypothesis at level 0.05.\
+
+3.  Repeat part (b) assuming 5082 out of 10000 flips landed the same way
+    they started.
+
+    **Solution:**
+
+    If $X$ is number of H then $X$ has a Binomial(10000, $p$)
+    distribution. If $H_0: p = 0.5$ is true then $X$ has a
+    Binomial(10000, 0.5) distribution. p-value is
+    $\textrm{P}(X \ge 5082) = 1 - \textrm{P}(X \le 5081))$ if $X$ has a
+    Biomial(10000, 0.5) distribution: `1 - pbinom(5081, 10000, 0.5)` =
+    0.0515.
+
+    Since the p-value of 0.0515 is greater than the "significance" level
+    of $\alpha = 0.05$ then, no, there is not evidence to reject the
+    null hypothesis at level 0.05.\
+
+4.  Compare (b) and (c). Using these data as an example, give one reason
+    why you should be wary of using a "significance level" (like 0.05)
+    too strictly.
+
+    **Solution:** If we use 0.05 strictly, then in (b) we're saying we
+    DO have enough evidence to conclude that a coin is more likely to
+    land the same way it started, but in (c) we're saying we do NOT have
+    enough evidence to conclude that a coin is more likely to land the
+    same way it started. But the only difference between (b) and (c) is
+    1 flip out of 10000. The two data sets are essentially the same for
+    all practical purposes; it wouldn't make sense to make two different
+    conclusions based on essentially the same data. In either case, it's
+    better to say there is some but weak evidence to conclude a coin is
+    more likely to land the same way it started.\
+
+5.  The students actually tossed the coin 40,000 times![^2]. Of the
+    40,000 flips, 20,245 landed the same way they started. Compute the
+    $z$ statistic and p-value and state a conclusion in context. (Do NOT
+    use a strict $\alpha$ level.)
+
+    **Solution:**
+
+    If $X$ is number of H then $X$ has a Binomial(40000, $p$)
+    distribution. If $H_0: p = 0.5$ is true then $X$ has a
+    Binomial(40000, 0.5) distribution. p-value is
+    $\textrm{P}(X \ge 20245) = 1 - \textrm{P}(X \le 20244))$ if $X$ has
+    a Biomial(40000, 0.5) distribution: `1 - pbinom(20244, 40000, 0.5)`
+    = 0.0072.
+
+    With a p-value of 0.0072 there is moderately strong evidence to
+    reject the null hypothesis and conclude that a coin is more likely
+    than not to land the same way it started.\
+
+6.  Results like the ones in parts (b) and (e) are sometimes reported as
+    "statistically significant evidence at level $\alpha=0.05$". What
+    does such a conclusion miss (aside from the context)?
+
+    **Solution:** The p-value in (e) is about 7 times smaller than the
+    p-value in (b). The evidence to reject the null hypothesis is much
+    stronger in (e) than in (b). Failing to report the p-value to does
+    communicate the strength of the evidence
+
+7.  Would you say the results of the real study, in (e), are newsworthy?
+    Or important? Or "significant"? Using this problem as an example,
+    explain why "statistically significant" is a poor choice of words.
+    In other words, explain why "statistical significance" is not the
+    same as practical importance.\
+
+    **Solution:** Yes, we do have evidence to conclude that a coin is
+    more likely than not to land the same way it started. HOWEVER, just
+    because we have strong evidence that there is a difference, does not
+    necessarily mean that the difference is big. In the 40000 flips, the
+    observed proportion was only 0.506. 50.6% versus 50% is not a
+    practically meaningful or important or newsworthy difference.\
+
+    -   In general, do NOT rely too strictly on a significance level[^3]
+        $\alpha$.
+
+    -   Reporting the actual p-value and interpreting it as
+        strong/moderate/weak evidence to reject the null hypothesis is
+        more informative than just reporting "reject $H_0$ at level
+        $\alpha=0.05$" or "p-value $<0.05$".
+
+    -   Beware the meaning of "significance".
+
+    -   A "statistically significant" result is not necessarily
+        practically important or meaningful.
+
+    -   A "statistically significant" result is larger than what would
+        be expected to occur just due to chance, but not necessarily
+        large in practical terms.
+
+    -   Especially when the sample size is large, even a small observed
+        difference can be "statistically significant".
+
+    -   A *confidence interval* estimates the size of the difference,
+        which helps in judging practical significance. It is also
+        important to consider the *effect size*.
+
+    -   On the other hand, an observed result might have practical
+        significance even when not "statistically significant".
+
+::: exer
+**Exercise 2**. "Ganzfeld studies" test psychic ability (like ESP).
+Ganzfeld studies involve two people, a "sender" and a "receiver", who
+are placed in separate acoustically-shielded rooms. The sender looks at
+a "target" image on a television screen (which may be a static
+photograph or a short movie segment playing repeatedly) and attempts to
+*transmit with their mind* information about the target to the receiver.
+The receiver is then shown four possible choices of targets, one of
+which is the correct target and the other three are "decoys." The
+receiver must choose the one he or she thinks best matches the
+description transmitted by the sender[^4].\
+\
+Suppose that for one pair of people who take this test, there are 60
+images transmitted, 22 of which are successfully identified by the
+receiver.
+:::
+
+1.  State the null hypothesis and the alternative hypotheses, both in
+    terms of the idea (has ESP or not) and as hypotheses about the
+    numerical value of a well defined parameter. (Remember: for each
+    target image, the receiver is shown four possible choices.)
+
+    **Solution:** unit = target transmission; variable = whether or not
+    correct; parameter: $p$ = probability that receiver correctly
+    identifies the transmitted target
+
+    $H_0: p = 0.25$; probability that receiver correctly identies target
+    is 0.25 (1/4), consistent with no ESP (just random quessing)
+
+    $H_a: p > 0.25$; probability that receiver correctly identies target
+    is greater than 0.25 (1/4), consistent with ESP\
+
+2.  The p-value is about 0.03. Based on these data, which of the
+    hypotheses is true?
+
+    **Solution:** We don't know! Hypotheses are statements about a
+    parameter. In the long run, what proportion of these transmissions
+    would the receiver get correct? We don't know if the receiver has
+    ESP or not. The best we can do is say we have evidence to reject the
+    null hypothesis.\
+
+    -   Hypotheses are statements about a broad population or process,
+        and we do not have information on the whole population/process.
+
+    -   Either a hypothesis is true or not, we just don't know which it
+        is.
+
+    -   Statistics can provide *evidence* but not proof.\
+
+3.  Suppose you use a strict "significance" level of $\alpha=0.05$. What
+    is your conclusion? Could your conclusion be wrong? How?
+
+    **Solution:** With a p-value of 0.03 we would reject the null
+    hypothesis at level 0.05 and conclude the person has ESP. Our
+    conclusion is wrong is the person really doesn't have ESP. That is,
+    we could be wrong if we reject the null hypothesis when the null
+    hypothesis is true. False alarm. Type I error\
+
+4.  Suppose you use a strict "significance" level of $\alpha=0.01$. What
+    is your conclusion? Could your conclusion be wrong? How?
+
+    **Solution:** With a p-value of 0.03 we would fail to reject the
+    null hypothesis at level 0.01; we do not have enough evidence to
+    conclude the person has ESP. We could be wrong if the person really
+    does have ESP. That is, we could be wrong if we fail to reject the
+    null hypothesis when the null hypothesis is not true. Missed
+    opportunity. Type II error.\
+
+    -   The null hypothesis $H_0$ is "innocent until 'proven' guilty".
+        That is, the null hypothesis is not rejected unless there is
+        convincing evidence against it.
+
+    -   When making a conclusion --- reject $H_0$, or fail to reject
+        $H_0$ --- there are two errors that could be made:
+
+        -   **Type I error:** Reject $H_0$ when $H_0$ is actually true
+            (unbeknownst to the researcher)
+
+            -   "False alarm" or "false discovery"
+
+            -   Analogous to sending an innocent person to jail.
+
+        -   **Type II error:** Fail to reject $H_0$ when $H_0$ is
+            actually false (unbeknownst to the researcher)
+
+            -   "Missed opportunity"
+
+            -   Analogous to letting a guilty person go free.
+
+    -   The probability of making a Type I error can be managed by
+        setting a "significance" level $\alpha$.
+
+    -   If decisions are made according to the rule
+        $$\text{Reject $H_0$ only when p-value $\le \alpha$}$$ then the
+        probability of making a Type I error is (at most) $\alpha$.
+
+    -   But there is a tradeoff: selecting a lower "significance" level
+        (probability of making a Type I error), will increase
+        probability of making a Type II error.
+
+    -   The **power** of a test is the probability of correctly
+        rejecting the null hypothesis when the the null hypothesis is
+        false.
+
+        -   The power is the probability of making a "true discovery".\
+
+![image](C:/Users/kjross/Documents/Handout_graphs/typeI_II_error_table){width="100%"}
+
+::: exer
+**Exercise 3**. We will now conduct some Ganzfeld tests to see if anyone
+in the class has ESP.
+:::
+
+-   Find a partner and four cards, one from each of the four suits.
+
+-   Identify one person as the sender and one as the receiver.
+
+-   The sender picks a card from the deck, looks at it (without letting
+    the receiver see), and then tries to transmit the *suit* of the card
+    to the mind of the receiver.
+
+-   After receiving the mental image, the receiver identifies the suit
+    of the card. Record whether the answer is correct or not.
+
+1.  Repeat the above process for a total of 9 trials with the same
+    receiver, and record the number out of the 9 trials on which the
+    receiver correctly identified the suit of the card. Is there
+    evidence that the receiver has ESP? State the conclusion of the test
+    based on a strict "significance" level of $\alpha=0.05$. This
+    corresponds to rejecting the null hypothesis whenever the receiver
+    gets at least 5 out of 9 correct (and failing to reject if 4 or
+    fewer correct)[^5].
+
+2.  Now switch the roles of the sender and receiver and repeat, for a
+    separate set of 9 trials. Is there evidence, at strict level
+    $\alpha=0.05$, that the new receiver has ESP?
+
+3.  Did any receiver in our class (of about 70 students) discover
+    evidence that he or she has ESP? Should we be surprised that this
+    happened?
+
+    **Solution:** (This is from a different class.) Out of about 60
+    responses so far, there were 2 students who got 5 correct and 2 who
+    got 6 correct. So there is evidence at level 0.05 that 4 students in
+    our class have ESP !?!?!?!?!?!?!
+
+    NO!!!! Using a level of 0.05 is basically saying the Type I error
+    rate is 5%. Any time you do a test where the null hypothesis is
+    true, there is a chance you'll get a sample unusual enough, just by
+    chance, to reject the null hypothesis. With a 5% Type I error rate,
+    this will happen in about 5% of samples. So even if no one in our
+    class has ESP, if every student conducts their own hypothesis test
+    at level 0.05, we would expect about 5% of those students to just
+    get lucky in their guessing and reject the null hypothesis just by
+    chance. 5% of 60 tests is about 3 students. So we should not be
+    surprised that we saw a few students get p-values less than 0.05.
+    It's much more plausible that these results are just our Type I
+    errors (false alarms) rather than student who really have ESP.\
+
+-   Hypothesis tests are appropriate when there is a clearly defined
+    research question and conjecture (i.e. alternative hypothesis), and
+    sample data is collected for this purpose.
+
+-   If many hypothesis tests are performed, eventually you will reject a
+    null hypothesis --- just by chance --- even if all the null
+    hypotheses are really true.
+
+    -   For example, in a set of 35 tests all conducted using strict
+        level $\alpha=0.05$, there is about an 84 percent chance of
+        rejecting at least one of the null hypotheses when all 35 null
+        hypotheses are true.
+
+-   **Beware of searching for significance,** a.k.a. "p-hacking",
+    especially when using a strict significance level $\alpha$.
+
+-   See the footnotes[^6][^7] for a recent interesting example.
+
+-   A similar issue is presented in [this XKCD
+    cartoon](https://xkcd.com/882/)[^8].
+
+-   This issue of multiple testing is one reason why you should not rely
+    too strictly on a "significance" level $\alpha$.\
+
+<!-- -->
+
+-   Do NOT use a strict level $\alpha$ to make a strict reject
+    $H_0$/fail to reject $H_0$ conclusion based on observed sample data
+    about a particular hypothesized value corresponding to the research
+    question of interest.
+
+    -   Rather, provide the p-value corresponding to the observed data,
+        and use the p-value to assess the strength of the evidence
+        (e.g., strong, moderate, weak) to reject $H_0$.
+
+    -   But remember the p-value doesn't tell you anything about how big
+        or meaningful the difference is (but rather just if it's not due
+        to random chance)
+
+    -   Be especially careful about using $\alpha$ or interpreting
+        p-values when conducting multiple hypothesis tests on the same
+        data. Beware searching for "significance"/p-hacking.
+
+-   Do USE "significance" levels
+
+    -   For research planning purposes --- to manage probability of Type
+        I error, to investigate power, and to determine an appropriate
+        sample size --- *before* collecting data
+
+    -   When determining a *range* of plausible values for the
+        parameter, e.g., to determine the cutoff between plausible/not
+        plausible in a confidence interval.
+
+-   Confidence intervals and hypothesis tests are commonly used in
+    conjunction
+
+-   A confidence interval
+
+    -   provides a range of plausible values
+
+    -   but the cut-off between plausible and implausible is arbitrary
+        (e.g. 95% confidence corresponds to $\alpha_0=0.05$)
+
+        -   But be especially careful about interpreting confidence when
+            conducting multiple confidence intervals.
+
+-   A null hypothesis test
+
+    -   Considers the plausibility of only a single hypothesized value
+
+    -   But provides a precise measure --- the p-value --- of the
+        plausibility of the particular hypothesized value in light of
+        the observed data
+
+        -   But be especially careful about interpreting p-values when
+            conducting multiple hypothesis tests.
+
+[^1]: <http://statweb.stanford.edu/~cgates/PERSI/papers/dyn_coin_07.pdf>
+
+[^2]: <https://www.stat.berkeley.edu/~aldous/Real-World/coin_tosses.html>
+
+[^3]: Then why discuss $\alpha$ at all? It is useful for planning
+    purposes, for example, in deciding how large of a sample size to
+    collect *before* collecting data.
+
+[^4]: Watch [this clip from the movie
+    *Ghostbusters*](https://www.youtube.com/watch?v=fn7-JZq0Yxs)
+
+[^5]: For example, if you get 5 out of 9 correct, the p-value can be
+    shown to be $0.0489 <0.05$. Similarly, if you get 4 out of 9
+    correct, the p-value can be shown to be $0.1657 > 0.05$. So you
+    would reject $H_0: p = 0.25$ in favor of $H_0: p > 0.25$ at level
+    $\alpha=0.05$ if you get 5 (or more) correct, but not if you get 4
+    (or fewer) correct.
+
+[^6]: <http://www.npr.org/sections/thesalt/2015/05/28/410313446/why-a-journalist-scammed-the-media-into-spreading-bad-chocolate-science>
+
+[^7]: <http://io9.com/i-fooled-millions-into-thinking-chocolate-helps-weight-1707251800>
+
+[^8]: <https://xkcd.com/882/>

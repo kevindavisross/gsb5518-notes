@@ -1,0 +1,26 @@
+```{r}
+#| echo: false
+#| include: false
+
+library(tidyverse)
+library(knitr)
+library(janitor)
+library(waffle)
+library(viridis)
+library(gtools)
+library(ggpubr)
+library(kableExtra)
+library(ggmosaic)
+library(scales)
+library(scatterplot3d)
+library(gridExtra)
+library(grid)
+
+
+options(ggplot2.continuous.colour = "viridis")
+
+cb_palette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  
+options(ggplot2.discrete.colour = cb_palette,
+        ggplot2.discrete.fill = cb_palette)
+```

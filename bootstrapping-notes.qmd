@@ -1,0 +1,428 @@
+::: center
+**Handout 26\
+Bootstrap Confidence Intervals**
+:::
+
+The value of any statistic varies from sample to sample. Statistical
+inference procedures such as confidence intervals are based on sampling
+distributions which describe how the values of a statistic vary from
+sample to sample over many possible samples. In particular, the standard
+error of a statistic measures its degree of sample-to-sample
+variability.
+
+If a population distribution is assumed, then we can approximate the
+sampling distribution of a statistic and characteristics like SE via
+simulation. But what if the population distribution is completely
+unknown? For some statistics --- most notably means, proportions and
+certain transformations --- the Central Limit Theorems and its relatives
+(e.g., Delta Method) guarantee that the sampling distribution will be
+approximately Normal for large samples, regardless of the population
+distribution. However, not every statistic has an approximate Normal
+distribution, so we need other methods for approximating sampling
+distributions. But how do we estimate the sampling distribution of a
+statistic based only on sample data? Bootstrapping provides a simple but
+extremely versatile and powerful method for doing so.
+
+::: exer
+**Exercise 1**. For purposes of illustration, we'll start with a small
+data set. The table below contains data on all the quidditch matches
+(for which the final score was discernible) in the *Harry Potter*
+books[^1]. The sample mean is $\bar{x}=340$ and the sample SD is
+$s=145.6$ points. Say we want a confidence interval for the population
+mean score based on this sample
+$$200 \qquad 230 \qquad 250 \qquad 260 \qquad 380 \qquad 470 \qquad 590$$
+:::
+
+1.  Warmup exercise: If we assume that quidditch scores follow a
+    $N(340, 135)$ distribution, explain how you would use simulation to
+    approximate the sampling distribution of the sample mean. Note: we
+    really want to approximate the sampling distribution without
+    assuming anything about the population distribution; this is just to
+    remind you of how we have done things so far.
+
+    **Solution:**
+
+    -   Simulate a sample of size $n=7$ from a $N(340, 135)$
+        distribution
+
+    -   Compute the sample mean of the simulated values
+
+    -   Repeat many times, recording the sample mean for each simulated
+        sample\
+
+2.  How could you estimate the SE of the sample mean based on the above
+    simulation? Compare to the theoretical formula.
+
+    **Solution:** The standard deviation of the simulated sample means
+    approximates the SE. This should be close to $135/\sqrt{7} = 51$.\
+
+3.  Now suppose we make no assumptions about the population
+    distribution. How could you estimate the population distribution
+    based on the observed data? Construct a spinner corresponding to
+    this distribution.
+
+    **Solution:** Estimate the population distribution with the
+    distribution of values in the sample! So the corresponding spinner
+    would be divided into 7 equal sectors, one for each of the observed
+    values: 200, 230, 250, 260, 380, 470, 590
+
+4.  Continuing the previous part, explain how you would use simulation
+    to approximate the sampling distribution of the sample mean *without
+    knowing the population distribution*.
+
+    **Solution:** Assuming the sample is representative of the
+    population, we can approximate the population distribution with the
+    distribution of values in the sample. So we simulate a sample using
+    the spinner from the previous part.
+
+    -   *Spin the spinner labeled with the 7 observed values 7 times to
+        simulate a single sample*
+
+    -   Compute the sample mean of the simulated values
+
+    -   Repeat many times, recording the sample mean for each simulated
+        sample\
+
+5.  Suppose that instead of using a spinner, you wrote each observed
+    value on a piece of paper. How would you use the pieces of paper to
+    simulate a sample?
+
+    **Solution:** Write each of the 7 observed values on a slip of
+    paper: 200, 230, 250, 260, 380, 470, 590. Shuffle the papers and
+    deal one; that represents a single simulated value. To simulate a
+    sample of size 7, select a sample of size 7 *with replacement* from
+    the papers.\
+
+6.  Conduct by hand a few repetitions of the simulation from the
+    previous part.
+
+7.  Use software to perform the simulation. How would you use the
+    simulation results to approximate the SE? Compare to the usual
+    formula; hint: what is the "population" SD?
+
+    **Solution:** The standard deviation of the simulated sample means
+    approximates the SE. This should be close to $134.8/\sqrt{7}=51$. We
+    are treating the 7 observed values as if they were the population we
+    are sampling from. So the "population" distribution takes possible
+    values 200, 230, $\ldots$, 590 each with probability $1/7$. The
+    "population" mean is $200(1/7) + 230(1/7)+\cdots+590(1/7) = 340$ and
+    the "population" variance is
+    $$(200-340)^2(1/7) + (230-340)^2(1/7)+\cdots+(590-340)^2(1/7) = 18171$$
+    and the "population" SD is $\sqrt{18171} = 134.8$. When sampling
+    from a "population" with SD 134.8, the SE of sample means is
+    $134.8/\sqrt{7}=51$. (Remember, the sample SD $s$ divides by $n-1=6$
+    instead of $n=7$, which is the difference between 134.8 and
+    $s=145.6$.)\
+
+8.  How could you find a confidence interval for the population mean?
+
+    **Solution:** Based on the simulation results, the sample-to-sample
+    distribution of the sample mean is approximately Normal and the SE
+    is about 51. So we could use the usual observed statistic $\pm$ 2 SE
+    formula for a 95% confidence interval. The observed sample mean is
+    $\bar{x}=340$, so the 95% has endpoints $340\pm 2 \times 51$:
+    $[238, 442]$.
+
+-   The sampling distribution of a statistic can be approximated by
+    simulating many samples *from the population* and computing the
+    value of the statistic for each simulated sample.
+
+-   The idea behind **bootstrapping** is that if the sample data is
+    representative of the population, then we can approximate the
+    process of selecting a sample from the population by *treating the
+    observed sample as if it were the population and selecting a sample
+    --- called a resample or bootstrap sample --- from the observed
+    sample.*
+
+-   A **bootstrap sample** *resamples* the data from the *observed
+    sample*, drawing the same number of observations, but *with
+    replacement*.
+
+-   The **bootstrap distribution** of a statistic is obtained by
+    simulating many bootstrap samples and computing the value of the
+    statistic for each sample
+
+    -   Simulate a (re)sample of size $n$ with replacement from the
+        observed sample
+
+    -   Compute the value of the statistic for the simulated bootstrap
+        sample
+
+    -   Repeat many times, recording the value of the statistic for each
+        repetition
+
+-   The **bootstrap standard error** of a statistic is the standard
+    deviation of the bootstrap distribution of the statistic.
+
+-   The bootstrap distribution of a statistic approximates some, but not
+    all, features of the sampling distribution of the statistic.
+
+    -   The shape of the bootstrap distribution usually approximates the
+        shape of the sampling distribution
+
+    -   The variability of the bootstrap distribution usually
+        approximates the variability of the sampling distribution. That
+        is, the bootstrap SE usually approximates the true SE.
+
+    -   The center of the bootstrap distribution does NOT accurately
+        approximate the center of the sampling distribution
+
+    -   The bootstrap estimate of bias usually approximates the bias of
+        the statistic.
+
+-   There are many methods for constructing bootstrap confidence
+    intervals for parameters; we'll only study a few.
+
+    -   Normal method: If the bootstrap distribution for the
+        corresponding statistic is approximately Normal, then an
+        approximate 95% confidence interval has endpoints
+        $$\text{observed statistic} \pm 2 \times \text{SE}$$
+
+    -   The 95% **bootstrap percentile interval** is the interval with
+        endpoints equal to the 2.5th and 97.5th percentiles of the
+        bootstrap distribution.
+
+-   One of the main advantages of bootstrapping is that it can be used
+    to approximate the SE of *any statistic*.\
+
+::: exer
+**Exercise 2**. Continuing the previous exercise, say we want to
+estimate the population *median* quidditch score.
+:::
+
+1.  Describe in detail how would use simulation to approximate the
+    bootstrap distribution. Then conduct the simulation. What are the
+    possible values in the bootstrap distribution? Why?
+
+    **Solution:** Bootstrap simulation works the same as before. The
+    only difference is that now for every bootstrap sample you compute
+    the sample median rather than the sample mean. Since the sample only
+    has 7 values, the sample median will be the middle value after the
+    simulated values are arranged in order. That is, the median will
+    always be one of the 7 observed values.
+
+2.  Which bootstrap confidence interval would be more appropriate,
+    Normal or percentile? Find and interpret the appropriate confidence
+    interval.
+
+    **Solution:** Since the median of bootstrap samples takes only 7
+    possible values, the bootstrap distribution of the median will be
+    very discrete and a Normal approximation will not be valid. But we
+    can still find the percentile interval: We estimate with 95%
+    confidence that the population median quidditch score is between 230
+    and 470 points. (Note: if the sample size were larger, the bootstrap
+    distribution of the sample median would be more continuous and a
+    Normal approximation might be valid.)
+
+::: exer
+**Exercise 3**. Do newborns from mothers who smoke tend to weigh less at
+birth than newborns from mothers who don't smoke? The following
+summarizes data on a sample of cases in North Carolina over a one year
+period.
+
+![image](C:/Users/kjross/Documents/Handout_graphs/babysmoke.png){width="50%"}
+:::
+
+1.  Are the above summaries enough information to perform bootstrap
+    analyses?
+
+    **Solution:** No. While for procedures like $t$, $F$, etc summary
+    statistics are enough, bootstrap methods require the entire sample
+    data set.\
+
+2.  Describe in detail how you would use bootstrapping to find a
+    confidence interval for the *difference in population means*. Then
+    conduct the simulation and find and interpret the confidence
+    interval.
+
+    **Solution:** We want the bootstrap distribution of the difference
+    in sample means. We assume that we have two independent samples. One
+    bootstrap repetition consists of
+
+    -   Select a bootstrap sample of size 873 with replacement from the
+        birthweights of babies of non-smokers.
+
+    -   Select a bootstrap sample of size 126 with replacement from the
+        birthweights of babies of smokers.
+
+    -   Find the mean birthweight of the simulated non-smoker sample,
+        the mean birthweight of the simulated smoker sample, and the
+        difference in means (non-smokers $-$ smokers).
+
+    We estimate with 95% confidence that the population mean birthweight
+    is between 0.06 to 0.58 *pounds* larger for babies of non-smokers
+    than for babies of smokers.
+
+3.  Describe in detail how you would use bootstrapping to find a
+    confidence interval for the *ratio of population medians*. Then
+    conduct the simulation and find and interpret the confidence
+    interval.
+
+    **Solution:** Similar to the previous part but the statistic is the
+    ratio of sample medians. We estimate with 95% confidence that the
+    population *median* birthweight is between 1 to 1.08 *times* larger
+    for babies of non-smokers than for babies of smokers.
+
+::: exer
+**Exercise 4**. The scatterplot below displays data on length (feet) and
+jaw width (inches) for a sample of sharks.
+
+![image](C:/Users/kjross/Documents/Handout_graphs/shark-scatter){width="30%"}
+:::
+
+1.  Describe in detail how you would use bootstrapping to find a
+    confidence interval for the *population correlation coefficient*.
+    Then conduct the simulation and find and interpret the confidence
+    interval.
+
+    **Solution:** The population distribution is now the *joint*
+    distribution of jaw width and length. We approximate sampling from
+    this joint distribution by resampling from the sample data in which
+    each shark has an $(x, y)$ pair. We select a bootstrap sample by
+    resampling *pairs* with replacement. Another way to think about it:
+    label the sharks from 1 to 44, and then select a sample of 44 labels
+    with replacement to be the sharks in the bootstrap sample, and use
+    the (jaw width, length) pairs for these sharks.
+
+    For each bootstrap sample, find the sample correlation. Then repeat
+    many times.
+
+    We estimate with 95% confidence that the population correlation
+    between length and jaw width of sharks is between 0.79 and 0.93.
+
+::: exer
+**Exercise 5**. Consider again the quidditch data
+$$200 \qquad 230 \qquad 250 \qquad 260 \qquad 380 \qquad 470 \qquad 590$$
+:::
+
+1.  What is the center of the *sampling distribution* of the sample
+    mean? Why? Given a single observed sample, what is the center of the
+    *boostrap distribution* of the sample mean?
+
+    **Solution:** The sample mean is an *unbiased* estimator of the
+    population mean. So the center of the sampling distribution of the
+    sample mean should be equal to the true population mean.\
+    \
+    Given a single observed sample, that sample is treated as the
+    population distribution for the population of bootstrap sampling. So
+    the observed sample mean plays the role of the population mean for
+    bootstrap sampling, and the bootstrap distribution will be centered
+    at *the observed value of the statistic*.\
+
+2.  Suppose we want to estimate the population SD? Is the sample SD an
+    unbiased estimator of the population SD? Does this cause any issues
+    for CIs?
+
+    **Solution:** The sample variance is unbiased, but the sample SD is
+    not: the sample SD tends to underestimate the population SD,
+    $\textrm{E}(S) < \sigma$. The center of the bootstrap distribution
+    with be the sample SD, which tends to underestimate the population
+    SD. This introduces bias, and so the true coverage probability could
+    be less than the stated confidence level. Bootstrap
+    Normal/percentile intervals only account for sample-to-sample
+    variability of the statistic, not bias.
+
+3.  How could we use bootstrapping to estimate the bias of the sample SD
+    (as an estimator of the population SD)?
+
+    **Solution:** Given a single observed sample, the observed sample SD
+    plays the role of the population SD for bootstrap sampling. *So bias
+    can be estimated by comparing the center of the bootstrap
+    distribution to the observed value of the statistic.*
+
+    -   The bootstrap distribution of a statistic approximates many, but
+        not all, features of the sampling distribution of the statistic.
+
+        -   In particular, the center of the bootstrap distribution will
+            generally not be the same as the center of the sampling
+            distribution.
+
+        -   This can lead to coverage problems (e.g., less than the
+            stated 95%) for bootstrap percentile intervals, especially
+            for statistics which are biased estimators of their
+            parameters.
+
+    -   Bootstrap percentile intervals do not fully account for
+        differences between the observed statistic and the true
+        parameter
+
+    -   Remember, there are two sources of differences between a
+        statistic and a corresponding parameter
+
+        -   systematic errors due to *estimation bias*[^2]
+
+        -   "chance errors" due to natural *sample-to-sample
+            variability*
+
+    -   The usual confidence procedures assume that there is no bias in
+        estimation. The margin of error of a confidence interval
+        typically only accounts for natural sample-to-sample
+        variability. So if there is bias in estimation, the actual
+        coverage probability of the confidence interval procedure might
+        be less than the nominal confidence level.
+
+    -   Recall that the bias of an estimator $\hat{\theta}$ of a
+        parameter $\theta$ is $\textrm{E}(\hat{\theta}) - \theta$
+
+        -   That is, the bias of an estimator is the difference between
+            the center of its sampling distribution and the true (but
+            unknown) value of the parameter
+
+        -   If a statistic is *unbiased*, the center of its sampling
+            distribution should be equal to the true (but unknown) value
+            of the parameter.
+
+    -   Bootstrapping treats the observed sample data as the population
+        for the purposes of simulation. Therefore, bootstrapping treats
+        the observed value of the statistic as the true value of the
+        parameter for the purposes of simulation.
+
+    -   If a statistic is an unbiased estimator of a parameter, the
+        center of its bootstrap distribution should be equal to *the
+        observed value of the statistic*.
+
+    -   The difference between the center of the bootstrap distribution
+        of the statistic and the observed value of the statistic
+        provides a bootstrap estimate of the statistic's bias
+
+    -   A *bootstrap pivotal confidence interval* essentially uses the
+        distribution of $\hat{\theta}-\theta$, rather than just
+        $\hat{\theta}$, to construct a confidence interval that more
+        fully accounts for both bias and variability.
+
+    -   The 95% **bootstrap pivotal confidence interval** is the
+        interval with endpoints $$\begin{aligned}
+            \text{lower endpoint} & = 2\times \text{observed statistic} - \text{97.5th percentile of bootstrap distribution}\\
+            \text{upper endpoint} & = 2\times \text{observed statistic} - \text{2.5th percentile of bootstrap distribution}\\
+        \end{aligned}$$
+
+4.  Find a 95% bootstrap pivotal interval for the population mean.
+    Compare to the percentile interval.
+
+    **Solution:** The sample mean is 340. The 95% percentile interval is
+    $[247, 443]$. The 95% pivotal interval is
+    $$[2(340) - 443, 2(340) - 247] \Rightarrow [237, 433]$$ The two
+    intervals are pretty similar.
+
+5.  Find a 95% bootstrap pivotal interval for the population SD. Compare
+    to the percentile interval.
+
+    **Solution:** The sample SD is 145.6. The 95% percentile interval is
+    $[52, 182]$. The 95% pivotal interval is
+    $$[2(145.6) - 182, 2(145.6) - 52] \Rightarrow [109, 239]$$ There is
+    a much bigger disparity in the two intervals for the population SD
+    than for the population mean.
+
+-   The accuracy of bootstrap procedures is primarily influenced by the
+    size of the original sample.
+
+-   Bootstrapping methods do not overcome the weaknesses of small
+    samples.
+
+[^1]: Source:
+    <http://harrypotter.wikia.com/wiki/Inter-House_Quidditch_Cup>
+
+[^2]: Of course there is also lots of potential for bias in data
+    collection, but we always assume we have an unbiased random sample.
+    Even when the data are a random sample from the population, there
+    can still be bias in estimation.

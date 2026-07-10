@@ -1,0 +1,234 @@
+# Expected Value
+
+{{< include _r_setup.qmd >}}
+
+
+-   The distribution of a random variable specifies the possible values and the probability of any event that involves the random variable.
+-   The distribution of a random variable contains all the information about its long run behavior. It is also useful to summarize some key features of a distribution.
+-   One summary characteristic of a distribution is the **long run average value** of the random variable.
+-   We can approximate the long run average value by simulating many values of the random variable and computing the average (mean) in the usual way: sum the simulated values and divide by the number of simulated values.
+
+::: {#exm-matching-ev}
+Recall the matching problem with $n=4$.
+@tbl-matching-sim-10-ev displays the value of $X$, the number of matches, for 10 simulated repetitions.
+:::
+
+```{r}
+#| label: tbl-matching-sim-10-ev
+#| echo: false
+#| tbl-cap: "The value of $X$, the number of matches, for 10 simulated repetitions of the matching problem with $n=4$."
+
+kbl(
+  data.frame(1:10, c(0, 1, 0, 0, 2, 0, 1, 1, 4, 2)),
+  col.names = c("Repetition", "X (number of matches)")
+) |>
+  kable_styling(fixed_thead = TRUE)
+```
+
+1.  How could you use the simulation results to approximate the long run average value of $X$? How could you get a better approximation of the *long run* average?\
+    \
+    \
+    \
+    \
+2.  Rather than adding the 10 values and dividing by 10, how could you simplify the calculation in the previous part?\
+    \
+    \
+    \
+    \
+3.  @tbl-matching-sim-ev below summarizes 24000 simulated values of $X$. Approximate the long run average value of $X$.\
+    \
+    \
+    \
+    \
+4.  Recall the distribution of $X$ from @exm-matching-pmf. What would be the corresponding mathematical formula for the theoretical long run average value of $X$? This number is called the "expected value" of $X$.\
+    \
+    \
+    \
+    \
+5.  Is the expected value the most likely value of $X$?\
+    \
+    \
+    \
+    \
+6.  Is the expected value of $X$ the "value that we would expect" on a *single* repetition of the matching problem?\
+    \
+    \
+    \
+    \
+7.  Explain in what sense the expected value is "expected".\
+    \
+    \
+    \
+    \
+
+```{r}
+#| label: tbl-matching-sim-ev
+#| echo: false
+#| tbl-cap: "Summary of 24000 simulated values of $X$, the number of matches, in the matching problem with $n=4$."
+
+
+# One repetition of the number of matches, for a given n
+simulate_number_matches = function(n) {
+  # sample(1:n) puts the values 1:n in random order
+  sum(sample(1:n) == 1:n)
+}
+
+# Many repetitions, for n = 4
+N_rep = 24000
+number_matches = replicate(N_rep, simulate_number_matches(4))
+
+# Summarize the simulated values
+table(number_matches) |>
+  as.data.frame() |>
+  adorn_totals("row") |>
+  kbl(col.names = c("Number of Matches (X)",
+                    "Frequency")) |>
+  kable_styling(fixed_thead = TRUE)
+```
+
+```{r}
+#| include: false
+#| eval: false
+
+sum(number_matches)
+
+sum(number_matches) / N_rep
+
+mean(number_matches)
+```
+
+-   The **expected value** (a.k.a. *expectation* a.k.a. *mean*), of a random variable $X$ is a number denoted $\text{E}(X)$ representing the probability-weighted average value of $X$.
+-   The expected value of a discrete random variable with pmf $p_X$ is defined as $$
+    \text{E}(X) = \sum_x x p_X(x) = \sum \text{value}\times\text{probability}
+    $$
+-   Note well that $\text{E}(X)$ represents *a single number*.
+-   The expected value is the "balance point" (center of gravity) of a distribution.
+-   The expected value of a random variable $X$ is defined by the probability-weighted average according to the underlying probability measure. But the expected value can also be interpreted as the **long-run average value**, and so can be approximated via simulation.
+-   Read the symbol $\text{E}(\cdot)$ as
+    -   Simulate lots of values of what's inside $(\cdot)$
+    -   Compute the average. This is a "usual" average; just sum all the simulated values and divide by the number of simulated values.
+    
+```{r}
+#| label: tbl-matching-lln
+#| echo: false
+#| tbl-cap: "Running average of 10 simulated values of $X$ in the matching problem with $n=4$."
+
+x = c(0, 1, 0, 0, 2, 0, 1, 1, 4, 2)
+
+n = length(x)
+
+xbar = cumsum(x) / (1:n)
+
+kbl(data.frame(1:n, x, xbar),
+    align = "r",
+    col.names = c("Repetition", "Value of X", "Running average of X"),
+    digits = 3) |>
+  kable_styling(fixed_thead = TRUE)
+```
+
+
+```{r}
+#| label: fig-matching-lln
+#| echo: false
+#| fig-cap: "Running average of 10 simulated values of $X$ in the matching problem with $n=4$."
+
+plot(1:n, xbar, type = "o",
+     xlab = "Repetition",
+     ylab = "Running average of X",
+     ylim = c(0, 2),
+     col = "blue",
+     xaxt = "n")
+axis(1, 1:n)
+abline(h = 1, lty = 2, col = "orange")
+
+```
+
+```{r}
+#| label: fig-matching-lln2
+#| echo: false
+#| fig-cap: "Running average of 100 simulated values of $X$ in the matching problem with $n=4$."
+
+x = c(x, replicate(90, simulate_number_matches(4)))
+n = length(x)
+
+xbar = cumsum(x) / (1:n)
+
+
+plot(1:n, xbar, type = "l",
+     xlab = "Repetition",
+     ylab = "Running average of X",
+     ylim = c(0, 2),
+     col = "blue",
+     xaxt = "n")
+axis(1, seq(0, 100, 10))
+abline(h = 1, lty = 2, col = "orange")
+
+```
+
+```{r}
+#| label: fig-matching-lln3
+#| echo: false
+#| fig-cap: "Running average of 1000 simulated values of $X$ in the matching problem with $n=4$."
+
+x = c(x, replicate(900, simulate_number_matches(4)))
+n = length(x)
+
+xbar = cumsum(x) / (1:n)
+
+
+plot(1:n, xbar, type = "l",
+     xlab = "Repetition",
+     ylab = "Running average of X",
+     ylim = c(0, 2),
+     col = "blue",
+     xaxt = "n")
+axis(1, seq(0, 1000, 100))
+abline(h = 1, lty = 2, col = "orange")
+
+```
+
+
+::: {#exm-binomial-stock-ev}
+Continuing @exm-binomial-stock.
+Consider an extremely simplified model for the daily closing price of a certain stock.
+Every day the price either goes up or goes down, and the movements are independent from day-to-day.
+Assume that the probability that the stock price goes up on any single day is 0.25.
+Let $X$ be the number of days in which the price goes up in the next 5 days.
+:::
+
+1.  Suggest a shortcut formula for $\text{E}(X)$.\
+    \
+    \
+    \
+    \
+2.  Compute $\text{E}(X)$ using the distribution of $X$ from @exm-binomial-stock. Did the shortcut formula work?\
+    \
+    \
+    \
+    \
+3.  Interpret $\text{E}(X)$.\
+    \
+    \
+    \
+    \
+
+-   If $X$ has a Binomial($n$, $p$) distribution then $\text{E}(X) = np$.
+
+::: {#exm-poisson-hr-ev}
+Continuing @exm-poisson-hr.
+Assume that $X$, the number of home runs hit (in total by both teams) in a randomly selected Major League Baseball game, follows a Poisson(2.3) distribution.
+:::
+
+1.  Compute $\text{E}(X)$.\
+    \
+    \
+    \
+    \
+    \
+2.  Interpret $\text{E}(X)$ in context.\
+    \
+    \
+    \
+    \
+
+-   If $X$ has a Poisson($\mu$) distribution then $\text{E}(X) = \mu$.

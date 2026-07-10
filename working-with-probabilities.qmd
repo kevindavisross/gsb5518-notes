@@ -1,0 +1,168 @@
+# Working with Probabilities
+
+{{< include _r_setup.qmd >}}
+
+-   Due to the wide variety of types of random phenomena, an **outcome** can be virtually anything. In particular, an outcome does *not* have to be a number.
+-   The **sample space** is the set of all possible outcomes of the random phenomenon..
+-   An event is something that could happen. That is, an *event* is a collection of outcomes that satisfy some criteria. If the sample space outcomes are represented by rows in a spreadsheet, then an event is a subset of rows that satisfies some criteria
+-   Events are typically denoted with capital letters near the start of the alphabet, with or without subscripts (e.g. $A$, $B$, $C$, $A_1$, $A_2$). Events can be composed from others using [basic set operations](https://en.wikipedia.org/wiki/Set_(mathematics)#Basic_operations) like unions ($A\cup B$), intersections ($A \cap B$), and complements ($A^c$).
+    -   Read $A^c$ as "not $A$".
+    -   Read $A\cap B$ as "$A$ and $B$"
+    -   Read $A \cup B$ as "$A$ or $B$". Note that unions ($\cup$, "or") are always inclusive. $A\cup B$ occurs if $A$ occurs but $B$ does not, $B$ occurs but $A$ does not, or both $A$ and $B$ occur.
+-   A collection of events $A_1, A_2, \ldots$ are **disjoint** (a.k.a. mutually exclusive) if $A_i \cap A_j = \emptyset$ for all $i \neq j$. That is, multiple events are disjoint if none of the events have any outcomes in common.
+-   A **probability measure**, typically denoted $\text{P}$, assigns probabilities to *events* to quantify their relative likelihoods according to the assumptions of the model of the random phenomenon.
+-   The probability of event $A$, computed according to probability measure $\text{P}(A)$, is denoted $\text{P}(A)$.
+-   A valid probability measure $\text{P}$ must satisfy the following three logical consistency "axioms".
+    -   For any event $A$, $0 \le \text{P}(A) \le 1$.
+    -   If $\Omega$ represents the sample space then $\text{P}(\Omega) = 1$.
+    -   (*Countable additivity.*) If $A_1, A_2, A_3, \ldots$ are disjoint then $$
+          \text{P}(A_1 \cup A_2 \cup A_2 \cup \cdots) = \text{P}(A_1) + \text{P}(A_2) +\text{P}(A_3) + \cdots
+          $$
+-   Additional properties of a probability measure follow from the axioms
+    -   *Complement rule*. For any event $A$, $\text{P}(A^c) = 1 - \text{P}(A)$.
+    -   *Subset rule*. If $A \subseteq B$ then $\text{P}(A) \le \text{P}(B)$.
+    -   *Addition rule for two events*. If $A$ and $B$ are any two events $$
+          \text{P}(A\cup B) = \text{P}(A) + \text{P}(B) - \text{P}(A \cap B)
+          $$
+    -   *Law of total probability*. If $C_1, C_2, C_3\ldots$ are disjoint events with $C_1\cup C_2 \cup C_3\cup \cdots =\Omega$, then $$
+          \text{P}(A)  = \text{P}(A \cap C_1) + \text{P}(A \cap C_2) + \text{P}(A \cap C_3) + \cdots
+          $$
+-   The axioms of a probability measure are minimal logical consistent requirements that ensure that probabilities of different events fit together in a valid, coherent way.
+-   A single probability measure corresponds to a particular set of assumptions about the random phenomenon.
+
+::: {#exm-cats-dogs}
+The probability that a randomly selected U.S. household has a pet dog is 0.47.
+The probability that a randomly selected U.S. household has a pet cat is 0.25.
+(These values are based on the 2018 [General Social Survey (GSS)](https://gss.norc.org/).)
+:::
+
+1.  Represent the information provided using proper symbols.\
+    \
+    \
+    \
+    \
+2.  Donny Don't says: "the probability that a randomly selected U.S. household has a pet dog OR a pet cat is $0.47 + 0.25=0.72$." Do you agree? What must be true for Donny to be correct? Explain. (Hint: for the remaining parts it helps to consider two-way tables.)\
+    \
+    \
+    \
+    \
+    \
+4.  What is the *smallest possible* value of the probability that a randomly selected U.S. household has a pet dog AND a pet cat? Describe the (unrealistic) situation in which this extreme case would occur.\
+    \
+    \
+    \
+    \
+3.  What is the *largest possible* value of the probability that a randomly selected U.S. household has a pet dog AND a pet cat? Describe the (unrealistic) situation in which this extreme case would occur.
+What would be the probability that a randomly selected U.S. household has a pet dog OR a pet cat in this scenario?\
+    \
+    \
+    \
+    \
+
+5.  Donny Don't says: "I remember hearing once that in probability OR means add and AND means multiply. So the probability that a randomly selected U.S. household has a pet dog AND a pet cat is $0.47 \times 0.25=0.1175$." Do you agree? Explain.\
+    \
+    \
+    \
+    \
+6.  According to the GSS, the probability that a randomly selected U.S. household has a pet dog AND a pet cat is $0.15$. Compute the probability that a randomly selected U.S. household has a pet dog OR a pet cat.\
+    \
+    \
+    \
+    \
+7.  Compute and interpret $\text{P}(C \cap D^c)$.\
+    \
+    \
+    \
+    \
+
+
+## Equally Likely Outcomes and Uniform Probability Measures
+
+- For a sample space $\Omega$ with finitely many possible outcomes, assuming  **equally likely outcomes** corresponds to a probabiliy measure $\text{P}$ which satisfies
+$$
+\text{P}(A) = \frac{|A|}{|\Omega|} = \frac{\text{number of outcomes in $A$}}{\text{number of outcomes in $\Omega$}} \qquad{\text{when outcomes are equally likely}}
+$$
+
+
+::: {#exm-dice-event}
+Roll a fair four-sided die twice, and record the result of each roll in sequence.
+:::
+
+1. How many possible outcomes are there? Are they equally likely?
+\
+\
+\
+\
+\
+1. Compute $\text{P}(A)$, where $A$ is the event that the sum of the two dice is 4.
+\
+\
+\
+\
+1. Compute $\text{P}(B)$, where $B$ is the event that the sum of the two dice is at most 3.
+\
+\
+\
+\
+\
+1. Compute $\text{P}(C)$, where $C$ the event that the larger of the two rolls (or the common roll if a tie) is 3.
+\
+\
+\
+\
+\
+1. Compute and interpret $\text{P}(A\cap C)$.
+\
+\
+\
+\
+\
+
+
+```{r}
+#| label: tbl-dice-event
+#| echo: false
+#| tbl-cap: "Table representing the sample space of two rolls of a four-sided die. The outcomes in orange comprise the event $A$, the sum is equal to 4."
+
+u1 = sort(rep(1:4, 4))
+u2 = rep(1:4, 4)
+event_dice = if_else(u1 + u2 == 4, "yes", "no")
+
+kbl(
+  data.frame(u1, u2, event_dice),
+  align = 'r',
+  col.names = c("First roll", "Second roll", "Sum is 4?")) %>%
+  kable_styling(fixed_thead = TRUE) %>%
+  row_spec(which(event_dice == "yes"),
+           bold = T, color = "white", background = "#FFA500")
+
+```
+
+
+
+- The continuous analog of equally likely outcomes is a **uniform probability measure**.  When the sample space is uncountable, size is measured continuously (length, area, volume) rather that discretely (counting).
+$$
+\text{P}(A) = \frac{|A|}{|\Omega|} = \frac{\text{size of } A}{\text{size of } \Omega} \qquad \text{if $\text{P}$ is a uniform probability measure}
+$$
+
+::: {#exm-meeting-event}
+Regina and Cady are meeting for lunch. Suppose they each arrive uniformly at random at a time between noon and 1:00, independently of each other. Record their arrival times as minutes after noon, so noon corresponds to 0 and 1:00 to 60.
+:::
+
+1. Draw a picture representing the sample space.
+\
+\
+\
+\
+1. Compute the probability that the first person to arrive has to wait at most 15 minutes for the other person to arrive. In other words, compute the probability that they arrive within 15 minutes of each other.
+\
+\
+\
+\
+\
+1. Compute the probability that the first person to arrive arrives before 12:15.
+\
+\
+\
+\
+\

@@ -1,0 +1,77 @@
+# Homework 7 {.unnumbered}
+
+
+## Problem 1
+
+Assume a Poisson($\mu$) model for the number of home runs hit (in total by both teams) in a MLB game.
+Let $X_1, \ldots, X_n$ be a random sample of home run counts for  $n$ games.
+
+Suppose we want to estimate $\theta = \mu e^{-\mu}$, the probability that any single game has exactly 1 HR (for Poisson($\mu$), $P(X = 1) = e^{-\mu}\,u^1/1! = \mu e^{-\mu}$).
+Consider two estimators of $\theta$:
+
+-   $\hat{\theta} = \bar{X} e^{-\bar{X}}$
+-   $\hat{p} =\text{sample proportion of 1s} = \frac{\text{number of games in the sample with 1 HR}}{\text{sample size}}$
+
+a.  Compute the value of $\hat{\theta}$ based on the sample (3, 0, 1, 4, 0). Write a clearly worded sentence reporting in context this estimate of $\theta$.
+a.  Compute the value of $\hat{p}$ based on the sample (3, 0, 1, 4, 0).
+Write a clearly worded sentence reporting in context your estimate of $\theta$.
+a.  Which of these two estimators is the MLE of $\theta$ in this situation? Explain, without doing any calculations.
+a.  It can be shown that $\hat{p}$ is an unbiased estimator of $\theta$.
+Explain in words what this means.
+a.  Is $\hat{\theta}$ an unbiased estimator of $\theta$?
+Explain.
+(You don't have to derive anything; just apply a general principle.)
+a.  Suppose $\mu = 2.3$ and $n=5$.
+Explain in full detail how you would use simulation to approximate the bias of $\hat{\theta}$ in this case.
+a.  **Coding required.**
+Conduct the simulation from the previous part and approximate bias of $\hat{\theta}$ when $\mu = 2.3$ and $n = 5$.
+a.  Explain in full detail how you would use simulation to approximate the bias *function* of $\hat{\theta}$ when $n=5$.
+a.  **Coding required.**
+Conduct the simulation from the previous part and plot the approximate bias function when $n=5$.
+For what values of $\mu$ does $\hat{\theta}$ tend to overestimate $\mu$? Underestimate?
+For what values of $\mu$ is the bias the worst?
+
+
+
+## Problem 2
+
+Continuing Problem 1.
+
+a.  It can be shown that $\text{Var}(\hat{p}) = \frac{\theta(1-\theta)}{n}$. Compute  $\text{Var}(\hat{p})$ when $\mu = 2.3$ and $n=5$.
+Then write a clearly worded sentence interpreting this value.
+a.  Suppose $\mu = 2.3$ and $n=5$.
+Explain in full detail how you would use simulation to approximate the variance of $\hat{\theta}$.
+a.  **Coding required.**
+Conduct the simulation from the previous part and approximate  the variance of $\hat{\theta}$ when $\mu = 2.3$ and $n=5$.
+Then write a clearly worded sentence interpreting this value.
+a.  Which estimator has smaller variance when $\mu = 2.3$ (and $n=5$)?
+Answer, but then explain why this information alone is not really useful.
+a.  Explain in full detail how you would use simulation to approximate the variance function of $\hat{\theta}$ (if $n=5$).
+a.  **Coding required.**
+Conduct the simulation from the previous part and plot the approximate variance function.
+Compare to the variance function of $\hat{p}$.
+Based on variability alone, which estimator is preferred?
+
+
+## Problem 3
+
+Continuing Problems 1 and 2
+
+a.  Compute $\text{MSE}(\hat{p})$ when $\mu = 2.3$ and $n=5$.
+(You can do the next part first if you want, but it helps to work with specific numbers first.)
+a.  Derive the MSE function of $\hat{p}$.
+(Hint: use facts from previous parts.)
+a.  Suppose $\mu = 2.3$ (and $n=5$).
+Explain in full detail how you would use simulation to approximate the MSE of $\hat{\theta}$.
+a.  **Coding required.**
+Conduct the simulation from the previous part and approximate the MSE of $\hat{\theta}$ when $\mu =2.3$ (and $n=5$).
+a.  Which estimator has smaller MSE when $\mu = 2.3$ (and $n=5$)?
+Answer, but then explain why this information alone is not really useful.
+a.  Explain in full detail how you would use simulation to approximate the MSE *function* of $\hat{\theta}$ (if $n=5$).
+a.  **Coding required.**
+Conduct the simulation from the previous part and plot the approximate MSE function.
+Compare to the MSE function of $\hat{p}$.
+a.  Compare the MSEs of the two estimators for $n=5$ and a few other values of $n$.
+Is there a clear preference between these two estimators? Discuss.
+
+

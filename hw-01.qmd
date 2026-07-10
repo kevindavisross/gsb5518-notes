@@ -1,0 +1,66 @@
+# Homework 1 {.unnumbered}
+
+
+
+1.  In each of the following, write a clearly worded sentence interpreting the numerical value of the probability as a long run relative frequency in context.
+    (Just take the numerical values as given for now. We'll see how to compute probabilities like these later.)
+
+    a.  The probability of rolling doubles when you roll two fair six-sided dice is 1/6.\
+    b.  The probability of rolling doubles on three consecutive rolls of two fair six-sided dice is 0.00463.\
+    c.  The probability that the sum of 100 rolls of a fair six-sided die is less than 370 is 12%.\
+    d.  Roll a fair six-sided die until you roll a 6 three times and then stop. The probability that you roll the die at least 10 times is 0.822.
+
+2.  Suppose your subjective probabilities for the 2025 World Series champion satisfy the following conditions.
+
+    -   The Mets and Yankees are equally likely to win
+    -   The Phillies are 1.5 times more likely than the Mets to win
+    -   The Dodgers are 2 times more likely than the Phillies to win
+    -   The winner is as likely to be among these four teams --- Mets, Yankees, Phillies, Dodgers --- as not.
+
+    Construct a table of your subjective probabilities like the one in @exm-worldseries.
+
+3.  Suppose that you have applied to two graduate schools, A and B.
+    Your subjective probability of being accepted is 0.6 for school A and 0.7 for school B.
+    Hint: the fact that these are subjective probabilities does not change the way you solve the problem.
+    Remember, the mathematics of probability is the same regardless of whether the probabilities represent long run relative frequencies or subjective degrees of relative likelihood.
+    Just take the 0.6 and 0.7 values as given and use them to solve the following parts.
+
+    a.  Interpret the subjective probabilities: How many times more likely than not are you to be accepted at school A? How many times more likely are you to be accepted at school B than at school A?
+    b.  What is the largest possible probability of being accepted by both schools? Under what scenario (however unrealistic) would this be true? Explain.
+    c.  What is the smallest possible probability of being accepted by both schools? Under what scenario (however unrealistic) would this be true? Explain.
+    d.  Explain why your subjective probability of being accepted by both schools is not necessarily 0.42.
+    e.  **For the remaining parts, suppose your subjective probability of being accepted at both schools is 0.55.** If you are accepted at school A, what is your probability of also being accepted at school B? For this and the remaining parts in addition to computing the probability represent it with proper notation.
+    f.  If you are accepted at school A, what is your probability of not being accepted at school B?
+    g.  If you are not accepted at school A, what is your probability of being accepted at school B?
+    h.  If you are accepted at school B, what is your probability of also being accepted at school A?
+    i.  If you are not accepted at school B, what is your probability of being accepted at school A?
+
+4.  For each of the following, create your own "which of (a) or (b) is larger?" example.
+    You can use the ones from the handout as examples, but you should choose your own contexts.
+    Identify the correct answer and write a sentence or two explaining the answer to a student who is confused.
+    You can use illustrations in your explanations, but don't do any calculations.
+
+    a.  Reverse the direction of conditioning (like the 6 foot tall and NBA example)
+    b.  Compare conditional and unconditional probabilities ( like man versus man who is greater than 6 feet tall)
+    c.  Two "particulars" that people might think are not equally likely but are (like HHHHH versus HTHTT).
+    d.  Comparing "the particular" and "the general" (HTHTT versus 2 H in 5 flips).
+    e.  Comparing the probability of happening once versus at least once (like you winning the lottery versus someone winning the lottery)
+
+5.  The "matching problem" involves $n$ distincts objects labeled $1, \ldots, n$ which are placed in $n$ distinct boxes labeled $1, \ldots, n$, with exactly one object placed in each box.
+    Suppose the objects are placed in the boxes uniformly at random, so that any possible arrangement is equally likely.
+    We're interested in the number of matches (the number of objects for which their label matches the label of the box in which they are placed.) Let $C$ be the event that at least one object is placed in the correct spot (at least one match).
+
+    a.  Describe in full detail how, in principle, you would physical objects (like cards) to simulate a single repetition of the placement of objects in boxes, and the number of matches.
+    b.  Describe in full detail how, in principle, you could conduct a simulation and use the results to approximate $\text{P}(C)$.
+    c.  [This applet conducts a simulation of the matching problem](http://www.rossmanchance.com/applets/2021/randombabies/RandomBabies.html) (in the context of babies in a hospital being mixed up and returned to parents uniforomly at random.) In the applet, "Number of babies" represents $n$ and "Number of trials" represents the number of simulated repetitions. Starting with $n=4$, try different values for the number of repetitions and hit the "Randomize" button to run the simulation. It helps to start with just a few repetitions so that you can see how the simulation is working, before jumping to thousands of repetitions. Use the simulation results to approximate $\text{P}(C)$ when $n=4$.
+    d.  How do you expect $\text{P}(C)$ to depend on $n$? As $n$ increases, do you expect $\text{P}(C)$ to increase, decrease, or stay about the same? Just think about it before proceeding; what does your intuition say?
+    e.  Now try a few different values of $n$ (say $n=5$, $n=10$, and $n=20$, but you're free to choose other values). For each value of $n$ run the simulation and use the results to approximate $\text{P}(C)$. Record your results.
+    f.  What do the simulation results suggest about the relationship between $\text{P}(C)$ and $n$? (Remember that there is simulation margin of error, based on the number of repetitions. Two numerical approximations that are within the margion of error of each other are essentially the same approximation.)
+
+
+
+7.  Katniss throws a dart at a circular dartboard with radius 1 foot.
+    Suppose that Katniss's dart lands at a uniformly random location on the dartboard (and she never misses the dartboard).
+
+    a.  Compute the probability that Katniss's dart lands within 1 inch of the center of the dartboard.
+    b.  Compute the probability that Katniss's dart lands more than 1 inch but less than 2 inches away from the center of the dartboard.

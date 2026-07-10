@@ -1,0 +1,411 @@
+# Discrete Random Variables
+
+{{< include _r_setup.qmd >}}
+
+-   Roughly, a *random variable* assigns a number measuring some quantity of interest to each outcome of a random phenomenon.
+-   Mathematically, a **random variable (RV)** $X$ is a *function* that takes an outcome in the sample space as input and returns a real number as output
+-   The random variable itself is typically denoted with a capital letter ($X$); possible values of that random variable are denoted with lower case letters ($x$).
+    -   Think of the capital letter $X$ as a label standing in for a formula like "the number of heads in 4 flips of a coin" and
+    -   $x$ as a dummy variable standing in for a particular value like 3.
+-   **Discrete random variables** take at most countably many possible values (e.g., $0, 1, 2, \ldots$). They are often counting variables (e.g., the number of Heads in 10 coin flips).
+-   **Continuous random variables** can take any real value in some interval (e.g., $[0, 1]$, $[0,\infty)$, $(-\infty, \infty)$.). That is, continuous random variables can take uncountably many different values. Continuous random variables are often measurement variables (e.g., height, weight, income).
+-   A function of a random variable is also a random variable: if $X$ is a RV then so is $g(X)$
+-   Sums and products, etc., of random variables *defined on the same sample space* are random variables. If$X$ and $Y$ are RVs defined on the same sample space then so are $X+Y$, $X-Y$, $XY$
+-   If the sample space outcomes are represented by rows in a spreadsheet, then random variables correspond to columns.
+-   Expressions like $X=x$ or $\{X=x\}$ represent *events*: for which outcomes is the value of the random variable $X$ equal to the value $x$. (Remember, if the sample space outcomes are represented by rows in a spreadsheet, then an event corresponds to a subset of rows (outcomes) that satisfies some criteria.)
+-   The **(probability) distribution** of a collection of random variables identifies the possible values that the random variables can take and their relative likelihoods.
+-   We will see many ways of describing a distribution, depending on how many random variables are involved and their types (discrete or continuous).
+
+```{r}
+#| label: tbl-dice-rv
+#| echo: false
+#| warning: false
+#| tbl-cap: "Table representing the sum ($X$) and larger ($Y$) of two rolls of a four-sided die"
+
+
+u1 = sort(rep(1:4, 4))
+u2 = rep(1:4, 4)
+x = u1 + u2
+y = pmax(u1, u2)
+
+kbl(
+  data.frame(paste("(", u1, ", ", u2, ")", sep=""), x, y),
+  col.names = c("Outcome (First roll, second roll)", "X (sum)", "Y (max)")
+) |>
+  kable_styling(fixed_thead = TRUE)
+
+```
+
+::: {#exm-dice-rv}
+Roll a four-sided die twice, and record the result of each roll in sequence.
+Let $X$ be the sum of the two dice, and let $Y$ be the larger of the two rolls (or the common value if both rolls are the same).
+@tbl-dice-rv represents the possible outcomes and the values of the random variables $X$ and $Y$.
+Assume the die is fair and the rolls are independent.
+:::
+
+1.  Identify the event $\{X = 4\}$ and compute its probability. Then interpret the probability both as a long relative frequency and as a relative likelihood.\
+    \
+    \
+    \
+    \
+2.  Construct a table and plot of $\text{P}(X = x)$ for each possible value $x$ of $X$.\
+    \
+    \
+    \
+    \
+3.  Construct a table and plot of $\text{P}(Y = y)$ for each possible value $y$ of $Y$.\
+    \
+    \
+    \
+    \
+
+```{r}
+#| label: tbl-dice-marginal
+#| echo: false
+#| tbl-cap: 
+#|   - "The marginal distribution of $X$, the sum of two rolls of a fair four-sided die."
+#|   - "The marginal distribution of $Y$, the larger of two rolls of a fair four-sided die."
+#| layout-ncol: 2
+
+x = 2:8
+px = c(1, 2, 3, 4, 3, 2, 1) / 16
+
+kbl(
+  data.frame(x, px),
+  col.names = c("x", "P(X=x)"),
+  digits = 4
+) |>
+  kable_styling(fixed_thead = TRUE)
+
+y = 1:4
+py = c(1, 3, 5, 7) / 16
+
+knitr::kable(
+  data.frame(y, py),
+  col.names = c("y", "P(Y=y)"),
+  digits = 4
+) |>
+  kable_styling(fixed_thead = TRUE)
+
+```
+
+```{r}
+#| label: fig-dice-marginal
+#| echo: false
+#| fig-cap: 
+#|   - "The marginal distribution of $X$, the sum of two rolls of a fair four-sided die."
+#|   - "The marginal distribution of $Y$, the larger of two rolls of a fair four-sided die."
+#| layout-ncol: 2
+
+ggplot(data.frame(x, px),
+       aes(x = x,
+           xend = x,
+           y = 0,
+           yend = px)) +
+  geom_segment(linewidth = 1.2, col = "skyblue") +
+  scale_x_continuous(breaks = 2:8) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 0.5)) +
+  theme_classic() +
+  theme(legend.position = "none") +
+  labs(x = "x",
+       y = "P(X = x)")
+
+ggplot(data.frame(y, py),
+       aes(x = y,
+           xend = y,
+           y = 0,
+           yend = py)) +
+  geom_segment(linewidth = 1.2, col = "orange") +
+  scale_x_continuous(breaks = 2:8) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 0.5)) +
+  theme_classic() +
+  theme(legend.position = "none") +
+  labs(x = "y",
+       y = "P(Y = y)")
+
+```
+
+## Simulating from a Distribution
+
+::: {#exm-dice-spinners}
+Continuing @exm-dice-rv.
+:::
+
+1.  Describe how you could simulate a single value of $Y$.\
+    \
+    \
+    \
+    \
+2.  Construct a spinner (like from a kids game) to represent the distribution of $Y$.\
+    \
+    \
+    \
+    \
+3.  Describe another way to simulate a single value of $Y$.\
+    \
+    \
+    \
+    \
+4.  Describe how you could use simulation to approximate the distribution of $Y$.\
+    \
+    \
+    \
+    \
+
+```{r}
+#| label: fig-dice-marginal-spinner
+#| echo: false
+#| fig-cap: 
+#|   - "Spinner representing the marginal distribution of $X$, the sum of two rolls of a fair four-sided die."
+#|   - "Spinner representing the marginal distribution of $Y$, the larger of two rolls of a fair four-sided die."
+#| layout-ncol: 2
+
+n = 7
+
+xp <- data.frame(
+  x = 2:8,
+  p = (4 - abs(2:8 - 5)) / 16
+  )
+
+cdf = c(0, cumsum(xp$p))
+
+plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
+  
+ggplot(xp, aes(x="", y = p, fill = x))+
+  geom_bar(width = 1, stat = "identity", color = "black", fill = "white") + 
+  coord_polar("y", start = 0) +
+  theme_void() +
+  # plot the possible values on the outside
+  scale_y_continuous(breaks = plotp, labels = xp$x) +
+  theme(axis.text.x=element_text(size = 14, face = "bold")) +
+  # plot the probabilities as percents inside
+  geom_text(aes(y = plotp,
+                label = percent(p, accuracy = 0.01)), size = 3)
+
+
+
+xp <- data.frame(
+  x = 1:4,
+  p = (2 * (1:4) - 1) / 16
+  )
+
+cdf = c(0, cumsum(xp$p))
+
+plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
+  
+ggplot(xp, aes(x="", y = p, fill = x))+
+  geom_bar(width = 1, stat = "identity", color = "black", fill = "white") + 
+  coord_polar("y", start=0) +
+  theme_void() +
+  # plot the possible values on the outside
+  scale_y_continuous(breaks = plotp, labels = xp$x) +
+  theme(axis.text.x=element_text(size = 14, face = "bold")) +
+  # plot the probabilities as percents inside
+  geom_text(aes(y = plotp,
+                label = percent(p, accuracy = 0.01)), size = 3)
+
+```
+
+-   Don't confuse a random variable with its distribution!
+    -   A random variable measures a numerical quantity which depends on the outcome of a random phenomenon
+    -   The distribution of a random variable specifies the long run pattern of variation of values of the random variable over many repetitions of the underlying random phenomenon.
+-   Any marginal distribution can be represented by a single spinner (like from a kids game).
+-   In principle, there are always two ways of simulating a value $x$ of a random variable $X$.
+    1.  *Simulate from the probability space.* Simulate an outcome $\omega$ from the underlying probability space and set $x = X(\omega)$.
+    2.  *Simulate from the distribution.* Construct a spinner corresponding to the distribution of $X$ and spin it once to generate $x$.
+-   The second method requires that the distribution of $X$ is known. However, as we will see in many examples, *it is common to specify the distribution of a random variable directly without defining the underlying probability space*.
+
+## Probability Mass Functions
+
+-   The probability distribution of a single discrete random variable $X$ is often displayed in a table containing the probability of the event $\{X=x\}$ for each possible value $x$.
+-   In some cases, a distribution has a "formulaic" shape. For a discrete random variable $X$, the **probability mass function (pmf)** $p_X$ expresses $\text{P}(X=x)$ as a function of $x$: $p_X(x) = \text{P}(X = x)$.
+-   Be sure to specify the possible values of the random variable!
+-   Certain common distributions have special names and properties.
+
+::: {#exm-dice-pmf}
+Continuing @exm-dice-rv.
+:::
+
+1.  Verify that the pmf of $X$ is $$
+    p_X(x) = \frac{4 - |x - 5|}{16}, \qquad x = 2, 3, \ldots, 8
+    $$\
+    \
+    \
+    \
+    \
+2.  Verify that the pmf of $Y$ is $$
+    p_Y(y) = \frac{2y - 1}{16}, \qquad y = 1, 2, 3, 4
+    $$\
+    \
+    \
+    \
+    \
+
+## Matching Problem
+
+The "matching problem" involves $n$ distincts objects labeled $1, \ldots, n$ which are placed in $n$ distinct boxes labeled $1, \ldots, n$, with exactly one object placed in each box.
+Suppose the objects are placed in the boxes uniformly at random, so that any possible arrangement is equally likely.
+Let $X$ be the number of matches, that is, the number of objects for which their label matches the label of the box in which they are placed.
+
+```{r}
+#| label: tbl-matching-outcome
+#| echo: false
+#| tbl-cap: "Table representing the sample space in the matching problem with $n=4$."
+
+
+n = 4
+
+permutations(n , n,  1:n, repeats.allowed = FALSE) |>
+  as.data.frame() |>
+  add_column( X = "") |>
+  kbl(col.names = c(paste("Spot ", 1:n), "X (number of matches)")) |>
+  kable_styling(fixed_thead = TRUE)
+
+```
+
+::: {#exm-matching-pmf}
+Consider the matching problem with $n=4$.
+There are $4!=24$ possible outcomes, displayed in @tbl-matching-outcome.
+:::
+
+1.  Complete @tbl-matching-outcome to identify the value of $X$ for each outcome.\
+    \
+    \
+    \
+    \
+2.  Identify the event $\{X = 0\}$ and compute its probability. Then interpret the probability both as a long relative frequency and as a relative likelihood.\
+    \
+    \
+    \
+    \
+3.  Construct a table, plot, and spinner representing the distribution of $X$.\
+    \
+    \
+    \
+    \
+
+```{r}
+#| label: tbl-matching-dist
+#| echo: false
+#| tbl-cap: "Theoretical distribution of $X$ (number of matches) in the matching problem with $n=4$."
+
+kbl(
+  data.frame(c(0, 1, 2, 4), round(c(9, 8, 6, 1) / 24, 4)),
+  booktabs = TRUE,
+  col.names = c("x", "P(X=x)")
+) %>%
+  kable_styling(fixed_thead = TRUE)
+```
+
+```{r}
+#| label: fig-matching-dist-spinner
+#| echo: false
+#| fig-cap: "Spinner representing the theoretical distribution of $X$, the number of matches in the matching problem when $n=4$."
+
+
+x = c(0:2, 4)
+p = c(9, 8, 6, 1) / 24
+
+xp <- data.frame(x, p)
+
+cdf = c(0, cumsum(xp$p))
+
+plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
+
+ggplot(xp, aes(x="", y=p, fill=x))+
+  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
+  coord_polar("y", start=0) +
+  theme_void() +
+  # plot the possible values on the outside
+  scale_y_continuous(breaks = plotp, labels=xp$x) +
+  theme(axis.text.x=element_text(size=14, face="bold")) +
+  # plot the probabilities as percents inside
+  geom_text(aes(y = plotp,
+                label = percent(p)), size=3,
+            color=c(rep("black", 4)))
+
+```
+
+::: {#exm-matching-poisson}
+Now consider the matching problem with general $n$.
+Finding the distribution of $X$ by enumerating the $n!$ possible outcomes as we did for $n=4$ is not feasible for general $n$.
+But we can approximate the distribution of $X$ with simulation.
+Simulation shows that the distribution of the number of matches $X$ is approximately the same for all $n$ (unless $n$ is very small, i.e., $n\le 5$).
+In particular, for any $n$, the probability mass function of $X$ is approximately
+$$
+p_X(x) = \frac{e^{-1}}{x!}, \qquad x = 0, 1, 2, \ldots
+$$
+:::
+
+1.  Use this pmf to approximate the probability of at least one match, and compare to the simulation results for general $n$.\
+    \
+    \
+    \
+    \
+2.  Interpret the probability both as a long relative frequency and as a relative likelihood.\
+    \
+    \
+    \
+    \
+3.  Construct a table, plot, and spinner corresponding to the above pmf. Compare to the simulation results for general $n$.\
+    \
+    \
+    \
+    \
+
+```{r}
+#| label: tbl-poisson-matching
+#| echo: false
+#| tbl-cap: "Approximate distribution of number of matches in the matching problem for general $n$"
+
+
+x = 0:7
+
+p_x = exp(-1) / factorial(x)
+
+data.frame(x, p_x) |>
+  kbl(digits = 6) |>
+  kable_styling(fixed_thead = TRUE)
+
+```
+
+```{r}
+#| label: fig-poisson-matching-plot
+#| echo: false
+#| fig-cap: "Approximate distribution of number of matches in the matching problem for general $n$"
+ 
+plot(x, p_x,
+     type = "h",
+     xlab = "Number of matches (x)",
+     ylab = "Approximate probability p(x)")
+```
+
+```{r}
+#| label: fig-poisson-matching-spinner
+#| echo: false
+#| fig-cap: "Spinner representing the approximate distribution of number of matches in the matching problem for general $n$"
+
+
+x = c(0:3, "4+")
+p = c(dpois(0:3, 1), 1-ppois(3, 1))
+
+xp <- data.frame(x, p)
+
+cdf = c(0, cumsum(xp$p))
+
+plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
+
+ggplot(xp, aes(x="", y=p, fill=x))+
+  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
+  coord_polar("y", start=0) +
+  theme_void() +
+  # plot the possible values on the outside
+  scale_y_continuous(breaks = plotp, labels=xp$x) +
+  theme(axis.text.x=element_text(size=14, face="bold")) +
+  # plot the probabilities as percents inside
+  geom_text(aes(y = plotp,
+                label = percent(p)), size=3,
+            color=c(rep("black", 4), rep("white", 1)))
+
+```
+

@@ -1,0 +1,304 @@
+# From Probability to Statistics
+
+::: {#exm-prob-and-stat-questions}
+In each of the following scenarios, one of (i) and (ii)
+is a *probability* and one is a *statistics* question. Classify each
+question as "probability" or "statistics". Then discuss some general
+features of the probability questions, and some general features of the
+statistics questions
+:::
+
+1.  [U.S.
+    Satisfaction](https://news.gallup.com/poll/1669/general-mood-country.aspx)
+
+    -   Assume that 15% of Americans are satisfied with the way things
+        are going in the U.S. If a random sample of 1000 Americans is
+        selected, what are the chances that fewer than 130 Americans in
+        the sample are satisfied with the way things are going in the
+        U.S?
+
+    -   In a random sample of 1000 Americans, 130 Americans are
+        satisfied with the way things are going in the U.S. What percent
+        of all Americans are satisfied with the way things are going in
+        the U.S?
+
+2.  Great white shark length
+
+    -   Assume that lengths of female great white sharks follow a Normal
+        distribution with mean 16 ft and standard deviation 3 ft. If a
+        random sample of 40 female great white sharks is selected, what
+        are the chances that the average length in the sample is between
+        16.5 and 17.5 ft?
+
+    -   In a sample of 40 female great white sharks, the sample mean
+        length is 17.0 ft. What is the average length of female great
+        white sharks?
+
+3.  In a [clinical trial](https://beta.clinicaltrials.gov/), 200
+    subjects are randomly assigned to receive either an experimental
+    vaccine or no treatment (e.g., a placebo), and then each subject is
+    tested to see if they developed immunity.
+
+    -   If the vaccine is in reality not effective, what are the chances
+        that the proportion of subjects who develop immunity is twice as
+        large for those who received the vaccine than for those who did
+        not?
+
+    -   Among the 100 subjects who received the vaccine, 20 developed
+        immunity; among the 100 subjects who did not receive the
+        vaccine, 10 developed immunity. Is there evidence that the
+        vaccine is effective?
+
+4.  Snap streaks
+
+    -   Assume that lengths of streaks on Snapchat follow an Exponential
+        distribution, with mean 75 for teen users and mean 40 for adult
+        users. A random sample of 200 Snapchat users is selected, 100
+        teens and 100 adults. What are the chances that the sample mean
+        streak length for teens is with within 20 of the sample mean
+        streak length for adults?
+
+    -   In a random sample of 100 teen Snapchat users, the sample mean
+        streak length is 80. In a random sample of 100 adult Snapchat
+        users, the sample mean streak length is 35. In general, how much
+        longer do streak lengths for teen Snapchat users tend to be than
+        for adult Snapchat users?
+
+-   Probability: Assume a model for a random (uncertain) process and
+    evaluate probabilities of potential outcomes or events --- what
+    might the data look like?
+
+    -   In probability, a model is assumed and parameters are assumed to
+        be known, but the data is unknown.
+
+    -   In probability, we typically call the model a "distribution" and
+        the data "random variables".
+
+-   Statistical inference: Observe sample data and make conclusions
+    about the process that generated the data
+
+    -   In statistics, the data is observed but parameters are unknown.
+
+    -   In statistics, we typically call the model the "population" and
+        the data the "sample".
+
+Picture here
+
+-   Statistical inference involves using sample data to make conclusions
+    about the population.
+
+    -   Point estimation: Estimate an unknown population parameter with
+        a single number based on sample data
+
+    -   Interval estimation: Estimate an unknown population parameter
+        with a plausible range of values based on sample data
+
+    -   Hypothesis testing: Assess the evidence that the sample data
+        provides regarding a particular claim about unknown population
+        parameters.
+
+-   The *population distribution* is the distribution of individual
+    values of the variable of interest. A *parameter*, generically
+    denoted $\theta$, is a number that summarizes the population
+    distribution.
+
+-   The **population distribution**, denoted $p_\theta$ or
+    $p_\theta(x)$, is a probability model for the distribution of values
+    of a variable[^1] $X$ over all *individuals* in the population.
+
+    -   If the variable $X$ is discrete, then $p_\theta$ represents a
+        probability mass function (pmf): $p_\theta(x) = \textrm{P}(X=x)$
+
+    -   If the variable $X$ is continuous, then $p_\theta$ represents a
+        probability density function (pdf):
+        $p_\theta(x) \approx \frac{1}{\epsilon}\textrm{P}(x - \epsilon/2 < X < x + \epsilon/2)$
+
+-   A **parameter**, generically denoted $\theta$, is a characteristic
+    of the population distribution, often computed as an expected value
+    of some function of $X$.
+
+    -   In some cases $\theta$ represents a vector of multiple
+        parameters.
+
+    -   For example, if $p_\theta$ represents a Normal distribution,
+        then $\theta$ might represent the pair
+        $\theta \equiv (\mu, \sigma)$ consisting of the population mean
+        and the population standard deviation.
+
+-   A parameter is a *fixed number* but its value is *unknown*.
+
+-   Many statistical studies involve *random sampling* from a
+    population.
+
+-   A **(simple) random sample** of size $n$ is a collection of random
+    variables $X_1,\ldots,X_n$ that are *independent* and *identically
+    distributed* (i.i.d.)
+
+    -   Identically distributed --- each individual $X_i$ has the same
+        marginal distribution --- the population distribution --- since
+        they are sampled from the same population:
+        $$X_i \sim p_\theta \quad \text{for all $i=1, \ldots, n$}$$
+
+    -   Independent --- the values are sampled independently, so the
+        joint distribution[^2] is the product of marginal distributions:
+        $$p_\theta(x_1, \ldots, x_n) = p_\theta(x_1)p_\theta(x_2)\cdots p_\theta(x_n)\quad \text{for all $x_1,\ldots, x_n$}$$
+
+-   A **statistic** is a characteristic of the *sample* which can be
+    computed from the data. More precisely, a statistic is a function of
+    $X_1,\ldots,X_n$, but not of $\theta$.
+
+    -   That is, a statistic is itself a *random variable*, and
+        therefore has its own probability distribution, which describes
+        how values of the statistic would vary from sample-to-sample
+        over many (hypothetical) samples.
+
+    -   The probability distribution of a statistic is called a
+        **sampling distribution**.
+
+    -   The *distribution* of a statistic will depend on $\theta$, but
+        the *value* of a statistic will not.
+
+-   A statistic $\hat{\theta}\equiv T(X_1,\ldots,X_n)$ used to estimate
+    a parameter $\theta$ is called a **(point) estimator**.
+
+    -   Naturally, we hope that there is some correspondence between our
+        estimator $\hat{\theta}$ and the parameter it is estimating
+        $\theta$ --- for example, estimating the population mean with
+        the sample mean --- but the definition does not require this.
+
+    -   When the numerical value of a statistic is calculated from
+        observed sample data, its value is called a *(point) estimate*
+        of the parameter.
+
+    -   The estimator $\hat{\theta}$ is a RV whose value changes from
+        sample to sample; an estimate is the observed value computed
+        based on the results of a single sample.
+
+::: {#exm-intro-estimation}
+Suppose we are willing to assume a Poisson($\mu$) model
+for the number of home runs hit (in total by both teams) in Major League
+Baseball games this season. But we don't know the value of $\mu$, so we
+will collect data and use it to estimate $\mu$. Let $X_1, \ldots, X_n$
+represent the home run counts for a random sample of $n$ games. (Imagine
+that it's early in the season so we haven't observed a lot of data for
+this season yet.)
+:::
+
+1.  What plays the role of the population distributions? What is the
+    parameter? How do you interpret the parameter in this context?
+
+    The Poisson($\mu$) distribution is the population distribution. It
+    describes the distribution of individual values of home runs over
+    the population of all games this season. $\mu$ is the population
+    parameter. $\mu$ is the long run average number of home runs per
+    game over the population of all MLB games this season, the
+    "population mean".
+
+2.  Suggest one estimator of $\mu$. (Hint: what does $\mu$ represent for
+    a Poisson distribution?)
+
+    For a Poisson distribution, the parameter $\mu$ is the population
+    mean, so the sample mean $\bar{X}$ seems like a reasonable estimator
+    of $\mu$.
+
+3.  Suppose we collect data on $n=3$ games and we observe $x_1=3$ home
+    runs in game 1, $x_2=0$ home runs in game 2, and $x_3 = 2$ home runs
+    in game 3. Compute the value of your estimator from the previous
+    part for this sample. That is, what is your estimate of $\mu$ based
+    on this sample?
+
+    For this sample the value of $\bar{X}$ is (3+0+2)/3 = 5/3 = 1.667.
+    Using $\bar{X}$ as our estimator of $\mu$, based on the (3, 0, 2)
+    sample we would estimate $\mu$ to be 1.667.
+
+4.  Suggest another estimator of $\mu$. (Hint: what else does $\mu$
+    represent for a Poisson distribution?)
+
+    For a Poisson distribution, the parameter $\mu$ is also population
+    variance, so the sample variance also seems like a reasonable
+    estimator.
+
+5.  For a Poisson($\mu$) distribution $\mu$ is both the population mean
+    and the population variance. So one reasonable estimator of $\mu$ is
+    the sample mean $\bar{X}$. Another reasonable estimator is the
+    sample variance. But there are two commonly used formulas for the
+    sample variance, each of which provides an estimator of $\mu$
+    $$\begin{aligned}
+        \hat{\sigma}^2 & = \frac{1}{n}\sum_{i=1}^n\left(X_i-\bar{X}\right)^2\\
+        S^2 & = \frac{1}{n-1}\sum_{i=1}^n\left(X_i-\bar{X}\right)^2
+    \end{aligned}$$ Compute the value of each of these estimators for
+    the (3, 0, 2) sample. That is, what is your estimate of $\mu$ based
+    on this sample?
+
+    For this sample the value of $\hat{\sigma}^2$ is
+    $$\frac{1}{3}[(3 - 1.667)^2 + (0-1.667)^2 + (2 - 1.667)^2] = 1.56$$
+    Using this estimator, we would estimate $\mu$ to be 1.56 based on
+    this sample.
+
+    For this sample the value of $S^2$ is
+    $$\frac{1}{3-1}[(3 - 1.667)^2 + (0-1.667)^2 + (2 - 1.667)^2] = 2.33$$
+    Using this estimator, we would estimate $\mu$ to be 2.33 based on
+    this sample.
+
+6.  The mean number of home runs per game last season was 2.3. Consider
+    the estimator of $\mu$: $0.1\bar{X}+ 0.9(2.3)$. Explain in words
+    what this estimator does. Then compute its value for the (3, 0, 2)
+    sample.
+
+    The estimator $0.1\bar{X}+ 0.9(2.3)$ is a weighted average between
+    the sample mean for the data observed from this season and the mean
+    from the previous season. For the (3, 0, 2) sample the value of this
+    estimator is $0.1(1.667) + 0.9(2.3) = 2.237$. Using this estimator,
+    we would estimate $\mu$ to be 2.237 based on this sample.
+
+7.  If home runs follow a Poisson($\mu$) distribution, then the
+    probability of 0 home runs in a game, $p_0$, is $p_0=e^{-\mu}$.
+    Rearranging, $\mu = -\log p_0$. Therefore, if $\hat{p}_0$ is the
+    sample proportion of games with 0 home runs, then another estimator
+    of $\mu$ is $-\log\hat{p}_0$. Compute the value of this estimator
+    for the (3, 0, 2) sample.
+
+    For the (3, 0, 2) sample there is one game with 0 HRs, so
+    $\hat{p}_0 = 1/3$ and $-\log(1/3) = 1.099$. Using this estimator, we
+    would estimate $\mu$ to be 1.099 based on this sample.
+
+8.  We have seen a few different, seemingly reasonable estimators of
+    $\mu$, and each produced a different estimate of $\mu$ based on the
+    same (3, 0, 2) sample data. Which of these estimates is best? That
+    is, which of these estimates is closest to $\mu$?
+
+    We don't know! The whole point of estimating $\mu$ is that we don't
+    know what it is! So there will never be any way of knowing if a
+    particular estimator yields a good estimate of $\mu$ for any
+    particular sample.
+
+-   Because the true value of the parameter $\theta$ is unknown, we
+    never know if the sample data provides a reasonable estimate of
+    $\theta$
+
+-   Rather, we evaluate the estimation *procedure* for potential values
+    of $\theta$: How does the estimation procedure perform over many
+    possible samples given potential values of $\theta$?
+
+-   Some questions of interest when estimating a parameter $\theta$
+
+    -   How do we find an estimator of $\theta$?
+
+    -   What are properties of "good" estimators?
+
+    -   How can we tell if one estimator is "better" than another?
+
+    -   How do we find a "best" estimator of $\theta$?
+
+    -   How do we determine the margin of error for an estimator?
+
+[^1]: Many problems of interest involve multiple variables (e.g.,
+    height, weight, income), in which case the population distribution
+    is a joint distribution. But it is simpler --- both conceptually and
+    notationally --- to consider just a single variable of interest.
+
+[^2]: Abuse of notation in the expression: $p_\theta$ on the left
+    represents the joint distribution of $(X_1, \ldots, X_n)$, a
+    function with $n$ inputs; $p_\theta$ on the right represents that
+    marginal distribution of each $X_i$ (since i.d.), a function with a
+    single input.

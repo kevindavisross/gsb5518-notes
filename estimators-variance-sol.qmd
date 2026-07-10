@@ -1,0 +1,344 @@
+::: center
+# Variance of Estimators
+
+
+-   The bias function of an estimator measures the estimator's tendency
+    to overestimate or underestimate the parameter, as a function of
+    potential values of the parameter.
+-   But bias is only one consideration. Bias only considers the average
+    value of the estimator over many samples, which is just one feature
+    of the estimator's distribution.
+
+::: {#exm-}
+Consider a large population in which 20% of individuals
+have an annual income (\$ thousands) of 200, 40% of have an income of
+70, and 40% have an income of 10.
+:::
+
+1.  Sketch a plot of the population distribution.
+
+    **Solution:** Spike of 0.4 at 10, 0.4 at 70, and 0.2 at 200.
+
+2.  Find and interpret the population mean $\mu$.
+
+    **Solution:** $\mu = 72$ thousand: Average income over all
+    individual households in the population.
+    $$\mu = 10(0.4) + 70(0.4) + 200(0.2) = 72$$
+
+3.  Find and interpret the population SD $\sigma$.
+
+    **Solution:** $\sigma=\sqrt{4816} = 69.4$ thousand:
+    Household-to-household variability of income over all individual
+    households in the population.
+    $$\sigma^2 = \textrm{E}(X^2) - (\textrm{E}(X)^2) = \left[10^2(0.4) + 70^2(0.4) + 200^2(0.2)\right] - 72^2 = 4816$$
+
+    -   The **population distribution** describes the distribution of
+        values of a variable over all *individuals* in the population.
+
+    -   **Parameters** are characteristics of the population
+        distribution.
+
+        -   The **population mean**, denoted $\mu$, is the average of
+            the values of the variable over all individuals in the
+            population.
+
+        -   The **population standard deviation**, denoted $\sigma$, is
+            the standard deviation of all the individual values in the
+            population.
+
+4.  Select two people at random from the population and let $X_1$ and
+    $X_2$ denote the incomes of the two people selected. Let
+    $\bar{X}_2=(X_1+X_2)/2$ be the sample mean income. Determine the
+    distribution of $\bar{X}_2$. (Use R or a spreadsheet.)
+
+    **Solution:** Enumerate the possible samples.
+
+        $x_1$   $x_2$      probability   $\bar{x}$
+      ------- ------- ---------------- -----------
+           10      10       (0.4)(0.4)          10
+           10      70       (0.4)(0.4)          40
+           10     200       (0.4)(0.2)         105
+           70      10       (0.4)(0.4)          40
+           70      70       (0.4)(0.4)          70
+           70     200       (0.4)(0.2)         135
+          200      10       (0.2)(0.4)         105
+          200      70       (0.2)(0.4)         135
+          200     200       (0.2)(0.2)         200
+
+    Distribution of $\bar{X}$
+
+    \begin{align*}
+        \bar{x}& \qquad \textrm{P}(\bar{X}= \bar{x})\\
+        10 & \qquad 0.16\\
+        40 & \qquad 0.32\\
+        70 & \qquad 0.16\\
+        105 & \qquad 0.16\\
+        135 & \qquad 0.16\\
+        200 &  \qquad 0.04
+    \end{align*}
+
+5.  Find and interpret $\textrm{P}(\bar{X}_2\ge 105)$.
+
+    **Solution:** 0.36. In 36% *of samples* of size 2, the *sample mean*
+    income is at least 105 thousand.
+
+6.  Compute $\textrm{E}(\bar{X}_2)$. How does it relate to $\mu$?
+
+    **Solution:**
+    $$\textrm{E}(\bar{X}_2) = 10(0.16) + 40(0.32) + 70(0.16) + 105(0.16) + 135(0.16) + 200(0.04) = 72$$
+
+7.  Compute and interpret $\textrm{SD}(\bar{X}_2)$. How does it relate
+    to the population standard deviation $\sigma$?
+
+    **Solution:** $\textrm{SD}(\bar{X}_2) = 69.4 / \sqrt{2} = 49.07$;
+    equal to $\sigma/\sqrt{n}$.
+    \begin{align*}
+        \textrm{Var}(\bar{X}_2) & = \left[10^2(0.16) + 40^2(0.32) + 70^2(0.16) + 105^2(0.16) + 135^2(0.16) + 200^2(0.04)\right] - 72^2\\
+        & = 4816/2 = 69.4^2 / 2
+    \end{aligned}
+
+8.  Now consider $\bar{X}_{8}$, the sample mean income of a random
+    sample of $n=8$ people. How could you use simulation to approximate
+    the distribution of $\bar{X}_{8}$, and its expected value and SD?
+
+    **Solution:**
+
+    -   Simulate a sample of size 8 from the population distribution:
+        spinner which returns value 10, 70, 200 with probabilitu 0.4,
+        0.4, 0.2. Spin it 8 times.
+
+    -   Compute the sample mean of the 8 values in the sample. This is
+        one hypothetical value of $\bar{X}$.
+
+    -   Repeat the process many times to simulate many hypothetical
+        samples and their sample means.
+
+    -   Summarize the simulated sample means to approximate the
+        distribution of $\bar{X}$.
+
+    -   Average the simulated sample means to approximate
+        $\textrm{E}(\bar{X})$.
+
+9.  Find $\textrm{E}(\bar{X}_{8})$ without first finding the
+    distribution of $\bar{X}_{8}$.
+
+    **Solution:** $\textrm{E}(\bar{X}_{8}) = \mu = 72$
+
+10. Use simulation to approximate $\textrm{SD}(\bar{X}_{8})$. What does
+    this measure variability of? Compare to $n=2$.
+
+    **Solution:**
+    $\textrm{SD}(\bar{X}_{8}) = \sigma/\sqrt{n} = 69.4/\sqrt{8} = 24.5$.
+    Sample size of $n=8$ is 4 times bigger than $n=2$, but SD of
+    $\bar{X}_8$ is only $\sqrt{4}=2$ times smaller than SD of
+    $\bar{X}_2$.
+
+11. Use simulation to find and interpret $\textrm{P}(\bar{X}_8\ge 105)$.
+    Compare to $n=2$.
+
+    **Solution:** See video for simulation.
+    $\textrm{P}(\bar{X}_8\ge 105)\approx 0.08$, smaller than for $n=2$.
+    Sample means from larger samples vary less than sample means from
+    smaller samples.
+
+-   A **(simple) random sample** of size $n$ is a collection of random
+    variables $X_1,\ldots,X_n$ that are *independent* and *identically
+    distributed* (i.i.d.)
+
+-   A **statistic** is a characteristic of the *sample* which can be
+    computed from the data. More precisely, a statistic is a function of
+    $X_1,\ldots,X_n$, but not of $\theta$.
+
+    -   That is, a statistic is itself a *random variable*, and
+        therefore has its own probability distribution, which describes
+        how values of the statistic would vary from sample-to-sample
+        over many (hypothetical) samples.
+
+    -   The probability distribution of a statistic is called a
+        **sampling distribution**.
+
+-   Statistics exhibit **sample-to-sample variability**: the value of a
+    statistic varies from sample to sample.
+
+    -   We can estimate the degree of this variability by *simulating
+        many hypothetical samples* and computing the value of the
+        statistic for each sample.
+
+    -   The resulting standard deviation, called the **standard error**,
+        measures the sample-to-sample variability of the statistic over
+        many (hypothetical) samples of the same size.
+
+    -   However, *in practice usually only a single sample is selected*
+        and a single value of the statistic is observed.
+
+-   For many statistics (e.g., means and proportions) --- but not all
+    --- statistics from larger random samples vary less, from sample to
+    sample, than statistics from smaller random samples.
+
+<!-- -->
+
+-   For an i.i.d. random sample $X_1,\ldots, X_n$, the **sample mean**
+    is the *statistic*
+    $$\bar{X}_n = \frac{1}{n}\sum_{i=1}^nX_i = \frac{X_1 + \cdots + X_n}{n}$$
+
+-   The sample mean $\bar{X}$ is an *unbiased* estimator of the
+    population mean $\mu$ $$\textrm{E}(\bar{X}_n) = \mu$$
+
+    -   Over many random samples, sample means do not consistently
+        overestimate or consistently underestimate the population mean
+
+-   Sample-to-sample variability of sample means decreases as the sample
+    size increases $$\begin{aligned}
+        \textrm{SD}(\bar{X}_n) & = \frac{\sigma}{\sqrt{n}}\\
+        \text{sample-to-sample SD of sample means} & = \frac{\text{unit-to-unit SD of values of the variable }}{\sqrt{\text{sample size}}}
+    \end{aligned}$$
+
+    -   The more variable the individual values of the variable are
+        (i.e. the larger the population SD of the variable, $\sigma$),
+        the more variable sample means will be (i.e. the larger than the
+        SE).
+
+    -   Sample means are less variable than individual values of the
+        variable
+
+    -   Over many random samples, sample means from larger random
+        samples vary less, from sample to sample, than sample means from
+        smaller random samples.
+
+    -   The SD of the sample means decreases as the sample size
+        increases, but this reduction in SD follows a "square root
+        rule". For example, if the sample size is increased by a factor
+        of 4, then the SD is reduced by a factor of 2 (not 4).\
+
+::: exer
+Consider again estimating $\mu$ for a Poisson($\mu$)
+distribution based on a random sample $X_1, \ldots, X_n$ of size $n$. We
+have seen that both $\bar{X}$ and $S^2$ are unbiased estimators of
+$\mu$. If we want to choose between these two estimators, how do we
+decide?
+:::
+
+1.  Assume $n=3$ and $\mu=2.3$. Describe in full detail how you could
+    conduct a simulation to approximate the sample-to-sample
+    distribution of $\bar{X}$ and its and its expected value, variance,
+    and standard deviation. Then conduct the simulation and record the
+    results. What does the standard deviation measure?
+
+    **Solution:**
+
+    -   Simulate a sample of size $n=3$ from a Poisson distribution with
+        parameter $\mu = 2.3$. For example, (3, 0, 2).
+
+    -   Find the sample mean $\bar{X}$. For example,
+        $(3+0+2)/3 = 5/3= 1.667$
+
+    -   Repeat many times, generating many samples of size $n=3$ and a
+        value of $\bar{X}$ for each sample, under the assumption that
+        $\mu = 2.3$.
+
+    -   To approximate $\textrm{E}(\bar{X})$, average the simulated
+        values of $\bar{X}$. To approximate $\textrm{Var}(\bar{X})$,
+        average the squared deviations of $\bar{X}$ from the approximate
+        $\textrm{E}(\bar{X})$.
+
+    See Colab notebook for simulation and results.
+    $\textrm{SD}(\bar{X})$ measures the sample-to-sample variability of
+    samples means over many samples of size $n3$, assuming that
+    $\mu = 2.3$.
+
+2.  Assuming $n= 3$ and $\mu = 2.3$, compute $\textrm{E}(\bar{X})$,
+    $\textrm{Var}(\bar{X})$, and $\textrm{SD}(\bar{X})$.
+
+    **Solution:** See the next part for derivations of general
+    expressions. Compare the values to the simulation results.
+    $$\begin{aligned}
+        \textrm{E}(\bar{X}) & = 2.3\\
+        \textrm{Var}(\bar{X}) & = \frac{2.3}{3} = 0.767\\
+        \textrm{SD}(\bar{X}) & = \frac{\sqrt{2.3}}{\sqrt{3}} = 0.876
+    \end{aligned}$$
+
+3.  For a general $n$ and $\mu >0$, find expressions for
+    $\textrm{E}(\bar{X})$, $\textrm{Var}(\bar{X})$, and
+    $\textrm{SD}(\bar{X})$.
+
+    **Solution:** For a random sample from a population, the sample mean
+    $\bar{X}$ is always an unbiased estimator of the population mean
+    $\mu$. For a Poisson($\mu$) population, $\mu$ is the population
+    mean. So $$\textrm{E}(\bar{X}) = \mu$$ Recall the general formulas
+    for the variability of the sample mean a random sample from a
+    population: $$\begin{aligned}
+    \textrm{Var}(\bar{X}) & = \frac{\text{population variance}}{n}\\
+    \textrm{SD}(\bar{X}) & = \frac{\text{population SD}}{\sqrt{n}}
+    \end{aligned}$$ For a Poisson($\mu$) population, $\mu$ is the
+    population variance, so these formulas become $$\begin{aligned}
+        \textrm{Var}(\bar{X}) & = \frac{\mu}{n} & & \text{for Poisson($\mu$) population}\\
+        \textrm{SD}(\bar{X}) & = \frac{\sqrt{\mu}}{\sqrt{n}} & & \text{for Poisson($\mu$) population}
+    \end{aligned}$$
+
+4.  Assume $n=3$ and $\mu=2.3$. Describe in full detail how you could
+    conduct a simulation to approximate the sample-to-sample
+    distribution of $S^2$ and its expected value, variance, and standard
+    deviation. Then conduct the simulation and record the results. What
+    does the standard deviation measure?
+
+    **Solution:**
+
+    -   Simulate a sample of size $n=3$ from a Poisson distribution with
+        parameter $\mu = 2.3$. For example, (3, 0, 2).
+
+    -   Find the sample variance $S^2$. For example,
+        $$\frac{1}{3 - 1}\left((3 - 5/3)^2 + (0 - 5/3)^2 + (2 - 5/3)^2\right) = 1.53$$
+
+    -   Repeat many times, generating many samples of size $n=3$ and a
+        value of $S^2$ for each sample, under the assumption that
+        $\mu = 2.3$.
+
+    -   To approximate $\textrm{E}(S^2)$, average the simulated values
+        of $S^2$. To approximate $\textrm{Var}(S^2)$, average the
+        squared deviations of $S^2$ from the approximate
+        $\textrm{E}(S^2)$.
+
+    See Colab notebook for simulation and results. $\textrm{SD}(S^2)$
+    measures the sample-to-sample variability of samples variances over
+    many samples of size $n3$, assuming that $\mu = 2.3$.
+
+5.  Compare the simulation results for $\bar{X}$ and $S^2$ when $n=3$
+    and $\mu = 2.3$. Based on the simulation results, which estimator of
+    $\mu$ is preferred when $\mu = 2.3$ --- $\bar{X}$ or $S^2$? Why? But
+    then explain why this information isn't very helpful.
+
+    **Solution:** See notebook. Both estimators are unbiased, so neither
+    systematically overestimates or underestimates the parameter $\mu$.
+    But $\bar{X}$ exhibits less sample-to-sample variability than $S^2$
+    does, so over many samples $\bar{X}$ tends to be closer to $\mu$
+    than $S^2$ does. So we prefer the estimator with smaller variance,
+    which is $\bar{X}$ in this case. (Note: the formula in the next part
+    shows that when $\mu=2.3$ and $n=3$,
+    $\textrm{Var}(S^2) = \frac{2(2.3)^2}{3 - 1}) + \frac{2.3}{3} = 6.06$,
+    which is consistent with the simulation results.)
+
+    However, this only shows that $\bar{X}$ is preferred to $S^2$ when
+    $\mu =2.3$. But we don't know what $\mu$ is; that's the whole point
+    of estimating it. So we need to consider all potential values of
+    $\mu$ when evaluating estimators.
+
+6.  Now consider general $n$ and $\mu$. It can be shown that
+    $$\textrm{Var}(S^2) = \frac{2\mu^2}{n-1} + \frac{\mu}{n}$$ Sketch a
+    plot of the variance functions of both $\bar{X}$ and $S^2$ as a
+    function of $\mu$. Regardless of the value of $\mu$, which estimator
+    has smaller variance? Which of these two unbiased estimators of
+    $\mu$, $\bar{X}$ or $S^2$, is preferred?
+
+    **Solution:** See notebook. Both estimators are unbiased, so neither
+    systematically overestimates or underestimates $\mu$. But regardless
+    of the value of $\mu$, $\bar{X}$ has smaller sample-to-sample
+    variability than $S^2$, so $\bar{X}$ tends to be closer to $\mu$
+    than $S^2$. Therefore, between these two estimators we prefer
+    $\bar{X}$.\
+
+-   When choosing between two *unbiased* estimators, the one with
+    smaller variance is generally preferred.
+
+-   Remember that the variance of an estimator will be a function of the
+    unknown parameter $\theta$, so we need to consider the variance
+    *function* for various potential values of $\theta$.

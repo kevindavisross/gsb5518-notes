@@ -1,0 +1,559 @@
+::: center
+**Handout 29\
+Comparing multiple means: ANOVA $F$ procedures**
+:::
+
+::: {#exer:knee .exer}
+**Exercise 1**.
+
+A recent double blind experiment[^1] investigated the effectiveness of
+arthroscopic knee surgery relative to placebo surgery. Subjects were
+randomly assigned to receive one of three treatments: arthroscopic
+lavage (which involved flushing the knee joint with fluid), arthroscopic
+debridement (which involved both lavage and shaving of cartilage and
+removal of debris), and placebo surgery (which involved incisions in the
+knee, but no insertion of instruments). Various outcomes were measured;
+the JMP output below summarizes data on self-reported pain score two
+years after the procedure on a knee-specific pain scale (0-100, with
+with higher scores indicating more severe pain).
+:::
+
+![image](C:/Users/kjross/Documents/Handout_graphs/knee_surgery_JMP_summary){width="70%"}
+
+::: my_enumerate
+State the null and alternative hypotheses (in words is fine).
+
+Suggest a statistic which could be used to measure, in a single number,
+how different the sample means are.
+:::
+
+::: my_itemize
+Comparing multiple groups regarding a numerical response variable
+
+The null hypothesis is (usually) that the true mean value of the
+response variable is the same for each explanatory variable group
+(population/process/treatment).
+
+The alternative hypothesis is not $H_0$; that is, there is at least some
+difference between the groups in terms of the means.
+
+Side-by-side dotplots/histograms/boxplots, on the same axis scale, and
+the group sample means and SDs summarize the observed data.
+
+We want a statistic that measures in a single number how different the
+observed data, i.e. the sample means, are from what we would expect when
+the null hypothesis is true.
+
+While there are several statistics that can be used, we will focus on
+the most commonly used one, called the **$F\;$statistic** (named after
+the statistician R.A. Fisher).\
+:::
+
+:::: exer
+**Exercise 2**. Consider the following plots, which are all on the same
+scale. (The data relate to a study on different types of diet plans
+(Atkins, etc) and weight loss.)
+
+::: my_itemize
+Plot A displays the study data.
+
+Plots B and C show hypothetical data sets with the same group sizes as
+in Plot A.
+
+The SD for each group in Plot B equals the SD for the corresponding
+group in Plot A.
+
+The mean for each group in Plot C equals the mean for the corresponding
+group in Plot B.
+:::
+::::
+
+![image](C:/Users/kjross/Documents/Handout_graphs/ANOVA_idea_plot_diet){width="100%"}
+
+::::: my_enumerate
+Rank the plots in order from weakest to strongest evidence to reject the
+null hypothesis of no difference in means between treatments. That is,
+rank the plots in order from largest to smallest p-value.
+$$\begin{aligned}
+& \text{weakest evidence to reject $H_0$} &\qquad \qquad \qquad  & \text{strongest evidence to reject $H_0$} \\
+& \text{largest p-value} &\qquad \qquad \qquad  & \text{smallest p-value}
+\end{aligned}$$
+
+Compare plots A and B.
+
+::: my_itemize
+The variability *between* groups in Plot B is
+$$\text{greater than} \qquad \qquad \qquad \text{less than} \quad \qquad \qquad \text{the same as}$$
+the variability *between* groups in Plot A.\
+
+The variability *within* groups in Plot B is
+$$\text{greater than} \qquad \qquad \qquad \text{less than} \quad \qquad \qquad \text{the same as}$$
+the variability *within* groups in Plot A.\
+:::
+
+Compare plots B and C.
+
+::: my_itemize
+The variability *between* groups in Plot C is
+$$\text{greater than} \qquad \qquad \qquad \text{less than} \quad \qquad \qquad \text{the same as}$$
+the variability *between* groups in Plot B.\
+
+The variability *within* groups in Plot C is
+$$\text{greater than} \qquad \qquad \qquad \text{less than} \quad \qquad \qquad \text{the same as}$$
+the variability *within* groups in Plot B.\
+:::
+
+Rank the plots in order from smallest to largest $F$ statistic.
+:::::
+
+:::: my_itemize
+The plots illustrate the idea behind the $F$ statistic: we reject the
+null hypothesis of no difference in means between treatments
+(populations) if the observed variability *between* groups is large
+relative to the observed variability *within* groups.
+
+That is, we reject the null hypothesis if the ratio
+$$\frac{\text{variability between groups}}{\text{variability within groups}}$$
+is large enough. This idea is known as **analysis of variance (ANOVA)**.
+
+::: my_itemize
+The name ANOVA refers to *what* we are doing, and not *why* we are doing
+it.
+
+Remember, we are analyzing the variance to make a conclusion about the
+*means*
+:::
+
+The $F$ statistic quantifies the above ratio. The larger the value of
+the $F$ statistic the stronger the evidence to reject the null
+hypothesis (of no difference) in favor of the alternative hypothesis (of
+some difference).\
+::::
+
+::: exer
+**Exercise 3**. Continuing Exercise [1](#exer:knee){reference-type="ref"
+reference="exer:knee"}. The computation of the $F$ statistic is full of
+technical details. We will only do a rough hand computation which
+illustrates the main ideas, relying on software to do the actual
+computation for us. (If you're interested, the technical details are
+included later in the handout.) The computation is somewhat simplified
+when the sample size is the same for each explanatory variable group.
+:::
+
+::::::::::::::: my_enumerate
+What statistic can be used to measure the variability *within* the
+Debridement group? Lavage? Placebo? How could you combine these numbers
+to to measure, in a single number, *variability within groups*?
+
+::: my_itemize
+The SD within each group measures the variability of the response
+variable within that group.
+
+The $F$ statistic works with *variances* to measure variability.
+
+If the true variance within all groups is the same, we can pool the
+observed sample variances from all the groups together to get a single
+estimate of the true variance of the response.
+
+To get an overall measure of the variability within groups, compute[^2]
+the *mean of the group variances*, which becomes the denominator of the
+$F$ statistic.\
+:::
+
+If the null hypothesis is true, what would you expect about the group
+means? What statistic can be used to measure the variability *between*
+groups?
+
+::: my_itemize
+If the null hypothesis is true, the group labels are meaningless, so
+essentially we have one big sample instead of separate samples for each
+group. (In this example, if the null hypothesis is true, we really just
+have one big sample of 180, instead of 3 samples of 60 each.)
+
+If the null hypothesis is true, we would expect the mean for each group
+to be close to the overall mean.
+
+We can measure how different the group means are from the overall mean
+by computing the *variance of the group means*.\
+:::
+
+Regardless of whether or not the null hypothesis is true, which value
+--- (a) or (b) --- would you expect to be larger? Why?
+
+The variance of group means (in the numerator) plays the role of the
+observed difference between groups. Even if the null hypothesis is true,
+we would expect some variability between the group means just by chance;
+how could we estimate this degree of variability?
+
+:::: my_itemize
+The means of the group variances (in the denominator) is roughly
+$\sigma^2$, the population standard deviation of individual values of
+the response (assuming the SD does not depend on group)
+
+When the null hypothesis is true, we would expect some variability in
+the group means just by chance. If the null hypothesis is true, the
+variance of the group sample means (in the numerator) is roughly
+$\sigma^2/n$, where $n$ is the common group size (e.g. $n=60$)
+
+To effectively put the two variability measures --- between (variance of
+means) versus within (variance of individual values) --- on a comparable
+scale, multiply the numerator by the group size
+
+::: my_itemize
+The denominator --- based on the mean of group variances --- represents
+the variability we would expect just due to chance when the null
+hypothesis is true
+
+The numerator --- based on the variance of group means --- represents
+the degree of variability between groups we actually observe in the data
+
+The larger the observed variability between groups is relative to what
+is expected when the null hypothesis is true, the stronger the evidence
+to reject the null hypothesis.
+:::
+
+The **one-way ANOVA $F$ statistic** when the group size $n$ is the same
+for all $g$ groups is $$\begin{aligned}
+F & = \frac{\text{group size} \times \text{variance of group means}}{\text{mean of group variances}}\\
+%& = \frac{n\sum_{j=1}^g \left(\xbar_j-\bar{\xbar}\right)^2/(g-1)}{\sum_{j=1}^g s_j^2/g }
+\end{aligned}$$
+::::
+
+Compute the $F$ statistic. What value would you expect $F$ to be if the
+null hypothesis is true?
+
+Specify in detail how the null distribution of the $F$ statistic could
+be simulated with cards, and how you could use the results of the
+simulation to compute the p-value.
+
+The following plot displays results from an applet used to run 10000
+repetitions of the simulation. Would a Normal distribution approximation
+be appropriate? How could you use the applet to estimate the p-value?
+
+![image](C:/Users/kjross/Documents/Handout_graphs/knee_surgery_applet){width="20%"}
+
+::: my_itemize
+To hypothetically replicate the study assuming the null hypothesis is
+true, we assume that the observed response of the units would be the
+same regardless of what explanatory variable group they were in
+
+The null distribution of the $F$ statistic has a mean of about 1.
+
+The larger the value of the $F$ statistic the stronger the evidence to
+reject the null hypothesis (of no difference) in favor of the
+alternative hypothesis (of some difference).
+
+So the p-value is the proportion of repetitions for which the simulated
+$F$ statistic is at least as large as the observed $F$ statistic. That
+is, the p-value in an $F$ test always corresponds to the right tail of
+the null distribution.
+
+The null distribution of the $F$ statistic will be skewed to the right,
+even when the sample size is large.
+
+If the null hypothesis is true the $F$ statistic has an **$F$
+distribution with $g-1$ degrees of freedom in the numerator and $N-g$
+degrees of freedom in the denominator**, denoted $F_{g-1,N-g}$,
+approximately (given the assumptions of the method are satisfied; see
+the box at the end of the handout for details)\
+:::
+
+State a conclusion in context. Are the results "significant"?
+
+If we were to compute a series of pairwise confidence intervals for the
+difference in group means --- Debridement $-$ Lavage, Debridement $-$
+Placebo, Lavage $-$ Placebo --- what value would each of the confidence
+intervals contain? Why?
+
+::: my_itemize
+The calculations relating to an $F$ statistic are traditionally
+summarized in an **ANOVA table**\
+\
+![image](C:/Users/kjross/Documents/Handout_graphs/knee_surgery_anova_table){width="70%"}
+:::
+
+Suppose the study results had been as follows.
+
+::: center
+                  Size   Mean     SD
+  ------------- ------ ------ ------
+  Debridement       60   54.0   23.3
+  Lavage            60   66.7   24.2
+  Placebo           60   42.5   25.1
+:::
+
+In comparison to the actual study data,
+
+::: my_itemize
+The $F$ statistic is
+$$\text{farther from 0} \qquad \qquad \qquad \text{closer to 0} \qquad \qquad \qquad \text{exactly the same}$$
+
+The p-value is
+$$\text{farther from 0} \qquad \qquad \qquad \text{closer to 0} \qquad \qquad \qquad \text{exactly the same}$$
+
+The evidence for rejecting the null hypothesis is
+$$\text{stronger than} \qquad \qquad \qquad \text{weaker than} \qquad \qquad \qquad \text{exactly the same}$$
+:::
+
+Suppose the study results had been as follows.
+
+::: center
+                  Size   Mean     SD
+  ------------- ------ ------ ------
+  Debridement       60   54.0   13.3
+  Lavage            60   56.7   14.2
+  Placebo           60   52.5   15.1
+:::
+
+In comparison to the actual study data,
+
+::: my_itemize
+The $F$ statistic is
+$$\text{farther from 0} \qquad \qquad \qquad \text{closer to 0} \qquad \qquad \qquad \text{exactly the same}$$
+
+The p-value is
+$$\text{farther from 0} \qquad \qquad \qquad \text{closer to 0} \qquad \qquad \qquad \text{exactly the same}$$
+
+The evidence for rejecting the null hypothesis is
+$$\text{stronger than} \qquad \qquad \qquad \text{weaker than} \qquad \qquad \qquad \text{exactly the same}$$
+:::
+
+Suppose the study results had been as follows.
+
+::: center
+                  Size   Mean     SD
+  ------------- ------ ------ ------
+  Debridement       30   54.0   23.3
+  Lavage            30   56.7   24.2
+  Placebo           30   52.5   25.1
+:::
+
+In comparison to the actual study data,
+
+::: my_itemize
+The $F$ statistic is
+$$\text{farther from 0} \qquad \qquad \qquad \text{closer to 0} \qquad \qquad \qquad \text{exactly the same}$$
+
+The p-value is
+$$\text{farther from 0} \qquad \qquad \qquad \text{closer to 0} \qquad \qquad \qquad \text{exactly the same}$$
+
+The evidence for rejecting the null hypothesis is
+$$\text{stronger than} \qquad \qquad \qquad \text{weaker than} \qquad \qquad \qquad \text{exactly the same}$$\
+:::
+:::::::::::::::
+
+::: exer
+**Exercise 4**. When newborn babies eat, how long do they tend to eat
+for? Does the length of time feeding vary with age? We'll investigate
+using a small sample of two-week-old bottle-fed babies.
+:::
+
+::::: my_enumerate
+Use R to conduct the ANOVA $F$ test.
+
+The p-value is $<0.0001$. State the conclusion of the ANVA $F$ test in
+context.
+
+Consider the conclusion of the $F$ test. What are some natural follow-up
+questions? How might you use the data to answer them?
+
+:::: my_itemize
+Rejecting the null hypothesis based on an $F$ statistic only tells you
+that "the mean for at least one of the treatments (populations) is not
+the same as the mean for at least one of the other treatments
+(populations)".
+
+The natural follow-up questions are: which treatment (population) means
+differ? and by how much?
+
+One approach when you have rejected the null hypothesis is to calculate
+--- using software --- all pairwise confidence intervals. In particular,
+which intervals do not contain zero?
+
+When computing multiple confidence intervals, the multiple ($z^*$ or
+$t^*$) should be increased[^3] to account for the **issue of multiple
+comparisons**.
+
+::: my_itemize
+For example, with a multiple of 2 in a *single* confidence interval, we
+are 95% confident that the interval contains the corresponding
+parameter.
+
+However, if we use a multiple of 2 for each of 10 confidence intervals,
+we are only 60% confident[^4] that *all* of the 10 95% confidence
+intervals contain their respective parameters.
+:::
+
+**Tukey's method** is a widely used method for constructing simultaneous
+confidence intervals for *all pairwise comparisons of means*. The
+confidence intervals computed using Tukey's method already contain an
+adjustment to account for multiple comparisons.\
+::::
+
+Use R to create the Tukey confidence intervals. For which pairs would
+you conclude the means are different? By how much?
+
+Some of the babies in the data set were observed at multiple ages. Which
+assumption of the ANOVA $F$ test does this violate?
+:::::
+
+**Hypothesis test for comparing multiple means: "One-way ANOVA $F$
+test"**
+
+::::::::::: my_itemize
+Situation: numerical response variable; categorical explanatory variable
+
+Parameters: $\mu_j$'s are the population/process/treatment response
+means; $\sigma$ is the common group SD of responses
+
+Goal: test for any differences in means
+
+The null hypothesis is $H_0: \mu_1=\cdots=\mu_g$ ("no difference" or "no
+treatment effect")
+
+The alternative hypothesis is not $H_0$; that is, there is some
+difference in means between groups,
+$H_1: \mu_j\neq \mu_k \text{ for some } j\neq k$
+
+Test statistic: one-way ANOVA $F$ statistic
+$$F = \frac{\sum_{j=1}^g n_j\left(\bar{x}_j - \bar{x}\right)^2/(g-1)}{\sum_{j=1}^g (n_j-1)s^2_j/(N-g)}$$
+
+The p-value is the probability of observing a value at least as large as
+the observed $F$ based on an $F$ distribution with $g-1$ degrees of
+freedom in the numerator and $N-g$ degrees of freedom in the
+denominator, denoted $F_{g-1,N-g}$
+
+Assumptions:
+
+::::: my_itemize
+Either
+
+:::: my_itemize
+The data are obtained through multiple unbiased and independent random
+samples from large populations
+
+::: my_itemize
+Or from one unbiased random sample which can be classified into multiple
+groups, and the groups can be considered independent of each other.
+:::
+
+The data are obtained from an experiment in which subjects were to two
+treatments.
+::::
+
+No bias in data collection
+
+Comparing *means* is an appropriate analysis
+
+Equal variance: True SD of responses is same, $\sigma$, for each
+population/process/treatment. Typically satisfied through random
+assignment. Might not be satisfied if the data are sampled from
+different populations/processes. One rule of thumb is that the largest
+observed sample SD should be no more than twice the smallest.
+:::::
+
+The **one-way ANOVA $F$ statistic** when the group size $n$ is the same
+for all $g$ groups is $$\begin{aligned}
+F & = \frac{\text{group size} \times \text{variance of group means}}{\text{mean of group variances}}\\
+& = \frac{n\sum_{j=1}^g \left(\bar{x}_j-\bar{\bar{x}}\right)^2/(g-1)}{\sum_{j=1}^g s_j^2/g }
+\end{aligned}$$
+
+When the sample sizes are not the same for each group, we modify the
+calculation of the $F$ statistic to account for the differences in
+sample sizes, basically by taking weighted averages. $$\begin{aligned}
+g & = \text{number of groups}\\
+n_j & = \text{sample size of group $j$}\\
+N & = n_1+\cdots +n_g = \text{total sample size}\\
+x_{ij} & = \text{observed response value for $i$th individual in group $j$}\\
+\bar{x}_j & = \text{sample mean of group $j$}\\
+\bar{\bar{x}} & = \frac{n_1\bar{x}_1 + \cdots+n_g\bar{x}_g}{N} = \text{overall mean of response}\\
+s_j & =  \text{sample SD of group $j$}
+\end{aligned}$$
+
+Denominator of $F$, which corresponds to the variability within groups:
+If we assume that the true variance, $\sigma^2$, is the same for each
+group, a reasonable estimate of the variability *within* groups is the
+pooled sample variance $$\begin{aligned}
+s^2 & = \frac{1}{N-g}\sum_{j=1}^g\sum_{i=1}^{n_j} \left(x_{ij}-\bar{x}_j\right)^2 \\
+& = \frac{1}{N-g}\sum_{j=1}^g (n_j-1)s^2_j
+\end{aligned}$$
+
+:::: my_itemize
+The sum above is called the **error (or residual) sum of squares (SSE)**
+or **SS(within)**
+
+There are $N-g$ **degrees of freedom within groups**, or
+$\textbf{df(within)}= N-g$.
+
+Dividing SS/df yields $s^2$, which is also called the **mean square
+error (MSE)** or **MS(within)**
+
+::: my_itemize
+When the group sizes are all the same:
+$$s^2 = \frac{1}{g} \sum_{j=1}^g s_j^2\quad \text{ if } n_j=n, \; j=1,\ldots,g$$
+:::
+::::
+
+Numerator of $F$, which corresponds to the variability between groups:
+If the null hypothesis is true, then $\bar{\bar{x}}$ is a reasonable
+estimate for the true common mean $\mu$. To measure the variability
+*between* groups we measure how far each group sample mean varies from
+the overall mean, scaled by the group sample sizes
+$$\text{MS(between)} = \frac{\sum_{j=1}^g n_j\left(\bar{x}_j - \bar{x}\right)^2}{g-1}$$
+
+:::: my_itemize
+The sum in the numerator above is called the **treatment (or model) sum
+of squares (SSTr)** or **SS(between)**
+
+There are $g-1$ **degrees of freedom between groups**, or "model degrees
+of freedom", or $\textbf{df(between)}= g-1$.
+
+Dividing SS/df yields the **mean square due to treatment (or model)
+(MSTr)** or **MS(between)**
+
+::: my_itemize
+When the group sizes are all the same:
+$$\text{MS(between)} = \frac{n\sum_{j=1}^g \left(\bar{x}_j-\bar{\bar{x}}\right)^2}{g-1}\quad \text{ if } n_j=n, \; j=1,\ldots,g$$
+:::
+::::
+
+The **one-way ANOVA $F$ statistic** is $$\begin{aligned}
+F & = \frac{\text{MS(between)}}{\text{MS(within)}}\\
+& = \frac{\text{SS(between)}/\text{df(between)}}{\text{SS(within)}/\text{df(within)}}\\
+& =\frac{\sum_{j=1}^g n_j\left(\bar{x}_j - \bar{x}\right)^2/(g-1)}{\sum_{j=1}^g (n_j-1)s^2_j/(N-g)}
+\end{aligned}$$
+
+If the null hypothesis is true the $F$ statistic has an **$F$
+distribution with $g-1$ degrees of freedom in the numerator and $N-g$
+degrees of freedom in the denominator**, denoted $F_{g-1,N-g}$
+approximately.
+
+The calculations are traditionally summarized in an **ANOVA table**
+
+::: center
+  ------------------------------------ ------- -------------------------- -------------------------
+  Source                                    df        SS (Sum of squares)          MS (Mean Square)
+  Between groups (a.k.a. "treament")     $g-1$                SS(between)   SS(between)/df(between)
+  Within groups (a.k.a. "error")         $N-g$                 SS(within)     SS(within)/df(within)
+  Total                                  $N-1$   SS(between) + SS(within) 
+  ------------------------------------ ------- -------------------------- -------------------------
+:::
+
+![image](C:/Users/kjross/Documents/Handout_graphs/knee_surgery_anova_table){width="70%"}
+:::::::::::
+
+[^1]: Source: <http://www.nejm.org/doi/full/10.1056/NEJMoa013259>
+
+[^2]: If the group sizes are not the same, you would compute a weighted
+    average.
+
+[^3]: There are several ways to do this. The simplest is a *Bonferroni*
+    adjustment, which splits the error rate evenly across all intervals.
+    For example, for simultaneous 95% confidence in 10 intervals (i.e. a
+    total error rate of 0.05), use the $t^*$ factor for 99.5% confidence
+    ($0.995 = 1-0.05/10$), $t^*= 2.8$, instead of 2 when computing the
+    intervals. But the Tukey method is more widely used when comparing
+    means.
+
+[^4]: This number assumes independence of confidence intervals ---
+    $0.95^{10}\approx 0.60$ --- but similar ideas apply more generally.

@@ -1,0 +1,525 @@
+# Confidence Intervals
+
+-   The estimators we have considered so far are *point* estimators; we
+    estimate the population parameter $\theta$, an unknown number, by
+    the observed sample statistic $\hat{\theta}$, a number which can be
+    computed based on sample data $X_1, \ldots, X_n$
+-   For a particular sample a particular numerical value of
+    $\hat{\theta}$ is observed, but there are many possible randomly
+    selected samples and many possible values of the random variable
+    $\hat{\theta}$.
+-   While for any particular sample we hope the observed value of
+    $\hat{\theta}$ is close to the true value of $\theta$, there will be
+    some error in estimation due to natural sample-to-sample
+    variability.
+-   Because of this natural sample-to-sample variability, it is usually better
+    to provide a range of values when estimating a parameter 
+-   In determining a plausible range of values, there is a trade-off
+    between
+    -   Accuracy: the wider the interval the more confident we are that it actually contains the true parameter value
+    -   Precision: but the wider the interval the less precise of an estimate it provides
+-   The usual approach is to specify a desired degree of accuracy.
+    Specifically, interval estimate procedures are constructed so that they
+    will be accurate "most of the time".
+-   A *confidence interval* estimates a population parameter based on
+    sample data with
+    -   a plausible range of values and
+    -   a *confidence level* that the estimated range contains the true
+        parameter value.
+        -   By far, the most commonly used confidence level is 95%.
+        -   But see @exm-multiple-ci and related material about multiple confidence intervals
+-   A $1-\alpha$ **confidence interval** for $\theta$ is an *interval
+    estimator* of $\theta$ based on the sample $X_1, \ldots, X_n$ of the form
+    $[L(X_1,\ldots,X_n), U(X_1,\ldots,X_n)]$ which satisfies
+    $$\textrm{P}\left(L(X_1,\ldots,X_n)\le \theta\le U(X_1,\ldots,X_n)\right) = 1-\alpha$$
+-   $L(X_1,\ldots,X_n)$ and $U(X_1,\ldots,X_n)$ represent, respectively,
+    the lower and upper endpoints of the interval. $L$ and $U$ are
+    *random variables* that vary from sample-to-sample.
+-   Typical values of $\alpha$ include 0.05 and 0.01. We express
+    $1-\alpha$ as a percentage. For example, $\alpha=0.05$ corresponds
+    to a 95% confidence interval.
+-   Often $L=\hat{\theta}-M$ and $U=\hat{\theta}+M$, where the **margin
+    of error** $M$ --- where $M$ can be a RV --- accounts for both the
+    sample-to-sample variability of $\hat{\theta}$ and the confidence
+    level.
+    -   The margin of error is often of the form: multiple of standard error
+    -   The multiple is determined by the confidence level and the
+    distribution of the point estimator $\hat{\theta}$ (e.g., 2 for 95%
+    confidence when the estimator follows a Normal distribution.)
+        -   The larger the confidence level, the larger the margin
+            of error --- and the wider the range of plausible values
+            --- required to achieve that level of confidence.
+    -   The **standard error** is the estimated sample-to-sample SD of the
+    estimator,
+    $\textrm{SE}(\hat{\theta})= \widehat{\textrm{SD}}(\hat{\theta})$.
+        -   The less variable the statistic (from sample
+            to sample) the smaller the margin of error and the
+            narrower the interval.
+        -   In general, the larger the sample size, the smaller
+            the SE of the statistic, the smaller the margin of error,
+            and the narrower the interval.
+
+
+
+
+
+
+
+::: {#exm-ci-derivation}
+Consider the general problem of estimating a population mean $\mu$ based on a random sample of size $n$.
+A natural point estimator of $\mu$ is the sample mean $\bar{X}$.
+The central limit theorem says that, if $n$ is large enough, $\bar{X}$ has an approximate Normal($\mu$, $\sigma/\sqrt{n}$) distribution, where $\sigma$ is the population standard deviation.
+We'll use this theory to derive a confidence interval for $\mu$.
+:::
+
+1.  Fill in the blank: for 95% of samples, the sample mean
+    $\bar{X}$ is within \[blank\] of the population mean $\mu$.
+    \
+    \
+    \
+    \
+    \
+
+1.  Fill in the blank: for 95% of samples, the interval with endpoints
+    $\bar{X}\pm$ \[blank\] will contain the population mean $\mu$.
+    \
+    \
+    \
+    \
+    \
+
+1.  The previous part suggests a formula for a CI for $\mu$. However, this is not a practically useful formula; esplain why.
+Then suggest how we can
+    fix it.
+    \
+    \
+    \
+    \
+    \
+
+1.  Everything else being equal, how does the sample size affect the confidence interval and its margin of error: the larger the sample size...?
+Does this make sense?
+    \
+    \
+    \
+    \
+    \
+
+1.  Everything else being equal, how does the confidence level (e.g. 95%) affect the confidence interval and its margin of error: the larger the confidence level...?
+Does this make sense?
+    \
+    \
+    \
+    \
+    \
+
+
+-   A **one-sample $t$ confidence interval for a population mean** $\mu$
+    has endpoints $$\bar{X}\pm t^* \frac{S}{\sqrt{n}}$$
+    where $S$ is the sample standard deviation
+    $S = \sqrt{\frac{1}{n-1}\sum_{i=1}^n\left(X_i - \bar{X}\right)^2}$
+    and $t^*$, the multiple corresponding to the confidence level, is
+    from the *$t$ distribution with $n-1$ degrees of freedom*.
+-   For all practical purposes you can treat $t$ distributions like Normal distributions and use the usual empirical rule
+    -   Technically, $t^*$ is a little bigger than $z^*$ to account for the
+        additional sample-to-sample variability in $S$.
+    -   But in most situations encountered in practice, $t^*$ and $z^*$ are essentially the
+        same.
+-   Assumptions:
+    -   Simple random sample from a large population, that is,
+        independent observations
+    -   No bias in data collection
+    -   Population mean is the parameter you want to estimate
+
+| Confidence level            | 90% | 95% | 99% | 99.7% | 99.99% |
+|-----------------------------|----:|----:|----:|------:|-------:|
+| Multiple ($z^*\approx t^*$) | 1.7 | 2.0 | 2.6 |   3.0 |    4.0 |
+
+
+
+```{python}
+#| echo: false
+#| 
+import pandas as pd
+
+df = pd.read_csv("https://raw.githubusercontent.com/kevindavisross/data301/main/data/AmesHousing.txt", sep="\t")
+
+df["SingleFamily"] = (df["Bldg Type"] == "1Fam")
+
+df["SalePriceK"] = df["SalePrice"] / 1000
+
+df = df[["Bldg Type", "SingleFamily", "SalePriceK", "Gr Liv Area"]]
+
+df_sf = df[df["SingleFamily"] == True]
+```
+
+::: {#exm-ci-one-sample}
+A frequently used example data set is the [Ames housing data set](https://raw.githubusercontent.com/kevindavisross/data301/main/data/AmesHousing.txt) which consists of residential properties sold in Ames, Iowa from 2006 to 2010.
+For more information about the variables in this data set, refer to the [data documentation](https://jse.amstat.org/v19n3/decock/DataDocumentation.txt).
+
+Suppose we wish to use this data set to estimate $\mu$, the *population mean sale price of single family homes*.
+
+In the sample, there are `{python} len(df_sf)` single family homes with a sample mean sale price (\$K) of `{python} "{:.0f}".format(df_sf["SalePriceK"].mean())` and sample standard deviation `{python} "{:.0f}".format(df_sf["SalePriceK"].std())`.
+:::
+
+
+
+1.  Compute a 95% confidence interval.
+\
+\
+\
+\
+\
+1.  Write a clearly worded sentence containing the conclusion of the confidence interval in context.
+\
+\
+\
+\
+\
+1.  To what extent can you generalize your results?
+    That is, what is the relevant "population"?
+    What are some issues to consider?
+\
+\
+\
+\
+\
+1.  Assuming that this is a random sample from the appropriate population, does the 95% confidence interval you computed in the previous part provide an accurate estimate of the corresponding parameter?
+    That is, is $\mu$ contained within the CI? Explain.
+\
+\
+\
+\
+\
+1.  Assuming that this is a random sample from the appropriate population, are we reasonably confidence that $\mu$ is greater than 180K?
+    Explain.
+\
+\
+\
+\
+\
+1.  What if we wanted 95% confidence, but we wanted the margin of error
+    to be no bigger than 1K. How could we achieve this?
+\
+\
+\
+\
+\
+
+
+
+
+
+
+
+
+-   Because the value of the parameter is *unknown*, we never know
+    for sure whether any one confidence interval contains the
+    parameter or not.
+-   But the procedure guarantees that in the long run --- that is,
+    over many unbiased random samples --- "most" confidence
+    intervals will contain the parameter, regardless of what the
+    true value of the parameter is.
+    "Most" is determined by the
+    level of confidence.
+-   Any value within the confidence interval is a plausible value of
+    the parameter
+-   Values outside of the confidence interval are not plausible
+    values of the parameter
+-   The CI could be wrong; we are confident that it is correct, but
+    we'll never know for sure
+-   There are two sources of differences between a statistic and a
+    corresponding parameter
+    -   systematic errors due to **bias**
+    -   "chance errors" due to **sampling variability**
+-   While there is no bias inherent in simple random sampling from a
+    population, bias can be present in other ways, including
+    undercoverage, nonresponse, wording of questions, etc.
+-   Bias concerns the *center* of the sampling distribution of a
+    statistic. A biased sampling procedure produces values which
+    consistently overestimate or consistently underestimate the
+    respective parameter.
+-   The inference procedures --- confidence intervals and hypothesis
+    tests --- we will encounter assume that the data are collected
+    in an unbiased way from a random sample.
+-   If there is bias present in data collection then the observed
+    statistic (i.e. the center of the confidence interval) is likely
+    to be a poor estimate of the parameter.
+-   The margin of error in a confidence interval only accounts for
+    sampling variability, NOT bias.
+-   To see if bias is present --- in which case the confidence
+    interval cannot be trusted --- ask: how was the data
+    collected?
+
+
+```{python}
+#| echo: false
+#| 
+ci_lb = df_sf["SalePriceK"].mean() - 2 * df_sf["SalePriceK"].std() / len(df_sf)**0.5
+ci_ub = df_sf["SalePriceK"].mean() + 2 * df_sf["SalePriceK"].std() / len(df_sf)**0.5
+```
+
+
+::: {#exm-ci-interpret}
+For each of the following statements, identify if it is
+a valid interpretation of the confidence interval from @exm-ci-one-sample.
+If not, explain why.
+:::
+
+1.  We estimate that 95% of single family homes in the population have sale price (\$K) between `{python} "{:.0f}".format(ci_lb)` and `{python} "{:.0f}".format(ci_ub)`.
+\
+\
+\
+\
+\
+1.  We estimate with 95% confidence that the sample mean sale price (\$K) of single family homes is between `{python} "{:.0f}".format(ci_lb)` and `{python} "{:.0f}".format(ci_ub)`.
+\
+\
+\
+\
+\
+1.  If many samples of this size were selected about 95% would produce a CI of (`{python} "{:.0f}".format(ci_lb)`,  `{python} "{:.0f}".format(ci_ub)`).
+\
+\
+\
+\
+\
+1.  In about 95% of samples of this size, the population mean sale price of single family homes will be between `{python} "{:.0f}".format(ci_lb)` and `{python} "{:.0f}".format(ci_ub)`.
+\
+\
+\
+\
+\
+1.  If many hypothetical unbiased random samples of this size were
+    selected, and a 95% confidence interval computed based on each
+    sample, about 95% of these confidence intervals would contain the
+    population mean sale price.
+\
+\
+\
+\
+\
+
+-   A CI is a conclusion about a population parameter --- a number that
+    *summarizes* the population (e.g. the population mean) --- and not
+    about individual values of a variable.
+-   The conclusions from inference regard the *population* from which
+    the random sample was selected; there is nothing to conclude for the
+    sample.
+-   No one particular sample (e.g. the one observed) or CI is
+    necessarily good or representative of the many other possible
+    samples or CIs.
+-   The randomness is in the *sampling procedure*, which determines $L$
+    and $U$, and not the parameter. The parameter $\theta$ is a fixed
+    number. After selecting the sample, there is no randomness left.
+    Either the CI contains the parameter or not; you just don't know
+    which it is.
+-   We are confident in our observed estimate because we are confident
+    in our estimation *procedure*
+    -   By considering what would happen over many hypothetical random
+        samples we are able to determine the necessary margin of error
+        so that our CIs would contain the parameter in 95% of samples.
+    -   Because the value of the parameter is unknown, we never know for
+        sure whether any one confidence interval contains the parameter
+        or not.
+    -   But the procedure guarantees that in the long run --- that is,
+        over many unbiased random samples --- "most" confidence
+        intervals will contain the parameter, regardless of what the
+        true value of the parameter is. "Most" is determined by the
+        level of confidence.
+
+
+
+::: {#exm-ci-median}
+Continuing @exm-ci-one-sample.
+:::
+
+1.  Consider the distribution of sale price.
+    What shape do you expect this distribution to have? Why?
+\
+\
+\
+\
+\
+1.  A student says, "The distribution of sale price is clearly
+    skewed to the right. Since it's not Normal the confidence interval
+    we computed, and the resulting conclusion about the
+    population mean, is not valid." Do you agree with this critique?
+    Explain.
+\
+\
+\
+\
+\
+1.  Considering that the distribution of sale price is skewed to
+    the right, suggest a valid criticism of the confidence interval we computed.
+    Hint: what parameter is it estimating?
+\
+\
+\
+\
+\
+
+-   The $t$ interval for the population *mean* is valid as long as the
+    sample size is large enough, regardless of the shape of the
+    population distribution.
+-   However, if the population distribution is highly skewed, then
+    the population *median* might be a more appropriate parameter to
+    consider as a measure of center.
+-   Which is more appropriate, the population mean or the population
+    median, depends on the purpose for the inference.
+-   ALWAYS PLOT YOUR DATA, and consider the distribution of the
+    variable.
+    If the values in a representative sample are skewed or
+    include large outliers, the same is also plausibly true for the
+    population it's supposed to represent.
+
+
+::: {#exm-multiple-ci}
+Suppose we wish to estimate population mean GPA of
+students at each of the 23 CSU campuses. For each campus, you select a
+random sample of students, collect the GPAs of the students, and then
+use the sample data to compute a 95% confidence interval. That is you
+compute 23 separate 95% confidence intervals, based on 23 independent random samples, for each of 23 population
+means.
+:::
+
+1.  First just consider Cal Poly. What is the probability that your
+    confidence interval based on the Cal Poly sample contains the true
+    population mean GPA at Cal Poly?
+\
+\
+\
+\
+\
+
+1.  What is the probability that all 23 of your 95% confidence intervals
+    contain their respective population mean?
+\
+\
+\
+\
+\
+
+1.  How confident are you that all 23 of your 95% confidence intervals
+    contain their respective population mean?
+\
+\
+\
+\
+\
+
+    -   When computing multiple confidence intervals, the multiple
+        ($z^*$ or $t^*$) of each confidence interval should be increased
+        to account for the **issue of multiple comparisons**.
+        -   For example, with a multiple of 2 in a *single* confidence
+            interval, we are 95% confident that the interval contains
+            the corresponding parameter.
+        -   However, if we use a multiple of 2 for each of 10 confidence
+            intervals, we are only 60% confident[^2] that *all* of the
+            10 95% confidence intervals contain their respective
+            parameters.
+    -   A **Bonferroni** adjustment, splits the error rate evenly across
+        all intervals. For example, for simultaneous 95% confidence in
+        10 intervals (i.e. a total error rate of 0.05), use the
+        $z^*/t^*$ multiple for 99.5% confidence when constructing each
+        interval.
+        -   A Bonferroni adjustment guarantees **simultaneous
+            confidence**
+        -   But it is conservative, and tends to produce wider intervals
+            than necessary
+        -   There are other methods; for example, the *Tukey-Kramer
+            method* is often used for *all pairwise comparisons of
+            means* (e.g., in ANOVA)
+
+1.  Suppose we want simultaneous 95% confidence that all 23 CIs contain
+    their respective mean. Find the $z^*$ multiple corresponding to a
+    Bonferroni adjustment. How many times wider will each CI be than the
+    unadjusted intervals?
+\
+\
+\
+\
+\
+
+1.  How confident are you that all 23 of your adjusted confidence
+    intervals contain their respective population mean?
+\
+\
+\
+\
+\
+
+[^2]: This number assumes independence of confidence intervals ---
+    $0.95^{10}\approx 0.60$ --- but similar ideas apply more generally.
+
+
+::: {#exm-ci-two-sample}
+Continuing with the Ames housing data set.
+Now suppose we want to compare sale price of single family homes with other homes (including condos, townhouses, etc).
+In particular, suppose we wish to estimate $\mu_S - \mu_N$, the difference in population mean sale price between single family homes and non-single family homes.
+:::
+
+1.  Suggest a point estimator, compute its variance, and suggest a formula for a CI for $\mu_S - \mu_N$.
+\
+\
+\
+\
+\
+
+1.  The table below summarizes the sample data.
+    Compute a 95% confidence interval.
+    ```{python}
+    #| echo: false
+
+    df.groupby("SingleFamily")["SalePriceK"].describe()
+    ```
+    \
+    \
+    \
+    \
+    \
+
+1.  Write a clearly worded sentence interpreting the confidence interval from the previous part in context.
+\
+\
+\
+\
+\
+
+
+1.  Are we reasonably confindent that single family homes tend
+    to have higher sale prices than other homes?
+    Explain.
+\
+\
+\
+\
+\
+
+
+
+-   For many statistics (e.g. means, differences in means, proportions, differences in proportions)
+    the sample-to-sample pattern of variability of values of the statistic over many
+    unbiased random samples has an approximate Normal shape centered at
+    the true value of the population parameter
+    -   In such situations confidence intervals take the form
+    $$
+    \text{statistic} \pm \text{multiple of its SE}
+    $$
+-   If two samples are selected *independently* from each of two
+    populations with parameters $\theta_1$ and $\theta_2$, then an approximate $1-\alpha$ CI for
+    $\theta_1-\theta_2$ has endpoints
+    $$\hat{\theta}_1 - \hat{\theta}_2 \pm t^*\, \textrm{SE}(\hat{\theta}_1 - \hat{\theta}_2)$$
+    where
+    $$
+    \textrm{SE}(\hat{\theta}_1 - \hat{\theta}_2) = \sqrt{\textrm{SE}(\hat{\theta}_1)^2 + \textrm{SE}(\hat{\theta}_2)^2}
+    $$
+-   The above assumes that $\hat{\theta}_1$ and $\hat{\theta}_2$
+    each have an approximate Normal distribution, and so, since they
+    are independent, $\hat{\theta}_1 - \hat{\theta}_2$ also has an
+    approximate Normal distribution.
+-   A difference provides an absolute comparison between groups.
+    -   Ratios can be used to provide relative comparisons; however, the
+        CI formulas are more complicated, but we'll see another approach soon
+

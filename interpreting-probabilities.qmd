@@ -1,0 +1,71 @@
+# Interpreting Probabilities
+
+
+- A probability takes a value in the sliding scale from 0 to 100%.
+- Don’t just focus on computation; always remember to properly interpret probabilities.
+
+
+::: {#exm-probability-interpret1}
+
+In each of the following parts, which of the two probabilities, a or b, is larger, or are they equal?  You should answer conceptually without attempting any calculations.
+Explain your reasoning.
+:::
+
+1.  Randomly select a man.
+
+    a. The probability that a randomly selected man who is greater than six feet tall plays in the NBA.
+    a. The probability that a randomly selected man who plays in the NBA is greater than six feet tall.
+
+
+1. Randomly select a baby girl who was born in 1950.
+    a. The probability that a randomly selected baby girl born in 1950 is alive today.
+    a. The probability that a randomly selected baby girl born in 1950, who was alive at the end of 2020, is alive today.
+    
+- When interpreting probabilities, consider the conditions under which the probabilities were computed, in the proper direction
+
+
+
+::: {#exm-probability-interpret2}
+
+In each of the following parts, which of the two probabilities, a or b, is larger, or are they equal?  You should answer conceptually without attempting any calculations.
+Explain your reasoning.
+:::
+
+1. Flip a coin *which is known to be fair* 10 times.  
+
+    a. The probability that the results are, in order, HHHHHHHHHH.
+    a. The probability that the results are, in order, HHTHTTTHHT.
+
+1. Flip a coin which is known to be fair 10 times.  
+
+    a. The probability that all 10 flips land on H.
+    a. The probability that exactly 5 flips land on H.
+    
+
+1.  In the [Powerball lottery](https://www.powerball.com/) there are roughly 300 million possible winning number combinations, all equally likely.
+
+    a. The probability you win the next Powerball lottery if you purchase a single ticket, 4-8-15-16-42, plus the Powerball number, 23
+    a. The probability you win the next Powerball lottery if you purchase a single ticket, 1-2-3-4-5, plus the Powerball number, 6.
+
+1. Continuing with the Powerball
+
+    a. The probability that the numbers in the winning number are not in sequence (e.g., 4-8-15-16-42-23)
+    a. The probability that the numbers in the winning number are in sequence (e.g., 1-2-3-4-5-6)
+
+1. Continuing with the Powerball
+
+    a. The probability that you win the next Powerball lottery if you purchase a single ticket.
+    a. The probability that someone wins the next Powerball lottery. (FYI: especially when the jackpot is large, there are hundreds of millions of tickets sold.)
+
+
+- When interpreting probabilities, be careful not to confuse "the particular" with "the general".
+    - **"The particular:"** A very specific event, surprising or not, often has low probability.
+    - **"The general:"** While a very specific event often has low probability, if there are many like events their combined probability can be high.
+- Even if an event has extremely small probability, given enough
+repetitions of the random phenomenon, the probability that the event occurs
+on *at least one* of the repetitions is often high.
+- In general, even though the probability that something very specific happens to you today is often extremely small, the probability that something similar happens to someone some time is often quite high.
+- When assessing a numerical probability, always ask "probability of what"?  Does the probability represent "the particular" or "the general"? Is it the probability that the event happens in a single occurrence of the random phenomenon, or the probability that the event happens at least once in many occurrences?
+- Also distinguish between assumption and observation.
+For example, if you assume that a coin is fair and the flips are independent, then all possible H/T sequences are equally likely.
+However, if you observe the coin landing on heads on 20 flips in a row, then that might cast doubt on your assumption that the coin is fair.

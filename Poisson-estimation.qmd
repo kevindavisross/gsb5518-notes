@@ -1,0 +1,146 @@
+---
+title: "Maximum Likelihood Estimation of Poisson(mu): Single observation"
+---
+
+## Probability questions
+
+Given $\mu = 2.3$, what is the distribution of $X$?
+
+```{r}
+N_rep = 100000
+
+mu = 2.3
+
+x = rpois(N_rep, mu)
+
+x[1:20]
+
+table(x) / N_rep
+
+plot(table(x) / N_rep, type = "h")
+
+sum(x == 0) / N_rep
+
+mean(x)
+
+var(x)
+```
+
+```{r}
+plot(0:10, dpois(0:10, 2.3), type = "h",
+     xlab = "x",
+     ylab = "p(x)",
+     main = "Poisson(2.3) distribution")
+```
+
+## Statistics questions
+
+Observe $x = 3$ in sample of size $n = 1$. What is the probability of observing $x=3$ as a function of the unknown $\mu$?
+
+### If $\mu = 2.3$
+
+```{r}
+dpois(3, 2.3)
+
+mu = 2.3
+
+x_observed = 3
+
+x_possible = 0:10
+
+plot(x_possible, dpois(x_possible, mu), type = "h",
+     col = ifelse(x_possible == x_observed, "black", "orange"),
+     xlab = "x",
+     ylab = "p(x)",
+     ylim = c(0, 0.4),
+     main = paste("Poisson(", mu, ") distribution", sep =""))
+points(x_observed, dpois(x_observed, mu), col = "orange", cex = 2, pch = 19)
+
+```
+
+### If $\mu = 1$
+
+```{r}
+dpois(3, 1)
+
+mu = 1
+
+x_observed = 3
+
+x_possible = 0:10
+
+plot(x_possible, dpois(x_possible, mu), type = "h",
+     col = ifelse(x_possible == x_observed, "black", "seagreen"),
+     xlab = "x",
+     ylab = "p(x)",
+     ylim = c(0, 0.4),
+     main = paste("Poisson(", mu, ") distribution", sep =""))
+points(x_observed, dpois(x_observed, mu), col = "seagreen", cex = 2, pch = 19)
+
+```
+
+### If $\mu = 5$
+
+```{r}
+dpois(3, 5)
+
+mu = 5
+
+x_observed = 3
+
+x_possible = 0:10
+
+plot(x_possible, dpois(x_possible, mu), type = "h",
+     col = ifelse(x_possible == x_observed, "black", "purple"),
+     xlab = "x",
+     ylab = "p(x)",
+     ylim = c(0, 0.4),
+     main = paste("Poisson(", mu, ") distribution", sep =""))
+points(x_observed, dpois(x_observed, mu), col = "purple", cex = 2, pch = 19)
+
+```
+
+### If $\mu = 3.5$
+
+```{r}
+dpois(3, 3.5)
+
+mu = 3.5
+
+x_observed = 3
+
+x_possible = 0:10
+
+plot(x_possible, dpois(x_possible, mu), type = "h",
+     col = ifelse(x_possible == x_observed, "black", "skyblue"),
+     xlab = "x",
+     ylab = "p(x)",
+     ylim = c(0, 0.4),
+     main = paste("Poisson(", mu, ") distribution", sep =""))
+points(x_observed, dpois(x_observed, mu), col = "skyblue", cex = 2, pch = 19)
+
+```
+
+
+### Likelihood function
+
+
+```{r}
+mu = seq(0, 10, 0.01)
+
+x_observed = 3
+
+plot(mu,
+     dpois(x_observed, mu),
+     type = "l",
+     xlab = "mu",
+     ylab = "Likelihood of x = 3",
+     main = "Lileihood of observing x = 3 from a Poisson(mu) distribution")
+points(c(2.3, 1, 5, 3.5),
+       dpois(x_observed, c(2.3, 1, 5, 3.5)),
+       pch = 19, cex = 2,
+       col = c("orange", "seagreen", "purple", "skyblue"))
+abline(v = x_observed, col = "gray", cex = 3)
+```
+
+

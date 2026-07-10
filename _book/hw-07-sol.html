@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Homework 7 solutions – GSB518 Notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./hw-08-sol.html" rel="next">
+<link href="./hw-06-sol.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./hw-07-sol.html">Homework 7 solutions</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">GSB518 Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./randomness-and-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Randomness and Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./working-with-probabilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Working with Probabilities</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conditional-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./independence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Independence of Events</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./discrete-rv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Discrete Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson-binomial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Commmon Discrete Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expected-value.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Expected Value</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./variance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Variance and Standard Deviation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./continuous-pdf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Continuous Random Variables: Probability Density Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cdf-and-quantile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Percentiles</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Normal Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joint-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Joint Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./covariance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Covariance and Correlation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conditional-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Conditional Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joint-normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Joint Normal Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear-combinations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Expected Values of Linear Combinations of Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./from-probability-to-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">From Probability to Statistics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./maximum-likelihood-principle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimation: Principles</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./maximum-likelihood-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimation: Calculus</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimators-bias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Bias of Estimators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimators-variance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Variance of Estimators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimators-mse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Mean Square Error of an Estimator</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Central Limit Theorem</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bootstrapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Bootstrap Confidence Intervals</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./null-hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Null Hypothesis Testing</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./nht-issues.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Some issues with hypothesis testing</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Comparing multiple means: ANOVA <span class="math inline">\(F\)</span> procedures</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 5</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 6</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 7</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 8</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-09.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 9</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-01-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-02-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-03-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-04-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-05-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 5 solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-06-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 6 solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-07-sol.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Homework 7 solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-08-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 8 solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-09-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 9</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./distribution-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Summary of Some Common Distributions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#problem-1" id="toc-problem-1" class="nav-link active" data-scroll-target="#problem-1">Problem 1</a>
+  <ul class="collapse">
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution">Solution</a></li>
+  </ul></li>
+  <li><a href="#problem-2" id="toc-problem-2" class="nav-link" data-scroll-target="#problem-2">Problem 2</a>
+  <ul class="collapse">
+  <li><a href="#solution-1" id="toc-solution-1" class="nav-link" data-scroll-target="#solution-1">Solution</a></li>
+  </ul></li>
+  <li><a href="#problem-3" id="toc-problem-3" class="nav-link" data-scroll-target="#problem-3">Problem 3</a>
+  <ul class="collapse">
+  <li><a href="#solution-2" id="toc-solution-2" class="nav-link" data-scroll-target="#solution-2">Solution</a></li>
+  </ul></li>
+  <li><a href="#simulation" id="toc-simulation" class="nav-link" data-scroll-target="#simulation">Simulation</a>
+  <ul class="collapse">
+  <li><a href="#for-mu-2.3" id="toc-for-mu-2.3" class="nav-link" data-scroll-target="#for-mu-2.3">For mu = 2.3</a></li>
+  <li><a href="#for-all-mu" id="toc-for-all-mu" class="nav-link" data-scroll-target="#for-all-mu">For all mu</a></li>
+  <li><a href="#bias-function" id="toc-bias-function" class="nav-link" data-scroll-target="#bias-function">Bias function</a></li>
+  <li><a href="#squared-bias-function" id="toc-squared-bias-function" class="nav-link" data-scroll-target="#squared-bias-function">Squared bias function</a></li>
+  <li><a href="#variance-function" id="toc-variance-function" class="nav-link" data-scroll-target="#variance-function">Variance function</a></li>
+  <li><a href="#mse-function" id="toc-mse-function" class="nav-link" data-scroll-target="#mse-function">MSE function</a></li>
+  <li><a href="#different-n" id="toc-different-n" class="nav-link" data-scroll-target="#different-n">Different n</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Homework 7 solutions</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="problem-1" class="level2">
+<h2 class="anchored" data-anchor-id="problem-1">Problem 1</h2>
+<p>Assume a Poisson(<span class="math inline">\(\mu\)</span>) model for the number of home runs hit (in total by both teams) in a MLB game. Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be a random sample of home run counts for <span class="math inline">\(n\)</span> games.</p>
+<p>Suppose we want to estimate <span class="math inline">\(\theta = \mu e^{-\mu}\)</span>, the probability that any single game has exactly 1 HR. Consider two estimators of <span class="math inline">\(\theta\)</span></p>
+<ul>
+<li><span class="math inline">\(\hat{\theta} = \bar{X} e^{-\bar{X}}\)</span></li>
+<li><span class="math inline">\(\hat{p} =\text{sample proportion of 1s} = \frac{\text{number of games in the sample with 1 HR}}{\text{sample size}}\)</span></li>
+</ul>
+<ol type="a">
+<li>Compute the value of <span class="math inline">\(\hat{\theta}\)</span> based on the sample (3, 0, 1, 4, 0). Write a clearly worded sentence reporting in context this estimate of <span class="math inline">\(\theta\)</span>.</li>
+<li>Compute the value of <span class="math inline">\(\hat{p}\)</span> based on the sample (3, 0, 1, 4, 0). Write a clearly worded sentence reporting in context your estimate of <span class="math inline">\(\theta\)</span>.</li>
+<li>Which of these two estimators is the MLE of <span class="math inline">\(\theta\)</span> in this situation? Explain, without doing any calculations.</li>
+<li>It can be shown that <span class="math inline">\(\hat{p}\)</span> is an unbiased estimator of <span class="math inline">\(\theta\)</span>. Explain what this means.</li>
+<li>Is <span class="math inline">\(\hat{\theta}\)</span> an unbiased estimator of <span class="math inline">\(\theta\)</span>? Explain. (You don’t have to derive anything; just apply a general principle.)</li>
+<li>Suppose <span class="math inline">\(\mu = 2.3\)</span> and <span class="math inline">\(n=5\)</span>. Explain in full detail how you would use simulation to approximate the bias of <span class="math inline">\(\hat{\theta}\)</span>.</li>
+<li>Conduct the simulation from the previous part and plot the approximate of <span class="math inline">\(\hat{\theta}\)</span> when <span class="math inline">\(\mu = 2.3\)</span> and <span class="math inline">\(n = 5\)</span>.</li>
+<li>Explain in full detail how you would use simulation to approximate the bias function of <span class="math inline">\(\hat{\theta}\)</span> when <span class="math inline">\(n=5\)</span>.</li>
+<li>Conduct the simulation from the previous part and plot the approximate bias function when <span class="math inline">\(n=5\)</span>. For what values of <span class="math inline">\(\mu\)</span> does <span class="math inline">\(\hat{\theta}\)</span> tend to overestimate <span class="math inline">\(\mu\)</span>? Underestimate? For what values of <span class="math inline">\(\mu\)</span> is the bias the worst?</li>
+</ol>
+<section id="solution" class="level3">
+<h3 class="anchored" data-anchor-id="solution">Solution</h3>
+<ol type="a">
+<li>For the sample (3, 0, 1, 4, 0), the value of <span class="math inline">\(\bar{X}\)</span> is 8/5 and the value of <span class="math inline">\(\hat{\theta}\)</span> is <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>. Using this estimator, based on this sample we would estimate that 32.3 percent of baseball games have 1 home run.</li>
+<li>For the sample (3, 0, 1, 4, 0) there is 1 game with 1 HR so <span class="math inline">\(\hat{p} = 1/5 = 0.2\)</span>. Using this estimator, based on this sample we would estimate that 20 percent of baseball games have 1 home run.</li>
+<li>We know that the MLE of <span class="math inline">\(\mu\)</span> for a Poisson distribution is <span class="math inline">\(\bar{X}\)</span>, so by the invariance principle of MLEs, <span class="math inline">\(\bar{X}e^{-\bar{X}}\)</span> is the MLE of <span class="math inline">\(\mu e^{-\mu}\)</span>.</li>
+<li>Over many samples, <span class="math inline">\(\hat{p}\)</span> does not consistent over or under estimate <span class="math inline">\(\theta\)</span>.</li>
+<li>No.&nbsp;<span class="math inline">\(\bar{X}\)</span> is an unbiased estimator of <span class="math inline">\(\mu\)</span> but nonlinear transformations do not preserve unbiasedness. <span class="math inline">\(\hat{\theta}\)</span> is not unbiased estimator of <span class="math inline">\(\theta\)</span>. <span class="math display">\[
+\text{E}(\hat{\theta}) = \text{E}(\bar{X}e^{-\bar{X}})\neq     \text{E}(\bar{X})e^{-\text{E}(\bar{X})} = \mu e^{-\mu} = \theta
+\]</span></li>
+<li>For <span class="math inline">\(\mu = 2.3\)</span>
+<ul>
+<li>Simulate a sample of size <span class="math inline">\(n\)</span> from a Poisson(2.3) distribution, say (3, 0, 1, 4, 0) for <span class="math inline">\(n=5\)</span>.</li>
+<li>For the simulated sample compute the sample mean <span class="math inline">\(\bar{X}\)</span> and the value of <span class="math inline">\(\hat{\theta} = \bar{X}e^{-\bar{X}}\)</span>, say 8/5 and <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>.</li>
+<li>Repeat many times, simulating many samples of size <span class="math inline">\(n\)</span> and many values of <span class="math inline">\(\hat{\theta}\)</span> for the chosen <span class="math inline">\(\mu\)</span>.</li>
+<li>Average the values of <span class="math inline">\(\hat{\theta}\)</span> and subtract <span class="math inline">\(\theta=2.3 e^{-2.3}\)</span> to approximate the bias when <span class="math inline">\(\mu = 2.3\)</span>.</li>
+</ul></li>
+<li>See below.</li>
+<li>We carry out the process in the previous part for many values of <span class="math inline">\(\mu\)</span>. Choose a grid of <span class="math inline">\(\mu\)</span> values, say 0.01, 0.02, <span class="math inline">\(\ldots\)</span>, 10
+<ul>
+<li>Choose a value of <span class="math inline">\(\mu\)</span> from the grid, say 2.3</li>
+<li>Simulate a sample of size <span class="math inline">\(n\)</span> from a Poisson(<span class="math inline">\(\mu\)</span>) distribution, say (3, 0, 1, 4, 0) for <span class="math inline">\(n=5\)</span>.</li>
+<li>For the simulated sample compute the sample mean <span class="math inline">\(\bar{X}\)</span> and the value of <span class="math inline">\(\hat{\theta} = \bar{X}e^{-\bar{X}}\)</span>, say 8/5 and <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>.</li>
+<li>Repeat many times, simulating many samples of size <span class="math inline">\(n\)</span> and many values of <span class="math inline">\(\hat{\theta}\)</span> for the chosen <span class="math inline">\(\mu\)</span>.</li>
+<li>Average the values of <span class="math inline">\(\hat{\theta}\)</span> and subtract <span class="math inline">\(\theta=\mu e^{-\mu}\)</span> to approximate the bias for the chosen <span class="math inline">\(\mu\)</span>.</li>
+<li>Repeat the above process for all the values of <span class="math inline">\(\mu\)</span> in the grid and plot the approximate bias as a function of <span class="math inline">\(\mu\)</span> to approximate the bias function.</li>
+</ul></li>
+<li>See below.</li>
+</ol>
+</section>
+</section>
+<section id="problem-2" class="level2">
+<h2 class="anchored" data-anchor-id="problem-2">Problem 2</h2>
+<p>Continuing Problem 2.</p>
+<ol type="a">
+<li>It can be shown that <span class="math inline">\(\text{Var}(\hat{p}) = \frac{\theta(1-\theta)}{n}\)</span>. Compute <span class="math inline">\(\text{Var}(\hat{p})\)</span> when <span class="math inline">\(\mu = 2.3\)</span> and <span class="math inline">\(n=5\)</span>. Then write a clearly worded sentence interpreting this value.</li>
+<li>Suppose <span class="math inline">\(\mu = 2.3\)</span> and <span class="math inline">\(n=5\)</span>. Explain in full detail how you would use simulation to approximate the variance of <span class="math inline">\(\hat{\theta}\)</span>.</li>
+<li>Conduct the simulation from the previous part and approximate the variance of <span class="math inline">\(\hat{\theta}\)</span> when <span class="math inline">\(\mu = 2.3\)</span> and <span class="math inline">\(n=5\)</span>. Then write a clearly worded sentence interpreting this value.</li>
+<li>Which estimator has smaller variance when <span class="math inline">\(\mu = 2.3\)</span> (and <span class="math inline">\(n=5\)</span>)? Answer, but then explain why this information alone is not really useful.</li>
+<li>Explain in full detail how you would use simulation to approximate the variance function of <span class="math inline">\(\hat{\theta}\)</span> (if <span class="math inline">\(n=5\)</span>).</li>
+<li>Conduct the simulation from the previous part and plot the approximate variance function. Compare to the variance function of <span class="math inline">\(\hat{p}\)</span>. Based on variability alone, which estimator is preferred?</li>
+</ol>
+<section id="solution-1" class="level3">
+<h3 class="anchored" data-anchor-id="solution-1">Solution</h3>
+<ol type="a">
+<li>When <span class="math inline">\(\mu = 2.3\)</span>, <span class="math inline">\(\theta = 2.3e^{-2.3} = 0.231\)</span>, so if <span class="math inline">\(n=5\)</span> <span class="math display">\[
+\text{Var}_{\mu = 2.3}(\hat{p}) = \frac{0.231(1-0.231)}{5} = 0.035
+\]</span> This number measures the sample-to-sample variance of sample proportions of games with 1 HR over many samples of 5 games, assuming that <span class="math inline">\(\mu = 2.3\)</span>.</li>
+<li>For <span class="math inline">\(\mu = 2.3\)</span>
+<ul>
+<li>Simulate a sample of size <span class="math inline">\(n\)</span> from a Poisson(2.3) distribution, say (3, 0, 1, 4, 0) for <span class="math inline">\(n=5\)</span>.</li>
+<li>For the simulated sample compute the sample mean <span class="math inline">\(\bar{X}\)</span> and the value of <span class="math inline">\(\hat{\theta} = \bar{X}e^{-\bar{X}}\)</span>, say 8/5 and <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>.</li>
+<li>Repeat many times, simulating many samples of size <span class="math inline">\(n\)</span> and many values of <span class="math inline">\(\hat{\theta}\)</span> for the chosen <span class="math inline">\(\mu\)</span>.</li>
+<li>Average the values of <span class="math inline">\(\hat{\theta}\)</span>, for each value of <span class="math inline">\(\hat{\theta}\)</span> find its deviation from the average, and then average the squared deviations. This number approximates <span class="math inline">\(\text{Var}(\hat{\theta})\)</span> when <span class="math inline">\(\mu = 2.3\)</span></li>
+</ul></li>
+<li>See below. The value measures the sample-to-sample variance of values of <span class="math inline">\(\hat{\theta}\)</span> (estimates of the probability that a game has 1 HR), assuming that <span class="math inline">\(\mu = 2.3\)</span>.</li>
+<li><span class="math inline">\(\hat{\theta}\)</span> has smaller variance when <span class="math inline">\(\mu = 2.3\)</span>, but that by itself isn’t useful because we don’t know what <span class="math inline">\(\mu\)</span> is.</li>
+<li>We carry out the process in the previous part for many values of <span class="math inline">\(\mu\)</span>. Choose a grid of <span class="math inline">\(\mu\)</span> values, say 0.01, 0.02, <span class="math inline">\(\ldots\)</span>, 10
+<ul>
+<li>Choose a value of <span class="math inline">\(\mu\)</span> from the grid, say 2.3</li>
+<li>Simulate a sample of size <span class="math inline">\(n\)</span> from a Poisson(<span class="math inline">\(\mu\)</span>) distribution, say (3, 0, 1, 4, 0) for <span class="math inline">\(n=5\)</span>.</li>
+<li>For the simulated sample compute the sample mean <span class="math inline">\(\bar{X}\)</span> and the value of <span class="math inline">\(\hat{\theta} = \bar{X}e^{-\bar{X}}\)</span>, say 8/5 and <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>.</li>
+<li>Repeat many times, simulating many samples of size <span class="math inline">\(n\)</span> and many values of <span class="math inline">\(\hat{\theta}\)</span> for the chosen <span class="math inline">\(\mu\)</span>.</li>
+<li>Average the values of <span class="math inline">\(\hat{\theta}\)</span>, for each value of <span class="math inline">\(\hat{\theta}\)</span> find its deviation from the average, and then average the squared deviations. This number approximates <span class="math inline">\(\text{Var}(\hat{\theta})\)</span> for the chosen <span class="math inline">\(\mu\)</span></li>
+<li>Repeat the above process for all the values of <span class="math inline">\(\mu\)</span> in the grid and plot the approximate bias as a function of <span class="math inline">\(\mu\)</span> to approximate the bias function.</li>
+</ul></li>
+<li>See below. Seems like <span class="math inline">\(\hat{\theta}\)</span> has smaller variance regardless of <span class="math inline">\(\mu\)</span>.</li>
+</ol>
+</section>
+</section>
+<section id="problem-3" class="level2">
+<h2 class="anchored" data-anchor-id="problem-3">Problem 3</h2>
+<p>Continuing Problems 2 and 3</p>
+<ol type="a">
+<li>Compute <span class="math inline">\(\text{MSE}(\hat{p})\)</span> when <span class="math inline">\(\mu = 2.3\)</span> and <span class="math inline">\(n=5\)</span>. (You can do the next part first if you want, but it helps to work with specific numbers first.)</li>
+<li>Derive the MSE function of <span class="math inline">\(\hat{p}\)</span>. (Hint: see facts from previous parts.)</li>
+<li>Suppose <span class="math inline">\(\mu = 2.3\)</span> (and <span class="math inline">\(n=5\)</span>). Explain in full detail how you would use simulation to approximate the MSE of <span class="math inline">\(\hat{\theta}\)</span>.</li>
+<li>Conduct the simulation from the previous part and approximate the MSE of <span class="math inline">\(\hat{\theta}\)</span> when <span class="math inline">\(\mu =2.3\)</span> (and <span class="math inline">\(n=5\)</span>).</li>
+<li>Which estimator has smaller MSE when <span class="math inline">\(\mu = 2.3\)</span> (and <span class="math inline">\(n=5\)</span>)? Answer, but then explain why this information alone is not really useful.</li>
+<li>Conduct the simulation from the previous part and plot the approximate MSE function. Compare to the MSE function of <span class="math inline">\(\hat{p}\)</span>.</li>
+<li>Compare the MSEs of the two estimators for <span class="math inline">\(n=5\)</span> and a few other values of <span class="math inline">\(n\)</span>. Is there a clear preference between these two estimators? Discuss.</li>
+</ol>
+<section id="solution-2" class="level3">
+<h3 class="anchored" data-anchor-id="solution-2">Solution</h3>
+<ol type="a">
+<li>Since <span class="math inline">\(\hat{p}\)</span> is unbiased, its MSE is just its variance.</li>
+<li>Since <span class="math inline">\(\hat{p}\)</span> is unbiased, its MSE function is just its variance function.</li>
+<li>For <span class="math inline">\(\mu = 2.3\)</span>
+<ul>
+<li>Simulate a sample of size <span class="math inline">\(n\)</span> from a Poisson(2.3) distribution, say (3, 0, 1, 4, 0) for <span class="math inline">\(n=5\)</span>.</li>
+<li>For the simulated sample compute the sample mean <span class="math inline">\(\bar{X}\)</span> and the value of <span class="math inline">\(\hat{\theta} = \bar{X}e^{-\bar{X}}\)</span>, say 8/5 and <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>.</li>
+<li>Repeat many times, simulating many samples of size <span class="math inline">\(n\)</span> and many values of <span class="math inline">\(\hat{\theta}\)</span> for the chosen <span class="math inline">\(\mu\)</span>.</li>
+<li>For each value of <span class="math inline">\(\hat{\theta}\)</span> subtract <span class="math inline">\(\theta=2.3 e^{-2.3}\)</span> and square the difference, then average these squared differences to approximate the MSE when <span class="math inline">\(\mu = 2.3\)</span>.</li>
+</ul></li>
+<li>See below. The squared bias is fairly small compared to the variance, so the MSE is pretty close to the variance function.</li>
+<li><span class="math inline">\(\hat{\theta}\)</span> has smaller MSE when <span class="math inline">\(\mu = 2.3\)</span>, but this isn’t really useful because we don’t know what <span class="math inline">\(\mu\)</span> is.</li>
+<li>See below.</li>
+<li>It seems that (at least for the values of <span class="math inline">\(n\)</span> that we considered) <span class="math inline">\(\hat{\theta}\)</span> has smaller MSE than <span class="math inline">\(\hat{p}\)</span> for all <span class="math inline">\(\mu\)</span>. The sample proportion doesn’t use the fact that the population distribution is Poisson, and it treats each value as either 1 or not. <span class="math inline">\(\bar{X} e^{-\bar{X}}\)</span> uses all the data and the fact that the population distribution is Poisson, so its better tuned to this problem.</li>
+</ol>
+</section>
+</section>
+<section id="simulation" class="level2">
+<h2 class="anchored" data-anchor-id="simulation">Simulation</h2>
+<section id="for-mu-2.3" class="level3">
+<h3 class="anchored" data-anchor-id="for-mu-2.3">For mu = 2.3</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">=</span> <span class="fl">2.3</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>N_samples <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>theta_hats <span class="ot">=</span> <span class="fu">vector</span>(<span class="at">length =</span> N_samples)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N_samples) {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulate a sample of size n from the Poisson(mu) population</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">rpois</span>(n, mu)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># compute theta-hat</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  theta_hats[i] <span class="ot">=</span> <span class="fu">mean</span>(x) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fu">mean</span>(x))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximate the bias of theta-hat for this mu</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(theta_hats) <span class="sc">-</span> mu <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>mu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.004267887</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximate the variance of theta-hat for this mu</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(theta_hats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.005697212</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximate the MSE of theta-hat for this mu</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((theta_hats <span class="sc">-</span> mu <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>mu)) <span class="sc">^</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.005714857</code></pre>
+</div>
+</div>
+</section>
+<section id="for-all-mu" class="level3">
+<h3 class="anchored" data-anchor-id="for-all-mu">For all mu</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># grid of mu values: 0.1, 0.2, 0.3, ..., 4.9, 5</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>mus <span class="ot">=</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="dv">5</span>, <span class="fl">0.1</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>N_samples <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize vectors that will record bias, var, mse as functions of mu</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>bias_thetahat <span class="ot">=</span> <span class="fu">vector</span>()</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>var_thetahat <span class="ot">=</span> <span class="fu">vector</span>()</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>mse_thetahat <span class="ot">=</span> <span class="fu">vector</span>()</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (mu <span class="cf">in</span> mus) {</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># true value of theta for this mu</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  theta <span class="ot">=</span> mu <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>mu)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each mu simulate many samples and many values of sigma-hat^2</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  theta_hats <span class="ot">=</span> <span class="fu">vector</span>(<span class="at">length =</span> N_samples)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N_samples) {</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># simulate a sample of size n from the Poisson(mu) population</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> <span class="fu">rpois</span>(n, mu)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># compute theta-hat</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    theta_hats[i] <span class="ot">=</span> <span class="fu">mean</span>(x) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fu">mean</span>(x))</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Approximate bias of theta-hat for this mu and add to the list</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  bias_thetahat <span class="ot">=</span> <span class="fu">c</span>(bias_thetahat, <span class="fu">mean</span>(theta_hats) <span class="sc">-</span> theta)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Approximate variance of sigma-hat^2 for this mu and add to the list</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  var_thetahat <span class="ot">=</span> <span class="fu">c</span>(var_thetahat, <span class="fu">var</span>(theta_hats))</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Approximate MSE of sigma-hat^2 for this mu and add to the list</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Can just do bias^2 + var, but can also use definition of MSE</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  mse_thetahat <span class="ot">=</span> <span class="fu">c</span>(mse_thetahat, <span class="fu">mean</span>((theta_hats <span class="sc">-</span> theta) <span class="sc">^</span> <span class="dv">2</span>))</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="bias-function" class="level3">
+<h3 class="anchored" data-anchor-id="bias-function">Bias function</h3>
+<p>Any “wiggles” are due to natural simulation margin of error (can make these go away by simulating even more samples)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mus, bias_thetahat,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"mu"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Bias of thetahat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-07-sol_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="squared-bias-function" class="level3">
+<h3 class="anchored" data-anchor-id="squared-bias-function">Squared bias function</h3>
+<p>Any “wiggles” are due to natural simulation margin of error (can make these go away by simulating even more samples)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mus, bias_thetahat <span class="sc">^</span> <span class="dv">2</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"mu"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Squared Bias of thetahat"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>)) <span class="co"># set common y-axis scale</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-07-sol_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="variance-function" class="level3">
+<h3 class="anchored" data-anchor-id="variance-function">Variance function</h3>
+<p>Any “wiggles” are due to natural simulation margin of error (can make these go away by simulating even more samples)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mus, var_thetahat,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"mu"</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Variance"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>), <span class="co"># set common y-axis scale</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Variance functions of theta-hat (dots) and p-hat (dashed)"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(x <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>x) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> x <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>x)) <span class="sc">/</span> n, <span class="at">add =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-07-sol_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="mse-function" class="level3">
+<h3 class="anchored" data-anchor-id="mse-function">MSE function</h3>
+<p>Any “wiggles” are due to natural simulation margin of error (can make these go away by simulating even more samples)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mus, mse_thetahat,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"mu"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"MSE"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>), <span class="co"># set common y-axis scale</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"MSE functions of theta-hat (dots) and p-hat (dashed)"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(x <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>x) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> x <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>x)) <span class="sc">/</span> n, <span class="at">add =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-07-sol_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="different-n" class="level3">
+<h3 class="anchored" data-anchor-id="different-n">Different n</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># grid of mu values: 0.1, 0.2, 0.3, ..., 4.9, 5</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>mus <span class="ot">=</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="dv">5</span>, <span class="fl">0.1</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>N_samples <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize vectors that will record bias, var, mse as functions of mu</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>bias_thetahat <span class="ot">=</span> <span class="fu">vector</span>()</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>var_thetahat <span class="ot">=</span> <span class="fu">vector</span>()</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>mse_thetahat <span class="ot">=</span> <span class="fu">vector</span>()</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (mu <span class="cf">in</span> mus) {</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># true value of theta for this mu</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  theta <span class="ot">=</span> mu <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>mu)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each mu simulate many samples and many values of sigma-hat^2</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  theta_hats <span class="ot">=</span> <span class="fu">vector</span>(<span class="at">length =</span> N_samples)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N_samples) {</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># simulate a sample of size n from the Poisson(mu) population</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> <span class="fu">rpois</span>(n, mu)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># compute theta-hat</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    theta_hats[i] <span class="ot">=</span> <span class="fu">mean</span>(x) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fu">mean</span>(x))</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Approximate bias of theta-hat for this mu and add to the list</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  bias_thetahat <span class="ot">=</span> <span class="fu">c</span>(bias_thetahat, <span class="fu">mean</span>(theta_hats) <span class="sc">-</span> theta)</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Approximate variance of sigma-hat^2 for this mu and add to the list</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>  var_thetahat <span class="ot">=</span> <span class="fu">c</span>(var_thetahat, <span class="fu">var</span>(theta_hats))</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Approximate MSE of sigma-hat^2 for this mu and add to the list</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Can just do bias^2 + var, but can also use definition of MSE</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>  mse_thetahat <span class="ot">=</span> <span class="fu">c</span>(mse_thetahat, <span class="fu">mean</span>((theta_hats <span class="sc">-</span> theta) <span class="sc">^</span> <span class="dv">2</span>))</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mus, mse_thetahat,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"mu"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"MSE"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.006</span>), <span class="co"># set common y-axis scale</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"n = 50:MSE functions of theta-hat (dots) and p-hat (dashed)"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(x <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>x) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> x <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>x)) <span class="sc">/</span> n, <span class="at">add =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-07-sol_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># grid of mu values: 0.1, 0.2, 0.3, ..., 4.9, 5</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>mus <span class="ot">=</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="dv">5</span>, <span class="fl">0.1</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>N_samples <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize vectors that will record bias, var, mse as functions of mu</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>bias_thetahat <span class="ot">=</span> <span class="fu">vector</span>()</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>var_thetahat <span class="ot">=</span> <span class="fu">vector</span>()</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>mse_thetahat <span class="ot">=</span> <span class="fu">vector</span>()</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (mu <span class="cf">in</span> mus) {</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># true value of theta for this mu</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  theta <span class="ot">=</span> mu <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>mu)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for each mu simulate many samples and many values of sigma-hat^2</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  theta_hats <span class="ot">=</span> <span class="fu">vector</span>(<span class="at">length =</span> N_samples)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N_samples) {</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># simulate a sample of size n from the Poisson(mu) population</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> <span class="fu">rpois</span>(n, mu)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># compute theta-hat</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    theta_hats[i] <span class="ot">=</span> <span class="fu">mean</span>(x) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fu">mean</span>(x))</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Approximate bias of theta-hat for this mu and add to the list</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  bias_thetahat <span class="ot">=</span> <span class="fu">c</span>(bias_thetahat, <span class="fu">mean</span>(theta_hats) <span class="sc">-</span> theta)</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Approximate variance of sigma-hat^2 for this mu and add to the list</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>  var_thetahat <span class="ot">=</span> <span class="fu">c</span>(var_thetahat, <span class="fu">var</span>(theta_hats))</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Approximate MSE of sigma-hat^2 for this mu and add to the list</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Can just do bias^2 + var, but can also use definition of MSE</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  mse_thetahat <span class="ot">=</span> <span class="fu">c</span>(mse_thetahat, <span class="fu">mean</span>((theta_hats <span class="sc">-</span> theta) <span class="sc">^</span> <span class="dv">2</span>))</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mus, mse_thetahat,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"mu"</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"MSE"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.015</span>), <span class="co"># set common y-axis scale</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"n = 20:MSE functions of theta-hat (dots) and p-hat (dashed)"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(x <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>x) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> x <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>x)) <span class="sc">/</span> n, <span class="at">add =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-07-sol_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./hw-06-sol.html" class="pagination-link" aria-label="Homework 6 solutions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Homework 6 solutions</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./hw-08-sol.html" class="pagination-link" aria-label="Homework 8 solutions">
+        <span class="nav-page-text">Homework 8 solutions</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

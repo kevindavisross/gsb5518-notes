@@ -1,0 +1,459 @@
+# Continuous Random Variables: Probability Density Functions
+
+{{< include _r_setup.qmd >}}
+
+
+
+
+
+-   Simulated values of a continuous random variable are usually plotted in a **histogram** which groups the observed values into "bins" and plots densities or frequencies for each bin. (R: `hist`).
+-   In a histogram *areas* of bars represent relative frequencies; the axis which represents the height of the bars is called "density" (R: `hist` with `freq = FALSE`).
+-   The distribution of a continuous random variable can be described by a **probability density function (pdf)**, for which *areas under the density curve determine probabilities*.
+
+## Uniform Distributions
+
+::: {#exm-meeting-uniform-pdf}
+In the meeting problem assume that Regina's arrival time $X$ (minutes after noon) follows a Uniform(0, 60) distribution. @fig-meeting-uniform displays a histogram of 10000 simulated values of $X$.
+:::
+
+```{r}
+#| echo: false
+
+N_rep = 10000
+
+x = runif(N_rep, 0, 60)
+
+data.frame(1:N_rep, x) |>
+  head() |>
+  kbl(col.names = c("Repetition", "X")) |>
+  kable_styling(fixed_thead = TRUE)
+```
+
+
+```{r}
+#| echo: false
+#| label: fig-meeting-uniform
+#| fig-cap: "Simulated values from a Uniform(0, 60) distribution"
+
+hist(x,
+     freq = FALSE,
+     main = "")
+```
+
+1.  Sketch a spinner to simulate values of $X$.\
+    \
+    \ 
+    \ 
+    \ 
+1.  Sketch a plot of the pdf of $X$.\
+    \
+    \
+    \
+    \
+3.  Use the pdf to find the probability that Regina arrives before 12:15.\
+    \
+    \
+    \
+    \
+3.  Use the pdf to find the probability that Regina arrives after 12:45.\
+    \
+    \
+    \
+    \
+6.  Use the pdf to find the probability that Regina arrives between 12:15:00 and 12:16:00.\
+    \
+    \
+    \
+    \
+7.  Use the pdf to find the probability that Regina arrives between 12:15:00 and 12:15:01.\
+    \
+    \
+    \
+    \
+8.  Compute $\text{P}(X=15)$, the probability that Regina arrives at the exact time 12:15:00 (with infinite precision).\
+    \
+    \
+    \
+    \
+
+
+-   **The probability that a continuous random variable $X$ equals any particular value is 0.** That is, if $X$ is continuous then $\text{P}(X=x)=0$ for all $x$.
+-   Even though any specific value of a continuous random variable has probability 0, *intervals* still can have positive probability.
+-   In practical applications involving continuous random variables, "equal to" really means "close to", and "close to" probabilities correspond to intervals which can have positive probability.
+-   A continuous random variable $X$ has a **Uniform distribution** with parameters $a$ and $b$, with $a<b$, if its probability density function $f_X$ satisfies
+    \begin{align}
+    f_X(x) & \propto \text{constant}, \quad & & a<x<b\\
+    & = \frac{1}{b-a}, \quad & &  a<x<b.
+    \end{align}
+-   If $X$ has a Uniform($a$, $b$) distribution then
+    \begin{align}
+    \text{E}(X) & = \frac{a+b}{2}\\
+    \text{Var}(X) & = \frac{|b-a|^2}{12}\\
+    \text{SD}(X) & = \frac{|b-a|}{\sqrt{12}}
+    \end{align}
+
+
+## Probability Density Functions
+
+
+-   The continuous analog of a probability mass function (pmf) is a *probability density function (pdf)*.
+-   However, while pmfs and pdfs play analogous roles, they are different in one fundamental way; namely, a pmf outputs probabilities directly, while a pdf does not.
+-   A pdf of a continuous random variable must be *integrated* to find probabilities of related events.
+-   The **probability density function (pdf)** (a.k.a. density) of a *continuous* RV $X$ is the function $f_X$ which satisfies
+    \begin{align}
+    \text{P}(a \le X \le b) & =\int_a^b f_X(x) dx, \qquad \text{for all } -\infty \le a \le b \le \infty
+    \end{align}
+-   For a continuous random variable $X$ with pdf $f_X$, the probability that $X$ takes a value in the interval $[a, b]$ is the *area under the pdf over the region* $[a,b]$.
+-   The axioms of probability imply that a valid pdf must satisfy
+    \begin{align}
+    f_X(x) & \ge 0 \qquad \text{for all } x,\\
+    \int_{-\infty}^\infty f_X(x) dx & = 1
+    \end{align}
+
+
+::: {#exm-meeting-nonuniform-pdf}
+Continuing @exm-meeting-uniform-pdf, we will now we assume Regina's arrival time has pdf
+
+$$
+f_X(x) =
+        \begin{cases}
+      cx, & 0\le x \le 60,\\
+      0, & \text{otherwise.}
+      \end{cases}
+$$
+
+where $c$ is an appropriate constant.
+:::
+
+1.  Sketch a plot of the pdf.
+Generally, what does this say about Regina's arival time?\
+    \
+    \
+    \
+    \
+2.  Find the value of $c$ and specify the pdf of $X$.\
+    \
+    \
+    \
+    \
+3.  Find the probability that Regina arrives before 12:15.\
+    \
+    \
+    \
+    \
+4.  Find the probability that Regina arrives after 12:45. How does this compare to the previous part? What does that say about Regina's arrival time?\
+    \
+    \
+    \
+    \
+11. Find $\text{P}(X = 15)$, the probability that Regina arrives at the exact time 12:15 (with infinite precision).\
+    \
+    \
+    \
+    \
+11. Find $\text{P}(X = 45)$, the probability that Regina arrives at the exact time 12:45 (with infinite precision).\
+    \
+    \
+    \
+    \
+6.  Find the probability that Regina arrives between 12:15 and 12:16.\
+    \
+    \
+    \
+    \
+9.  Find the probability that Regina arrives between 12:45 and 12:46. How does this compare to the probability for 12:15 to 12:16? What does that say about Regina's arrival time?\
+    \
+    \
+    \
+    \
+
+```{r}
+#| label: fig-meeting-nonuniform
+#| fig-cap: "Simulated values of $X$ with the pdf in @exm-meeting-nonuniform-pdf. (We'll see how this simulation works soon.)"
+#| echo: false
+
+N_rep = 10000
+
+u = runif(N_rep, 0, 1)
+
+x = 60 * sqrt(u)
+
+hist(x,
+     freq = FALSE,
+     main = "")
+```
+
+
+```{r}
+#| label: fig-meeting-compare
+#| echo: false
+#| fig-cap: "Probability of Regina arriving at each minute between noon (0) and 1:00PM (60), to the nearest minute, for the Uniform(0, 60) distribution (blue) and the distribution in @exm-meeting-nonuniform-pdf (orange)."
+
+
+x = (1:59) / 60
+
+px1 = rep(1 / 60, length(x))
+
+px2 = (x + 0.5 / 60) ^ 2 - (x - 0.5 / 60) ^ 2
+
+df <- data.frame(x,
+                 "uniform" = px1,
+                 "non uniform" = px2)
+
+df <- df %>%
+    pivot_longer(!x,
+                 names_to = "probmeasure",
+                 values_to = "probability")
+
+ggplot(df, aes(x = x * 60, probability, col = probmeasure)) +
+    geom_point() +
+    theme_classic() +
+  scale_color_manual(
+    values = c("orange", "skyblue"),
+    aesthetics = c("color", "fill")
+  ) +
+    labs(col = "Distribution",
+         x = "Value",
+         y = "Probability")
+
+```
+
+
+-   **The probability that a continuous random variable** $X$ equals any particular value is 0. That is, if $X$ is continuous then $\text{P}(X=x)=0$ for all $x$.\
+-   For continuous random variables, it doesn't really make sense to talk about the probability that the random value is *equal to* a particular value. However, we can consider the probability that a random variable is *close to* a particular value.
+-   The density $f_X(x)$ at value $x$ is *not* a probability.
+-   Rather, the density $f_X(x)$ at value $x$ is related to the probability that the RV $X$ takes a value "close to $x$" in the following sense $$
+    \text{P}\left(x-\frac{\epsilon}{2} \le X \le x+\frac{\epsilon}{2}\right) \approx f_X(x)\epsilon, \qquad \text{for small $\epsilon$}
+    $$
+-   The quantity $\epsilon$ is a small number that represents the desired degree of precision. For example, rounding to two decimal places corresponds to $\epsilon=0.01$.
+-   What's important about a pdf is *relative* heights. For example, if $f_X(x_2)= 2f_X(x_1)$ then $X$ is roughly "twice as likely to be near $x_2$ than to be near $x_1$" in the above sense. $$
+    \frac{f_X(x_2)}{f_X(x_1)} = \frac{f_X(x_2)\epsilon}{f_X(x_1)\epsilon} \approx  \frac{\text{P}\left(x_2-\frac{\epsilon}{2} \le X \le x_2+\frac{\epsilon}{2}\right)}{\text{P}\left(x_1-\frac{\epsilon}{2} \le X \le x_1+\frac{\epsilon}{2}\right)}
+    $$
+
+
+## Exponential Distributions
+
+
+
+
+
+::: {#exm-exponential-quakes}
+Suppose that we model the waiting time, measured continuously in hours, from now until the next earthquake (of any magnitude) occurs in southern CA as a continuous random variable $X$ with pdf
+$$
+f_X(x) = 2 e^{-2x}, \qquad x \ge0
+$$
+This is the pdf of the "Exponential(2)" distribution.
+:::
+
+1.  Sketch the pdf of $X$. What does this tell you about waiting times?\
+    \
+    \
+    \
+    \
+2.  Without doing any integration, approximate the probability that $X$ rounded to the nearest minute is 0.5 hours.\
+    \
+    \
+    \
+    \
+3.  Without doing any integration determine how much more likely that $X$ rounded to the nearest minute is to be 0.5 than 1.0.\
+    \
+    \
+    \
+    \
+4.  Compute and interpret $\text{P}(X > 0.25)$.\
+    \
+    \
+    \
+    \
+5.  Compute and interpret $\text{P}(X \le 3)$.\
+    \
+    \
+    \
+    \
+
+-   A continuous random variable $X$ has an **Exponential distribution** with *rate* parameter $\lambda>0$ if its pdf is $$
+    f_X(x) = \lambda e^{-\lambda x}, \qquad x \ge 0
+    $$
+-   If $X$ has an Exponential($\lambda$) distribution then $$\text{P}(X>x)  = e^{-\lambda x}, \quad x\ge 0$$
+-   Exponential distributions are often used to model the *waiting time* in a random process until some event occurs.
+    -   $\lambda$ is the average *rate* at which events occur over time (e.g., 2 per hour)
+    -   $1/\lambda$ is the mean time between events (e.g., 1/2 hour)
+
+
+```{r}
+#| label: fig-exponential-pdf-area
+#| echo: false
+#| fig-cap: "Probability density function of $X$ with an Exponential distribution with rate 2. The shaded area represents $P(X < 0.25)$."
+
+x<-seq(0, 4, 0.001)
+y<-dexp(x, rate = 2)
+xddf <- data.frame(x=x,y=y)
+# qplot(x,y,data=xddf,geom="line")+
+ggplot(data = xddf,
+       aes(x = x, y = y)) +
+  geom_line() +
+  geom_ribbon(data=subset(xddf , x < 0.25),aes(ymax=y),ymin=0,
+              fill="orange",colour=NA)+
+  scale_y_continuous(limits=c(0, 2), expand=c(0, 0)) +
+  theme_classic() +
+  xlab(expression(x)) +
+  ylab(expression(f[X](x))) #+
+#  ggtitle(paste("P(1<X<2.5) for X ~ Exponential(1)"))
+
+```
+
+
+
+
+```{r}
+#| label: fig-exponential-pdf-area2
+#| echo: false
+#| fig-cap:  "Illustration that the probability that $X$ is close to $x$ can be approximated by the area of a rectangle with height equal to the density at $x$, $f_X(x)$. The density height at $x = 0.5$ is roughly 2.7 times greater than the density height at $x = 1$ so the probability that $X$ is close to 0.5 is roughly 2.7 times greater than the probability that $X$ is close to 1."
+
+
+x<-seq(0, 5, 0.001)
+y<-dexp(x, rate = 2)
+xddf <- data.frame(x=x,y=y)
+ggplot(data=xddf,
+       aes(x = x, y = y))+
+    geom_line() +
+  scale_y_continuous(limits=c(0, 2), expand=c(0, 0)) +
+  theme_classic() +
+  xlab(expression(x)) +
+  ylab(expression(f[X](x))) +
+#  ggtitle(paste("P(1<X<2.5) for X ~ Exponential(1)")) +
+  geom_rect(data=xddf, mapping=aes(xmin=0.5-0.1/2, xmax=0.5+0.1/2,
+                                   ymin=0, ymax=dexp(0.5, rate = 2)),
+            color="orange", fill = "orange") +
+    geom_rect(data=xddf, mapping=aes(xmin=1.0-0.1/2, xmax=1.0+0.1/2,
+                                   ymin=0, ymax=dexp(1.0, rate = 2)),
+            color="skyblue", fill = "skyblue") 
+
+```
+
+
+
+## Expected Values
+
+
+-   The **expected value** (a.k.a. *expectation* a.k.a. *mean*), of a random variable $X$ is a number denoted $\text{E}(X)$ representing the probability-weighted average value of $X$.
+-   The expected value of a continuous random variable with pdf $f_X$ is defined as $$
+    \text{E}(X) = \int_{-\infty}^\infty x f_X(x) dx
+    $$
+-   Replace the generic bounds $(-\infty, \infty)$ with the possible values of the random variable
+-   Note well that $\text{E}(X)$ represents *a single number*.
+-   The expected value is the "balance point" (center of gravity) of a distribution.
+-   The expected value of a random variable $X$ is defined by the probability-weighted average according to the underlying probability measure. But the expected value can also be interpreted as the **long-run average value**, and so can be approximated via simulation.
+-   Read the symbol $\text{E}(\cdot)$ as
+    -   Simulate lots of values of what's inside $(\cdot)$
+    -   Compute the average. This is a "usual" average; just sum all the simulated values and divide by the number of simulated values.
+
+
+::: {#exm-exponential-quakes-ev}
+Continuing @exm-exponential-quakes, where $X$, the waiting time (hours) from now until the next earthquake (of any magnitude) occurs in southern CA, has an Exponential distribution with rate 2.
+:::
+
+1. Use simulation to approximate the long run average value of $X$.
+    \
+    \
+    \
+    \
+1. Set up the integral to compute $\text{E}(X)$.
+\
+\
+\
+\
+\
+1. Interpret $\text{E}(X)$.
+\
+\
+\
+\
+\
+1. Compute $\text{P}(X = \text{E}(X))$.
+\
+\
+\
+\
+\
+1. Compute $\text{P}(X \le \text{E}(X))$. (Is it equal to 50%?)
+\
+\
+\
+\
+\
+
+-   If $X$ has an Exponential($\lambda$) distribution then $$\text{E}(X) = \frac{1}{\lambda}$$
+-   For example, if events happen at rate $\lambda = 2$ per hour, then the average waiting time between events is $1/\lambda = 1/2$ hour.
+
+## Law of the Unconscious Statistician
+
+
+- The **"law of the unconscious statistician" (LOTUS)** says that the expected value of a transformed random variable can be found without finding the distribution of the transformed random variable, simply by applying the probability weights of the original random variable to the transformed values.
+\begin{align}
+	& \text{Discrete $X$ with pmf $p_X$:} & \text{E}[g(X)] & = \sum_x g(x) p_X(x)\\
+	& \text{Continuous $X$ with pdf $f_X$:} & \text{E}[g(X)] & =\int_{-\infty}^\infty g(x) f_X(x) dx
+\end{align}
+- LOTUS says we don't have to first find the distribution of $Y=g(X)$ to find $\text{E}[g(X)]$; rather, we just simply apply the transformation $g$ to each possible value $x$ of $X$ and then apply the corresponding weight for $x$ to $g(x)$.
+- Whether in the short run or the long run, in general
+\begin{align}
+\text{Average of $g(X)$} & \neq g(\text{Average of $X$})
+\end{align}
+- In terms of expected values, in general
+\begin{align}
+\text{E}(g(X)) & \neq g(\text{E}(X))
+\end{align}
+The left side $\text{E}(g(X))$ represents first transforming the $X$ values and then averaging the transformed values. The right side $g(\text{E}(X))$ represents first averaging the $X$ values and then plugging the average (a single number) into the transformation formula. 
+
+
+
+::: {#exm-exponential-quakes-var}
+Continuing @exm-exponential-quakes, where $X$, the waiting time (hours) from now until the next earthquake (of any magnitude) occurs in southern CA, has an Exponential distribution with rate 2.
+:::
+
+1. Use simulation to approximate the variance of $X$.
+    \
+    \
+    \
+    \
+1. Set up the integral to compute $\text{E}(X^2)$.
+\
+\
+\
+\
+\
+1. Compute $\text{Var}(X)$. (The previous part shows $\text{E}(X^2) = 0.5$)
+\
+\
+\
+\
+\
+1. Compute $\text{SD}(X)$.
+\
+\
+\
+\
+\
+
+
+
+-   The **variance** of a random variable $X$ is
+    \begin{align}
+    \text{Var}(X) & = \text{E}\left(\left(X-\text{E}(X)\right)^2\right)\\
+    & = \text{E}\left(X^2\right) - \left(\text{E}(X)\right)^2
+    \end{align}
+-   The **standard deviation** of a random variable is \begin{equation*}
+    \text{SD}(X) = \sqrt{\text{Var}(X)}
+    \end{equation*}
+-   Variance is the long run average squared deviation from the mean.
+-   Standard deviation measures, roughly, the long run average distance from the mean. The measurement units of the standard deviation are the same as for the random variable itself.
+-   The definition $\text{E}((X-\text{E}(X))^2)$ represents the concept of variance. However, variance is usually computed using the following equivalent but slightly simpler formula.
+    $$
+    \text{Var}(X) = \text{E}\left(X^2\right) - \left(\text{E}\left(X\right)\right)^2
+    $$
+-   That is, variance is the expected value of the square of $X$ minus the square of the expected value of $X$.\
+-   Variance has many nice theoretical properties. Whenever you need to compute a standard deviation, first find the variance and then take the square root at the end.
+-   If $X$ has an Exponential($\lambda$) distribution then
+    $$
+    \text{Var}(X)  = \frac{1}{\lambda^2}
+    $$
