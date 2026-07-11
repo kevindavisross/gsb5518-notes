@@ -1,186 +1,8 @@
-# Commmon Discrete Distributions
+# Binomial Distributions
 
 {{< include _r_setup.qmd >}}
 
 
-## Poisson Distributions
-
-::: {#exm-poisson-hr}
-Let $X$ be the number of home runs hit (in total by both teams) in a randomly selected Major League Baseball game.
-Technically, there is no fixed upper bound on what $X$ can be, so mathematically it is convenient to consider $0, 1, 2, \ldots$ as the possible values of $X$.
-Assume that the pmf of $X$ is
-$$
-p_X(x) =
-e^{-2.3} \frac{2.3^x}{x!}, x = 0, 1, 2, \ldots
-$$ This distribution is called the Poisson(2.3) distribution.
-:::
-
-1.  Compute $\text{P}(X = 3)$. Then interpret the value as a long run relative frequency, and a relative likelihood.\
-    \
-    \
-    \
-    \
-2.  Construct a table, plot, and spinner corresponding to the distribution of $X$.\
-    \
-    \
-    \
-    \
-3.  Compute and interpret $\text{P}(X \le 2)$.\
-    \
-    \
-    \
-    \
-4.  Compute and interpret $\text{P}(X \le 13)$. ([The most home runs ever hit in a baseball game is 13](https://www.mlb.com/news/d-backs-and-phillies-set-mlb-home-run-record).)\
-    \
-    \
-    \
-    \
-
-```{r}
-#| label: poisson-hr-data
-#| echo: false
-#| fig-cap: "Relative frequencies of home runs per game in the 2018 MLB season, compared with the Poisson(2.3) distribution."
-
-knitr::include_graphics("_graphics/poisson-hr-data.PNG")
-
-```
-
-| $x$ |                         $p(x)$ |    Value |
-|-----|-------------------------------:|---------:|
-| 0   |     $e^{-2.3}\frac{2.3^0}{0!}$ | 0.100259 |
-| 1   |     $e^{-2.3}\frac{2.3^1}{1!}$ | 0.230595 |
-| 2   |     $e^{-2.3}\frac{2.3^2}{2!}$ | 0.265185 |
-| 3   |     $e^{-2.3}\frac{2.3^3}{3!}$ | 0.203308 |
-| 4   |     $e^{-2.3}\frac{2.3^4}{4!}$ | 0.116902 |
-| 5   |     $e^{-2.3}\frac{2.3^5}{5!}$ | 0.053775 |
-| 6   |     $e^{-2.3}\frac{2.3^6}{6!}$ | 0.020614 |
-| 7   |     $e^{-2.3}\frac{2.3^7}{7!}$ | 0.006773 |
-| 8   |     $e^{-2.3}\frac{2.3^8}{8!}$ | 0.001947 |
-| 9   |     $e^{-2.3}\frac{2.3^9}{9!}$ | 0.000498 |
-| 10  | $e^{-2.3}\frac{2.3^{10}}{10!}$ | 0.000114 |
-| 11  | $e^{-2.3}\frac{2.3^{11}}{11!}$ | 0.000024 |
-| 12  | $e^{-2.3}\frac{2.3^{12}}{12!}$ | 0.000005 |
-| 13  | $e^{-2.3}\frac{2.3^{13}}{13!}$ | 0.000001 |
-| 14  | $e^{-2.3}\frac{2.3^{14}}{14!}$ | 0.000000 |
-
-: Table representing the Poisson(2.3) probability mass function.
-
-```{r}
-#| include: false
-#| eval: false
-
-dpois(3, 2.3)
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-x = 0:14
-
-p_x = dpois(x, 2.3)
-
-data.frame(x, p_x) |>
-  kbl(digits = 6) |>
-  kable_styling(fixed_thead = TRUE)
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-sum(dpois(0:2, 2.3))
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-ppois(2, 2.3)
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-sum(dpois(0:13, 2.3))
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-ppois(13, 2.3)
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-rpois(10, 2.3)
-```
-
-```{r}
-#| label: fig-poisson-hr
-#| include: false
-#| eval: false
-#| fig-cap: "Simulated distribution of $X$ with a Poisson(2.3) distribution."
-
-N_rep = 10000
-
-x = rpois(N_rep, 2.3)
-
-# Summarize the simulate values
-plot(table(x) / N_rep,
-     type = "h",
-     xlab = "x",
-     ylab = "Approximate P(X = x)")
-```
-
-```{r}
-#| label: spinner-poisson-hr
-#| echo: false
-#| fig-cap: "Spinner corresponding to the Poisson(2.3) distribution (values 6, 7, ... lumped into one 6+ category)."
-
-x = c(0:5, "6+")
-p = c(dpois(0:5, 2.3), 1-ppois(5, 2.3))
-
-xp <- data.frame(x, p)
-
-cdf = c(0, cumsum(xp$p))
-
-plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
-  
-spinner <- ggplot(xp, aes(x="", y=p, fill=x))+
-  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
-  coord_polar("y", start=0) +
-  theme_void() + 
-  # plot the possible values on the outside
-  scale_y_continuous(breaks = plotp, labels=xp$x) +
-  theme(axis.text.x=element_text(size=14, face="bold")) +
-  # plot the probabilities as percents inside
-  geom_text(aes(y = plotp,
-                label = percent(p)), size=4,
-            color=c(rep("black", 6), rep("white", 1))) +
-  ggtitle(paste("Poisson(2.3) spinner", sep=""))
-
-spinner
-
-```
-
--   A discrete random variable $X$ has a **Poisson distribution** with parameter $\mu>0$ if its probability mass function $p_X$ satisfies $$
-      p_X(x) = \frac{e^{-\mu}\mu^x}{x!}, \quad x=0,1,2,\ldots
-      $$
--   The function $\mu^x / x!$ defines the shape of the pmf. The constant $e^{-\mu}$ ensures that the probabilities sum to 1.
--   Poisson distributions are often used to model random variables which count the number of "relative rare" events that occur.
--   If $X$ has a Poisson($\mu$) distribution, $\text{P}(X = 0) = e^{-\mu}$ and the probabilitiies of possible values follow the
-
-$$
-\text{Poisson(}\mu\text{) pattern:}\quad x \text{ is } \frac{\mu}{x} \text{ as likely as } x-1 \quad \text{ (for } x = 1, 2, 3, \ldots)
-$$
-
-
-## Binomial Distributions
 
 ::: {#exm-binomial-stock}
 Consider an extremely simplified model for the daily closing price of a certain stock.
@@ -256,9 +78,9 @@ dbinom(1, 5, 0.25)
 #| include: false
 #| eval: false
 
-x = 0:5
+x <- 0:5
 
-p_x = dbinom(x, 5, 0.25)
+p_x <- dbinom(x, 5, 0.25)
 
 data.frame(x, p_x) |>
   kbl(digits = 6) |>
@@ -292,15 +114,12 @@ rbinom(10, 5, 0.25)
 #| include: false
 #| eval: false
 
-N_rep = 10000
+N_rep <- 10000
 
-x = rbinom(N_rep, 5, 0.25)
+x <- rbinom(N_rep, 5, 0.25)
 
 # Summarize the simulated values
-plot(table(x) / N_rep,
-     type = "h",
-     xlab = "x",
-     ylab = "Approximate P(X = x)")
+plot(table(x) / N_rep, type = "h", xlab = "x", ylab = "Approximate P(X = x)")
 ```
 
 ```{r}
@@ -308,30 +127,29 @@ plot(table(x) / N_rep,
 #| echo: false
 #| fig-cap: "Spinner corresponding to the Binomial(5, 0.25) distribution (4 and 5 lumped into 4+)."
 
-
-
-x = c(0:3, "4+")
-p = c(dbinom(0:3, 5, 0.25), 1-pbinom(3, 5, 0.25))
+x <- c(0:3, "4+")
+p <- c(dbinom(0:3, 5, 0.25), 1 - pbinom(3, 5, 0.25))
 
 xp <- data.frame(x, p)
 
-cdf = c(0, cumsum(xp$p))
+cdf <- c(0, cumsum(xp$p))
 
-plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
-  
-ggplot(xp, aes(x="", y=p, fill=x))+
-  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
-  coord_polar("y", start=0) +
+plotp <- (cdf[-1] + cdf[-length(cdf)]) / 2
+
+ggplot(xp, aes(x = "", y = p, fill = x)) +
+  geom_bar(width = 1, stat = "identity", color = "black", fill = "white") +
+  coord_polar("y", start = 0) +
   theme_void() +
   # plot the possible values on the outside
-  scale_y_continuous(breaks = plotp, labels=xp$x) +
-  theme(axis.text.x=element_text(size=14, face="bold")) +
+  scale_y_continuous(breaks = plotp, labels = xp$x) +
+  theme(axis.text.x = element_text(size = 14, face = "bold")) +
   # plot the probabilities as percents inside
-  geom_text(aes(y = plotp,
-                label = percent(p)), size=4,
-            color=c(rep("black", 4), rep("white", 1))) +
-  ggtitle(paste("Binomial(5, 0.25) spinner", sep=""))
-
+  geom_text(
+    aes(y = plotp, label = percent(p)),
+    size = 4,
+    color = c(rep("black", 4), rep("white", 1))
+  ) +
+  ggtitle(paste("Binomial(5, 0.25) spinner", sep = ""))
 ```
 
 ```{r}
@@ -419,6 +237,35 @@ If not, explain why not.
     \
     \
     \
+
+
+
+::: {#exm-binomial-stock-ev}
+Continuing @exm-binomial-stock.
+Consider an extremely simplified model for the daily closing price of a certain stock.
+Every day the price either goes up or goes down, and the movements are independent from day-to-day.
+Assume that the probability that the stock price goes up on any single day is 0.25.
+Let $X$ be the number of days in which the price goes up in the next 5 days.
+:::
+
+1.  Suggest a shortcut formula for $\text{E}(X)$.\
+    \
+    \
+    \
+    \
+2.  Compute $\text{E}(X)$ using the distribution of $X$ from @exm-binomial-stock. Did the shortcut formula work?\
+    \
+    \
+    \
+    \
+3.  Interpret $\text{E}(X)$.\
+    \
+    \
+    \
+    \
+
+-   If $X$ has a Binomial($n$, $p$) distribution then $\text{E}(X) = np$.
+
 
 ::: {#exm-dd-same-distribution}
 Donny Dont is thoroughly confused about the distinction between a random variable and its distribution.

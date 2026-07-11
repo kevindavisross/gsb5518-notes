@@ -14,29 +14,28 @@ book:
     - bayes-rule.qmd
     - independence.qmd
     - discrete-rv.qmd
-    # - probability-mass-functions.qmd
-    # - poisson-binomial.qmd
-    # - expected-value.qmd
-    # - variance.qmd
+    - probability-mass-functions.qmd
+    - expected-value.qmd
+    - variance.qmd
+    # - binomial.qmd
+    # - poisson.qmd
     # - continuous-pdf.qmd
     # - cdf-and-quantile.qmd
+    # - expected-values-continuous.qmd
+    # - exponential.qmd
     # - normal.qmd
     # - joint-distributions.qmd
     # - covariance.qmd
-    # - conditional-distributions.qmd
-    # - joint-normal.qmd
     # - linear-combinations.qmd
+    # - joint-normal.qmd
     # - from-probability-to-statistics.qmd
-    # - maximum-likelihood-principle.qmd
     # - maximum-likelihood-estimation.qmd
     # - estimators-bias.qmd
-    # - estimators-variance.qmd
     # - estimators-mse.qmd
     # - clt.qmd
     # - confidence-intervals.qmd
     # - bootstrapping.qmd
     # - null-hypothesis-testing.qmd
-    # - nht-issues.qmd
     # - anova.qmd
     - hw-01.qmd
     - hw-02.qmd

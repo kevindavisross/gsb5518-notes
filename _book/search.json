@@ -160,6 +160,66 @@
     ]
   },
   {
+    "objectID": "probability-mass-functions.html",
+    "href": "probability-mass-functions.html",
+    "title": "7  Probability Mass Functions",
+    "section": "",
+    "text": "7.1 Exercises\nVerify that the pmf of \\(X\\) is \\[\np_X(x) = \\frac{4 - |x - 5|}{16}, \\qquad x = 2, 3, \\ldots, 8\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Probability Mass Functions</span>"
+    ]
+  },
+  {
+    "objectID": "probability-mass-functions.html#exercises",
+    "href": "probability-mass-functions.html#exercises",
+    "title": "7  Probability Mass Functions",
+    "section": "",
+    "text": "Exercise 7.1 Continuing Example 7.1. Is the following the pmf of \\(Y\\)? Discuss. \\[\np_Y(u) = \\frac{2u - 1}{16}\n\\]\n\n\n\n\n\n\n\nExercise 7.2 Shishito peppers are typically relatively mild, but about 10% are spicy. Suppose you eat Shishito peppers one at a time until you eat a spicy one and then you stop. Let \\(X\\) be the total number of peppers you eat (including the spicy one).\n\n\nExplain why it is reasonable to assume eating the peppers constitutes a sequence of Bernoulli trials.\n\n\n\n\n\nDescribe in full detail how you could use simulation to approximate the distribution of \\(X\\).\n\n\n\n\n\nIdentify the distribution of \\(X\\) by name, including the values of any relevant parameters.\n\n\n\n\n\nSpecify the probability mass function of \\(X\\).\n\n\n\n\n\nMake a table representing the distribution of \\(X\\). (You can cut it off after the probabilities get small.)\n\n\n\n\n\nCompute \\(\\text{P}(X&gt;10)\\) without summing terms.\n\n\n\n\n\n\n\nExercise 7.3 Recall the matching problem from Example 6.3 with a general \\(n\\) and let \\(X\\) be the number of matches. Finding the distribution of \\(X\\) by enumerating the \\(n!\\) possible outcomes as we did for \\(n=3\\) is not feasible in general. But we can approximate the distribution of \\(X\\) with simulation, as we did in an earlier exercise using this applet. Simulation shows that the distribution of the number of matches \\(X\\) is approximately the same for all \\(n\\) (unless \\(n\\) is very small, i.e., \\(n\\le 5\\)). In particular, for any \\(n&gt;5\\), the probability mass function of \\(X\\) is approximately \\[\np_X(x) = \\frac{e^{-1}}{x!}, \\qquad x = 0, 1, 2, \\ldots\n\\]\nWe will study where this distribution—called the Poisson(1) distribution—comes from in more detail later. For now we’ll just use the pmf formula.\n\n\nConstruct a table, plot, and spinner corresponding to the above pmf. Compare to the simulation results for general \\(n\\).\n\n\n\n\n\nUse the pmf to approximate the probability of at least one match, and compare to the simulation results for general \\(n\\).\n\n\n\n\n\nInterpret the probability both as a long relative frequency and as a relative likelihood.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Probability Mass Functions</span>"
+    ]
+  },
+  {
+    "objectID": "expected-value.html",
+    "href": "expected-value.html",
+    "title": "8  Expected Value",
+    "section": "",
+    "text": "8.1 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Expected Value</span>"
+    ]
+  },
+  {
+    "objectID": "expected-value.html#exercises",
+    "href": "expected-value.html#exercises",
+    "title": "8  Expected Value",
+    "section": "",
+    "text": "Exercise 8.1 Continuing Example 8.1 and Example 8.2. For a randomly selected policy let \\(X\\) be the amount of damage and let \\(Y\\) be the company’s profit.\n\n\nWhat is the relationship between \\(X\\) and \\(Y\\)?\n\n\n\n\n\nCompute and interpret \\(\\text{E}(Y)\\).\n\n\n\n\n\nWhat is the relationship between \\(\\text{E}(X)\\) and \\(\\text{E}(Y)\\)? Does this make sense? Why?\n\n\n\n\n\n\n\nExpected values and linear rescaling: If \\(X\\) is a random variable and \\(a, b\\) are non-random constants then \\[\n\\text{E}(aX+b) = a\\text{E}(X) + b\n\\]\n\n\nExercise 8.2 Recall the matching problem from Example 6.3 and Exercise 7.3 with a general \\(n\\) and let \\(X\\) be the number of matches.\n\n\nCompute and interpret \\(\\text{E}(X)\\) when \\(n=3\\).\n\n\n\n\n\nCompute and interpret \\(\\text{E}(X)\\) for a general \\(n\\).",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Expected Value</span>"
+    ]
+  },
+  {
+    "objectID": "variance.html",
+    "href": "variance.html",
+    "title": "9  Variance and Standard Deviation",
+    "section": "",
+    "text": "9.1 Exercises\nFigure 9.1: A few discrete distributions.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Variance and Standard Deviation</span>"
+    ]
+  },
+  {
+    "objectID": "variance.html#exercises",
+    "href": "variance.html#exercises",
+    "title": "9  Variance and Standard Deviation",
+    "section": "",
+    "text": "Example 9.5 The plots in Figure 9.1 summarize hypothetical distributions of quiz scores in six classes. All plots are on the same scale. Each quiz score is a whole number between 0 and 10 inclusive.\n\n\n\nDonny Dont says that C represents the smallest SD, since there is no variability in the heights of the bars. Do you agree that C represents “no variability”? Explain.\n\n\n\n\n\nWhat is the smallest possible value the SD of quiz scores could be? What would need to be true about the distribution for this to happen? (This scenario might not be represented by one of the plots.)\n\n\n\n\n\nWithout doing any calculations, arrange the classes in order based on their SDs from smallest to largest.\n\n\n\n\n\n\nIn one of the classes, the SD of quiz scores is 5. Which one? Why?\n\n\n\n\n\nIs the SD in F greater than, less than, or equal to 1? Why?\n\n\n\n\n\nWithout doing any calculations, provide a ballpark estimate of SD in each case.\n\n\n\n\n\nThe standard deviation in plot E is about 1.15. Suppose that the scores are curved by adding 2 points to every score. What is the standard deviation and variance of the revised scores?\n\n\n\n\n\nThe standard deviation in plot E is about 1.15. Suppose that the scores are curved by multiplying every score by 2. What is the standard deviation and variance of the revised scores?\n\n\n\n\n\n\n\nVariance and linear rescaling: If \\(X\\) is a random variable and \\(a, b\\) are non-random constants then \\[\\begin{align*}\n\\text{SD}(aX + b) & = |a|\\text{SD}(X)\\\\\n\\text{Var}(aX + b) & = a^2\\text{Var}(X)\n\\end{align*}\\]\n\n\nExercise 9.1 Recall the matching problem from Example 6.3, Exercise 7.3, and Exercise 8.2 with a general \\(n\\) and let \\(X\\) be the number of matches.\n\n\nCompute and interpret \\(\\text{Var}(X)\\) and \\(\\text{SD}(X)\\) when \\(n=3\\).\n\n\n\n\n\nCompute and interpret \\(\\text{Var}(X)\\) and \\(\\text{SD}(X)\\) for a general \\(n\\).\n\n\n\n\n\n\n\nExercise 9.2 Suppose that \\(X\\) has a Geometric(\\(p\\)) distribution.\n\n\nWithout doing any computations, determine \\(\\text{Var}(X)\\) if \\(p=1\\).\n\n\n\n\n\nAs \\(p\\) decreases, does \\(\\text{Var}(X)\\) increase or decrease? Why?\n\n\n\n\n\n\n\nIf \\(X\\) has a Geometric distribution with parameter \\(p\\) then \\(\\text{Var}(X) = (1-p)/p^2\\).",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Variance and Standard Deviation</span>"
+    ]
+  },
+  {
     "objectID": "hw-01.html",
     "href": "hw-01.html",
     "title": "Homework 1",

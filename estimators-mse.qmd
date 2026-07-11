@@ -1,4 +1,232 @@
-# Mean Square Error of an Estimator
+# Variance and Mean Square Error of an Estimator
+
+
+
+-   The bias function of an estimator measures the estimator's tendency
+    to overestimate or underestimate the parameter, as a function of
+    potential values of the parameter.
+-   But bias is only one consideration. Bias only considers the average
+    value of the estimator over many samples, which is just one feature
+    of the estimator's sampling distribution.
+    
+
+::: {#exm-variance-sample-mean}
+Consider a large population in which 20% of individuals
+have an annual income (\$ thousands) of 200, 40% of have an income of
+70, and 40% have an income of 10.
+For this population, the population
+mean is
+$$
+\mu = 10(0.4) + 70(0.4) + 200(0.2) = 72
+$$
+Also, the population variance is
+$$
+[10^2(0.4) + 70^2(0.4) + 200^2(0.2)] - 72^2 = 4816
+$$
+and the the population SD is $\sigma = 69.4$.
+
+Suppose our goal is to estimate $\mu$ based on a sample of size $n$.
+In this example, we know the population distribution and we know the population
+mean $\mu = 72$, but in practice the population distribution
+and the population mean would be unknown.
+
+One estimator of the population mean $\mu$ is
+$$
+\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i
+$$
+
+First suppose $n=2$.
+:::
+
+
+
+1.  Determine the distribution of $\bar{X}$.\
+    \
+    \
+    \
+    \
+1.  Find and interpret $\textrm{P}(\bar{X}\ge 105)$.\
+    \
+    \
+    \
+    \
+1.  Compute $\textrm{E}(\bar{X})$. How does it relate to $\mu$? Why?\
+    \
+    \
+    \
+    \
+1.  Compute and interpret $\textrm{Var}(\bar{X})$. How does it relate
+    to the population variance $\sigma^2$?\
+    \
+    \
+    \
+    \
+1.  Compute and interpret $\textrm{SD}(\bar{X})$. How does it relate
+    to the population standard deviation $\sigma$?\
+    \
+    \
+    \
+    \
+
+
+-   A **(simple) random sample** of size $n$ is a collection of random
+    variables $X_1,\ldots,X_n$ that are *independent* and *identically
+    distributed* (i.i.d.)
+-   A **statistic** is a characteristic of the *sample* which can be
+    computed from the data. More precisely, a statistic is a function of
+    $X_1,\ldots,X_n$, but not of $\theta$.
+    -   That is, a statistic is itself a *random variable*, and
+        therefore has its own probability distribution, which describes
+        how values of the statistic would vary from sample-to-sample
+        over many (hypothetical) samples.
+    -   The probability distribution of a statistic is called a
+        **sampling distribution**.
+-   Statistics exhibit **sample-to-sample variability**: the value of a
+    statistic varies from sample to sample.
+    -   We can estimate the degree of this variability by *simulating
+        many hypothetical samples* and computing the value of the
+        statistic for each sample.
+    -   The resulting standard deviation, called the **standard error**,
+        measures the sample-to-sample variability of the statistic over
+        many (hypothetical) samples of the same size.
+    -   However, *in practice usually only a single sample is selected*
+        and a single value of the statistic is observed.
+-   For many statistics (e.g., means and proportions) --- but not all
+    --- statistics from larger random samples vary less, from sample to
+    sample, than statistics from smaller random samples.
+
+
+::: {#exm-variance-sample-mean-increase-n}
+Continuing @exm-variance-sample-mean, now consider $n=8$. 
+:::
+
+
+1.  How could you use simulation to approximate
+    the distribution of $\bar{X}$, and its expected value and SD?\
+    \
+    \
+    \
+    \
+1.  Find and interpret $\textrm{E}(\bar{X})$ without first finding the
+    distribution of $\bar{X}$, and compare to the simulation results.\
+    \
+    \
+    \
+    \
+1.  Find and interpret $\textrm{SD}(\bar{X})$ without first finding the
+    distribution of $\bar{X}$, and compare to the simulation results.
+    What does this measure variability of? Compare to $n=2$.\
+    \
+    \
+    \
+    \
+1.  Use simulation to find and interpret $\textrm{P}(\bar{X}\ge 105)$.
+    Compare to $n=2$.\
+    \
+    \
+    \
+    \
+
+
+
+-   For an i.i.d. random sample $X_1,\ldots, X_n$, the **sample mean**
+    is the *statistic*
+    $$
+    \bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i = \frac{X_1 + \cdots + X_n}{n}
+    $$
+-   The sample mean $\bar{X}$ is an *unbiased* estimator of the
+    population mean $\mu$:
+    $$
+    \textrm{E}(\bar{X}_n) = \mu
+    $$
+    -   Over many random samples, sample means do not consistently
+        overestimate or consistently underestimate the population mean
+-   Sample-to-sample variability of sample means decreases as the sample
+    size increases
+    \begin{align*}
+        \textrm{SD}(\bar{X}_n) & = \frac{\sigma}{\sqrt{n}}\\
+        \text{sample-to-sample SD of sample means} & = \frac{\text{unit-to-unit SD of values of the variable }}{\sqrt{\text{sample size}}}
+    \end{align*}
+    -   The more variable the individual values of the variable are
+        (i.e. the larger the population SD of the variable, $\sigma$),
+        the more variable sample means will be (i.e. the larger than the
+        SE).
+    -   Sample means are less variable than individual values of the
+        variable
+    -   Over many random samples, sample means from larger random
+        samples vary less, from sample to sample, than sample means from
+        smaller random samples.
+    -   The SD of the sample means decreases as the sample size
+        increases, but this reduction in SD follows a "square root
+        rule". For example, if the sample size is increased by a factor
+        of 4, then the SD is reduced by a factor of 2 (not 4).\
+
+
+
+::: {#exm-poisson-unbiased}
+Consider again estimating $\mu$ for a Poisson($\mu$)
+distribution based on a random sample $X_1, \ldots, X_n$ of size $n$. 
+We have seen that both $\bar{X}$ and $S^2$ are unbiased estimators of
+$\mu$. 
+If we want to choose between these two estimators, how do we
+decide?
+:::
+
+1.  Assume $n=3$ and $\mu=2.3$.
+    Describe in full detail how you could conduct a simulation to approximate the sample-to-sample distribution of $\bar{X}$ and its and its expected value and standard deviation. Then conduct the simulation and record the results. What does the standard deviation measure?\
+    \
+    \
+    \
+    \
+1.  Assume $n=3$ and $\mu=2.3$. Describe in full detail how you could
+    conduct a simulation to approximate the sample-to-sample
+    distribution of $S^2$ and its expected value and standard
+    deviation. Then conduct the simulation and record the results. What
+    does the standard deviation measure?\
+    \
+    \
+    \
+    \
+1.  Compare the simulation results for $\bar{X}$ and $S^2$ when $n=3$
+    and $\mu = 2.3$. Based on the simulation results, which estimator of
+    $\mu$ is preferred when $\mu = 2.3$ --- $\bar{X}$ or $S^2$? Why? But
+    then explain why this information isn't very helpful.\
+    \
+    \
+    \
+    \
+1.  Assuming $n= 3$ and $\mu = 2.3$, compute $\textrm{E}(\bar{X})$ and $\textrm{SD}(\bar{X})$, and compare to the simulation results.\
+    \
+    \
+    \
+    \
+1.  For a general $n$ and $\mu >0$, find expressions for
+    $\textrm{E}(\bar{X})$ and
+    $\textrm{SD}(\bar{X})$.\
+    \
+    \
+    \
+    \
+1.  It can be shown that
+    $$
+    \textrm{Var}(S^2) = \frac{2\mu^2}{n-1} + \frac{\mu}{n}
+    $$
+    Sketch a plot of the variance functions of both $\bar{X}$ and $S^2$ as a
+    function of $\mu$. 
+    Regardless of the value of $\mu$, which estimator
+    has smaller variance? 
+    Which of these two unbiased estimators of $\mu$, $\bar{X}$ or $S^2$, is preferred?\
+    \
+    \
+    \
+    \
+
+-   When choosing between two *unbiased* estimators, the one with
+    smaller variance is generally preferred.
+-   Remember that the variance of an estimator will be a function of the
+    unknown parameter $\theta$, so we need to consider the variance
+    *function* for various potential values of $\theta$.
+
 
 -   MLE is one procedure for finding an estimator of a parameter
     $\theta$. But when several estimators of $\theta$ are available, how

@@ -1,4 +1,4 @@
-# From Probability to Statistics
+# Estimation: From Probability to Statistics
 
 ::: {#exm-prob-and-stat-questions}
 In each of the following scenarios, one of (i) and (ii)

@@ -3,90 +3,44 @@
 {{< include _r_setup.qmd >}}
 
 
-
-
-
--   The long run average value is just one feature of a distribution.
+-   The expected value, a.k.a. long run average value, is just one feature of a distribution.
 -   Random variables vary, and the distribution describes the entire pattern of variability.
 -   Roughly, standard deviation measures overall degree of variability in a single number, as the average distance from the mean.
 -   Technically, the **variance** is the long run average squared distance from the mean, and the **standard deviation** is the square root of the variance.
 
 
+::: {#exm-variance-calc}
+We'll motivate the calculation of variance by considering a small example.
+Say we have data on living area $X$, measure in thousands of square feet, for a small sample of 10 houses.
 
-
-::: {#exm-roulette-black}
-A roulette wheel has 18 black spaces, 18 red spaces, and 2 green spaces, all the same size and each with a different number on it.
-Guillermo bets $1 on black.
-If the wheel lands on black, Guillermo wins his bet back plus an additional $1; otherwise he loses the money he bet.
-Let $W$ be Guillermo's net winnings (net of the initial bet of $1.)
 :::
 
-1.  Find the distribution of $W$.\
-    \
-    \
-    \
-    \
-2.  Compute $\text{E}(W)$.\
-    \
-    \
-    \
-    \
-3.  Interpret $\text{E}(W)$ in context.\
-    \
-    \
-    \
-    \
-4.  An expected profit *for the casino* of 5 cents per $1 bet seems small. Explain how casinos can turn such a small profit into billions of dollars.\
-    \
-    \
-    \
-    \
-7.  The random variable $(W-\text{E}(W))^2$ represents the squared deviation from the mean. Find the distribution of this random variable and its expected value.\
-    \
-    \
-    \
-    \
-8.  Standard deviation is the square root of the variance. Why would we want to take the square root of the variance? Compute and interpret the standard deviation of $W$.\
-    \
-    \
-    \
-    \
-9.  Compute $\text{E}(W^2)$. (For this $W$ you should be able to compute $\text{E}(W^2)$ without any calculations; why?) Then compute $\text{E}(W^2) - (\text{E}(W))^2$; what do you notice?\
-    \
-    \
-    \
-    \
-
-```{r}
-#| include: false
-#| eval: false
-
-x = sample(c(-1, 1), size = 10000, prob = c(20, 18) / 38, replace = TRUE)
-
-data.frame(x,
-           x - mean(x),
-           (x - mean(x)) ^ 2) |>
-  head() |>
-  kbl(col.names = c("Value", "Deviation from mean", "Squared deviation")) |>
-  kable_styling(fixed_thead = TRUE)
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-mean(x)
-
-mean((x - mean(x)) ^ 2)
-
-var(x)
-
-sqrt(var(x))
-
-sd(x)
-```
+|      repetition     |       X     |      Deviation from mean     |      Squared deviation     |
+|---------------------|------------:|-----------------------------:|---------------------------:|
+|     1               |     1.12    |                              |                            |
+|     2               |     1.05    |                              |                            |
+|     3               |     1.67    |                              |                            |
+|     4               |     1.48    |                              |                            |
+|     5               |     0.43    |                              |                            |
+|     6               |     2.50    |                              |                            |
+|     7               |     1.71    |                              |                            |
+|     8               |     1.88    |                              |                            |
+|     9               |     0.85    |                              |                            |
+|     10              |     1.90    |                              |                            |
+|     Sum             |             |                              |                            |
+|     Average         |             |                              |                            |
 
 
+1.  Compute the average of the $X$ values.
+1.  Compute the deviation from the mean for each $X$ value.
+1.  Compute the squared deviations.
+1.  Compute the average squared deviation. This is called the variance. What are the measurement units?
+1.  Compute the square root of the variance. This is called the standard deviation. What are the measurement units?
+\
+\
+\
+\
+\
 
 
 
@@ -105,10 +59,14 @@ sd(x)
 -   That is, variance is the expected value of the square of $X$ minus the square of the expected value of $X$.\
 -   Variance has many nice theoretical properties. Whenever you need to compute a standard deviation, first find the variance and then take the square root at the end.
 
-::: {#exm-roulette-number}
-Continuing with roulette, Nadja bets $1 on number 7.
-If the wheel lands on 7, Nadja wins her bet back plus an additional $35; otherwise she loses the money she bet.
-Let $X$ be Nadja's net winnings (net of the initial bet of $1.)
+
+
+
+::: {#exm-roulette-black}
+An American roulette wheel has 18 black spaces, 18 red spaces, and 2 green spaces, all the same size and each with a different number on it.
+Xavier bets \$1 on black.
+If the wheel lands on black, Xavier wins his bet back plus an additional \$1; otherwise he loses the money he bet.
+Let $X$ be Xavier's net winnings (net of the initial bet of \$1.)
 :::
 
 1.  Find the distribution of $X$.\
@@ -116,36 +74,111 @@ Let $X$ be Nadja's net winnings (net of the initial bet of $1.)
     \
     \
     \
-2.  Compute $\text{E}(X)$.\
+1.  Compute $\text{E}(X)$.\
     \
     \
     \
     \
-3.  How do the expected values of the two $1 bets --- bet on black versus bet on 7 --- compare? Explain what this means.\
+1.  Interpret $\text{E}(X)$ in context.\
     \
     \
     \
     \
-4.  Are the two $1 bets --- bet on black versus bet on 7 --- identical? If not, explain why not.\
+1.  An expected profit *for the casino* of 5 cents per \$1 bet seems small. Explain how casinos can turn such a small profit into billions of dollars.\
     \
     \
     \
     \
-5.  Before doing any calculations, determine if $\text{SD}(X)$ is greater than, less than, or equal to $\text{SD}(W)$. Explain.\
+1.  Compute $\text{Var}(X)$.\
     \
     \
     \
     \
-6.  Compute $\text{Var}(W)$ and $\text{SD}(W)$.\
+1.  Compute and interpret $\text{SD}(X)$.\
     \
     \
     \
     \
-7.  Which $1 bet --- betting on black or betting on 7 --- is "riskier"? How is this reflected in the standard deviations?\
+
+
+
+::: {#exm-roulette-number}
+Continuing with roulette, Yasmin bets \$1 on number 7.
+If the wheel lands on 7, Yasmin wins her bet back plus an additional \$35; otherwise she loses the money she bet.
+Let $Y$ be Yasmin's net winnings (net of the initial bet of \$1.)
+:::
+
+1.  Find the distribution of $Y$.\
     \
     \
     \
     \
+2.  Compute $\text{E}(Y)$.\
+    \
+    \
+    \
+    \
+3.  How do the expected values of the two \$1 bets---bet on black versus bet on 7---compare? Does that mean that the two \$1 bets---bet on black versus bet on 7---are identical? If not, explain why not.\
+    \
+    \
+    \
+    \
+5.  Before doing any calculations, determine if $\text{SD}(Y)$ is greater than, less than, or equal to $\text{SD}(X)$. Explain.\
+    \
+    \
+    \
+    \
+6.  Compute $\text{Var}(Y)$.\
+    \
+    \
+    \
+    \
+7.  Compute and interpret $\text{SD}(Y)$.\
+    \
+    \
+    \
+    \
+
+
+
+-   Standardization measures values in terms of "standard deviations away from the mean"
+-   This idea is particularly useful when comparing random variables with different measurement units but whose distributions have similar shapes.
+    $$
+    \text{Standardized value} = \frac{\text{Value - Mean}}{\text{Standard deviation}}
+    $$
+-   If $X$ is a random variable with expected value $\text{E}(X)$ and standard deviation $\text{SD}(X)$, then the **standardized random variable** is
+    $$
+    Z = \frac{X - \text{E}(X)}{\text{SD}(X)}
+    $$
+
+
+::: {#exm-sat-z-score}
+The SAT and ACT are standardized tests; scores range from 200 to 1600 for the SAT and from 1 to 36 for the ACT. 
+SAT scores have, approximately, a symmetric bell-shaped distribution with a mean of 1050 and a standard deviation of 200.
+ACT scores have, approximately, a symmetric bell-shaped distribution with a mean of 21 and a standard deviation of 5.5.
+Troy's score on the SAT is 1500.
+Abed's score on the ACT is 31.
+Who scored relatively better on their test?
+:::
+
+1.  Compute and interpret the standardized value for Troy's SAT score.\
+    \
+    \
+    \
+    \
+1.  Compute and interpret the standardized value for Abed's ACT score.\
+    \
+    \
+    \
+    \
+3.  Who scored relatively better on their test?\
+    \
+    \
+    \
+    \
+
+
+## Exercises
 
 
 
@@ -162,41 +195,107 @@ Each quiz score is a whole number between 0 and 10 inclusive.
 #| label: fig-sd-matching-plot
 #| fig-cap: "A few discrete distributions."
 
-x1 = 0:10
-p1 = c(1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1)
-p1 = p1/sum(p1)
+x1 <- 0:10
+p1 <- c(1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1)
+p1 <- p1 / sum(p1)
 
-x2 = 0:10
-p2 = c(6, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6)
-p2 = p2/sum(p2)
+x2 <- 0:10
+p2 <- c(6, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6)
+p2 <- p2 / sum(p2)
 
-x3 = 0:10
-p3 = rep(1/11, 11)
+x3 <- 0:10
+p3 <- rep(1 / 11, 11)
 
-x4 = c(0, 10)
-p4 = c(0.5, 0.5)
+x4 <- c(0, 10)
+p4 <- c(0.5, 0.5)
 
-x5 = 3:7
-p5 = c(1, 2, 3, 2, 1)
-p5 = p5/sum(p5)
+x5 <- 3:7
+p5 <- c(1, 2, 3, 2, 1)
+p5 <- p5 / sum(p5)
 
-x6 = c(6, 7, 8)
-p6 = c(0.1, 0.8, 0.1)
+x6 <- c(6, 7, 8)
+p6 <- c(0.1, 0.8, 0.1)
 
-xlimits = c(0, 10)
-xs = 0:10
-par(mfrow=c(2,3), mar=c(4, 4, 1, 1) + 0.1)
-plot(x1, p1, xlim=xlimits, ylim=c(0,1), xlab="", ylab="Probability", main="A", type="h", lwd=2, xaxt="n")
+xlimits <- c(0, 10)
+xs <- 0:10
+par(mfrow = c(2, 3), mar = c(4, 4, 1, 1) + 0.1)
+plot(
+  x1,
+  p1,
+  xlim = xlimits,
+  ylim = c(0, 1),
+  xlab = "",
+  ylab = "Probability",
+  main = "A",
+  type = "h",
+  lwd = 2,
+  xaxt = "n"
+)
 axis(1, xs)
-plot(x2, p2, xlim=xlimits, ylim=c(0,1), xlab="", ylab="Probability", main="B", type="h", lwd=2, xaxt="n")
+plot(
+  x2,
+  p2,
+  xlim = xlimits,
+  ylim = c(0, 1),
+  xlab = "",
+  ylab = "Probability",
+  main = "B",
+  type = "h",
+  lwd = 2,
+  xaxt = "n"
+)
 axis(1, xs)
-plot(x3, p3, xlim=xlimits, ylim=c(0,1), xlab="", ylab="Probability", main="C", type="h", lwd=2, xaxt="n")
+plot(
+  x3,
+  p3,
+  xlim = xlimits,
+  ylim = c(0, 1),
+  xlab = "",
+  ylab = "Probability",
+  main = "C",
+  type = "h",
+  lwd = 2,
+  xaxt = "n"
+)
 axis(1, xs)
-plot(x4, p4, xlim=xlimits, ylim=c(0,1), xlab="", ylab="Probability", main="D", type="h", lwd=2, xaxt="n")
+plot(
+  x4,
+  p4,
+  xlim = xlimits,
+  ylim = c(0, 1),
+  xlab = "",
+  ylab = "Probability",
+  main = "D",
+  type = "h",
+  lwd = 2,
+  xaxt = "n"
+)
 axis(1, xs)
-plot(x5, p5, xlim=xlimits, ylim=c(0,1), xlab="", ylab="Probability", main="E", type="h", lwd=2, xaxt="n")
+plot(
+  x5,
+  p5,
+  xlim = xlimits,
+  ylim = c(0, 1),
+  xlab = "",
+  ylab = "Probability",
+  main = "E",
+  type = "h",
+  lwd = 2,
+  xaxt = "n"
+)
 axis(1, xs)
-plot(x6, p6, xlim=xlimits, ylim=c(0,1), xlab="", ylab="Probability", main="F", type="h", lwd=2, xaxt="n")
+plot(
+  x6,
+  p6,
+  xlim = xlimits,
+  ylim = c(0, 1),
+  xlab = "",
+  ylab = "Probability",
+  main = "F",
+  type = "h",
+  lwd = 2,
+  xaxt = "n"
+)
 axis(1, xs)
 
 # sqrt(sum(x1^2*p1)-sum(x1*p1)^2)
@@ -205,7 +304,6 @@ axis(1, xs)
 # sqrt(sum(x4^2*p4)-sum(x4*p4)^2)
 # sqrt(sum(x5^2*p5)-sum(x5*p5)^2)
 # sqrt(sum(x6^2*p6)-sum(x6*p6)^2)
-
 ```
 
 1.  Donny Dont says that C represents the smallest SD, since there is no variability in the heights of the bars. Do you agree that C represents "no variability"? Explain.\
@@ -213,7 +311,7 @@ axis(1, xs)
     \
     \
     \
-2.  What is the smallest *possible* value the SD of quiz scores could be? What would need to be true about the distribution for this to happen? (This scenario might not be represented by one the plots.)\
+2.  What is the smallest *possible* value the SD of quiz scores could be? What would need to be true about the distribution for this to happen? (This scenario might not be represented by one of the plots.)\
     \
     \
     \
@@ -234,84 +332,67 @@ axis(1, xs)
     \
     \
     \
-6.  Provide a ballpark estimate of SD in each case.\
+6.  Without doing any calculations, provide a ballpark estimate of SD in each case.\
+    \
+    \
+    \
+    \
+7.  The standard deviation in plot E is about 1.15. 
+Suppose that the scores are curved by adding 2 points to every score.
+What is the standard deviation and variance of the revised scores?\
+    \
+    \
+    \
+    \
+8.  The standard deviation in plot E is about 1.15. 
+Suppose that the scores are curved by multiplying every score by 2.
+What is the standard deviation and variance of the revised scores?\
     \
     \
     \
     \
 
 
-## Standardization
+-   Variance and linear rescaling: If $X$ is a random variable and $a, b$ are non-random constants then
+\begin{align*}
+\text{SD}(aX + b) & = |a|\text{SD}(X)\\
+\text{Var}(aX + b) & = a^2\text{Var}(X)
+\end{align*}
 
--   Standardization measures values in terms of "standard deviations away from the mean"
--   This idea is particularly useful when comparing random variables with different measurement units but whose distributions have similar shapes. $$
-    \text{Standardized value} = \frac{\text{Value - Mean}}{\text{Standard deviation}}
-    $$
--   If $X$ is a random variable with expected value $\text{E}(X)$ and standard deviation $\text{SD}(X)$, then the **standardized random variable** is $$
-    Z = \frac{X - \text{E}(X)}{\text{SD}(X)}
-    $$
-
-
-::: {#exm-sat-z-score}
-SAT scores have, approximately, a symmetric bell-shaped distribution with a mean of 1050 and a standard deviation of 200.
-ACT scores have, approximately, a symmetric bell-shaped distribution with a mean of 21 and a standard deviation of 5.5.
-Darius's score on the SAT is 1500.
-Alfred's score on the ACT is 31.
-Who scored relatively better on their test?
+::: {#exr-matching-sd}
+Recall the matching problem from @exm-matching-pmf, @exr-matching-poisson, and @exr-matching-ev with a general $n$ and let $X$ be the number of matches.
 :::
 
-1.  Compute and interpret the standardized value for Darius's SAT score.
-    \
-    \
-    \
-    \
-1.  Compute and interpret the standardized value for Alfred's ACT score
-    \
-    \
-    \
-    \
-3.  Who scored relatively better on their test?\
-    \
-    \
-    \
-    \
+
+1.  Compute and interpret $\text{Var}(X)$ and $\text{SD}(X)$ when $n=3$.
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{Var}(X)$ and $\text{SD}(X)$ for a general $n$.
+\
+\
+\
+\
+\
 
 
-```{r}
-#| label: fig-sat-z-score-plot
-#| echo: false
-#| layout-nrow: 2
-#| fig-cap: "Comparison of the distributions in @exm-sat-z-score. The blue mark indicates Darius's SAT score and the orange mark indicates Alfred's ACT score."
+::: {#exr-geometric-var}
+Suppose that $X$ has a Geometric($p$) distribution.
+:::
 
+1.  Without doing any computations, determine $\text{Var}(X)$ if $p=1$.
+\
+\
+\
+\
+\
+1.  As $p$ decreases, does $\text{Var}(X)$ increase or decrease? Why?
+\
+\
+\
+\
+\
 
-
-za = seq(-3, 3, 0.5)
-z = seq(-3, 3, 0.001)
-
-x1a = 1050 + 200 * za 
-
-plot(z, dnorm(z), xlim=range(z), ylim=c(0,dnorm(0)),
-     type = "l",
-      yaxt='n', xaxt='n', ylab = "", xlab = "", lwd = 2,
-      main = "SAT scores: Normal distribution with mean 1050 and SD 200") 
-axis(1, at = za, labels = x1a, line=0.5, cex.axis=0.8)
-axis(1, at = za, labels = za, line=2.7, cex.axis=0.8)
-# axis(1, at = xa, labels = seq(-4, 4, 1), line=2.7,cex.axis=1.0)
-mtext("SDs", cex = 0.80, side = 1, line = 3.5, at = -3.5)
-mtext("Score", cex = 0.80, side = 1, line = 1.3, at= -3.5)
-mtext(c("|"), side=1, line=0, at=c((1500 - 1050) / 200), cex = 2, col = "blue")
-
-x2a = 21 + 5.5 * za 
-
-plot(z, dnorm(z), xlim=range(z), ylim=c(0,dnorm(0)),
-     type = "l",
-      yaxt='n', xaxt='n', ylab = "", xlab = "", lwd = 2,
-      main = "ACT scores: Normal distribution with mean 21 and SD 5.5") 
-axis(1, at = za, labels = x2a, line=0.5,cex.axis=0.8)
-axis(1, at = za, labels = za, line=2.7,cex.axis=0.8)
-# axis(1, at = xa, labels = seq(-4, 4, 1), line=2.7,cex.axis=1.0)
-mtext("SDs", cex = 0.80, side = 1, line = 3.5, at = -3.5)
-mtext("Score", cex = 0.80, side = 1, line = 1.3, at= -3.5)
-mtext(c("|"), side=1, line=0, at=c((31 - 21) / 5.5), cex = 2, col = "orange")
-
-```
+-   If $X$ has a Geometric distribution with parameter $p$ then $\text{Var}(X) = (1-p)/p^2$.

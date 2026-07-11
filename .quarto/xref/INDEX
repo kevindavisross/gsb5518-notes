@@ -157,5 +157,8 @@
   },
   "bayes-rule.qmd": {
     "bayes-rule.html": "d1104d74"
+  },
+  "probability-mass-functions.qmd": {
+    "probability-mass-functions.html": "9d195bda"
   }
 }

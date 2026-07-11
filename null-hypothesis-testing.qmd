@@ -422,3 +422,242 @@ Discuss the advantages and disadvantages of each approach.
 
 [^1]: Source:
     <http://a.espncdn.com/pdf/2015/0506/PatriotsWellsReport.pdf>
+
+
+
+
+
+-   Remember: the smaller the p-value, the stronger the evidence to
+    reject the null hypothesis.
+    -   But how small is small enough?
+-   A "significance level", usually denoted $\alpha$, is a pre-specified
+    cut-off for how small the p-value must be in order to reject the
+    null hypothesis. The most common value is $\alpha=0.05$.
+    -   HOWEVER, in general, do NOT rely too strictly on a significance
+    level $\alpha$.
+    -   In fact, for years the the [American Statistical Association](https://www.tandfonline.com/doi/full/10.1080/00031305.2019.1583913#d1e335) has said to stop using values like 0.05 to make binary reject/not reject decisions.
+-   If the p-value is small the result is sometimes
+        referred to as "statistically significant".
+    -   HOWEVER, we will see that this is a poor choice of words.
+    -   In fact, for years the [American Statistical Association](https://www.amstat.org/news-listing/2021/10/08/editorial-calls-time-on-statistically-significant-in-research) has said to stop using the term "statistically significant". Quote: "'statistically significant'---don't say it and don't use it."
+-   Reporting the actual p-value and interpreting it as a sliding scale of weak/moderate/strong evidence to reject the null hypothesis is is
+    much more informative than just reporting "reject $H_0$ at level
+    $\alpha=0.05$" or "p-value $<0.05$".
+-   Remember that hypothesis testing and p-values are just small parts of a much bigger picture. A hypothesis test provides some information, but there are many important questions that hypothesis testing and p-values do not have the ability to address.
+
+::: {#exm-ht-coin}
+A 2007 paper[^1] suggests that in coin-tossing there is
+a particular "dynamical bias" that causes a coin to be slightly more
+likely to land the same way up as it started. That is, the paper claims
+that a coin is more likely to land facing Heads up if it starts facing
+Heads up than if it starts facing Tails up; likewise if it starts facing
+Tails up. Is this really true? Two students at Berkeley investigated
+this phenomenon by tossing a coin many, many times.
+:::
+
+1.  Define the parameter $p$ in words and state the null and alternative hypotheses using symbols.
+\
+\
+\
+\
+\
+2.  Suppose that out of 10000 flips, 5083 landed the same way they started. Based on this data, can you conclude that a coin is more
+    likely to land the same way it started using a strict "significance
+    level" of $\alpha=0.05$?
+    Compute the p-value and state your conclusion at level $\alpha=0.05$ in
+    context. Note: One goal of the example is to show you one reason why using a strict $\alpha$ is a bad idea.
+\
+\
+\
+\
+\
+3.  Repeat the previous part assuming 5082 out of 10000 flips landed the same way
+    they started.
+\
+\
+\
+\
+\
+4.  Compare the two previous parts. Give one reason
+    why you should be wary of using a "significance level" (like 0.05)
+    too strictly.
+\
+\
+\
+\
+\
+5.  The students actually tossed the coin 40,000 times![^2]. Of the
+    40,000 flips, 20,245 landed the same way they started. Compute the p-value and state a conclusion in context. (Do NOT
+    use a strict $\alpha$ level.)
+    Which result---20245 out of 40000 or 5083 out of 10000---gives stronger evidence to reject the null hypothesis?
+\
+\
+\
+\
+\
+6.  Would you say the results of the real study, in the previous part, are newsworthy?
+    Or important? Or "significant"? Using this problem as an example,
+    explain why "statistically significant" is a poor choice of words.
+    In other words, explain why "statistical significance" is not the
+    same as practical importance.
+\
+\
+\
+\
+\
+
+-   In general, do NOT rely too strictly on a significance level
+    $\alpha$.
+-   Reporting the actual p-value and interpreting it as
+    strong/moderate/weak evidence to reject the null hypothesis is
+    more informative than just reporting "reject $H_0$ at level
+    $\alpha=0.05$" or "p-value $<0.05$".
+-   Beware the meaning of "significant".
+-   A "statistically significant" result is not necessarily
+    practically important or meaningful. Rather, it is just is more extreme than what would
+    be expected to occur just due to chance if the null hypothesis were true, but not necessarily
+    large in practical terms.
+-   Especially when the sample size is large, even a small observed
+    difference can result in a small p-value.
+-   On the other hand, an observed result might have practical
+    significance even when the p-value is not small.
+-   A confidence interval estimates the size of the difference,
+    which helps in judging practical significance. It is also
+    important to consider *effect size*.
+-   Do NOT use the terminology "statistically significant".
+
+
+::: {#exm-ht-esp}
+(For this exercise, you'll need to believe it's possible for a person to have ESP.)
+"Ganzfeld studies" test psychic ability (like ESP).
+Ganzfeld studies involve two people, a "sender" and a "receiver", who
+are placed in separate acoustically-shielded rooms. The sender looks at
+a "target" image on a television screen (which may be a static
+photograph or a short movie segment playing repeatedly) and attempts to
+*transmit with their mind* information about the target to the receiver.
+The receiver is then shown four possible choices of targets, one of
+which is the correct target and the other three are "decoys." The
+receiver must choose the one transmitted by the sender[^4].
+:::
+
+
+
+
+1.  We will now conduct some Ganzfeld tests to see if anyone in the class has ESP.
+    -   Find a partner. Identify one person as the sender and one as the receiver.
+    -   The sender rolls a four-sided die, looks at it (without letting the receiver see), and then tries to transmit the number rolled to the mind of the receiver.
+    -   After receiving the mental image, the receiver identifies the number.  Record whether the answer is correct or not.
+    -   Repeat the above process for a total of 9 trials with the same receiver. The receiver should record the number of trials (out of 9) they got correct.
+    -   Then switch sender/receiver roles and do it again. Each receiver should record the number of trials (out of 9) that they got correct.
+\
+\
+\
+\
+\
+1.  Use your results to conduct a hypothesis test to see if you have evidence that you did better than just guessing (and so you have some kind of ESP!)
+\
+\
+\
+\
+\
+1.  Suppose we had set a cut-off of 0.05. Based on this strict cutoff, do you have enough evidence to reject the null hypothesis? That is, based on this cutoff, is your p-value small enough to conclude that you have ESP? (Hint: if you got at least 5 out of 9 correct your answer should be "yes".)
+\
+\
+\
+\
+\
+1.  Consider a student who rejects the null hypothesis. Could their conclusion be wrong? How?
+\
+\
+\
+\
+\
+1.  Consider a student who fails to reject the null hypothesis. Could their conclusion be wrong? How? (Again, you'll need to believe it's possible for a person to have ESP.)
+\
+\
+\
+\
+\
+1.  Using the cutoff of 0.05, did any receiver in our class (of about 30 students) discover evidence that they have ESP?
+Should we be surprised that this happened?
+\
+\
+\
+\
+\
+
+-   The null hypothesis $H_0$ is "innocent until 'proven' guilty".
+    That is, the null hypothesis is not rejected unless there is
+    convincing evidence against it.
+-   When making a conclusion --- reject $H_0$, or fail to reject
+    $H_0$ --- there are two errors that could be made:
+    -   **Type I error:** Reject $H_0$ when $H_0$ is actually true
+        (unbeknownst to the researcher)
+        -   "False alarm" or "false discovery"
+        -   Analogous to sending an innocent person to jail.
+    -   **Type II error:** Fail to reject $H_0$ when $H_0$ is
+        actually false (unbeknownst to the researcher)
+        -   "Missed opportunity"
+        -   Analogous to letting a guilty person go free.
+-   The probability of making a Type I error can be managed by
+    setting a "significance" level $\alpha$.
+-   If decisions are made according to the rule "reject the null hypothesis only when p-value $<\alpha$" then the
+    probability of making a Type I error is (at most) $\alpha$.
+-   But there is a tradeoff: decreasing the probability of making a Type I error will increase
+    probability of making a Type II error.
+-   The **power** of a test is the probability of correctly
+    rejecting the null hypothesis when the the null hypothesis is
+    false.
+    -   The power is the probability of making a "true discovery".
+
+![](_graphics/typeI_II_error_table.png)
+
+-   Hypothesis tests are appropriate when there is a clearly defined
+    research question and conjecture (i.e. alternative hypothesis), and
+    sample data is collected for this purpose.
+-   If many hypothesis tests are performed, eventually you will reject a
+    null hypothesis --- just by chance --- even if all the null
+    hypotheses are really true.
+    -   For example, in a set of 35 tests all conducted using strict
+        level $\alpha=0.05$, there is about an 84 percent chance of
+        rejecting at least one of the null hypotheses when all 35 null
+        hypotheses are true.
+-   Beware of [**p-hacking**](https://www.youtube.com/watch?v=0Rnq1NpHdmw), which involves repeating hypothesis tests until a small p-value is found
+-   The issue of multiple testing/p-hacking is another reason why you should not rely
+    too strictly on a "significance" level $\alpha$.
+-   Do NOT use a strict level $\alpha$ to make a strict reject
+    $H_0$/fail to reject $H_0$ conclusion based on observed sample data
+    about a particular hypothesized value or research question
+    -   Rather, report the p-value and assess strength of evidence in favor of rejecting the null hypothesis on a sliding scale.
+    -   But remember the p-value doesn't tell you anything about how big
+        or meaningful the difference is---but rather just if it's not due
+        to random chance---especially if the sample size is large
+    -   Be especially careful about using $\alpha$ or interpreting
+        p-values when conducting multiple hypothesis tests on the same
+        data. Beware p-hacking.
+-   Do USE "significance" levels
+    -   For research planning purposes --- to manage probability of Type
+        I error, to investigate power, and to determine an appropriate
+        sample size --- *before* collecting data
+    -   When determining a *range* of plausible values for the
+        parameter, e.g., to determine the cutoff between plausible/not
+        plausible in a confidence interval.
+        -   A 95% confidence is essentially the range of hypothesized values that would not be rejected at level 0.05 based on the observed data.
+-   Remember that hypothesis testing and p-values are just small parts of a much bigger picture. A hypothesis test provides some information, but there are many important questions that hypothesis testing and p-values do not have the ability to address.
+
+
+[^1]: <http://statweb.stanford.edu/~cgates/PERSI/papers/dyn_coin_07.pdf>
+
+[^2]: <https://www.stat.berkeley.edu/~aldous/Real-World/coin_tosses.html>
+
+
+
+[^4]: Watch [this clip from the movie
+    *Ghostbusters*](https://www.youtube.com/watch?v=fn7-JZq0Yxs)
+
+
+[^6]: <http://www.npr.org/sections/thesalt/2015/05/28/410313446/why-a-journalist-scammed-the-media-into-spreading-bad-chocolate-science>
+
+[^7]: <http://io9.com/i-fooled-millions-into-thinking-chocolate-helps-weight-1707251800>
+
+[^8]: <https://xkcd.com/882/>
