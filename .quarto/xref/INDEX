@@ -160,5 +160,11 @@
   },
   "probability-mass-functions.qmd": {
     "probability-mass-functions.html": "9d195bda"
+  },
+  "binomial.qmd": {
+    "binomial.html": "930797e1"
+  },
+  "poisson.qmd": {
+    "poisson.html": "0bf296d7"
   }
 }

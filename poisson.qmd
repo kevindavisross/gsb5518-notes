@@ -5,177 +5,278 @@
 
 
 
+
+-   Binomial models have several restrictive assumptions that might not be satisfied in practice
+-   Poisson models are more flexible and are often used to model the distribution of random variables that count the number of "relatively rare" events that occur over a certain interval of time/in a certain location.
+
+
+```{r}
+#| label: tbl-matching-poisson-distribution
+#| echo: false
+#| warning: false
+#| tbl-cap: "Poisson(1) distribution, the approximate distribution of $X$, the number of matches in the matching problem for general $n$ and uniformly random placement of objects in spots."
+
+library(tidyverse)
+library(kableExtra)
+
+y <- 0:7
+p <- dpois(y, 1)
+
+kbl(
+  data.frame(y, p),
+  col.names = c("x", "P(X=x)"),
+  booktabs = TRUE,
+  digits = 5
+) |>
+  kable_styling()
+```  
+
+
+::: {#exm-poisson-matching}
+Recall the matching problem from @exm-matching-pmf, @exr-matching-poisson, @exr-matching-ev, and @exr-matching-sd.
+There are $n$ distinct objects that are shuffled and placed uniformly at random in $n$ distinct spots with one object per spot, and $X$ is the number of correct matches of object with spot. 
+Note: $n$ is a fixed and known number, but we are considering different values of it.
+
+We have seen that $\text{E}(X)=1$ for any $n$ and that unless $n$ is small (e.g., $n \le 6$), $\text{Var}(X)=1$ and the approximate distribution of $X$ is given by @tbl-matching-poisson-distribution.
+
+Starting with $x=0$, describe the distribution of $X$ in terms of relative likelihoods:
+:::
+
+
+ 
+1.  1 is [blank] times as likely as 0\
+\
+\
+\
+1.  2 is [blank] times as likely as 1\
+\
+\
+\
+1.  3 is [blank] times as likely as 2\
+\
+\
+\
+1.  4 is [blank] times as likely as 3\
+\
+\
+\
+1.  5 is [blank] times as likely as 4\
+\
+\
+\
+1.  6 is [blank] times as likely as 5\
+\
+\
+\
+1.  In general, $x$ is [blank] times as likely as $x-1$, for $x=1, 2, 3, \ldots$\
+\
+\
+\
+
+
+
+-   A random variable $X$ has a **Poisson distribution** with parameter $\mu>0$ if the possible values are $0, 1, 2, \ldots$ and the pmf follows the
+$$
+\text{Poisson(}\mu\text{) pattern:}\quad x \text{ is } \frac{\mu}{x} \text{ as likely as } x-1 \quad \text{ (for } x = 1, 2, 3, \ldots)
+$$ 
+-   As a function of $x=0, 1, 2, \ldots$, a Poisson($\mu$) pmf increases for $x<\mu$ and then decreases for $x >\mu$
+    -   If $\mu$ is a whole number, then the Poisson pmf assigns the same probability to the values $\mu$ and $\mu-1$.
+    -   If $\mu<1$ then $x=0$ has the highest probability and the pmf decreases from there.
+-   If $X$ has a Poisson($\mu$) distribution then
+\begin{align*}
+\text{E}(X) & = \mu\\
+\text{Var}(X) & = \mu
+\end{align*}
+
+
+
+
 ::: {#exm-poisson-hr}
 Let $X$ be the number of home runs hit (in total by both teams) in a randomly selected Major League Baseball game.
 Technically, there is no fixed upper bound on what $X$ can be, so mathematically it is convenient to consider $0, 1, 2, \ldots$ as the possible values of $X$.
-Assume that the pmf of $X$ is
-$$
-p_X(x) =
-e^{-2.3} \frac{2.3^x}{x!}, x = 0, 1, 2, \ldots
-$$ This distribution is called the Poisson(2.3) distribution.
+Assume that $X$ has a Poisson distribution with parameter 2.4.
 :::
 
-1.  Compute $\text{P}(X = 3)$. Then interpret the value as a long run relative frequency, and a relative likelihood.\
-    \
-    \
-    \
-    \
-2.  Construct a table, plot, and spinner corresponding to the distribution of $X$.\
-    \
-    \
-    \
-    \
-3.  Compute and interpret $\text{P}(X \le 2)$.\
-    \
-    \
-    \
-    \
-4.  Compute and interpret $\text{P}(X \le 13)$. ([The most home runs ever hit in a baseball game is 13](https://www.mlb.com/news/d-backs-and-phillies-set-mlb-home-run-record).)\
-    \
-    \
-    \
-    \
-
-```{r}
-#| label: poisson-hr-data
-#| echo: false
-#| fig-cap: "Relative frequencies of home runs per game in the 2018 MLB season, compared with the Poisson(2.3) distribution."
-
-knitr::include_graphics("_graphics/poisson-hr-data.PNG")
-
-```
-
-| $x$ |                         $p(x)$ |    Value |
-|-----|-------------------------------:|---------:|
-| 0   |     $e^{-2.3}\frac{2.3^0}{0!}$ | 0.100259 |
-| 1   |     $e^{-2.3}\frac{2.3^1}{1!}$ | 0.230595 |
-| 2   |     $e^{-2.3}\frac{2.3^2}{2!}$ | 0.265185 |
-| 3   |     $e^{-2.3}\frac{2.3^3}{3!}$ | 0.203308 |
-| 4   |     $e^{-2.3}\frac{2.3^4}{4!}$ | 0.116902 |
-| 5   |     $e^{-2.3}\frac{2.3^5}{5!}$ | 0.053775 |
-| 6   |     $e^{-2.3}\frac{2.3^6}{6!}$ | 0.020614 |
-| 7   |     $e^{-2.3}\frac{2.3^7}{7!}$ | 0.006773 |
-| 8   |     $e^{-2.3}\frac{2.3^8}{8!}$ | 0.001947 |
-| 9   |     $e^{-2.3}\frac{2.3^9}{9!}$ | 0.000498 |
-| 10  | $e^{-2.3}\frac{2.3^{10}}{10!}$ | 0.000114 |
-| 11  | $e^{-2.3}\frac{2.3^{11}}{11!}$ | 0.000024 |
-| 12  | $e^{-2.3}\frac{2.3^{12}}{12!}$ | 0.000005 |
-| 13  | $e^{-2.3}\frac{2.3^{13}}{13!}$ | 0.000001 |
-| 14  | $e^{-2.3}\frac{2.3^{14}}{14!}$ | 0.000000 |
-
-: Table representing the Poisson(2.3) probability mass function.
-
-```{r}
-#| include: false
-#| eval: false
-
-dpois(3, 2.3)
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-x = 0:14
-
-p_x = dpois(x, 2.3)
-
-data.frame(x, p_x) |>
-  kbl(digits = 6) |>
-  kable_styling(fixed_thead = TRUE)
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-sum(dpois(0:2, 2.3))
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-ppois(2, 2.3)
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-sum(dpois(0:13, 2.3))
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-ppois(13, 2.3)
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-rpois(10, 2.3)
-```
-
-```{r}
-#| label: fig-poisson-hr
-#| include: false
-#| eval: false
-#| fig-cap: "Simulated distribution of $X$ with a Poisson(2.3) distribution."
-
-N_rep = 10000
-
-x = rpois(N_rep, 2.3)
-
-# Summarize the simulate values
-plot(table(x) / N_rep,
-     type = "h",
-     xlab = "x",
-     ylab = "Approximate P(X = x)")
-```
-
-```{r}
-#| label: spinner-poisson-hr
-#| echo: false
-#| fig-cap: "Spinner corresponding to the Poisson(2.3) distribution (values 6, 7, ... lumped into one 6+ category)."
-
-x = c(0:5, "6+")
-p = c(dpois(0:5, 2.3), 1-ppois(5, 2.3))
-
-xp <- data.frame(x, p)
-
-cdf = c(0, cumsum(xp$p))
-
-plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
-  
-spinner <- ggplot(xp, aes(x="", y=p, fill=x))+
-  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
-  coord_polar("y", start=0) +
-  theme_void() + 
-  # plot the possible values on the outside
-  scale_y_continuous(breaks = plotp, labels=xp$x) +
-  theme(axis.text.x=element_text(size=14, face="bold")) +
-  # plot the probabilities as percents inside
-  geom_text(aes(y = plotp,
-                label = percent(p)), size=4,
-            color=c(rep("black", 6), rep("white", 1))) +
-  ggtitle(paste("Poisson(2.3) spinner", sep=""))
-
-spinner
-
-```
-
--   A discrete random variable $X$ has a **Poisson distribution** with parameter $\mu>0$ if its probability mass function $p_X$ satisfies $$
-      p_X(x) = \frac{e^{-\mu}\mu^x}{x!}, \quad x=0,1,2,\ldots
-      $$
--   The function $\mu^x / x!$ defines the shape of the pmf. The constant $e^{-\mu}$ ensures that the probabilities sum to 1.
--   Poisson distributions are often used to model random variables which count the number of "relative rare" events that occur.
--   If $X$ has a Poisson($\mu$) distribution, $\text{P}(X = 0) = e^{-\mu}$ and the probabilitiies of possible values follow the
-
+1.  Interpret 2.4 in context.\
+\
+\
+\
+\
+\
+1.	Identify what the Poisson(2.4) patterns implies in context.\
+\
+\
+\
+\
+\
+1.	Sketch a plot of the distribution of $X$.\
+\
+\
+\
+\
+\
+1.  Assuming that the probability that $X$ is greater than 9 is negligible, make a table representing the distribution of $X$.\
+\
+\
+\
+\
+\
+1.  The pmf of $X$ is
 $$
-\text{Poisson(}\mu\text{) pattern:}\quad x \text{ is } \frac{\mu}{x} \text{ as likely as } x-1 \quad \text{ (for } x = 1, 2, 3, \ldots)
+\text{P}(X = x) = e^{-2.4}\frac{2.4^x}{x!}, \quad x = 0, 1, 2, \ldots
 $$
+Use the pmf to compute $\text{P}(X = 0)$.\
+\
+\
+\
+\
+\
+1.  Use the pmf to compute $\text{P}(X = 1)$.\
+\
+\
+\
+\
+\
+1.  Use the pmf to compute $\text{P}(X = 2)$.\
+\
+\
+\
+\
+\
+1.  Use the pmf to construct a table and plot representing the distribution of $X$. Does it match your previous work?\
+\
+\
+\
+\
+\
+1.  Use the pmf to compute $\text{E}(X)$ and verify that it is 2.4.\
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{P}(X \le 2)$.\
+\
+\
+\
+\
+\
+
+-   A discrete random variable $X$ has a Poisson distribution with parameter $\mu>0$ if and only if its probability mass function $p_X$ satisfies
+$$
+p_X(x) = \frac{e^{-\mu}\mu^x}{x!}, \quad x=0,1,2,\ldots
+$$
+-   The Poisson pattern implies that the shape of a Poisson pmf as a function of $x$ is given by $\mu^x/x!$.
+    $$
+    p(x) = p(0)\frac{\mu^x}{x!}, \qquad x = 0, 1, 2, \ldots
+    $$ 
+-   The constant $p(0) = e^{-\mu}$ simply renormalizes the pmf so  that the probabilities sum[^exp-taylor] to 1.
+
+
+
+[^exp-taylor]: Recall the series expansion $e^{\mu} = \sum_{x=0}^\infty \frac{\mu^x}{x!}$ 
+
+
+
+
+::: {#exm-homerun-poisson-assumptions}
+
+Let $X$ be the number of home runs hit (in total by both teams) in a randomly selected Major League Baseball game.
+Assume that $X$ has a Poisson(2.4) distribution.
+:::
+
+1.  In what ways is this like the Binomial situation?
+\
+\
+\
+\
+\
+1.  In what ways is this NOT like the Binomial situation?
+\
+\
+\
+\
+\
+1.  In what sense are home runs "relatively rare"?
+\
+\
+\
+\
+\
+
+
+
+
+-   Binomial models have several restrictive assumptions that might not be satisfied in practice
+-   Poisson models are more flexible and are often used to model the distribution of random variables that count the number of "relatively rare" events that occur over a certain interval of time/in a certain location 
+-  **Poisson paradigm.** Let $A_1, A_2, \ldots, A_n$ be a collection of $n$ events. 
+Suppose event $i$ occurs with marginal probability $p_i=\text{P}(A_i)$. Let $N = \text{I}_{A_i} + \text{I}_{A_2} + \cdots + \text{I}_{A_n}$ be the random variable which counts the number of the events in the collection which occur. Suppose
+    -   $n$ is "large" (but not necessarily fixed),
+    -   $p_1, \ldots, p_n$ are "comparably small" (but not necessarily the same), and
+    -   the events $A_1, \ldots, A_n$ are "not too dependent" (but not necessarily independent). 
+-   Then $N$ has an approximate Poisson distribution with parameter $\text{E}(N) = \sum_{i=1}^n p_i$.
+
+
+
+
+
+## Exercises
+
+
+::: {#exr-matching-poisson-paradigm}
+Continuing @exm-poisson-matching.
+Explain why $X$ in the matching problem has a Poisson distribution when $n$ is large.
+\
+\
+\
+\
+\
+:::
+
+::: {#exr-poisson-aggregation}
+Suppose that the number of fatal crashes in SLO County in a week follows, approximately, a Poisson(0.53) distribution, independently from week to week.
+Let $X$ be the number of fatal crashes in a period of 4 consecutive weeks (close enough to a "month").
+
+:::
+
+1.  Make an educated guess for $\text{E}(X)$. 
+\
+\
+\
+\
+\
+1.  Compute $\text{P}(X = 0)$.
+\
+\
+\
+\
+\
+1.  Compute $\text{P}(X = 1)$.
+\
+\
+\
+\
+\
+1.  How could you use simulation to approximate the distribution of $X$?
+\
+\
+\
+\
+\
+1.  Use simulation to approximate the distribution of $X$. 
+Does the approximate distribution follow (approximately) the Poisson pattern?
+\
+\
+\
+\
+\
+1.  Use a Poisson pmf to compute $\text{P}(X = 5)$.
+\
+\
+\
+\
+\
+
+-   **Poisson aggregation.** If $X$ and $Y$ are independent, $X$ has a Poisson($\mu_X$) distribution,  and $Y$ has a Poisson($\mu_Y$) distribution, then $X+Y$ has a Poisson($\mu_X+\mu_Y$) distribution.
+-   If component counts are independent and each has a Poisson distribution, then the total count also has a Poisson distribution.
 

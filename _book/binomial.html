@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Homework 2 – GSB518 Notes</title>
+<title>10&nbsp; Binomial Distributions – GSB518 Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./distribution-summary.html" rel="next">
-<link href="./hw-01.html" rel="prev">
+<link href="./poisson.html" rel="next">
+<link href="./variance.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -114,7 +114,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./hw-02.html">Homework 2</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./binomial.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Binomial Distributions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -201,7 +201,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./binomial.html" class="sidebar-item-text sidebar-link">
+  <a href="./binomial.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Binomial Distributions</span></span></a>
   </div>
 </li>
@@ -225,7 +225,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hw-02.html" class="sidebar-item-text sidebar-link active">
+  <a href="./hw-02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 2</span></a>
   </div>
 </li>
@@ -251,11 +251,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#problem-1" id="toc-problem-1" class="nav-link active" data-scroll-target="#problem-1">Problem 1</a></li>
-  <li><a href="#problem-2" id="toc-problem-2" class="nav-link" data-scroll-target="#problem-2">Problem 2</a></li>
-  <li><a href="#problem-3" id="toc-problem-3" class="nav-link" data-scroll-target="#problem-3">Problem 3</a></li>
-  <li><a href="#problem-4" id="toc-problem-4" class="nav-link" data-scroll-target="#problem-4">Problem 4</a></li>
-  <li><a href="#problem-5" id="toc-problem-5" class="nav-link" data-scroll-target="#problem-5">Problem 5</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">10.1</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -264,7 +260,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Homework 2</h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Binomial Distributions</span></h1>
 </div>
 
 
@@ -281,68 +277,212 @@ window.Quarto = {
 </header>
 
 
-<section id="problem-1" class="level2">
-<h2 class="anchored" data-anchor-id="problem-1">Problem 1</h2>
-<p>A standard deck of playing cards has 52 cards, 13 cards (2 through 10, jack, king, queen, ace) in each of 4 suits (hearts, diamonds, clubs, spades). Shuffle a deck and deals cards one at a time without replacement.</p>
+<ul>
+<li>Some probabilistic situations are so common that they have special names.</li>
+<li>In a sequence of <strong>Bernoulli(<span class="math inline">\(p\)</span>) trials</strong>
+<ul>
+<li>There are only two possible outcomes, “success” (1) or not (0, “failure”), on each trial.</li>
+<li>The unconditional/marginal probability of success is the same on every trial, and equal to <span class="math inline">\(p\)</span>.</li>
+<li>The trials are independent.</li>
+</ul></li>
+<li>There are several commonly used distributions associated with Bernoulli trials, including Geometric and Binomial.</li>
+</ul>
+<div id="exm-binomial-stock" class="theorem example">
+<p><span class="theorem-title"><strong>Example 10.1</strong></span> Consider an extremely simplified model for the daily closing price of a certain stock. Every day the price either goes up or goes down, and the movements are independent from day-to-day. Assume that the probability that the stock price goes up on any single day is 0.55. Let <span class="math inline">\(X\)</span> be the number of days on which the price goes up in a 5-day week.</p>
+</div>
 <ol type="1">
-<li>What is the probability that the first card dealt is a heart?</li>
-<li>What is the probability that the second card dealt is a heart? Just make a guess now before proceeding, but you’ll revisit this a few parts down.</li>
-<li>What is the probability that the second card dealt is a heart if the first card dealt is a heart?</li>
-<li>What is the probability that the second card dealt is a heart if the first card dealt is not a heart?</li>
-<li>Revisit part 2. What is the probability that the second card dealt is a heart? Hint: your answer should be a single number, but show all your work.</li>
-<li>Find the probability that the first two cards dealt are hearts.</li>
-<li>Find the probability that the first two cards dealt are hearts and the third card dealt is a diamond.</li>
+<li>Compute and interpret <span class="math inline">\(\text{P}(X=0)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute the probability that the price goes up on the first day and then down on the following four days.<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Why is <span class="math inline">\(\text{P}(X=1)\)</span> different from the probability in the previous part? Compute and interpret <span class="math inline">\(\text{P}(X=1)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute and interpret <span class="math inline">\(\text{P}(X=2)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Suggest a general formula for the probability mass function of <span class="math inline">\(X\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Construct a table and plot to represent the distribution of <span class="math inline">\(X\)</span>, and interpret it.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
 </ol>
-</section>
-<section id="problem-2" class="level2">
-<h2 class="anchored" data-anchor-id="problem-2">Problem 2</h2>
-<p>The ELISA test for HIV was widely used in the mid-1990s for screening blood donations. As with most medical diagnostic tests, the ELISA test is not perfect. If a person actually carries the HIV virus, experts estimate that this test gives a positive result 97.7% of the time. (This number is called the <em>sensitivity</em> of the test.) If a person does not carry the HIV virus, ELISA gives a negative (correct) result 92.6% of the time (the <em>specificity</em> of the test). Estimates at the time were that 0.5% of the American public carried the HIV virus.</p>
-<p>Suppose that a randomly selected American tests positive; we are interested in the conditional probability that the person actually carries the virus.</p>
+<ul>
+<li>Consider a <em>fixed number</em>, <span class="math inline">\(n\)</span>, of Bernoulli(<span class="math inline">\(p\)</span>) trials and let <span class="math inline">\(X\)</span> count the number of successes. The distribution of <span class="math inline">\(X\)</span> is defined to be the <strong>Binomial(<span class="math inline">\(n, p\)</span>) distribution</strong>.</li>
+<li>A Binomial distribution is specified by two parameters:
+<ul>
+<li><span class="math inline">\(n\)</span> (an integer): the fixed number of Bernoulli trials, or the sample size</li>
+<li><span class="math inline">\(p\)</span> (in <span class="math inline">\([0, 1]\)</span>): the fixed marginal probability of success on each Bernoulli trial, or the population proportion of success</li>
+</ul></li>
+<li>A discrete random variable <span class="math inline">\(X\)</span> has a <strong>Binomial distribution</strong> with parameters <span class="math inline">\(n\)</span>, a nonnegative integer, and <span class="math inline">\(p\in[0, 1]\)</span> if and only if its probability mass function is <span class="math display">\[\begin{align*}
+p_{X}(x) &amp; = \binom{n}{x} p^x (1-p)^{n-x}, &amp; x=0, 1, 2, \ldots, n
+\end{align*}\]</span>
+<ul>
+<li>In the Binomial(<span class="math inline">\(n\)</span>, <span class="math inline">\(p\)</span>) situation, there are <span class="math inline">\(\binom{n}{x}\)</span> S/F sequences that result in exactly <span class="math inline">\(x\)</span> successes—and thus <span class="math inline">\(n-x\)</span> failures—in <span class="math inline">\(n\)</span> trials,</li>
+<li>and each of these sequences has probability <span class="math inline">\(p^x(1-p)^{n-x}\)</span></li>
+</ul></li>
+<li>The <em>binomial coefficient</em> (read “<span class="math inline">\(n\)</span> choose <span class="math inline">\(x\)</span>”) <span class="math display">\[
+\binom{n}{x} = \frac{n!}{x!(n-x)!}
+\]</span> counts the number of success/failure sequences of length <span class="math inline">\(n\)</span> in which there are exactly <span class="math inline">\(x\)</span> successes. (Remember: by definition <span class="math inline">\(0! = 1\)</span>.)</li>
+</ul>
+<div id="exm-binomial-stock-ev" class="theorem example">
+<p><span class="theorem-title"><strong>Example 10.2</strong></span> Continuing <a href="#exm-binomial-stock" class="quarto-xref">Example&nbsp;<span>10.1</span></a>.</p>
+</div>
 <ol type="1">
-<li>Before proceeding, make a guess for the probability in question. Which range do you think it’s in: 0-20%, 20-40%, 40-60%, 60-80%, or 80-100%?</li>
-<li>Denote the probabilities provided in the setup using proper notation</li>
-<li>Construct an appropriate two-way table and use it to compute the probability of interest.</li>
-<li>Construct a Bayes table and use it to compute the probability of interest.</li>
-<li>Explain why this probability is small, compared to the sensitivity and specificity.</li>
-<li>By what factor has the probability of carrying HIV increased, given a positive test result, as compared to before the test?</li>
-<li>Now suppose that 5% of individuals in a high-risk group carry the HIV virus. Consider a randomly selectd person from this group who takes the test. Given that the test is positive, how many times more likely is it for the person not to have HIV than to have it? Answer without first computing a two-way or Bayes table.</li>
-<li>Using the result from the previous part, compute the conditional probability that a person in this risk group who tests positive has HIV.</li>
-<li>Is the posterior probability influenced by the prior probability? Discuss.</li>
+<li>Suggest a shortcut formula for <span class="math inline">\(\text{E}(X)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute <span class="math inline">\(\text{E}(X)\)</span> using the distribution of <span class="math inline">\(X\)</span> from <a href="#exm-binomial-stock" class="quarto-xref">Example&nbsp;<span>10.1</span></a>. Did the shortcut formula work?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Interpret <span class="math inline">\(\text{E}(X)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Remember that we assumed <span class="math inline">\(p=0.55\)</span>. If instead <span class="math inline">\(p\)</span> were 0.9, would <span class="math inline">\(\text{Var}(X)\)</span> be greater or less? What if <span class="math inline">\(p=0.5\)</span>?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
 </ol>
-</section>
-<section id="problem-3" class="level2">
-<h2 class="anchored" data-anchor-id="problem-3">Problem 3</h2>
-<p>Consider three tennis players Arya (“A”), Brienne (“B”), and Cersei (“C”). One of these players is better than the other two, who are equally good/bad. When the best player plays either of the others, she has a 2/3 probability of winning the match. When the other two players play each other, each has a 1/2 probability of winning the match. But you do not know which player is the best. Based on watching the players warm up, you start with subjective probabilities of 0.5 that A is the best, 0.35 that B is the best, and 0.15 that C is the best. A and B will play the first match.</p>
+<ul>
+<li>If <span class="math inline">\(X\)</span> has a Binomial(<span class="math inline">\(n\)</span>, <span class="math inline">\(p\)</span>) distribution then <span class="math display">\[\begin{align*}
+\text{E}(X) &amp; = np\\
+\text{Var}(X) &amp; = np(1-p)
+\end{align*}\]</span></li>
+</ul>
+<section id="exercises" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">10.1</span> Exercises</h2>
+<div id="exr-binomial-stock2" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 10.1</strong></span> Continuing <a href="#exm-binomial-stock" class="quarto-xref">Example&nbsp;<span>10.1</span></a>.</p>
+</div>
 <ol type="1">
-<li>Suppose that A beats B in the first match. Compute your posterior probability that each of A, B, C is best given that A beats B in the first match.</li>
-<li>Compare the posterior probabilities from the previous part to the prior probabilities. Explain how your probabilities changed, and why that makes sense.</li>
-<li><strong>Coding required.</strong> Code and run a simulation to simulate (1) who is the best player according to your prior distribution, (2) who wins the first match given who is the best player; then use the results to approximate the probabilities from the first part.</li>
-<li>Suppose instead that B beats A in the first match. Compute your posterior probability that each of A, B, C is best given that B beats A in the first match.</li>
-<li>Compare the posterior probabilities from the previous part to the prior probabilities. Explain how your probabilities changed, and why that makes sense.</li>
-<li>Now suppose again that A beats B in the first match, and also that A beats C in the second match. Compute your posterior probability that each of A, B, C is best given the results of the first two matches. (Hint: use as the prior your posterior probabilities from the previous part.) Explain how your probabilities changed, and why that makes sense.</li>
+<li>What does the random variable <span class="math inline">\(5-X\)</span> represent? What is its distribution?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Suppose that the price is currently $100 and each it either moves up $2 or down $2. Let <span class="math inline">\(S\)</span> be the stock price after 5 days. How does <span class="math inline">\(S\)</span> relate to <span class="math inline">\(X\)</span>? Does <span class="math inline">\(S\)</span> have a Binomial distribution?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Recall that <span class="math inline">\(X\)</span> is the number of days on which the price goes up in the next five days. Suppose that <span class="math inline">\(Y\)</span> is the number of days on which the price goes up in the ten days after that (days 6-15). What is the distribution of <span class="math inline">\(Y\)</span>? What does <span class="math inline">\(X+Y\)</span> represent and what is its distribution? (Continue to assume independence between days, with probability 0.55 of an up movement on any day.)<br>
+<br>
+<br>
+<br>
+<br>
+</li>
 </ol>
-</section>
-<section id="problem-4" class="level2">
-<h2 class="anchored" data-anchor-id="problem-4">Problem 4</h2>
-<p>In the Powerball lottery, a player picks five different whole numbers between 1 and 69, and another whole number between 1 and 26 that is called the Powerball. In the drawing, the 5 numbers are drawn without replacement from a “hopper” with balls labeled 1 through 69, but the Powerball is drawn from a separate hopper with balls labeled 1 through 26. The player wins the jackpot if both the first 5 numbers match those drawn, in any order, and the Powerball is a match. Under this set up, there are 292,201,338 possible winning numbers.</p>
+<ul>
+<li>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent, <span class="math inline">\(X\)</span> has a Binomial(<span class="math inline">\(n_X\)</span>, <span class="math inline">\(p\)</span>) distribution, and <span class="math inline">\(Y\)</span> has a Binomial(<span class="math inline">\(n_Y\)</span>, <span class="math inline">\(p\)</span>) distribution then <span class="math inline">\(X+Y\)</span> has a Binomial(<span class="math inline">\(n_X+n_Y\)</span>, <span class="math inline">\(p\)</span>)</li>
+<li>A Binomial(1, <span class="math inline">\(p\)</span>) distribution is also known as a <strong>Bernoulli(<span class="math inline">\(p\)</span>)</strong> distribution, taking a value of 1 with probability <span class="math inline">\(p\)</span> and 0 with probability <span class="math inline">\(1-p\)</span>.
+<ul>
+<li>For a single trial, a Bernoulli random variable <em>indicates</em> if there is a success (1) or failure (0) on the trial</li>
+</ul></li>
+<li>If <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> are independent each with a Bernoulli(<span class="math inline">\(p\)</span>) distribution, then <span class="math inline">\(X_1+\cdots+X_n\)</span> has a Binomial(<span class="math inline">\(n, p\)</span>) distribution.
+<ul>
+<li>The random variable <span class="math inline">\(X_1+ X_2+ \ldots + X_n\)</span> incrementally counts the total number of successes in the <span class="math inline">\(n\)</span> trials</li>
+</ul></li>
+</ul>
+<div id="exr-binomial-situation" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 10.2</strong></span> In each of the following situations determine whether or not <span class="math inline">\(X\)</span> has a Binomial distribution. If so, specify <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span>. If not, explain why not.</p>
+</div>
 <ol type="1">
-<li>What is the probability the next winning number is 6-7-16-23-26, plus the Powerball number, 4.</li>
-<li>What is the probability the next winning number is 1-2-3-4-5, plus the Powerball number, 6.</li>
-<li>The Powerball drawing happens twice a week. Suppose you play the same Powerball number, twice a week, every week for over 50 years. Let’s say you purchase a ticket for 6000 drawings in total. What is the probability that you win at least once?</li>
-<li>Instead of playing for 50 years, you decide only to play one lottery, but you buy 6000 tickets, each with a different Powerball number. What is the probability that at least one of your tickets wins? How does this compare to the previous part? Why?</li>
-<li>Each ticket costs 2 dollars, but the jackpot changes from drawing to drawing. Suppose you buy 6000 tickets for a single drawing. How large does the jackpot need to be for your “expected” profit to be positive? To be $100,000? (We’re ignoring inflation, taxes, transaction costs, and any changes in the rules.)</li>
+<li>Roll a die 20 times; <span class="math inline">\(X\)</span> is the number of times the die lands on an even number.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Roll a die 20 times; <span class="math inline">\(X\)</span> is the number of times the die lands on 6.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Roll a die until it lands on 6; <span class="math inline">\(X\)</span> is the total number of rolls.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Roll a die 20 times; <span class="math inline">\(X\)</span> is the sum of the numbers rolled.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Shuffle a standard deck of 52 cards (13 hearts, 39 other cards) and deal 5 <em>without replacement</em>; <span class="math inline">\(X\)</span> is the number of hearts dealt. (Hint: be careful about why.)<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Roll a fair six-sided die 10 times and a fair four-sided die 10 times; <span class="math inline">\(X\)</span> is the number of 3s rolled (out of 20).<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Randomly select a sample of 35 Cal Poly students; <span class="math inline">\(X\)</span> is the number of students in the sample who are CA residents.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
 </ol>
-</section>
-<section id="problem-5" class="level2">
-<h2 class="anchored" data-anchor-id="problem-5">Problem 5</h2>
-<p>Consider a “best-of-5” series of games between two teams: games are played until one of the teams has won 3 games (requiring at most 5 games total). Suppose one team, team A, is better than the other, having a 0.55 probability of winning any particular game. Assume the results of the games are independent (and ignore advantage, etc). Let <span class="math inline">\(X\)</span> represent the number of games played in the series. (Hint: It’s helpful to first construct a two-way table of probabilities with the number of games played and which team wins, and then use it to answer the following questions. It will also help to list some outcomes, like AABA (team A wins game 1, 2, and 4, and B wins game 3).)</p>
-<ol type="1">
-<li>Compute the probability that team A wins the series in 3 games.</li>
-<li>Compute the probability that the series ends in 3 games.</li>
-<li>Compute the probability that team A wins the series.</li>
-<li>Are the events “team A wins the series” and “the series ends in 3 games” independent? Explain by comparing relevant probabilities.</li>
-<li>Let <span class="math inline">\(X\)</span> represent the number of games played in the series. Find the distribution of <span class="math inline">\(X\)</span>.</li>
-</ol>
+<ul>
+<li>Consider selecting a random sample of size <span class="math inline">\(n\)</span> from a population in which every individual is classified as “success” or “failure”. Suppose that the proportion of individuals in the population classified as success is <span class="math inline">\(p\)</span>.</li>
+<li>The individuals selected for the sample can be considered a sequence of Bernoulli(<span class="math inline">\(p\)</span>) trials.
+<ul>
+<li>There are only two possible outcomes, success (1) and failure (0), on each trial.</li>
+<li>The unconditional/marginal probability of success is the same on every trial, and equal to the population proportion of success <span class="math inline">\(p\)</span></li>
+<li>The trials are independent
+<ul>
+<li>If sampling with replacement, or</li>
+<li>If sampling without replacement but the population size is much larger than the sample size <span class="math inline">\(n\)</span> (which is usually the case in practice)</li>
+</ul></li>
+</ul></li>
+<li>If <span class="math inline">\(X\)</span> counts the number of successes in a random sample of size <span class="math inline">\(n\)</span> from a large population with population proportion of success <span class="math inline">\(p\)</span> then <span class="math inline">\(X\)</span> has a Binomial(<span class="math inline">\(n, p\)</span>) distribution.</li>
+</ul>
+<div id="exr-dd-same-distribution" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 10.3</strong></span> Donny Dont is thoroughly confused about the distinction between a random variable and its distribution. Help him understand by by providing a simple concrete example of <em>two different random variables</em> <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> that have the <em>same distribution</em>. Can you think of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> that have the same distribution but for which <span class="math inline">\(\text{P}(X = Y) = 0\)</span>?</p>
+</div>
 
 
 </section>
@@ -750,13 +890,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./hw-01.html" class="pagination-link" aria-label="Homework 1">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Homework 1</span>
+      <a href="./variance.html" class="pagination-link" aria-label="Variance and Standard Deviation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Variance and Standard Deviation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./distribution-summary.html" class="pagination-link" aria-label="Summary of Some Common Distributions">
-        <span class="nav-page-text">Summary of Some Common Distributions</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./poisson.html" class="pagination-link" aria-label="Poisson Distributions">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Poisson Distributions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Homework 2 – GSB518 Notes</title>
+<title>12&nbsp; Continuous Random Variables – GSB518 Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./distribution-summary.html" rel="next">
-<link href="./hw-01.html" rel="prev">
+<link href="./hw-01.html" rel="next">
+<link href="./poisson.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -114,7 +114,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./hw-02.html">Homework 2</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./continuous-pdf.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Continuous Random Variables</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -213,7 +213,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./continuous-pdf.html" class="sidebar-item-text sidebar-link">
+  <a href="./continuous-pdf.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Continuous Random Variables</span></span></a>
   </div>
 </li>
@@ -225,7 +225,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hw-02.html" class="sidebar-item-text sidebar-link active">
+  <a href="./hw-02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 2</span></a>
   </div>
 </li>
@@ -251,11 +251,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#problem-1" id="toc-problem-1" class="nav-link active" data-scroll-target="#problem-1">Problem 1</a></li>
-  <li><a href="#problem-2" id="toc-problem-2" class="nav-link" data-scroll-target="#problem-2">Problem 2</a></li>
-  <li><a href="#problem-3" id="toc-problem-3" class="nav-link" data-scroll-target="#problem-3">Problem 3</a></li>
-  <li><a href="#problem-4" id="toc-problem-4" class="nav-link" data-scroll-target="#problem-4">Problem 4</a></li>
-  <li><a href="#problem-5" id="toc-problem-5" class="nav-link" data-scroll-target="#problem-5">Problem 5</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">12.1</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -264,7 +260,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Homework 2</h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Continuous Random Variables</span></h1>
 </div>
 
 
@@ -281,68 +277,313 @@ window.Quarto = {
 </header>
 
 
-<section id="problem-1" class="level2">
-<h2 class="anchored" data-anchor-id="problem-1">Problem 1</h2>
-<p>A standard deck of playing cards has 52 cards, 13 cards (2 through 10, jack, king, queen, ace) in each of 4 suits (hearts, diamonds, clubs, spades). Shuffle a deck and deals cards one at a time without replacement.</p>
+<ul>
+<li>A continuous random variable can take any value within some uncountable interval.</li>
+<li>Simulated values of a continuous random variable are usually plotted in a <strong>histogram</strong> which groups the observed values into “bins” and plots densities or frequencies for each bin.</li>
+<li>In a histogram <em>areas</em> of bars represent relative frequencies; the axis which represents the height of the bars is called “density”.</li>
+<li>The continuous analog of a probability mass function (pmf) for a discrete random variable is a probability density function (pdf) However there are some fundamental differences between discrete and continuous random variables, and pmfs and pdfs.</li>
+<li>The distribution of a continuous random variable can be described by a <strong>probability density function (pdf)</strong>, for which <em>areas under the density curve determine probabilities</em>.</li>
+</ul>
+<div id="exm-meeting-nonuniform-pdf" class="theorem example">
+<p><span class="theorem-title"><strong>Example 12.1</strong></span> Suppose that in your office everyone arrives to work between 8am and 9am. Randomly select an employee and let <span class="math inline">\(X\)</span> be employee’s arrival time measured in minutes after 8am, including fractions of a minute, so that <span class="math inline">\(X\)</span> takes a value in the continuous interval [0, 60].</p>
+<p>Data on many randomly selected employees suggests that the distribution of <span class="math inline">\(X\)</span> is described by this probability density function (pdf), where <span class="math inline">\(c\)</span> is a constant that we’ll determine soon.</p>
+<p><span class="math display">\[
+f_X(x) =
+\begin{cases}
+c x, &amp; 0&lt;x&lt;60\\
+0, &amp; \text{otherwise.}
+\end{cases}
+\]</span></p>
+</div>
 <ol type="1">
-<li>What is the probability that the first card dealt is a heart?</li>
-<li>What is the probability that the second card dealt is a heart? Just make a guess now before proceeding, but you’ll revisit this a few parts down.</li>
-<li>What is the probability that the second card dealt is a heart if the first card dealt is a heart?</li>
-<li>What is the probability that the second card dealt is a heart if the first card dealt is not a heart?</li>
-<li>Revisit part 2. What is the probability that the second card dealt is a heart? Hint: your answer should be a single number, but show all your work.</li>
-<li>Find the probability that the first two cards dealt are hearts.</li>
-<li>Find the probability that the first two cards dealt are hearts and the third card dealt is a diamond.</li>
+<li>Sketch a plot of the pdf. Roughly, what does this say about arival times?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find the value of <span class="math inline">\(c\)</span> and specify the pdf of <span class="math inline">\(X\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute and interpret <span class="math inline">\(\text{P}(X&lt;15)\)</span>.<br>
+<br>
+<br>
+<br>
+&nbsp;</li>
+<li>Compute and interpret <span class="math inline">\(\text{P}(X&gt;45)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
 </ol>
-</section>
-<section id="problem-2" class="level2">
-<h2 class="anchored" data-anchor-id="problem-2">Problem 2</h2>
-<p>The ELISA test for HIV was widely used in the mid-1990s for screening blood donations. As with most medical diagnostic tests, the ELISA test is not perfect. If a person actually carries the HIV virus, experts estimate that this test gives a positive result 97.7% of the time. (This number is called the <em>sensitivity</em> of the test.) If a person does not carry the HIV virus, ELISA gives a negative (correct) result 92.6% of the time (the <em>specificity</em> of the test). Estimates at the time were that 0.5% of the American public carried the HIV virus.</p>
-<p>Suppose that a randomly selected American tests positive; we are interested in the conditional probability that the person actually carries the virus.</p>
+<ul>
+<li>The continuous analog of a probability mass function (pmf) is a <em>probability density function (pdf)</em>.</li>
+<li>However, while pmfs and pdfs play analogous roles, they are different in one fundamental way; namely, a pmf outputs probabilities directly, while a pdf does not.</li>
+<li>A pdf of a continuous random variable must be <em>integrated</em> to find probabilities of related events.</li>
+<li>The <strong>probability density function (pdf)</strong> (a.k.a.&nbsp;density) of a <em>continuous</em> RV <span class="math inline">\(X\)</span> is the function <span class="math inline">\(f_X\)</span> which satisfies <span class="math display">\[\begin{align}
+\text{P}(a \le X \le b) &amp; =\int_a^b f_X(x) dx, \qquad \text{for all } -\infty \le a \le b \le \infty
+\end{align}\]</span></li>
+<li>For a continuous random variable <span class="math inline">\(X\)</span> with pdf <span class="math inline">\(f_X\)</span>, the probability that <span class="math inline">\(X\)</span> takes a value in the interval <span class="math inline">\([a, b]\)</span> is the <em>area under the pdf over the region</em> <span class="math inline">\([a,b]\)</span>.</li>
+<li>The axioms of probability imply that a valid pdf must satisfy <span class="math display">\[\begin{align}
+f_X(x) &amp; \ge 0 \qquad \text{for all } x,\\
+\int_{-\infty}^\infty f_X(x) dx &amp; = 1
+\end{align}\]</span></li>
+</ul>
+<div id="exm-meeting-nonuniform-closeto" class="theorem example">
+<p><span class="theorem-title"><strong>Example 12.2</strong></span> Continuing <a href="#exm-meeting-nonuniform-pdf" class="quarto-xref">Example&nbsp;<span>12.1</span></a>, recall that <span class="math inline">\(X\)</span> has pdf</p>
+<p><span class="math display">\[
+f_X(x) =
+        \begin{cases}
+      (2/3600)x, &amp; 0\le x \le 60,\\
+      0, &amp; \text{otherwise.}
+      \end{cases}
+\]</span></p>
+</div>
 <ol type="1">
-<li>Before proceeding, make a guess for the probability in question. Which range do you think it’s in: 0-20%, 20-40%, 40-60%, 60-80%, or 80-100%?</li>
-<li>Denote the probabilities provided in the setup using proper notation</li>
-<li>Construct an appropriate two-way table and use it to compute the probability of interest.</li>
-<li>Construct a Bayes table and use it to compute the probability of interest.</li>
-<li>Explain why this probability is small, compared to the sensitivity and specificity.</li>
-<li>By what factor has the probability of carrying HIV increased, given a positive test result, as compared to before the test?</li>
-<li>Now suppose that 5% of individuals in a high-risk group carry the HIV virus. Consider a randomly selectd person from this group who takes the test. Given that the test is positive, how many times more likely is it for the person not to have HIV than to have it? Answer without first computing a two-way or Bayes table.</li>
-<li>Using the result from the previous part, compute the conditional probability that a person in this risk group who tests positive has HIV.</li>
-<li>Is the posterior probability influenced by the prior probability? Discuss.</li>
+<li>Consider the probability that an employee arrives within 1 minute after 8:15. Compute <span class="math inline">\(\text{P}(15 &lt; X &lt; 16)\)</span>, the probability that <span class="math inline">\(X\)</span>, truncated to the nearest minute, is 15. How is the probability related to <span class="math inline">\(f(15)\)</span>?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Consider the probability that an employee arrives within 1 minute after 8:45. Compute <span class="math inline">\(\text{P}(45 &lt; X &lt; 46)\)</span>, the probability that <span class="math inline">\(X\)</span>, truncated to the nearest minute, is 45. How is the probability related to <span class="math inline">\(f(45)\)</span>?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute and interpret the ratio of the two previous probabilities.<br>
+<br>
+<br>
+<br>
+&nbsp;</li>
+<li>Consider the probability that an employee arrives within 1 <em>second</em> after 8:15. Compute <span class="math inline">\(\text{P}(15 &lt; X &lt; 15 + 1/60)\)</span>, the probability that <span class="math inline">\(X\)</span>, truncated to the nearest <em>second</em>, is 15. (The measurement units of <span class="math inline">\(X\)</span> are minutes, so 1/60 minutes is 1 second.) How is the probability related to <span class="math inline">\(f(15)\)</span>?<br>
+<br>
+<br>
+<br>
+&nbsp;</li>
+<li>Consider the probability that an employee arrives within 1 <em>second</em> after 8:45. Compute <span class="math inline">\(\text{P}(45 &lt; X &lt; 45 + 1/60)\)</span>, the probability that <span class="math inline">\(X\)</span>, truncated to the nearest <em>second</em>, is 45. How is the probability related to <span class="math inline">\(f(45)\)</span>?<br>
+<br>
+<br>
+<br>
+&nbsp;</li>
+<li>Compute and interpret the ratio of the two previous probabilities.<br>
+<br>
+<br>
+<br>
+&nbsp;</li>
+<li>Consider the probability that an employee arrives within 1 <em>millisecond</em> after 8:15. Compute <span class="math inline">\(\text{P}(15 &lt; X &lt; 15 + 1/60000)\)</span>, the probability that <span class="math inline">\(X\)</span>, truncated to the nearest <em>millisecond</em>, is 15. (The measurement units of <span class="math inline">\(X\)</span> are minutes, so 1/60000 minutes is 1 millisecond.) How is the probability related to <span class="math inline">\(f(15)\)</span>?<br>
+<br>
+<br>
+<br>
+&nbsp;</li>
+<li>Consider the probability that an employee arrives within 1 <em>millisecond</em> after 8:45. Compute <span class="math inline">\(\text{P}(45 &lt; X &lt; 45 + 1/60000)\)</span>, the probability that <span class="math inline">\(X\)</span>, truncated to the nearest <em>millisecond</em>, is 45. How is the probability related to <span class="math inline">\(f(45)\)</span>?<br>
+<br>
+<br>
+<br>
+&nbsp;</li>
+<li>Compute and interpret the ratio of the two previous probabilities.<br>
+<br>
+<br>
+<br>
+&nbsp;</li>
+<li>Compute and interpret <span class="math inline">\(\text{P}(X = 15)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute and interpret <span class="math inline">\(\text{P}(X = 45)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>In practical terms, is any employee more likely to arrive “at 8:15” or “at 8:45”? Explain.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
 </ol>
-</section>
-<section id="problem-3" class="level2">
-<h2 class="anchored" data-anchor-id="problem-3">Problem 3</h2>
-<p>Consider three tennis players Arya (“A”), Brienne (“B”), and Cersei (“C”). One of these players is better than the other two, who are equally good/bad. When the best player plays either of the others, she has a 2/3 probability of winning the match. When the other two players play each other, each has a 1/2 probability of winning the match. But you do not know which player is the best. Based on watching the players warm up, you start with subjective probabilities of 0.5 that A is the best, 0.35 that B is the best, and 0.15 that C is the best. A and B will play the first match.</p>
+<ul>
+<li><strong>The probability that a continuous random variable</strong> <span class="math inline">\(X\)</span> equals any particular value is 0. That is, if <span class="math inline">\(X\)</span> is continuous then <span class="math inline">\(\text{P}(X=x)=0\)</span> for all <span class="math inline">\(x\)</span>.</li>
+<li>Even though any specific value of a continuous random variable has probability 0, <em>intervals</em> still can have positive probability.</li>
+<li>For continuous random variables, it doesn’t really make sense to talk about the probability that the random value is <em>equal to</em> a particular value. In practical applications involving continuous random variables, “equal to” really means “close to”, and “close to” probabilities correspond to intervals which can have positive probability.</li>
+<li>The density <span class="math inline">\(f_X(x)\)</span> at value <span class="math inline">\(x\)</span> is <em>not</em> a probability.</li>
+<li>Rather, the density <span class="math inline">\(f_X(x)\)</span> at value <span class="math inline">\(x\)</span> is related to the probability that the RV <span class="math inline">\(X\)</span> takes a value “close to <span class="math inline">\(x\)</span>” in the following sense <span class="math display">\[
+\text{P}\left(x-\frac{\epsilon}{2} \le X \le x+\frac{\epsilon}{2}\right) \approx f_X(x)\epsilon, \qquad \text{for small $\epsilon$}
+\]</span></li>
+<li>The quantity <span class="math inline">\(\epsilon\)</span> is a small number that represents the desired degree of precision. For example, rounding to two decimal places corresponds to <span class="math inline">\(\epsilon=0.01\)</span>.</li>
+<li>Roughly, <span class="math display">\[
+\text{P}(X \text{ is close to }x) \approx f_X(x)\times(\text{what counts as close to})
+\]</span></li>
+<li>What’s important about a pdf is <em>relative</em> heights. For example, if <span class="math inline">\(f_X(x_2)= 2f_X(x_1)\)</span> then <span class="math inline">\(X\)</span> is roughly “twice as likely to be close to <span class="math inline">\(x_2\)</span> than to be close to <span class="math inline">\(x_1\)</span>” in the above sense. <span class="math display">\[
+\frac{f_X(x_2)}{f_X(x_1)} = \frac{f_X(x_2)\epsilon}{f_X(x_1)\epsilon} \approx  \frac{\text{P}\left(x_2-\frac{\epsilon}{2} \le X \le x_2+\frac{\epsilon}{2}\right)}{\text{P}\left(x_1-\frac{\epsilon}{2} \le X \le x_1+\frac{\epsilon}{2}\right)} \approx \frac{\text{P}(X \text{ is close to }x_2) }{\text{P}(X \text{ is close to }x_1) }
+\]</span></li>
+</ul>
+<div id="exm-exponential-quakes" class="theorem example">
+<p><span class="theorem-title"><strong>Example 12.3</strong></span> Suppose that <span class="math inline">\(X\)</span> is a claim amount in excess of the decuctible for a car insurance policy that incurs a claim, measured in thousands of dollars. Assume that <span class="math inline">\(X\)</span> has pdf <span class="math display">\[
+f_X(x) = (1/4.3) e^{-x/4.3}, \qquad x &gt;0
+\]</span></p>
+</div>
 <ol type="1">
-<li>Suppose that A beats B in the first match. Compute your posterior probability that each of A, B, C is best given that A beats B in the first match.</li>
-<li>Compare the posterior probabilities from the previous part to the prior probabilities. Explain how your probabilities changed, and why that makes sense.</li>
-<li><strong>Coding required.</strong> Code and run a simulation to simulate (1) who is the best player according to your prior distribution, (2) who wins the first match given who is the best player; then use the results to approximate the probabilities from the first part.</li>
-<li>Suppose instead that B beats A in the first match. Compute your posterior probability that each of A, B, C is best given that B beats A in the first match.</li>
-<li>Compare the posterior probabilities from the previous part to the prior probabilities. Explain how your probabilities changed, and why that makes sense.</li>
-<li>Now suppose again that A beats B in the first match, and also that A beats C in the second match. Compute your posterior probability that each of A, B, C is best given the results of the first two matches. (Hint: use as the prior your posterior probabilities from the previous part.) Explain how your probabilities changed, and why that makes sense.</li>
+<li>Sketch the pdf of <span class="math inline">\(X\)</span> and interpret, roughly, its shape in context.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Without integrating, approximate the probability that <span class="math inline">\(X\)</span> rounded to the nearest hundred dollars is $500.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute and interpret the ratio <span class="math inline">\(f(0.5)/f(5)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute and interpret <span class="math inline">\(\text{P}(X &lt; 5)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute and interpret <span class="math inline">\(\text{P}(X &gt; 10)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
 </ol>
-</section>
-<section id="problem-4" class="level2">
-<h2 class="anchored" data-anchor-id="problem-4">Problem 4</h2>
-<p>In the Powerball lottery, a player picks five different whole numbers between 1 and 69, and another whole number between 1 and 26 that is called the Powerball. In the drawing, the 5 numbers are drawn without replacement from a “hopper” with balls labeled 1 through 69, but the Powerball is drawn from a separate hopper with balls labeled 1 through 26. The player wins the jackpot if both the first 5 numbers match those drawn, in any order, and the Powerball is a match. Under this set up, there are 292,201,338 possible winning numbers.</p>
+<section id="exercises" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">12.1</span> Exercises</h2>
+<div id="exr-pareto-income" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 12.1</strong></span> In a certain population, household income <span class="math inline">\(X\)</span> ($ thousands) follows the pdf <span class="math display">\[
+f_X(x) = c x^{-2.5}, \quad x \ge 30
+\]</span> for an appropriate constant <span class="math inline">\(c\)</span>. Note that the measurement units are $ thousands, so 1 represents 1 thousand dollars. (This is not a super realistic example, but just go with it.)</p>
+</div>
 <ol type="1">
-<li>What is the probability the next winning number is 6-7-16-23-26, plus the Powerball number, 4.</li>
-<li>What is the probability the next winning number is 1-2-3-4-5, plus the Powerball number, 6.</li>
-<li>The Powerball drawing happens twice a week. Suppose you play the same Powerball number, twice a week, every week for over 50 years. Let’s say you purchase a ticket for 6000 drawings in total. What is the probability that you win at least once?</li>
-<li>Instead of playing for 50 years, you decide only to play one lottery, but you buy 6000 tickets, each with a different Powerball number. What is the probability that at least one of your tickets wins? How does this compare to the previous part? Why?</li>
-<li>Each ticket costs 2 dollars, but the jackpot changes from drawing to drawing. Suppose you buy 6000 tickets for a single drawing. How large does the jackpot need to be for your “expected” profit to be positive? To be $100,000? (We’re ignoring inflation, taxes, transaction costs, and any changes in the rules.)</li>
+<li>What are the possible values of <span class="math inline">\(X\)</span>? Sketch the pdf of <span class="math inline">\(X\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Without integrating, find the probability that a household has an income, rounded to the nearest thousand dollars, of $200K.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Without integrating, find the probability that a household has an income, rounded to the nearest <em>hundred</em> dollars, of $200K.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Without integrating, determine how many times more likely it is for a household to have an income, rounded to the nearest <em>hundred</em> dollars, of $100K than $200K.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute the value of <span class="math inline">\(c\)</span>. (For this and the following parts, set up any calculations you would need to perform, but you can use a calculator or software to do the computations.)<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute the probability that a household has an income under $100K.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute the probability that a household has an income over $200K.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find the probability that a household has an income exactly equal to $200K.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
 </ol>
-</section>
-<section id="problem-5" class="level2">
-<h2 class="anchored" data-anchor-id="problem-5">Problem 5</h2>
-<p>Consider a “best-of-5” series of games between two teams: games are played until one of the teams has won 3 games (requiring at most 5 games total). Suppose one team, team A, is better than the other, having a 0.55 probability of winning any particular game. Assume the results of the games are independent (and ignore advantage, etc). Let <span class="math inline">\(X\)</span> represent the number of games played in the series. (Hint: It’s helpful to first construct a two-way table of probabilities with the number of games played and which team wins, and then use it to answer the following questions. It will also help to list some outcomes, like AABA (team A wins game 1, 2, and 4, and B wins game 3).)</p>
+<div id="exr-meeting-uniform-pdf" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 12.2</strong></span> In <a href="#exm-meeting-nonuniform-pdf" class="quarto-xref">Example&nbsp;<span>12.1</span></a>, assume instead that employees are “equally likely” to arrive at any time between 8am and 9am. Let <span class="math inline">\(X\)</span> be the arrival time of a randomly selected employee, measured in minutes after 8am. We’ll assume that <span class="math inline">\(X\)</span> has a “Uniform distribution” on [0, 60].</p>
+</div>
 <ol type="1">
-<li>Compute the probability that team A wins the series in 3 games.</li>
-<li>Compute the probability that the series ends in 3 games.</li>
-<li>Compute the probability that team A wins the series.</li>
-<li>Are the events “team A wins the series” and “the series ends in 3 games” independent? Explain by comparing relevant probabilities.</li>
-<li>Let <span class="math inline">\(X\)</span> represent the number of games played in the series. Find the distribution of <span class="math inline">\(X\)</span>.</li>
+<li>What shape would you want the pdf to have? Sketch that shape and then determine the pdf.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute and interpret <span class="math inline">\(\text{P}(X &lt;15)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute and interpret <span class="math inline">\(\text{P}(X &gt;45)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>How do the two previous parts compare to each other? Why? How do they compare to the corresponding parts in <a href="#exm-meeting-nonuniform-pdf" class="quarto-xref">Example&nbsp;<span>12.1</span></a>? Why?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute <span class="math inline">\(\text{P}(X = 15)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Replace the previous part with a more sensible question, then solve it.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Make an educated guess for <span class="math inline">\(\text{E}(X)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Make an educated guess for <span class="math inline">\(\text{SD}(X)\)</span>. (We’ll see how to compute expected value and variance for continuous random variables later, but for this example you should be able to make reasonable guesses without doing much computation.)<br>
+<br>
+<br>
+<br>
+<br>
+</li>
 </ol>
+<ul>
+<li>A continuous random variable <span class="math inline">\(X\)</span> has a <strong>Uniform distribution</strong> with parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, with <span class="math inline">\(a&lt;b\)</span>, if its probability density function <span class="math inline">\(f_X\)</span> satisfies <span class="math display">\[\begin{align}
+f_X(x) &amp; \propto \text{constant}, \quad &amp; &amp; a&lt;x&lt;b\\
+&amp; = \frac{1}{b-a}, \quad &amp; &amp;  a&lt;x&lt;b.
+\end{align}\]</span></li>
+<li>If <span class="math inline">\(X\)</span> has a Uniform(<span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>) distribution then <span class="math display">\[\begin{align}
+\text{E}(X) &amp; = \frac{a+b}{2}\\
+\text{Var}(X) &amp; = \frac{|b-a|^2}{12}\\
+\text{SD}(X) &amp; = \frac{|b-a|}{\sqrt{12}} \approx 0.289|b-a|
+\end{align}\]</span></li>
+</ul>
 
 
 </section>
@@ -750,13 +991,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./hw-01.html" class="pagination-link" aria-label="Homework 1">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Homework 1</span>
+      <a href="./poisson.html" class="pagination-link" aria-label="Poisson Distributions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Poisson Distributions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./distribution-summary.html" class="pagination-link" aria-label="Summary of Some Common Distributions">
-        <span class="nav-page-text">Summary of Some Common Distributions</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./hw-01.html" class="pagination-link" aria-label="Homework 1">
+        <span class="nav-page-text">Homework 1</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

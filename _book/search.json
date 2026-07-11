@@ -220,6 +220,76 @@
     ]
   },
   {
+    "objectID": "binomial.html",
+    "href": "binomial.html",
+    "title": "10  Binomial Distributions",
+    "section": "",
+    "text": "10.1 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Binomial Distributions</span>"
+    ]
+  },
+  {
+    "objectID": "binomial.html#exercises",
+    "href": "binomial.html#exercises",
+    "title": "10  Binomial Distributions",
+    "section": "",
+    "text": "Exercise 10.1 Continuing Example 10.1.\n\n\nWhat does the random variable \\(5-X\\) represent? What is its distribution?\n\n\n\n\n\nSuppose that the price is currently $100 and each it either moves up $2 or down $2. Let \\(S\\) be the stock price after 5 days. How does \\(S\\) relate to \\(X\\)? Does \\(S\\) have a Binomial distribution?\n\n\n\n\n\nRecall that \\(X\\) is the number of days on which the price goes up in the next five days. Suppose that \\(Y\\) is the number of days on which the price goes up in the ten days after that (days 6-15). What is the distribution of \\(Y\\)? What does \\(X+Y\\) represent and what is its distribution? (Continue to assume independence between days, with probability 0.55 of an up movement on any day.)\n\n\n\n\n\n\n\nIf \\(X\\) and \\(Y\\) are independent, \\(X\\) has a Binomial(\\(n_X\\), \\(p\\)) distribution, and \\(Y\\) has a Binomial(\\(n_Y\\), \\(p\\)) distribution then \\(X+Y\\) has a Binomial(\\(n_X+n_Y\\), \\(p\\))\nA Binomial(1, \\(p\\)) distribution is also known as a Bernoulli(\\(p\\)) distribution, taking a value of 1 with probability \\(p\\) and 0 with probability \\(1-p\\).\n\nFor a single trial, a Bernoulli random variable indicates if there is a success (1) or failure (0) on the trial\n\nIf \\(X_1, X_2, \\ldots, X_n\\) are independent each with a Bernoulli(\\(p\\)) distribution, then \\(X_1+\\cdots+X_n\\) has a Binomial(\\(n, p\\)) distribution.\n\nThe random variable \\(X_1+ X_2+ \\ldots + X_n\\) incrementally counts the total number of successes in the \\(n\\) trials\n\n\n\nExercise 10.2 In each of the following situations determine whether or not \\(X\\) has a Binomial distribution. If so, specify \\(n\\) and \\(p\\). If not, explain why not.\n\n\nRoll a die 20 times; \\(X\\) is the number of times the die lands on an even number.\n\n\n\n\n\nRoll a die 20 times; \\(X\\) is the number of times the die lands on 6.\n\n\n\n\n\nRoll a die until it lands on 6; \\(X\\) is the total number of rolls.\n\n\n\n\n\nRoll a die 20 times; \\(X\\) is the sum of the numbers rolled.\n\n\n\n\n\nShuffle a standard deck of 52 cards (13 hearts, 39 other cards) and deal 5 without replacement; \\(X\\) is the number of hearts dealt. (Hint: be careful about why.)\n\n\n\n\n\nRoll a fair six-sided die 10 times and a fair four-sided die 10 times; \\(X\\) is the number of 3s rolled (out of 20).\n\n\n\n\n\nRandomly select a sample of 35 Cal Poly students; \\(X\\) is the number of students in the sample who are CA residents.\n\n\n\n\n\n\n\nConsider selecting a random sample of size \\(n\\) from a population in which every individual is classified as “success” or “failure”. Suppose that the proportion of individuals in the population classified as success is \\(p\\).\nThe individuals selected for the sample can be considered a sequence of Bernoulli(\\(p\\)) trials.\n\nThere are only two possible outcomes, success (1) and failure (0), on each trial.\nThe unconditional/marginal probability of success is the same on every trial, and equal to the population proportion of success \\(p\\)\nThe trials are independent\n\nIf sampling with replacement, or\nIf sampling without replacement but the population size is much larger than the sample size \\(n\\) (which is usually the case in practice)\n\n\nIf \\(X\\) counts the number of successes in a random sample of size \\(n\\) from a large population with population proportion of success \\(p\\) then \\(X\\) has a Binomial(\\(n, p\\)) distribution.\n\n\nExercise 10.3 Donny Dont is thoroughly confused about the distinction between a random variable and its distribution. Help him understand by by providing a simple concrete example of two different random variables \\(X\\) and \\(Y\\) that have the same distribution. Can you think of \\(X\\) and \\(Y\\) that have the same distribution but for which \\(\\text{P}(X = Y) = 0\\)?",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Binomial Distributions</span>"
+    ]
+  },
+  {
+    "objectID": "poisson.html",
+    "href": "poisson.html",
+    "title": "11  Poisson Distributions",
+    "section": "",
+    "text": "11.1 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Poisson Distributions</span>"
+    ]
+  },
+  {
+    "objectID": "poisson.html#exercises",
+    "href": "poisson.html#exercises",
+    "title": "11  Poisson Distributions",
+    "section": "",
+    "text": "Exercise 11.1 Continuing Example 11.1. Explain why \\(X\\) in the matching problem has a Poisson distribution when \\(n\\) is large.\n\n\n\n\n\n\n\nExercise 11.2 Suppose that the number of fatal crashes in SLO County in a week follows, approximately, a Poisson(0.53) distribution, independently from week to week. Let \\(X\\) be the number of fatal crashes in a period of 4 consecutive weeks (close enough to a “month”).\n\n\nMake an educated guess for \\(\\text{E}(X)\\).\n\n\n\n\n\nCompute \\(\\text{P}(X = 0)\\).\n\n\n\n\n\nCompute \\(\\text{P}(X = 1)\\).\n\n\n\n\n\nHow could you use simulation to approximate the distribution of \\(X\\)?\n\n\n\n\n\nUse simulation to approximate the distribution of \\(X\\). Does the approximate distribution follow (approximately) the Poisson pattern?\n\n\n\n\n\nUse a Poisson pmf to compute \\(\\text{P}(X = 5)\\).\n\n\n\n\n\n\n\nPoisson aggregation. If \\(X\\) and \\(Y\\) are independent, \\(X\\) has a Poisson(\\(\\mu_X\\)) distribution, and \\(Y\\) has a Poisson(\\(\\mu_Y\\)) distribution, then \\(X+Y\\) has a Poisson(\\(\\mu_X+\\mu_Y\\)) distribution.\nIf component counts are independent and each has a Poisson distribution, then the total count also has a Poisson distribution.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Poisson Distributions</span>"
+    ]
+  },
+  {
+    "objectID": "poisson.html#footnotes",
+    "href": "poisson.html#footnotes",
+    "title": "11  Poisson Distributions",
+    "section": "",
+    "text": "Recall the series expansion \\(e^{\\mu} = \\sum_{x=0}^\\infty \\frac{\\mu^x}{x!}\\)↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Poisson Distributions</span>"
+    ]
+  },
+  {
+    "objectID": "continuous-pdf.html",
+    "href": "continuous-pdf.html",
+    "title": "12  Continuous Random Variables",
+    "section": "",
+    "text": "12.1 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Continuous Random Variables</span>"
+    ]
+  },
+  {
+    "objectID": "continuous-pdf.html#exercises",
+    "href": "continuous-pdf.html#exercises",
+    "title": "12  Continuous Random Variables",
+    "section": "",
+    "text": "Exercise 12.1 In a certain population, household income \\(X\\) ($ thousands) follows the pdf \\[\nf_X(x) = c x^{-2.5}, \\quad x \\ge 30\n\\] for an appropriate constant \\(c\\). Note that the measurement units are $ thousands, so 1 represents 1 thousand dollars. (This is not a super realistic example, but just go with it.)\n\n\nWhat are the possible values of \\(X\\)? Sketch the pdf of \\(X\\).\n\n\n\n\n\nWithout integrating, find the probability that a household has an income, rounded to the nearest thousand dollars, of $200K.\n\n\n\n\n\nWithout integrating, find the probability that a household has an income, rounded to the nearest hundred dollars, of $200K.\n\n\n\n\n\nWithout integrating, determine how many times more likely it is for a household to have an income, rounded to the nearest hundred dollars, of $100K than $200K.\n\n\n\n\n\nCompute the value of \\(c\\). (For this and the following parts, set up any calculations you would need to perform, but you can use a calculator or software to do the computations.)\n\n\n\n\n\nCompute the probability that a household has an income under $100K.\n\n\n\n\n\nCompute the probability that a household has an income over $200K.\n\n\n\n\n\nFind the probability that a household has an income exactly equal to $200K.\n\n\n\n\n\n\n\nExercise 12.2 In Example 12.1, assume instead that employees are “equally likely” to arrive at any time between 8am and 9am. Let \\(X\\) be the arrival time of a randomly selected employee, measured in minutes after 8am. We’ll assume that \\(X\\) has a “Uniform distribution” on [0, 60].\n\n\nWhat shape would you want the pdf to have? Sketch that shape and then determine the pdf.\n\n\n\n\n\nCompute and interpret \\(\\text{P}(X &lt;15)\\).\n\n\n\n\n\nCompute and interpret \\(\\text{P}(X &gt;45)\\).\n\n\n\n\n\nHow do the two previous parts compare to each other? Why? How do they compare to the corresponding parts in Example 12.1? Why?\n\n\n\n\n\nCompute \\(\\text{P}(X = 15)\\).\n\n\n\n\n\nReplace the previous part with a more sensible question, then solve it.\n\n\n\n\n\nMake an educated guess for \\(\\text{E}(X)\\).\n\n\n\n\n\nMake an educated guess for \\(\\text{SD}(X)\\). (We’ll see how to compute expected value and variance for continuous random variables later, but for this example you should be able to make reasonable guesses without doing much computation.)\n\n\n\n\n\n\n\nA continuous random variable \\(X\\) has a Uniform distribution with parameters \\(a\\) and \\(b\\), with \\(a&lt;b\\), if its probability density function \\(f_X\\) satisfies \\[\\begin{align}\nf_X(x) & \\propto \\text{constant}, \\quad & & a&lt;x&lt;b\\\\\n& = \\frac{1}{b-a}, \\quad & &  a&lt;x&lt;b.\n\\end{align}\\]\nIf \\(X\\) has a Uniform(\\(a\\), \\(b\\)) distribution then \\[\\begin{align}\n\\text{E}(X) & = \\frac{a+b}{2}\\\\\n\\text{Var}(X) & = \\frac{|b-a|^2}{12}\\\\\n\\text{SD}(X) & = \\frac{|b-a|}{\\sqrt{12}} \\approx 0.289|b-a|\n\\end{align}\\]",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Continuous Random Variables</span>"
+    ]
+  },
+  {
     "objectID": "hw-01.html",
     "href": "hw-01.html",
     "title": "Homework 1",

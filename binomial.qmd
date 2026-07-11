@@ -2,13 +2,18 @@
 
 {{< include _r_setup.qmd >}}
 
-
+-   Some probabilistic situations are so common that they have special names. 
+-   In a sequence of **Bernoulli($p$) trials**
+    -   There are only two possible outcomes, "success" (1) or not (0, "failure"), on each trial.
+    -   The unconditional/marginal probability of success is the same on every trial, and equal to $p$.
+    -   The trials are independent.
+-   There are several commonly used distributions associated with Bernoulli trials, including Geometric and Binomial.
 
 ::: {#exm-binomial-stock}
 Consider an extremely simplified model for the daily closing price of a certain stock.
 Every day the price either goes up or goes down, and the movements are independent from day-to-day.
-Assume that the probability that the stock price goes up on any single day is 0.25.
-Let $X$ be the number of days in which the price goes up in the next 5 days.
+Assume that the probability that the stock price goes up on any single day is 0.55.
+Let $X$ be the number of days on which the price goes up in a 5-day week.
 :::
 
 1.  Compute and interpret $\text{P}(X=0)$.\
@@ -28,141 +33,85 @@ Let $X$ be the number of days in which the price goes up in the next 5 days.
     \
     \
     \
-4.  Suggest a general formula for the probability mass function of $X$.\
+4.  Compute and interpret $\text{P}(X=2)$.\
+    \
+    \
+    \
+    \
+5.  Suggest a general formula for the probability mass function of $X$.\
+    \
+    \
+    \
+    \
+6.  Construct a table and plot to represent the distribution of $X$, and interpret it.\
     \
     \
     \
     \
 
--   A discrete random variable $X$ has a **Binomial distribution** with parameters $n$, a nonnegative integer, and $p\in[0, 1]$ if its probability mass function is \begin{align*}
-    p_{X}(x) & = \binom{n}{x} p^x (1-p)^{n-x}, & x=0, 1, 2, \ldots, n
-    \end{align*}
--   The *binomial coefficient* (read "$n$ choose $x$") $$
-      \binom{n}{x} = \frac{n!}{x!(n-x)!}
-      $$ counts the number of success/failure sequences of length $n$ in which there are exactly $x$ successes. (Remember: by definition $0! = 1$.)
 
-::: {#exm-binomial-stock-again}
+
+-   Consider a *fixed number*, $n$, of Bernoulli($p$) trials and let $X$ count the number of successes.
+The distribution of $X$ is defined to be the **Binomial($n, p$) distribution**.
+-   A Binomial distribution is specified by two parameters:
+    -   $n$ (an integer): the fixed number of Bernoulli trials, or the sample size
+    -   $p$ (in $[0, 1]$): the fixed marginal probability of success on each Bernoulli trial, or the population proportion of success
+-   A discrete random variable $X$ has a **Binomial distribution** with parameters
+$n$, a nonnegative integer, and $p\in[0, 1]$ if and only if its probability mass function is
+\begin{align*}
+p_{X}(x) & = \binom{n}{x} p^x (1-p)^{n-x}, & x=0, 1, 2, \ldots, n
+\end{align*}
+    -   In the Binomial($n$, $p$) situation, there are $\binom{n}{x}$ S/F sequences that result in exactly $x$ successes---and thus $n-x$ failures---in $n$ trials,
+    -   and each of these sequences has probability $p^x(1-p)^{n-x}$
+-   The *binomial coefficient* (read "$n$ choose $x$")
+    $$
+    \binom{n}{x} = \frac{n!}{x!(n-x)!}
+    $$ 
+    counts the number of success/failure sequences of length $n$ in which there are exactly $x$ successes. (Remember: by definition $0! = 1$.)
+
+
+
+::: {#exm-binomial-stock-ev}
 Continuing @exm-binomial-stock.
 :::
 
-1.  Construct a table, plot, and spinner representing the distribution of $X$.\
+1.  Suggest a shortcut formula for $\text{E}(X)$.\
     \
     \
     \
     \
-2.  Compute and interpret $\text{P}(X \le 2)$.\
+2.  Compute $\text{E}(X)$ using the distribution of $X$ from @exm-binomial-stock. Did the shortcut formula work?\
+    \
+    \
+    \
+    \
+3.  Interpret $\text{E}(X)$.\
+    \
+    \
+    \
+    \
+4.  Remember that we assumed $p=0.55$. If instead $p$ were 0.9, would $\text{Var}(X)$ be greater or less? What if $p=0.5$?\
     \
     \
     \
     \
 
-| $x$ |                             $p(x)$ |    Value |
-|-----|-----------------------------------:|---------:|
-| 0   | $\binom{5}{0}0.25^0(1-0.25)^{5-0}$ | 0.237305 |
-| 1   | $\binom{5}{1}0.25^1(1-0.25)^{5-1}$ | 0.395508 |
-| 2   | $\binom{5}{2}0.25^2(1-0.25)^{5-2}$ | 0.263672 |
-| 3   | $\binom{5}{3}0.25^3(1-0.25)^{5-3}$ | 0.087891 |
-| 4   | $\binom{5}{4}0.25^4(1-0.25)^{5-4}$ | 0.014648 |
-| 5   | $\binom{5}{5}0.25^5(1-0.25)^{5-5}$ | 0.000977 |
-
-: Table representing the Binomial(5, 0.25) probability mass function.
-
-```{r}
-#| include: false
-#| eval: false
-
-dbinom(1, 5, 0.25)
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-x <- 0:5
-
-p_x <- dbinom(x, 5, 0.25)
-
-data.frame(x, p_x) |>
-  kbl(digits = 6) |>
-  kable_styling(fixed_thead = TRUE)
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-sum(dbinom(0:2, 5, 0.25))
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-pbinom(2, 5, 0.25)
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-rbinom(10, 5, 0.25)
-```
-
-```{r}
-#| label: fig-binomial-stock-sim
-#| fig-cap: "Simulated distribution of $X$ with a Binomial(5, 0.25) distribution."
-#| include: false
-#| eval: false
-
-N_rep <- 10000
-
-x <- rbinom(N_rep, 5, 0.25)
-
-# Summarize the simulated values
-plot(table(x) / N_rep, type = "h", xlab = "x", ylab = "Approximate P(X = x)")
-```
-
-```{r}
-#| label: spinner-binomial-stock
-#| echo: false
-#| fig-cap: "Spinner corresponding to the Binomial(5, 0.25) distribution (4 and 5 lumped into 4+)."
-
-x <- c(0:3, "4+")
-p <- c(dbinom(0:3, 5, 0.25), 1 - pbinom(3, 5, 0.25))
-
-xp <- data.frame(x, p)
-
-cdf <- c(0, cumsum(xp$p))
-
-plotp <- (cdf[-1] + cdf[-length(cdf)]) / 2
-
-ggplot(xp, aes(x = "", y = p, fill = x)) +
-  geom_bar(width = 1, stat = "identity", color = "black", fill = "white") +
-  coord_polar("y", start = 0) +
-  theme_void() +
-  # plot the possible values on the outside
-  scale_y_continuous(breaks = plotp, labels = xp$x) +
-  theme(axis.text.x = element_text(size = 14, face = "bold")) +
-  # plot the probabilities as percents inside
-  geom_text(
-    aes(y = plotp, label = percent(p)),
-    size = 4,
-    color = c(rep("black", 4), rep("white", 1))
-  ) +
-  ggtitle(paste("Binomial(5, 0.25) spinner", sep = ""))
-```
-
-```{r}
-#| include: false
-#| eval: false
-
-sum(dbinom(0:2, 5, 0.25))
-
-pbinom(2, 5, 0.25)
-```
+-   If $X$ has a Binomial($n$, $p$) distribution then
+\begin{align*}
+\text{E}(X) & = np\\
+\text{Var}(X) & = np(1-p)
+\end{align*}
 
 
-::: {#exm-binomial-stock2}
+
+
+
+
+
+## Exercises
+
+
+::: {#exr-binomial-stock2}
 Continuing @exm-binomial-stock.
 :::
 
@@ -176,27 +125,20 @@ Continuing @exm-binomial-stock.
     \
     \
     \
-3.  Recall that $X$ is the number of days on which the price goes up in the next five days. Suppose that $Y$ is the number of days on which the price goes up in the ten days after that (days 6-15). What is the distribution of $X+Y$? (Continue to assume independence between days, with probability 0.25 of an up movement on any day.)\
+3.  Recall that $X$ is the number of days on which the price goes up in the next five days. Suppose that $Y$ is the number of days on which the price goes up in the ten days after that (days 6-15). What is the distribution of $Y$? What does $X+Y$ represent and what is its distribution? (Continue to assume independence between days, with probability 0.55 of an up movement on any day.)\
     \
     \
     \
     \
 
--   Imagine a box containing tickets
-    -   Each ticket is labeled either 1 ("success") or 0 ("failure")
-    -   $p$ is the proportion of tickets in the box labeled 1 ("success"); the rest are labeled 0 ("failure").
-    -   Randomly select $n$ tickets from the box *with replacement* and let $X$ be the number of tickets in the sample that are labeled 1.
-    -   Then $X$ has a Binomial($n$, $p$) distribution.
-    -   Since the tickets are labeled 1 and 0, the random variable $X$ which counts the number of successes is equal to the sum of the 1/0 values on the tickets.
--   The above situation involves a sequence of **Bernoulli(**$p$) trials.
-    -   There are only two possible outcomes, "success" (1) and "failure" (0), on each trial.
-    -   The unconditional/marginal probability of success is the same on every trial, and equal to $p$
-    -   The trials are independent
-        -   If sampling with replacement, or
-        -   If sampling without replacement but the population size (number of tickets in the box) is much larger than the sample size $n$
--   If $X$ counts the number of successes in a *fixed number*, $n$, of Bernoulli($p$) trials then $X$ has a Binomial($n, p$) distribution.
+-   If $X$ and $Y$ are independent, $X$ has a Binomial($n_X$, $p$) distribution, and $Y$ has a Binomial($n_Y$, $p$) distribution then $X+Y$ has a Binomial($n_X+n_Y$, $p$) 
+-   A Binomial(1, $p$) distribution is also known as a **Bernoulli($p$)** distribution, taking a value of 1 with probability $p$ and 0 with probability $1-p$.
+    -   For a single trial, a Bernoulli random variable *indicates* if there is a success (1) or failure (0) on the trial
+-   If $X_1, X_2, \ldots, X_n$ are independent each with a Bernoulli($p$) distribution, then $X_1+\cdots+X_n$ has a Binomial($n, p$) distribution.
+    -   The random variable $X_1+ X_2+ \ldots + X_n$ incrementally counts the total number of successes in the $n$ trials
 
-::: {#exm-binomial-situation}
+
+::: {#exr-binomial-situation}
 In each of the following situations determine whether or not $X$ has a Binomial distribution.
 If so, specify $n$ and $p$.
 If not, explain why not.
@@ -239,43 +181,21 @@ If not, explain why not.
     \
 
 
-
-::: {#exm-binomial-stock-ev}
-Continuing @exm-binomial-stock.
-Consider an extremely simplified model for the daily closing price of a certain stock.
-Every day the price either goes up or goes down, and the movements are independent from day-to-day.
-Assume that the probability that the stock price goes up on any single day is 0.25.
-Let $X$ be the number of days in which the price goes up in the next 5 days.
-:::
-
-1.  Suggest a shortcut formula for $\text{E}(X)$.\
-    \
-    \
-    \
-    \
-2.  Compute $\text{E}(X)$ using the distribution of $X$ from @exm-binomial-stock. Did the shortcut formula work?\
-    \
-    \
-    \
-    \
-3.  Interpret $\text{E}(X)$.\
-    \
-    \
-    \
-    \
-
--   If $X$ has a Binomial($n$, $p$) distribution then $\text{E}(X) = np$.
+-   Consider selecting a random sample of size $n$ from a population in which every individual is classified as "success" or "failure". Suppose that the proportion of individuals in the population classified as success is $p$.
+-   The individuals selected for the sample can be considered a sequence of Bernoulli($p$) trials.
+    -   There are only two possible outcomes, success (1) and failure (0), on each trial.
+    -   The unconditional/marginal probability of success is the same on every trial, and equal to the population proportion of success $p$
+    -   The trials are independent
+        -   If sampling with replacement, or
+        -   If sampling without replacement but the population size is much larger than the sample size $n$ (which is usually the case in practice)
+-   If $X$ counts the number of successes in a random sample of size $n$ from a large population with population proportion of success $p$ then $X$ has a Binomial($n, p$) distribution.
 
 
-::: {#exm-dd-same-distribution}
+::: {#exr-dd-same-distribution}
 Donny Dont is thoroughly confused about the distinction between a random variable and its distribution.
 Help him understand by by providing a simple concrete example of *two different random variables* $X$ and $Y$ that have the *same distribution*.
 Can you think of $X$ and $Y$ that have the same distribution but for which $\text{P}(X = Y) = 0$?
-(Hint: think coin flipping.)
 :::
 
-\
-\
-\
-\
-\
+
+

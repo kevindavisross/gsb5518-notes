@@ -17,9 +17,9 @@ book:
     - probability-mass-functions.qmd
     - expected-value.qmd
     - variance.qmd
-    # - binomial.qmd
-    # - poisson.qmd
-    # - continuous-pdf.qmd
+    - binomial.qmd
+    - poisson.qmd
+    - continuous-pdf.qmd
     # - cdf-and-quantile.qmd
     # - expected-values-continuous.qmd
     # - exponential.qmd
