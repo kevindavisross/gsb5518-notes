@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Independence of Events – GSB518 Notes</title>
+<title>13&nbsp; Percentiles: Cumulative Distribution Functions and Quantile Functions – GSB518 Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./discrete-rv.html" rel="next">
-<link href="./bayes-rule.html" rel="prev">
+<link href="./expected-values-continuous.html" rel="next">
+<link href="./continuous-pdf.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -114,7 +114,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./independence.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Independence of Events</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cdf-and-quantile.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Percentiles: Cumulative Distribution Functions and Quantile Functions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -171,7 +171,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./independence.html" class="sidebar-item-text sidebar-link active">
+  <a href="./independence.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Independence of Events</span></span></a>
   </div>
 </li>
@@ -219,7 +219,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cdf-and-quantile.html" class="sidebar-item-text sidebar-link">
+  <a href="./cdf-and-quantile.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Percentiles: Cumulative Distribution Functions and Quantile Functions</span></span></a>
   </div>
 </li>
@@ -269,7 +269,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">5.1</span> Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">13.1</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -278,7 +278,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Independence of Events</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Percentiles: Cumulative Distribution Functions and Quantile Functions</span></h1>
 </div>
 
 
@@ -295,223 +295,81 @@ window.Quarto = {
 </header>
 
 
-<div id="exm-puppy" class="theorem example">
-<p><span class="theorem-title"><strong>Example 5.1</strong></span> Do Americans think it is important for federal judges to be impartial in how they decide court cases? Consider the following data from the <a href="https://www.pewresearch.org/politics/2025/04/23/views-of-congress-parties-and-courts/pp_2025-4-23_trump-100-days_05-05/">Pew Research Center</a>. (Indepedendents are classified as either lean Democrat or lean Republican.)</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 27%">
-<col style="width: 29%">
-<col style="width: 34%">
-<col style="width: 8%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th style="text-align: right;">Democrat/lean Dem (<span class="math inline">\(D\)</span>)</th>
-<th style="text-align: right;">Republican/lean Rep (<span class="math inline">\(D^c\)</span>)</th>
-<th style="text-align: right;">Total</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Important (<span class="math inline">\(I\)</span>)</td>
-<td style="text-align: right;">1674</td>
-<td style="text-align: right;">1531</td>
-<td style="text-align: right;">3205</td>
-</tr>
-<tr class="even">
-<td>Not important (<span class="math inline">\(I^c\)</span>)</td>
-<td style="text-align: right;">146</td>
-<td style="text-align: right;">133</td>
-<td style="text-align: right;">279</td>
-</tr>
-<tr class="odd">
-<td>Total</td>
-<td style="text-align: right;">1820</td>
-<td style="text-align: right;">1664</td>
-<td style="text-align: right;">3484</td>
-</tr>
-</tbody>
-</table>
-<p>Suppose a person is randomly selected from this sample. Consider the events <span class="math display">\[\begin{align*}
-I &amp; = \{\text{person thinks it is important for judges to be impartial}\}\\
-D &amp; = \{\text{person is a Democrat/leans Dem}\}
-\end{align*}\]</span></p>
-</div>
-<ol type="1">
-<li>Compute and interpret <span class="math inline">\(\text{P}(I)\)</span>.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Compute and interpret <span class="math inline">\(\text{P}(I|D)\)</span>.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Compute and interpret <span class="math inline">\(\text{P}(I|D^c)\)</span>.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>What do you notice about <span class="math inline">\(\text{P}(I)\)</span>, <span class="math inline">\(\text{P}(I|D)\)</span>, and <span class="math inline">\(\text{P}(I|D^c)\)</span>?<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Compute and interpret <span class="math inline">\(\text{P}(D)\)</span>.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Compute and interpret <span class="math inline">\(\text{P}(D|I)\)</span>.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Compute and interpret <span class="math inline">\(\text{P}(D|I^c)\)</span>.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>What do you notice about <span class="math inline">\(\text{P}(D)\)</span>, <span class="math inline">\(\text{P}(D|I)\)</span>, and <span class="math inline">\(\text{P}(D|I^c)\)</span>?<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Compute and interpret <span class="math inline">\(\text{P}(D \cap I)\)</span>.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>What is the relationship between <span class="math inline">\(\text{P}(D \cap I)\)</span> and <span class="math inline">\(\text{P}(D)\)</span> and <span class="math inline">\(\text{P}(I)\)</span>?<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>When randomly selecting a person from this particular group, would you say that events <span class="math inline">\(D\)</span> and <span class="math inline">\(I\)</span> are independent? Why?<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-</ol>
 <ul>
-<li>Events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are <strong>independent</strong> if the knowing whether or not one occurs does not change the probability of the other.</li>
-<li>For events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> (with <span class="math inline">\(0&lt;\text{P}(A)&lt;1\)</span> and <span class="math inline">\(0&lt;\text{P}(B)&lt;1\)</span>) the following are equivalent. That is, if one is true then they all are true; if one is false, then they all are false.</li>
-</ul>
-<p><span class="math display">\[\begin{align*}
-\text{$A$ and $B$} &amp; \text{ are independent}\\
-\text{P}(A \cap B) &amp; = \text{P}(A)\text{P}(B)\\
-\text{P}(A^c \cap B) &amp; = \text{P}(A^c)\text{P}(B)\\
-\text{P}(A \cap B^c) &amp; = \text{P}(A)\text{P}(B^c)\\
-\text{P}(A^c \cap B^c) &amp; = \text{P}(A^c)\text{P}(B^c)\\
-\text{P}(A|B) &amp; = \text{P}(A)\\
-\text{P}(A|B) &amp; = \text{P}(A|B^c)\\
-\text{P}(B|A) &amp; = \text{P}(B)\\
-\text{P}(B|A) &amp; = \text{P}(B|A^c)
-\end{align*}\]</span></p>
-<div id="exm-batch-testing" class="theorem example">
-<p><span class="theorem-title"><strong>Example 5.2</strong></span> This is a simplified example of <em>batch testing</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> for a disease. In batch testing, specimens (like blood or saliva samples) from a group of people are pooled together into one batch, which then undergoes one test. If none of the people has the disease, then the batch test result will be negative, and no further tests are required. But if at least one person in the batch has the disease, then the batch test result will be positive, and then each person in the batch must be tested individually. (We’re assuming no false positives and no false negatives for this example.)</p>
-<p>Suppose that 8 people are to be tested, first in a single batch. Assume that each person has probability <span class="math inline">\(p=0.1\)</span> of having the disease, independently from person to person. (The assumption of independence might be unreasonable if the people are in close contact with one another.)</p>
-</div>
-<ol type="1">
-<li>Identify the possible values for the total number of tests conducted.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Compute the probability of each possible value.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-</ol>
+<li>The probability density function of a continuous random variable describes which values are more or less likely in the “close to” sense.</li>
+<li>However, the pdf does not provide probabilities directly; rather, it is areas under the pdf which provide probabilities.</li>
+<li>There are many ways of describing distributions. In particular, a distribution is basically just a collection of percentiles.</li>
+<li>Cumulative distribution functions and quantile functions describe distributions by specifying all the percentiles.</li>
+<li>Roughly,
 <ul>
-<li>Events <span class="math inline">\(A_1, A_2, A_3, \ldots\)</span> are <strong>independent</strong> if:
-<ul>
-<li>any pair of events <span class="math inline">\(A_i, A_j, (i \neq j)\)</span> satisfies <span class="math inline">\(\text{P}(A_i\cap A_j)=\text{P}(A_i)\text{P}(A_j)\)</span>,</li>
-<li>and any triple of events <span class="math inline">\(A_i, A_j, A_k\)</span> (distinct <span class="math inline">\(i,j,k\)</span>) satisfies <span class="math inline">\(\text{P}(A_i\cap A_j\cap A_k)=\text{P}(A_i)\text{P}(A_j)\text{P}(A_k)\)</span>,</li>
-<li>and any quadruple of events satisfies <span class="math inline">\(\text{P}(A_i\cap A_j\cap A_k \cap A_m)=\text{P}(A_i)\text{P}(A_j)\text{P}(A_k)\text{P}(A_m)\)</span>,</li>
-<li>and so on.</li>
+<li>The <em>cumulative distribution function (cdf)</em> of a random variable fills in the blank for any given <span class="math inline">\(x\)</span>: <span class="math inline">\(x\)</span> is the (blank) percentile.</li>
+<li>The <em>quantile function</em> fills in the following blank for a given <span class="math inline">\(p\in(0, 1)\)</span>: the (<span class="math inline">\(100p\)</span>)th percentile is (blank).</li>
 </ul></li>
-<li>Intuitively, a collection of events is independent if knowing whether or not any combination of the events in the collection occur does not change the probability of any other event in the collection.</li>
-<li>When events are independent, the multiplication rule simplifies greatly. <span class="math display">\[
-\text{P}(A_1 \cap A_2 \cap A_3 \cap \cdots \cap A_n) = \text{P}(A_1)\text{P}(A_2)\text{P}(A_3)\cdots\text{P}(A_n) \quad \text{if $A_1, A_2, A_3, \ldots, A_n$ are independent}
-\]</span></li>
-<li>When a problem involves independence, you will want to take advantage of it. Work with “and” events whenever possible in order to use the multiplication rule. For example, for problems involving “at least one” (an “or” event) take the complement to obtain “none” (an “and” event).</li>
 </ul>
-<div id="exm-batch-testing2" class="theorem example">
-<p><span class="theorem-title"><strong>Example 5.3</strong></span> Continuing <a href="#exm-batch-testing" class="quarto-xref">Example&nbsp;<span>5.2</span></a>. Now suppose that 8 people to be tested are split into two groups of 4 people each. Within each group of 4 people, specimens are combined into a batch to be tested. If anyone in the batch has the disease, then the batch test will be positive, and those 4 people will need to be tested individually. Assume that each person has probability <span class="math inline">\(p=0.1\)</span> of having the disease, independently from person to person.</p>
+<div id="exm-height-percentile" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.1</strong></span> Explain what the percentiles mean in the following statements.</p>
+<ul>
+<li>47cm is <a href="https://www.cdc.gov/growthcharts/data/set1clinical/cj41l018.pdf">12th percentile of heights for newborn girls</a>.</li>
+<li>620 is the <a href="https://research.collegeboard.org/reports/sat-suite/understanding-scores/sat">80th percentile of SAT Math scores</a>.</li>
+</ul>
+</div>
+<p><br>
+<br>
+<br>
+<br>
+<br>
+</p>
+<ul>
+<li>A distribution is characterized by its percentiles.</li>
+<li>Roughly, the value <span class="math inline">\(x\)</span> is the <span class="math inline">\(p\)</span>-th <strong>percentile</strong> (a.k.a. quantile) of a distribution of a random variable <span class="math inline">\(X\)</span> if <span class="math inline">\(p\)</span> percent of values of the variable are less than or equal to <span class="math inline">\(x\)</span>: <span class="math inline">\(\text{P}(X\le x) = p\)</span>.</li>
+<li>A few commonly used percentiles
+<ul>
+<li>First (or lower) quartile is the 25th percentile (<span class="math inline">\(p=0.25\)</span>)</li>
+<li>Median is the 50th percentile (<span class="math inline">\(p=0.50\)</span>)</li>
+<li>Third (or upper) quartile is the 75th percentile (<span class="math inline">\(p=0.75\)</span>)</li>
+</ul></li>
+</ul>
+<div id="exm-meeting-nonuniform-cdf" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.2</strong></span> Recall <a href="continuous-pdf.html#exm-meeting-nonuniform-pdf" class="quarto-xref">Example&nbsp;<span>12.1</span></a> and <a href="continuous-pdf.html#exm-meeting-nonuniform-closeto" class="quarto-xref">Example&nbsp;<span>12.2</span></a> where office arrival times, measured in minutes after 8am, followed this pdf <span class="math display">\[
+f_X(x) =
+\begin{cases}
+(2/3600)x, &amp; 0&lt;x&lt;60,\\
+0 &amp; \text{otherwise.}
+\end{cases}
+\]</span></p>
 </div>
 <ol type="1">
-<li>Identify the possible values for the total number of tests conducted.<br>
+<li>Compute <span class="math inline">\(\text{P}(X &lt; 15)\)</span> and phrase the result in terms of a percentile.<br>
 <br>
 <br>
 <br>
 <br>
 </li>
-<li>Compute the probability of each possible value.<br>
+<li>Compute <span class="math inline">\(\text{P}(X &lt; 45)\)</span> and phrase the result in terms of a percentile.<br>
 <br>
 <br>
 <br>
 <br>
 </li>
-</ol>
-<section id="exercises" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">5.1</span> Exercises</h2>
-<div id="exr-system-fail" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 5.1</strong></span> A certain system consists of four identical components. Suppose that the probability that any particular component fails is 0.1, and failures of the components occur independently of each other. Find the probability that the system fails if:</p>
-</div>
-<ol type="1">
-<li>The components are connected in <em>parallel</em>: the system fails only if <em>all</em> of the components fail.<br>
+<li>Find an expression for <span class="math inline">\(\text{P}(X \le x)\)</span> for general <span class="math inline">\(x\)</span>. This function, denoted <span class="math inline">\(F_X(x)\)</span>, is called the <em>cumulative distribution function (cdf)</em> of <span class="math inline">\(X\)</span>.<br>
 <br>
 <br>
 <br>
 <br>
 </li>
-<li>The components are connected in <em>series</em>: the system fails whenever <em>at least one</em> of the components fails.<br>
+<li>How does the cdf relate to percentiles?<br>
 <br>
 <br>
 <br>
 <br>
 </li>
-<li>Donny Don’t says the answer to the previous part is <span class="math inline">\(0.1 + 0.1 + 0.1 + 0.1 = 0.4\)</span>. Explain the error in Donny’s reasoning.<br>
+<li>Use the cdf to determine what percentile 30 minutes after 8am is.<br>
 <br>
 <br>
 <br>
 <br>
 </li>
-</ol>
-<div id="exr-dice-independent" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 5.2</strong></span> Roll two fair four-sided dice, one green and one gold. There are 16 total possible outcomes (roll on green, roll on gold), all equally likely. Consider the event <span class="math inline">\(E=\{\text{the green die lands on 1}\}\)</span>. Answer the following questions by computing and comparing appropriate probabilities.</p>
-</div>
-<ol type="1">
-<li>Consider <span class="math inline">\(A=\{\text{the gold die lands on 4}\}\)</span>. Are <span class="math inline">\(A\)</span> and <span class="math inline">\(E\)</span> independent?<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Consider <span class="math inline">\(B=\{\text{the sum of the dice is 3}\}\)</span>. Are <span class="math inline">\(B\)</span> and <span class="math inline">\(E\)</span> independent?<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Consider <span class="math inline">\(C=\{\text{the sum of the dice is 5}\}\)</span>. Are <span class="math inline">\(C\)</span> and <span class="math inline">\(E\)</span> independent?<br>
+<li>Compute and interpret <span class="math inline">\(F(40) - F(30)\)</span>.<br>
 <br>
 <br>
 <br>
@@ -519,20 +377,224 @@ D &amp; = \{\text{person is a Democrat/leans Dem}\}
 </li>
 </ol>
 <ul>
-<li>Independence concerns whether or not the occurrence of one event affects the <em>probability</em> of the other.</li>
-<li>Given two events it is not always obvious whether or not they are independent.<br>
+<li>The <em>cumulative distribution function (cdf)</em> of a random variable fills in the blank for any given <span class="math inline">\(x\)</span>: <span class="math inline">\(x\)</span> is the (blank) percentile. That is, for an input <span class="math inline">\(x\)</span>, the cdf outputs <span class="math inline">\(\text{P}(X\le x)\)</span>.</li>
+<li>The <strong>cumulative distribution function (cdf)</strong> of a random variable <span class="math inline">\(X\)</span> is the function <span class="math inline">\(F_X\)</span> defined by <span class="math inline">\(F_X(x) = \text{P}(X\le x)\)</span>. A cdf is defined for all real numbers <span class="math inline">\(x\)</span> regardless of whether <span class="math inline">\(x\)</span> is a possible value of <span class="math inline">\(X\)</span>.</li>
+</ul>
+<div id="exm-meeting-nonuniform-quantile" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.3</strong></span> Continuing <a href="#exm-meeting-nonuniform-cdf" class="quarto-xref">Example&nbsp;<span>13.2</span></a> where <span class="math inline">\(X\)</span> (minutes after 8am) has pdf <span class="math display">\[
+f_X(x) = (2/3600)x, \qquad 0&lt;x&lt;60.
+\]</span> and cdf <span class="math display">\[
+F_X(x) =
+\begin{cases}
+0, &amp; x&lt;0,\\
+(x/60)^2, &amp; 0&lt;x&lt;60,\\
+1, &amp; x&gt;60.
+\end{cases}
+\]</span></p>
+</div>
+<ol type="1">
+<li>Find and interpret the 10th percentile.<br>
+<br>
+<br>
+<br>
+<br>
 </li>
-<li>Independence depends on the underlying probability measure. Events that are independent under one probability measure might not be independent under another.</li>
-<li>Independence is often assumed. Whether or not independence is a valid assumption depends on the underlying random phenomenon.</li>
+<li>Find and interpret the 90th percentile.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find an equation for the (100<span class="math inline">\(p\)</span>)th percentile (e.g., <span class="math inline">\(p=0.9\)</span> for the 90th percentile).<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<ul>
+<li>The <em>quantile function</em> (essentially the inverse cdf) fills in the following blank for a given <span class="math inline">\(p\in(0, 1)\)</span>: the <span class="math inline">\(100p\)</span>th percentile is (blank).</li>
+<li>For example, evaluating the quantile function at <span class="math inline">\(p=0.25\)</span> outputs the 25th percentile.</li>
+<li>For a <em>continuous</em> random variable <span class="math inline">\(X\)</span> with cdf <span class="math inline">\(F_X\)</span>, the <strong>quantile function</strong> <span class="math inline">\(Q_X\)</span> is the inverse of the cdf, <span class="math inline">\(Q_X(p) = F_X^{-1}(p)\)</span>.</li>
+<li>A quantile function basically gives you the same information as a cdf, just in the other direction.</li>
+<li>Both a quantile function and a cdf define a distribution by specifying all the percentiles.</li>
+</ul>
+<div id="exm-meeting-nonuniform-spinner" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.4</strong></span> Continuing <a href="#exm-meeting-nonuniform-quantile" class="quarto-xref">Example&nbsp;<span>13.3</span></a> where <span class="math inline">\(X\)</span> (minutes after 8am) has pdf <span class="math display">\[
+f_X(x) = (2/3600)x, \qquad 0&lt;x&lt;60.
+\]</span> and cdf <span class="math display">\[
+F_X(x) =
+\begin{cases}
+0, &amp; x&lt;0,\\
+(x/60)^2, &amp; 0&lt;x&lt;60,\\
+1, &amp; x&gt;60.
+\end{cases}
+\]</span> and quantile function <span class="math display">\[
+Q(p) = 60\sqrt{p}, \qquad 0&lt;p&lt;1.
+\]</span></p>
+</div>
+<ol type="1">
+<li>Construct a circular spinner for simulating values of <span class="math inline">\(X\)</span>. Version 1: label the values 0, 10, 20, 30, 40, 50, 60. Careful: they will not be equally spaced.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Sketch a histogram with equal bin widths—0 to 10, 10 to 20, etc.—that you would expect to see after spinning the version 1 spinner many times. Does it have the proper shape?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Construct a circular spinner for simulating values of <span class="math inline">\(X\)</span>. Version 2: label the circular axis so that your spinner has 12 sectors each with probability 1/12.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Sketch a histogram that you would expect to see after spinning the version 2 spinner many times. Start by sketching a histogram with <em>unequal</em> bin widths, then sketch the correspond equal bin width histogram. Does it have the proper shape?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<ul>
+<li>The cdf and the quantile function can be used to create a spinner for a distribution.</li>
+<li>A spinner basically describes a distribution by specifying all the percentiles. For example,
+<ul>
+<li>the 25th percentile goes 25% of the way around (“3 o clock”)</li>
+<li>the 50th percentile goes 50% of the way around (“6 o clock”)</li>
+<li>the 75th percentile goes 75% of the way around (“9 o clock”)</li>
+</ul></li>
+<li>Intervals corresponding to regions of higher density (“more likely” values) are stretched out on the spinner boundary; intervals corresponding regions of lower density (“less likely” values) are shrunk.</li>
+<li><strong>Universality of the Uniform (or “one spinner to rule them all”).</strong> Let <span class="math inline">\(F\)</span> be a cdf and <span class="math inline">\(Q\)</span> its corresponding quantile function. Let <span class="math inline">\(U\)</span> have a Uniform(0, 1) distribution and define the random variable <span class="math inline">\(X=Q(U)\)</span>. Then the cdf of <span class="math inline">\(X\)</span> is <span class="math inline">\(F\)</span>.</li>
+<li>Universality of the uniform might look complicated but all it basically says is that you can construct a spinner by putting the 25th percentile 25% of the way around, the 75th percentile 75% of the way around, etc.</li>
+<li>Actually, universality of the uniform says we don’t have to create a new spinner. We can just spin the Uniform(0, 1) spinner, with evenly spaced values from 0 to 1, and transform each resulting value by plugging it into the quantile function.</li>
+</ul>
+<div id="exm-exponential-cdf" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.5</strong></span> Continuing <a href="continuous-pdf.html#exm-exponential-quakes" class="quarto-xref">Example&nbsp;<span>12.3</span></a>. Suppose that <span class="math inline">\(X\)</span> is a claim amount in excess of the decuctible for a car insurance policy that incurs a claim, measured in thousands of dollars. Assume that <span class="math inline">\(X\)</span> has pdf <span class="math display">\[
+f_X(x) = (1/4.3) e^{-x/4.3}, \qquad x &gt;0
+\]</span></p>
+</div>
+<ol type="1">
+<li>Compute <span class="math inline">\(\text{P}(X &lt; 5)\)</span> and phrase the result in terms of a percentile.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find an expression for the CDF of <span class="math inline">\(X\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute the 25th percentile.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find an expression for the quantile function of <span class="math inline">\(X\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Use the quantile function to find the 75th percentile.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<section id="exercises" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">13.1</span> Exercises</h2>
+<div id="exr-pareto-income-cdf" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 13.1</strong></span> Continuing <a href="continuous-pdf.html#exr-pareto-income" class="quarto-xref">Exercise&nbsp;<span>12.1</span></a>. In a certain population, household income <span class="math inline">\(X\)</span> ($ thousands) follows the pdf <span class="math display">\[
+f_X(x) = c x^{-2.5}, \quad x \ge 30
+\]</span> for an appropriate constant <span class="math inline">\(c\)</span>. Note that the measurement units are $ thousands, so 1 represents 1 thousand dollars. (This is not a super realistic example, but just go with it.)</p>
+</div>
+<ol type="1">
+<li>Compute <span class="math inline">\(\text{P}(X\le 100)\)</span> and phrase the result in terms of a percentile.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find the cdf of <span class="math inline">\(X\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find the 10th percentile.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find the quantile function of <span class="math inline">\(X\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Sketch a circular spinner for simulating values of <span class="math inline">\(X\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<div id="exr-binomial-cdf" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 13.2</strong></span> Let <span class="math inline">\(X\)</span> be the number of heads in 3 flips of a fair coin.</p>
+</div>
+<ol type="1">
+<li>Find the pmf of <span class="math inline">\(X\)</span> and sketch a plot of it.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find the cdf of <span class="math inline">\(X\)</span> and sketch a plot of it.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Let <span class="math inline">\(Y\)</span> be the number of tails in 3 flips of a fair coin. Find the cdf of <span class="math inline">\(Y\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<ul>
+<li>A cdf is a non-decreasing function: if <span class="math inline">\(x_1 \le x_2\)</span> then <span class="math inline">\(F_X(x_1)\le F_X(x_2)\)</span>.</li>
+<li>A cdf approaches 0 as the input approaches <span class="math inline">\(-\infty\)</span>: <span class="math inline">\(\lim_{x\to-\infty}F_X(x) = 0\)</span></li>
+<li>A cdf approaches 1 as the input approaches <span class="math inline">\(\infty\)</span>: <span class="math inline">\(\lim_{x\to\infty}F_X(x) = 1\)</span></li>
+<li>The cdf of a <em>discrete</em> random variable is a step function.
+<ul>
+<li>The steps occur at the possible values of the random variable.</li>
+<li>The height of a particular step corresponds to the probability of that value, given by the pmf.</li>
+</ul></li>
+<li>The cdf of a <em>continuous</em> random variable is a continuous function.
+<ul>
+<li>The cdf of a <em>continuous</em> random variable is obtained by integrating the pdf, so</li>
+<li>The pdf of a <em>continuous</em> random variable is obtained by differentiating the cdf <span class="math display">\[
+F_X' = f_X \qquad \text{if $X$ is continuous}
+\]</span></li>
+</ul></li>
+<li>For any random variable <span class="math inline">\(X\)</span> with cdf <span class="math inline">\(F_X\)</span> <span class="math display">\[
+F_X(b) - F_X(a) = \text{P}(a&lt;X \le b)
+\]</span> Whether the inequalities in the above event are strict (<span class="math inline">\(&lt;\)</span>) or not (<span class="math inline">\(\le\)</span>) matters for discrete random variables, but not for continuous.</li>
+<li>Random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> <strong>have the same distribution</strong> if their cdfs are the same, that is, if <span class="math inline">\(F_X(u) = F_Y(u)\)</span> for all <span class="math inline">\(u\)</span>.</li>
+<li>That is, two random variables have the same distribution if all the percentiles are the same.</li>
 </ul>
 
 
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>Thanks to Allan Rossman for this example. His <a href="https://askgoodquestions.blog/2020/03/30/39-batch-testing/">blog</a> has more investigations into batch testing, including what happens as <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span> change. <a href="https://cosam.calpoly.edu/intersections/2021/innovative-response">Cal Poly</a> implemented versions of batch testing for COVID through <a href="https://www.calpoly.edu/news/massive-team-effort-inside-cal-polys-new-saliva-based-covid-testing-program">saliva samples</a> and <a href="https://mustangnews.net/cal-poly-tests-wastewater-for-covid-19/">wastewater testing</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
 </section>
 
 </main> <!-- /main -->
@@ -938,13 +1000,13 @@ D &amp; = \{\text{person is a Democrat/leans Dem}\}
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./bayes-rule.html" class="pagination-link" aria-label="Bayes Rule">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bayes Rule</span></span>
+      <a href="./continuous-pdf.html" class="pagination-link" aria-label="Continuous Random Variables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Continuous Random Variables</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./discrete-rv.html" class="pagination-link" aria-label="Discrete Random Variables">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Discrete Random Variables</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./expected-values-continuous.html" class="pagination-link" aria-label="Expected Values of Continuous Random Variables">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Expected Values of Continuous Random Variables</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -159,7 +159,9 @@ How is the probability related to $f(45)$?\
 
 
 
--   **The probability that a continuous random variable** $X$ equals any particular value is 0. That is, if $X$ is continuous then $\text{P}(X=x)=0$ for all $x$.
+-   **The probability that a continuous random variable** $X$ **equals any particular value is 0**. That is, if $X$ is continuous then $\text{P}(X=x)=0$ for all $x$.
+-   For a *continuous* random variable $X$, $\text{P}(X\le x) = \text{P}(X<x)$.
+    -   Be careful: for a *discrete* random variable $X$, $\text{P}(X\le x)$ can be different than $\text{P}(X<x)$. 
 -   Even though any specific value of a continuous random variable has probability 0, *intervals* still can have positive probability.
 -   For continuous random variables, it doesn't really make sense to talk about the probability that the random value is *equal to* a particular value. In practical applications involving continuous random variables, "equal to" really means "close to", and "close to" probabilities correspond to intervals which can have positive probability.
 -   The density $f_X(x)$ at value $x$ is *not* a probability.

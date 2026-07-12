@@ -20,9 +20,9 @@ book:
     - binomial.qmd
     - poisson.qmd
     - continuous-pdf.qmd
-    # - cdf-and-quantile.qmd
-    # - expected-values-continuous.qmd
-    # - exponential.qmd
+    - cdf-and-quantile.qmd
+    - expected-values-continuous.qmd
+    - exponential.qmd
     # - normal.qmd
     # - joint-distributions.qmd
     # - covariance.qmd

@@ -33,7 +33,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./hw-01.html" rel="next">
+<link href="./cdf-and-quantile.html" rel="next">
 <link href="./poisson.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -215,6 +215,24 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./continuous-pdf.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Continuous Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cdf-and-quantile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Percentiles: Cumulative Distribution Functions and Quantile Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expected-values-continuous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Expected Values of Continuous Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exponential.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Exponential Distributions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -411,7 +429,11 @@ f_X(x) =
 </li>
 </ol>
 <ul>
-<li><strong>The probability that a continuous random variable</strong> <span class="math inline">\(X\)</span> equals any particular value is 0. That is, if <span class="math inline">\(X\)</span> is continuous then <span class="math inline">\(\text{P}(X=x)=0\)</span> for all <span class="math inline">\(x\)</span>.</li>
+<li><strong>The probability that a continuous random variable</strong> <span class="math inline">\(X\)</span> <strong>equals any particular value is 0</strong>. That is, if <span class="math inline">\(X\)</span> is continuous then <span class="math inline">\(\text{P}(X=x)=0\)</span> for all <span class="math inline">\(x\)</span>.</li>
+<li>For a <em>continuous</em> random variable <span class="math inline">\(X\)</span>, <span class="math inline">\(\text{P}(X\le x) = \text{P}(X&lt;x)\)</span>.
+<ul>
+<li>Be careful: for a <em>discrete</em> random variable <span class="math inline">\(X\)</span>, <span class="math inline">\(\text{P}(X\le x)\)</span> can be different than <span class="math inline">\(\text{P}(X&lt;x)\)</span>.</li>
+</ul></li>
 <li>Even though any specific value of a continuous random variable has probability 0, <em>intervals</em> still can have positive probability.</li>
 <li>For continuous random variables, it doesn’t really make sense to talk about the probability that the random value is <em>equal to</em> a particular value. In practical applications involving continuous random variables, “equal to” really means “close to”, and “close to” probabilities correspond to intervals which can have positive probability.</li>
 <li>The density <span class="math inline">\(f_X(x)\)</span> at value <span class="math inline">\(x\)</span> is <em>not</em> a probability.</li>
@@ -996,8 +1018,8 @@ f_X(x) &amp; \propto \text{constant}, \quad &amp; &amp; a&lt;x&lt;b\\
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./hw-01.html" class="pagination-link" aria-label="Homework 1">
-        <span class="nav-page-text">Homework 1</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./cdf-and-quantile.html" class="pagination-link" aria-label="Percentiles: Cumulative Distribution Functions and Quantile Functions">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Percentiles: Cumulative Distribution Functions and Quantile Functions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

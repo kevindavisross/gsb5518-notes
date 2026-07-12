@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Independence of Events – GSB518 Notes</title>
+<title>15&nbsp; Exponential Distributions – GSB518 Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./discrete-rv.html" rel="next">
-<link href="./bayes-rule.html" rel="prev">
+<link href="./hw-01.html" rel="next">
+<link href="./expected-values-continuous.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -72,6 +72,10 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -114,7 +118,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./independence.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Independence of Events</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exponential.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Exponential Distributions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -171,7 +175,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./independence.html" class="sidebar-item-text sidebar-link active">
+  <a href="./independence.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Independence of Events</span></span></a>
   </div>
 </li>
@@ -231,7 +235,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exponential.html" class="sidebar-item-text sidebar-link">
+  <a href="./exponential.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Exponential Distributions</span></span></a>
   </div>
 </li>
@@ -269,7 +273,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">5.1</span> Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">15.1</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -278,7 +282,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Independence of Events</span></h1>
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Exponential Distributions</span></h1>
 </div>
 
 
@@ -295,111 +299,247 @@ window.Quarto = {
 </header>
 
 
-<div id="exm-puppy" class="theorem example">
-<p><span class="theorem-title"><strong>Example 5.1</strong></span> Do Americans think it is important for federal judges to be impartial in how they decide court cases? Consider the following data from the <a href="https://www.pewresearch.org/politics/2025/04/23/views-of-congress-parties-and-courts/pp_2025-4-23_trump-100-days_05-05/">Pew Research Center</a>. (Indepedendents are classified as either lean Democrat or lean Republican.)</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 27%">
-<col style="width: 29%">
-<col style="width: 34%">
-<col style="width: 8%">
-</colgroup>
+<ul>
+<li>Exponential distributions are often used to model the waiting times between events in a random process that occur continuously over time.</li>
+</ul>
+<div id="exm-exponential-orders" class="theorem example">
+<p><span class="theorem-title"><strong>Example 15.1</strong></span> A business is tracking when online orders are placed on their website. Suppose an order just occurred and let <span class="math inline">\(X\)</span> be the time until the next order is placed, measured in hours, including fractions of an hour. Assume that <span class="math inline">\(X\)</span> has an <em>Exponential distribution with rate parameter 2.5 per hour</em>, with pdf <span class="math display">\[
+f_X(x) = 2.5 e^{-2.5x}, \qquad x &gt;0
+\]</span></p>
+</div>
+<ol type="1">
+<li>Sketch the pdf of <span class="math inline">\(X\)</span>. Roughly, what does this tell you about times between orders?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute and interpret <span class="math inline">\(\text{P}(X &lt; 0.5)\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Determine the cdf of <span class="math inline">\(X\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Determine what percentile 2 hours is.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute and interpret the median of <span class="math inline">\(X\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Make an educated guess for <span class="math inline">\(\text{E}(X)\)</span>. Then compute and interpret <span class="math inline">\(\text{E}(X)\)</span>; did your guess work?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute and interpret <span class="math inline">\(\text{P}(X &lt; \text{E}(X))\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<ul>
+<li>A continuous random variable <span class="math inline">\(X\)</span> has an <strong>Exponential distribution</strong> with <em>rate</em> parameter <span class="math inline">\(\lambda&gt;0\)</span> if its pdf is <span class="math display">\[
+f_X(x) =
+\begin{cases}\lambda e^{-\lambda x}, &amp; x &gt; 0,\\
+0, &amp; \text{otherwise}
+\end{cases}
+\]</span></li>
+<li>If <span class="math inline">\(X\)</span> has an Exponential(<span class="math inline">\(\lambda\)</span>) distribution then <span class="math display">\[\begin{align*}
+\text{cdf:} \quad F_X(x) &amp; = 1-e^{-\lambda x}, \quad x&gt; 0\\
+\text{P}(X&gt;x)  &amp; = e^{-\lambda x}, \quad x&gt; 0\\
+\text{quantile:} \quad Q(p) &amp; = -(1/\lambda) \ln(1-p),\quad 0&lt;p&lt;1\\
+\text{E}(X) &amp; = \frac{1}{\lambda}\\
+\text{Var}(X) &amp; = \frac{1}{\lambda^2}\\
+\text{SD}(X) &amp; = \frac{1}{\lambda}
+\end{align*}\]</span></li>
+<li>Percentiles for any Exponential distribution follow a particular pattern in terms of “multiples of the mean”:
+<ul>
+<li>For any <span class="math inline">\(m&gt;0\)</span>, <span class="math inline">\(\text{P}(X \le m\text{E}(X)) = 1-e^{-m}\)</span>.
+<ul>
+<li>For example, for any Exponential distribution the mean (<span class="math inline">\(m=1\)</span>) is the 63.2rd percentile (<span class="math inline">\(1-e^{-1}=0.632\)</span>).</li>
+</ul></li>
+<li>The <span class="math inline">\(p\)</span>th percentile is <span class="math inline">\(-\ln(1-p)\)</span> times <span class="math inline">\(\text{E}(X)\)</span>.
+<ul>
+<li>For example, for any Exponential distribution the median (<span class="math inline">\(p=0.5\)</span>) is 0.693 times the mean (<span class="math inline">\(-\ln(1-0.5) = 0.693\)</span>).<br>
+</li>
+</ul></li>
+<li>See <a href="#tbl-exponential-rule" class="quarto-xref">Table&nbsp;<span>15.1</span></a>.</li>
+</ul></li>
+<li>Exponential distributions are often used to model the <em>waiting time</em> in a random process until some event occurs.
+<ul>
+<li><span class="math inline">\(\lambda\)</span> is the average <em>rate</em> at which events occur over time (e.g., 2 per hour)</li>
+<li><span class="math inline">\(1/\lambda\)</span> is the mean time between events (e.g., 1/2 hour)</li>
+</ul></li>
+<li>If <span class="math inline">\(X\)</span> has an Exponential(<span class="math inline">\(\lambda)\)</span> distribution and <span class="math inline">\(a&gt;0\)</span> is a constant, then <span class="math inline">\(aX\)</span> has an Exponential(<span class="math inline">\(\lambda/a\)</span>) distribution.
+<ul>
+<li>If <span class="math inline">\(X\)</span> is measured in hours with rate <span class="math inline">\(\lambda = 2\)</span> per hour and mean 1/2 hour</li>
+<li>Then <span class="math inline">\(60X\)</span> is measured in minutes with rate <span class="math inline">\(2/60\)</span> per minute and mean <span class="math inline">\(60(1/2)=30\)</span> minutes.</li>
+</ul></li>
+<li>If <span class="math inline">\(X\)</span> has an Exponential(1) distribution and <span class="math inline">\(\lambda&gt;0\)</span> is a constant then <span class="math inline">\(X/\lambda\)</span> has an Exponential(<span class="math inline">\(\lambda\)</span>) distribution.</li>
+<li>If <span class="math inline">\(U\)</span> has a Uniform(0, 1) distribution then <span class="math inline">\(-\ln(1-U)\)</span> has Exponential(1) distribution, and <span class="math inline">\(-(1/\lambda) \ln(1-U)\)</span> has an Exponential(<span class="math inline">\(\lambda\)</span>) distribution.</li>
+</ul>
+<div id="fig-exponential" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-exponential-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-exponential" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-exponential-pdf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-exponential-pdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="_graphics/exponential-pdf.png" class="img-fluid figure-img" data-ref-parent="fig-exponential">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-exponential-pdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) PDF
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-exponential" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-exponential-cdf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-exponential-cdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="_graphics/exponential-cdf.png" class="img-fluid figure-img" data-ref-parent="fig-exponential">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-exponential-cdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) CDF
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-exponential-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15.1: A generic Exponential distribution with rate parameter <span class="math inline">\(\lambda\)</span> and mean <span class="math inline">\(1/\lambda\)</span>. In the PDF plot, the x-axis is labeled in measurement units; in the CDF plot, the x-axis is labeled in terms of multiples of the mean.
+</figcaption>
+</figure>
+</div>
+<div class="cell">
+<div id="tbl-exponential-rule" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-exponential-rule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;15.1: Percentiles for an Exponential distribution in terms of multiples of the mean
+</figcaption>
+<div aria-describedby="tbl-exponential-rule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table cell caption-top table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
-<th style="text-align: right;">Democrat/lean Dem (<span class="math inline">\(D\)</span>)</th>
-<th style="text-align: right;">Republican/lean Rep (<span class="math inline">\(D^c\)</span>)</th>
-<th style="text-align: right;">Total</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">Percentile</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Relative to mean</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Important (<span class="math inline">\(I\)</span>)</td>
-<td style="text-align: right;">1674</td>
-<td style="text-align: right;">1531</td>
-<td style="text-align: right;">3205</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: left;">0.11 times the mean</td>
 </tr>
 <tr class="even">
-<td>Not important (<span class="math inline">\(I^c\)</span>)</td>
-<td style="text-align: right;">146</td>
-<td style="text-align: right;">133</td>
-<td style="text-align: right;">279</td>
+<td style="text-align: right;">25%</td>
+<td style="text-align: left;">0.29 times the mean</td>
 </tr>
 <tr class="odd">
-<td>Total</td>
-<td style="text-align: right;">1820</td>
-<td style="text-align: right;">1664</td>
-<td style="text-align: right;">3484</td>
+<td style="text-align: right;">39.3%</td>
+<td style="text-align: left;">0.50 times the mean</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">50%</td>
+<td style="text-align: left;">0.69 times the mean</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">63.2%</td>
+<td style="text-align: left;">1.00 times the mean</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">75%</td>
+<td style="text-align: left;">1.39 times the mean</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">77.7%</td>
+<td style="text-align: left;">1.50 times the mean</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">86.5%</td>
+<td style="text-align: left;">2.00 times the mean</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">90%</td>
+<td style="text-align: left;">2.30 times the mean</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">91.8%</td>
+<td style="text-align: left;">2.50 times the mean</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">95%</td>
+<td style="text-align: left;">3.00 times the mean</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">97%</td>
+<td style="text-align: left;">3.50 times the mean</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">98.2%</td>
+<td style="text-align: left;">4.00 times the mean</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">98.9%</td>
+<td style="text-align: left;">4.50 times the mean</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">99.3%</td>
+<td style="text-align: left;">5.00 times the mean</td>
 </tr>
 </tbody>
 </table>
-<p>Suppose a person is randomly selected from this sample. Consider the events <span class="math display">\[\begin{align*}
-I &amp; = \{\text{person thinks it is important for judges to be impartial}\}\\
-D &amp; = \{\text{person is a Democrat/leans Dem}\}
-\end{align*}\]</span></p>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div id="exm-poisson-to-exponential-cdf" class="theorem example">
+<p><span class="theorem-title"><strong>Example 15.2</strong></span> Continuing <a href="#exm-exponential-orders" class="quarto-xref">Example&nbsp;<span>15.1</span></a>. Let <span class="math inline">\(N(1)\)</span> be the number of orders in a 1 hour period, a discrete random variable. Then the expected value of <span class="math inline">\(N(1)\)</span> is 2.5 orders. If <span class="math inline">\(N(2)\)</span> is the number of orders that happen in a 2 hour period then its expected value is <span class="math inline">\(\text{E}(N(2)) =5\)</span> orders. In general, if <span class="math inline">\(N(t)\)</span> is the number of orders in a <span class="math inline">\(t\)</span> hour period its expected value is <span class="math inline">\(\text{E}(N(t)) =2.5t\)</span> orders.</p>
+<p>Assume that, for any <span class="math inline">\(t\)</span>, the discrete random variable <span class="math inline">\(N(t)\)</span> has a Poisson distribution with parameter <span class="math inline">\(2.5t\)</span>. Now we’ll consider what this assumption implies about the time between orders. Suppose an order just occurred and let <span class="math inline">\(T\)</span> be the time in hours until the next order; <span class="math inline">\(T\)</span> is a continuous random variable.</p>
 </div>
 <ol type="1">
-<li>Compute and interpret <span class="math inline">\(\text{P}(I)\)</span>.<br>
+<li>Interpret the event <span class="math inline">\(\{T&gt;0.5\}\)</span>. How can you express this as an equivalent event involving a number of order?<br>
 <br>
 <br>
 <br>
 <br>
 </li>
-<li>Compute and interpret <span class="math inline">\(\text{P}(I|D)\)</span>.<br>
+<li>Compute and interpret <span class="math inline">\(\text{P}(T &gt; 0.5)\)</span>.<br>
 <br>
 <br>
 <br>
 <br>
 </li>
-<li>Compute and interpret <span class="math inline">\(\text{P}(I|D^c)\)</span>.<br>
+<li>Compute <span class="math inline">\(\text{P}(T &gt; t)\)</span> as a function of <span class="math inline">\(t&gt;0\)</span>.<br>
 <br>
 <br>
 <br>
 <br>
 </li>
-<li>What do you notice about <span class="math inline">\(\text{P}(I)\)</span>, <span class="math inline">\(\text{P}(I|D)\)</span>, and <span class="math inline">\(\text{P}(I|D^c)\)</span>?<br>
+<li>Identify by name the distribution of <span class="math inline">\(T\)</span>; be sure to specify the values of any relevant parameters.<br>
 <br>
 <br>
 <br>
 <br>
 </li>
-<li>Compute and interpret <span class="math inline">\(\text{P}(D)\)</span>.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Compute and interpret <span class="math inline">\(\text{P}(D|I)\)</span>.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Compute and interpret <span class="math inline">\(\text{P}(D|I^c)\)</span>.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>What do you notice about <span class="math inline">\(\text{P}(D)\)</span>, <span class="math inline">\(\text{P}(D|I)\)</span>, and <span class="math inline">\(\text{P}(D|I^c)\)</span>?<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Compute and interpret <span class="math inline">\(\text{P}(D \cap I)\)</span>.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>What is the relationship between <span class="math inline">\(\text{P}(D \cap I)\)</span> and <span class="math inline">\(\text{P}(D)\)</span> and <span class="math inline">\(\text{P}(I)\)</span>?<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>When randomly selecting a person from this particular group, would you say that events <span class="math inline">\(D\)</span> and <span class="math inline">\(I\)</span> are independent? Why?<br>
+<li>Compute and interpret <span class="math inline">\(\text{E}(T)\)</span>.<br>
 <br>
 <br>
 <br>
@@ -407,111 +547,68 @@ D &amp; = \{\text{person is a Democrat/leans Dem}\}
 </li>
 </ol>
 <ul>
-<li>Events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are <strong>independent</strong> if the knowing whether or not one occurs does not change the probability of the other.</li>
-<li>For events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> (with <span class="math inline">\(0&lt;\text{P}(A)&lt;1\)</span> and <span class="math inline">\(0&lt;\text{P}(B)&lt;1\)</span>) the following are equivalent. That is, if one is true then they all are true; if one is false, then they all are false.</li>
-</ul>
-<p><span class="math display">\[\begin{align*}
-\text{$A$ and $B$} &amp; \text{ are independent}\\
-\text{P}(A \cap B) &amp; = \text{P}(A)\text{P}(B)\\
-\text{P}(A^c \cap B) &amp; = \text{P}(A^c)\text{P}(B)\\
-\text{P}(A \cap B^c) &amp; = \text{P}(A)\text{P}(B^c)\\
-\text{P}(A^c \cap B^c) &amp; = \text{P}(A^c)\text{P}(B^c)\\
-\text{P}(A|B) &amp; = \text{P}(A)\\
-\text{P}(A|B) &amp; = \text{P}(A|B^c)\\
-\text{P}(B|A) &amp; = \text{P}(B)\\
-\text{P}(B|A) &amp; = \text{P}(B|A^c)
-\end{align*}\]</span></p>
-<div id="exm-batch-testing" class="theorem example">
-<p><span class="theorem-title"><strong>Example 5.2</strong></span> This is a simplified example of <em>batch testing</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> for a disease. In batch testing, specimens (like blood or saliva samples) from a group of people are pooled together into one batch, which then undergoes one test. If none of the people has the disease, then the batch test result will be negative, and no further tests are required. But if at least one person in the batch has the disease, then the batch test result will be positive, and then each person in the batch must be tested individually. (We’re assuming no false positives and no false negatives for this example.)</p>
-<p>Suppose that 8 people are to be tested, first in a single batch. Assume that each person has probability <span class="math inline">\(p=0.1\)</span> of having the disease, independently from person to person. (The assumption of independence might be unreasonable if the people are in close contact with one another.)</p>
-</div>
-<ol type="1">
-<li>Identify the possible values for the total number of tests conducted.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Compute the probability of each possible value.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-</ol>
+<li>Events occur continuously over time according to a <strong>Poisson process</strong> with <em>rate</em> <span class="math inline">\(\lambda&gt;0\)</span> (per unit time) if
 <ul>
-<li>Events <span class="math inline">\(A_1, A_2, A_3, \ldots\)</span> are <strong>independent</strong> if:
+<li>The number of events that occur in any time interval of length <span class="math inline">\(t\)</span> has a Poisson<span class="math inline">\((\lambda t)\)</span> distribution.
 <ul>
-<li>any pair of events <span class="math inline">\(A_i, A_j, (i \neq j)\)</span> satisfies <span class="math inline">\(\text{P}(A_i\cap A_j)=\text{P}(A_i)\text{P}(A_j)\)</span>,</li>
-<li>and any triple of events <span class="math inline">\(A_i, A_j, A_k\)</span> (distinct <span class="math inline">\(i,j,k\)</span>) satisfies <span class="math inline">\(\text{P}(A_i\cap A_j\cap A_k)=\text{P}(A_i)\text{P}(A_j)\text{P}(A_k)\)</span>,</li>
-<li>and any quadruple of events satisfies <span class="math inline">\(\text{P}(A_i\cap A_j\cap A_k \cap A_m)=\text{P}(A_i)\text{P}(A_j)\text{P}(A_k)\text{P}(A_m)\)</span>,</li>
-<li>and so on.</li>
+<li>In particular, the distribution does not depend on the starting time or ending time of the interval, just its length.</li>
 </ul></li>
-<li>Intuitively, a collection of events is independent if knowing whether or not any combination of the events in the collection occur does not change the probability of any other event in the collection.</li>
-<li>When events are independent, the multiplication rule simplifies greatly. <span class="math display">\[
-\text{P}(A_1 \cap A_2 \cap A_3 \cap \cdots \cap A_n) = \text{P}(A_1)\text{P}(A_2)\text{P}(A_3)\cdots\text{P}(A_n) \quad \text{if $A_1, A_2, A_3, \ldots, A_n$ are independent}
-\]</span></li>
-<li>When a problem involves independence, you will want to take advantage of it. Work with “and” events whenever possible in order to use the multiplication rule. For example, for problems involving “at least one” (an “or” event) take the complement to obtain “none” (an “and” event).</li>
+<li>The numbers of events that occur in disjoint intervals of time are independent.</li>
+</ul></li>
+<li>A random process is a Poisson process with rate <span class="math inline">\(\lambda\)</span> if and only if
+<ul>
+<li>it is a counting process, that is, it is a process which counts the number of occurrences of some event over time.</li>
+<li>the <em>interarrival times</em> (times between events) <span class="math inline">\(W_0, W_1,\ldots\)</span> are independent Exponential<span class="math inline">\((\lambda)\)</span> random variables</li>
+</ul></li>
 </ul>
-<div id="exm-batch-testing2" class="theorem example">
-<p><span class="theorem-title"><strong>Example 5.3</strong></span> Continuing <a href="#exm-batch-testing" class="quarto-xref">Example&nbsp;<span>5.2</span></a>. Now suppose that 8 people to be tested are split into two groups of 4 people each. Within each group of 4 people, specimens are combined into a batch to be tested. If anyone in the batch has the disease, then the batch test will be positive, and those 4 people will need to be tested individually. Assume that each person has probability <span class="math inline">\(p=0.1\)</span> of having the disease, independently from person to person.</p>
+<section id="exercises" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">15.1</span> Exercises</h2>
+<div id="exr-exponential-spinner" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 15.1</strong></span> Use the “multiples of the mean rule” to create a circular spinner for simulating values from a generic Exponential distribution.</p>
 </div>
 <ol type="1">
-<li>Identify the possible values for the total number of tests conducted.<br>
+<li>Version 1: label the circular axis in increments of 0.5, 1.0, 1.5, 2.0, 2.5, etc., multiple of the mean. Careful: the values should not be evenly spaced.<br>
 <br>
 <br>
 <br>
 <br>
 </li>
-<li>Compute the probability of each possible value.<br>
+<li>Sketch a histogram with equal bin widths—0 to 0.5, 0.5 to 1.0, 1.0 to 1.5, etc.—that you would expect to see after spinning the version 1 spinner many times. Does it have an Exponential shape?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Version 2: label the circular axis so that your spinner has 10 sectors each with probability 0.1.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Sketch a histogram that you would expect to see after spinning the version 2 spinner many times. Start by sketching a histogram with <em>unequal</em> bin widths, then sketch the correspond equal bin width histogram. Does it have an Exponential shape?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Explain how could you use this spinner (either version) to simulate values from an Exponential distribution with rate parameter 2.5 (like in <a href="#exm-exponential-orders" class="quarto-xref">Example&nbsp;<span>15.1</span></a>).<br>
 <br>
 <br>
 <br>
 <br>
 </li>
 </ol>
-<section id="exercises" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">5.1</span> Exercises</h2>
-<div id="exr-system-fail" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 5.1</strong></span> A certain system consists of four identical components. Suppose that the probability that any particular component fails is 0.1, and failures of the components occur independently of each other. Find the probability that the system fails if:</p>
+<div id="exr-exponential-orders-memoryless" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 15.2</strong></span> Continuing <a href="#exm-exponential-orders" class="quarto-xref">Example&nbsp;<span>15.1</span></a>. Let <span class="math inline">\(X\)</span> be the waiting time (hours) until the next order and assume <span class="math inline">\(X\)</span> has an Exponential(2.5) distribution.</p>
 </div>
 <ol type="1">
-<li>The components are connected in <em>parallel</em>: the system fails only if <em>all</em> of the components fail.<br>
+<li>Find the conditional probability that the waiting time from now until the next order is greater than 3 hours given that no orders occur in the next hour. Be sure to write a valid probability statement involving <span class="math inline">\(X\)</span> before computing.<br>
 <br>
 <br>
 <br>
 <br>
 </li>
-<li>The components are connected in <em>series</em>: the system fails whenever <em>at least one</em> of the components fails.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Donny Don’t says the answer to the previous part is <span class="math inline">\(0.1 + 0.1 + 0.1 + 0.1 = 0.4\)</span>. Explain the error in Donny’s reasoning.<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-</ol>
-<div id="exr-dice-independent" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 5.2</strong></span> Roll two fair four-sided dice, one green and one gold. There are 16 total possible outcomes (roll on green, roll on gold), all equally likely. Consider the event <span class="math inline">\(E=\{\text{the green die lands on 1}\}\)</span>. Answer the following questions by computing and comparing appropriate probabilities.</p>
-</div>
-<ol type="1">
-<li>Consider <span class="math inline">\(A=\{\text{the gold die lands on 4}\}\)</span>. Are <span class="math inline">\(A\)</span> and <span class="math inline">\(E\)</span> independent?<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Consider <span class="math inline">\(B=\{\text{the sum of the dice is 3}\}\)</span>. Are <span class="math inline">\(B\)</span> and <span class="math inline">\(E\)</span> independent?<br>
-<br>
-<br>
-<br>
-<br>
-</li>
-<li>Consider <span class="math inline">\(C=\{\text{the sum of the dice is 5}\}\)</span>. Are <span class="math inline">\(C\)</span> and <span class="math inline">\(E\)</span> independent?<br>
+<li>Compare to <span class="math inline">\(\text{P}(X &gt; 2)\)</span>. What do you notice?<br>
 <br>
 <br>
 <br>
@@ -519,11 +616,13 @@ D &amp; = \{\text{person is a Democrat/leans Dem}\}
 </li>
 </ol>
 <ul>
-<li>Independence concerns whether or not the occurrence of one event affects the <em>probability</em> of the other.</li>
-<li>Given two events it is not always obvious whether or not they are independent.<br>
-</li>
-<li>Independence depends on the underlying probability measure. Events that are independent under one probability measure might not be independent under another.</li>
-<li>Independence is often assumed. Whether or not independence is a valid assumption depends on the underlying random phenomenon.</li>
+<li><strong>Memoryless property.</strong> If <span class="math inline">\(W\)</span> has an Exponential(<span class="math inline">\(\lambda\)</span>) distribution then for any <span class="math inline">\(w,h&gt;0\)</span> <span class="math display">\[
+\text{P}(W&gt;w+h\,\vert\, W&gt;w) = \text{P}(W&gt;h)
+\]</span></li>
+<li>Given that we have already waited <span class="math inline">\(w\)</span> units of time, the conditional probability that we wait at least an additional <span class="math inline">\(h\)</span> units of time is the same as the unconditional probability that we wait at least <span class="math inline">\(h\)</span> units of time.</li>
+<li>In this sense, the future waiting time does not “remember” how long we have already waited.</li>
+<li>A continuous random variable <span class="math inline">\(W\)</span> has the memoryless property if and only if <span class="math inline">\(W\)</span> has an Exponential distribution. That is, Exponential distributions are the <em>only</em> continuous<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> distributions with the memoryless property.</li>
+<li>If <span class="math inline">\(W\)</span> has an Exponential(<span class="math inline">\(\lambda\)</span>) distribution then the conditional distribution of the <em>excess</em> waiting time, <span class="math inline">\(W - w\)</span>, given <span class="math inline">\(\{W&gt;w\}\)</span> is Exponential(<span class="math inline">\(\lambda\)</span>).</li>
 </ul>
 
 
@@ -531,7 +630,7 @@ D &amp; = \{\text{person is a Democrat/leans Dem}\}
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Thanks to Allan Rossman for this example. His <a href="https://askgoodquestions.blog/2020/03/30/39-batch-testing/">blog</a> has more investigations into batch testing, including what happens as <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span> change. <a href="https://cosam.calpoly.edu/intersections/2021/innovative-response">Cal Poly</a> implemented versions of batch testing for COVID through <a href="https://www.calpoly.edu/news/massive-team-effort-inside-cal-polys-new-saliva-based-covid-testing-program">saliva samples</a> and <a href="https://mustangnews.net/cal-poly-tests-wastewater-for-covid-19/">wastewater testing</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Geometric distributions are the only discrete distributions with the discrete analog of the memoryless property.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -938,13 +1037,13 @@ D &amp; = \{\text{person is a Democrat/leans Dem}\}
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./bayes-rule.html" class="pagination-link" aria-label="Bayes Rule">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bayes Rule</span></span>
+      <a href="./expected-values-continuous.html" class="pagination-link" aria-label="Expected Values of Continuous Random Variables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Expected Values of Continuous Random Variables</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./discrete-rv.html" class="pagination-link" aria-label="Discrete Random Variables">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Discrete Random Variables</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./hw-01.html" class="pagination-link" aria-label="Homework 1">
+        <span class="nav-page-text">Homework 1</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

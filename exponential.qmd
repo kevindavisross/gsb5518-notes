@@ -2,462 +2,249 @@
 
 {{< include _r_setup.qmd >}}
 
+-   Exponential distributions are often used to model the waiting times between events in a random process that occur continuously over time.
+
+
+::: {#exm-exponential-orders}
+A business is tracking when online orders are placed on their website.
+Suppose an order just occurred and let $X$ be the time until the next order is placed, measured in hours, including fractions of an hour.
+Assume that $X$ has an *Exponential distribution with rate parameter 2.5 per hour*, with pdf 
+$$
+f_X(x) = 2.5 e^{-2.5x}, \qquad x >0
+$$
+:::
+
+1.  Sketch the pdf of $X$. Roughly, what does this tell you about times between orders?\
+    \
+    \
+    \
+    \
+1.	Compute and interpret $\text{P}(X < 0.5)$.\
+    \
+    \
+    \
+    \
+1.	Determine the cdf of $X$.\
+    \
+    \
+    \
+    \
+1.  Determine what percentile 2 hours is.\
+    \
+    \
+    \
+    \
+1.	Compute and interpret the median of $X$.\
+    \
+    \
+    \
+    \
+1.	Make an educated guess for $\text{E}(X)$. Then compute and interpret $\text{E}(X)$; did your guess work?\
+    \
+    \
+    \
+    \
+1.	Compute and interpret $\text{P}(X < \text{E}(X))$.\
+    \
+    \
+    \
+    \
 
 
 
+-   A continuous random variable $X$ has an **Exponential distribution** with *rate* parameter $\lambda>0$ if its pdf is
+$$
+f_X(x) =
+\begin{cases}\lambda e^{-\lambda x}, & x > 0,\\
+0, & \text{otherwise}
+\end{cases}
+$$
+-   If $X$ has an Exponential($\lambda$) distribution then
+\begin{align*}
+\text{cdf:} \quad F_X(x) & = 1-e^{-\lambda x}, \quad x> 0\\
+ \text{P}(X>x)  & = e^{-\lambda x}, \quad x> 0\\
+ \text{quantile:} \quad Q(p) & = -(1/\lambda) \ln(1-p),\quad 0<p<1\\
+\text{E}(X) & = \frac{1}{\lambda}\\
+\text{Var}(X) & = \frac{1}{\lambda^2}\\
+\text{SD}(X) & = \frac{1}{\lambda}
+\end{align*}
+-   Percentiles for any Exponential distribution follow a particular pattern in terms of "multiples of the mean":
+    -   For any $m>0$,  $\text{P}(X \le m\text{E}(X)) = 1-e^{-m}$.
+        -   For example, for any Exponential distribution the mean ($m=1$) is the 63.2rd percentile ($1-e^{-1}=0.632$).
+    -   The $p$th percentile is $-\ln(1-p)$ times $\text{E}(X)$.
+        -   For example, for any Exponential distribution the median ($p=0.5$) is 0.693 times the mean ($-\ln(1-0.5) = 0.693$).  
+    -   See @tbl-exponential-rule.
+-   Exponential distributions are often used to model the *waiting time* in a random process until some event occurs.
+    -   $\lambda$ is the average *rate* at which events occur over time (e.g., 2 per hour)
+    -   $1/\lambda$ is the mean time between events (e.g., 1/2 hour)
+-   If $X$ has an Exponential($\lambda)$ distribution and $a>0$ is a constant, then $aX$  has an Exponential($\lambda/a$) distribution.
+    -   If $X$ is measured in hours with rate $\lambda = 2$ per hour and mean 1/2 hour
+    -   Then $60X$ is measured in minutes with rate $2/60$ per minute and mean $60(1/2)=30$ minutes.
+-   If $X$ has an Exponential(1) distribution and $\lambda>0$ is a constant then $X/\lambda$ has an Exponential($\lambda$) distribution.
+-   If $U$ has a Uniform(0, 1) distribution then $-\ln(1-U)$ has Exponential(1) distribution, and $-(1/\lambda) \ln(1-U)$ has an Exponential($\lambda$) distribution. 
 
--   Simulated values of a continuous random variable are usually plotted in a **histogram** which groups the observed values into "bins" and plots densities or frequencies for each bin. (R: `hist`).
--   In a histogram *areas* of bars represent relative frequencies; the axis which represents the height of the bars is called "density" (R: `hist` with `freq = FALSE`).
--   The distribution of a continuous random variable can be described by a **probability density function (pdf)**, for which *areas under the density curve determine probabilities*.
 
-## Uniform Distributions
 
-::: {#exm-meeting-uniform-pdf}
-In the meeting problem assume that Regina's arrival time $X$ (minutes after noon) follows a Uniform(0, 60) distribution. @fig-meeting-uniform displays a histogram of 10000 simulated values of $X$.
+::: {#fig-exponential layout-ncol=2}
+
+![PDF](_graphics/exponential-pdf.png){#fig-exponential-pdf}
+
+![CDF](_graphics/exponential-cdf.png){#fig-exponential-cdf}
+
+A generic Exponential distribution with rate parameter $\lambda$ and mean $1/\lambda$. In the PDF plot, the x-axis is labeled in measurement units; in the CDF plot, the x-axis is labeled in terms of multiples of the mean.
 :::
 
 ```{r}
+#| label: tbl-exponential-rule
 #| echo: false
+#| warning: false
+#| tbl-cap: "Percentiles for an Exponential distribution in terms of multiples of the mean"
 
-N_rep <- 10000
+library(tidyverse)
+library(kableExtra)
 
-x <- runif(N_rep, 0, 60)
+z <- sort(c(seq(0.5, 5, 0.5), qexp(c(0.1, 0.25, 0.5, 0.75, 0.9), 1)))
 
-data.frame(1:N_rep, x) |>
-  head() |>
-  kbl(col.names = c("Repetition", "X")) |>
+p <- pexp(z, 1)
+
+
+data.frame(
+  p = paste(round(100 * p, 1), "%", sep = ""),
+  z = paste(format(z, digits = 2), "times the mean")
+) %>%
+  kbl(col.names = c("Percentile", "Relative to mean"), align = c('r', 'l')) %>%
   kable_styling(fixed_thead = TRUE)
 ```
 
 
-```{r}
-#| echo: false
-#| label: fig-meeting-uniform
-#| fig-cap: "Simulated values from a Uniform(0, 60) distribution"
-
-hist(x, freq = FALSE, main = "")
-```
-
-1.  Sketch a spinner to simulate values of $X$.\
-    \
-    \ 
-    \ 
-    \ 
-1.  Sketch a plot of the pdf of $X$.\
-    \
-    \
-    \
-    \
-3.  Use the pdf to find the probability that Regina arrives before 12:15.\
-    \
-    \
-    \
-    \
-3.  Use the pdf to find the probability that Regina arrives after 12:45.\
-    \
-    \
-    \
-    \
-6.  Use the pdf to find the probability that Regina arrives between 12:15:00 and 12:16:00.\
-    \
-    \
-    \
-    \
-7.  Use the pdf to find the probability that Regina arrives between 12:15:00 and 12:15:01.\
-    \
-    \
-    \
-    \
-8.  Compute $\text{P}(X=15)$, the probability that Regina arrives at the exact time 12:15:00 (with infinite precision).\
-    \
-    \
-    \
-    \
 
 
--   **The probability that a continuous random variable $X$ equals any particular value is 0.** That is, if $X$ is continuous then $\text{P}(X=x)=0$ for all $x$.
--   Even though any specific value of a continuous random variable has probability 0, *intervals* still can have positive probability.
--   In practical applications involving continuous random variables, "equal to" really means "close to", and "close to" probabilities correspond to intervals which can have positive probability.
--   A continuous random variable $X$ has a **Uniform distribution** with parameters $a$ and $b$, with $a<b$, if its probability density function $f_X$ satisfies
-    \begin{align}
-    f_X(x) & \propto \text{constant}, \quad & & a<x<b\\
-    & = \frac{1}{b-a}, \quad & &  a<x<b.
-    \end{align}
--   If $X$ has a Uniform($a$, $b$) distribution then
-    \begin{align}
-    \text{E}(X) & = \frac{a+b}{2}\\
-    \text{Var}(X) & = \frac{|b-a|^2}{12}\\
-    \text{SD}(X) & = \frac{|b-a|}{\sqrt{12}}
-    \end{align}
 
 
-## Probability Density Functions
+::: {#exm-poisson-to-exponential-cdf}
+Continuing @exm-exponential-orders.
+Let $N(1)$ be the number of orders in a 1 hour period, a discrete random variable. 
+Then the expected value of $N(1)$ is 2.5 orders. 
+If $N(2)$ is the number of orders that happen in a 2 hour period then
+its expected value is $\text{E}(N(2)) =5$ orders. 
+In general, if $N(t)$ is the number of orders in a $t$ hour period its expected value is $\text{E}(N(t)) =2.5t$ orders.
+
+Assume that, for any $t$, the discrete random variable $N(t)$ has a Poisson distribution with parameter $2.5t$.
+Now we'll consider what this assumption implies about the time between orders. Suppose an order just occurred and let $T$ be the time in hours until the next order; $T$ is a continuous random variable.
 
 
--   The continuous analog of a probability mass function (pmf) is a *probability density function (pdf)*.
--   However, while pmfs and pdfs play analogous roles, they are different in one fundamental way; namely, a pmf outputs probabilities directly, while a pdf does not.
--   A pdf of a continuous random variable must be *integrated* to find probabilities of related events.
--   The **probability density function (pdf)** (a.k.a. density) of a *continuous* RV $X$ is the function $f_X$ which satisfies
-    \begin{align}
-    \text{P}(a \le X \le b) & =\int_a^b f_X(x) dx, \qquad \text{for all } -\infty \le a \le b \le \infty
-    \end{align}
--   For a continuous random variable $X$ with pdf $f_X$, the probability that $X$ takes a value in the interval $[a, b]$ is the *area under the pdf over the region* $[a,b]$.
--   The axioms of probability imply that a valid pdf must satisfy
-    \begin{align}
-    f_X(x) & \ge 0 \qquad \text{for all } x,\\
-    \int_{-\infty}^\infty f_X(x) dx & = 1
-    \end{align}
-
-
-::: {#exm-meeting-nonuniform-pdf}
-Continuing @exm-meeting-uniform-pdf, we will now we assume Regina's arrival time has pdf
-
-$$
-f_X(x) =
-        \begin{cases}
-      cx, & 0\le x \le 60,\\
-      0, & \text{otherwise.}
-      \end{cases}
-$$
-
-where $c$ is an appropriate constant.
 :::
 
-1.  Sketch a plot of the pdf.
-Generally, what does this say about Regina's arival time?\
+1.  Interpret the event $\{T>0.5\}$.
+How can you express this as an equivalent event involving a number of order?
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{P}(T > 0.5)$.
+\
+\
+\
+\
+\
+1.  Compute $\text{P}(T > t)$ as a function of $t>0$.
+\
+\
+\
+\
+\
+1.  Identify by name the distribution of $T$; be sure to specify the values of any relevant parameters.
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{E}(T)$.
+\
+\
+\
+\
+\
+
+
+
+
+-   Events occur continuously over time according to a  **Poisson process** with *rate* $\lambda>0$ (per unit time) if
+    -   The number of events that occur in any time interval of length $t$ has a Poisson$(\lambda t)$ distribution.
+        -   In particular, the distribution does not depend on the starting time or ending time of the interval, just its length.
+    -   The numbers of events that occur in disjoint intervals of time are independent.
+-   A random process is a Poisson process with rate $\lambda$ if and only if
+    -   it is a counting process, that is, it is a process which counts the number of occurrences of some event over time.
+    -   the *interarrival times* (times between events) $W_0, W_1,\ldots$ are independent Exponential$(\lambda)$ random variables
+
+
+## Exercises
+
+
+::: {#exr-exponential-spinner}
+Use the "multiples of the mean rule" to create a circular spinner for simulating values from a generic Exponential distribution.
+:::
+
+1.   Version 1: label the circular axis in increments of 0.5, 1.0, 1.5, 2.0, 2.5, etc., multiple of the mean. Careful: the values should not be evenly spaced.\
     \
     \
     \
     \
-2.  Find the value of $c$ and specify the pdf of $X$.\
+1.  Sketch a histogram with equal bin widths---0 to 0.5, 0.5 to 1.0, 1.0 to 1.5, etc.---that you would expect to see after spinning the version 1 spinner many times.
+Does it have an Exponential shape?\
     \
     \
     \
     \
-3.  Find the probability that Regina arrives before 12:15.\
+1.   Version 2: label the circular axis so that your spinner has 10 sectors each with probability 0.1.\
     \
     \
     \
     \
-4.  Find the probability that Regina arrives after 12:45. How does this compare to the previous part? What does that say about Regina's arrival time?\
+1.  Sketch a histogram that you would expect to see after spinning the version 2 spinner many times. 
+Start by sketching a histogram with *unequal* bin widths, then sketch the correspond equal bin width histogram.
+Does it have an Exponential shape?\
     \
     \
     \
     \
-11. Find $\text{P}(X = 15)$, the probability that Regina arrives at the exact time 12:15 (with infinite precision).\
-    \
-    \
-    \
-    \
-11. Find $\text{P}(X = 45)$, the probability that Regina arrives at the exact time 12:45 (with infinite precision).\
-    \
-    \
-    \
-    \
-6.  Find the probability that Regina arrives between 12:15 and 12:16.\
-    \
-    \
-    \
-    \
-9.  Find the probability that Regina arrives between 12:45 and 12:46. How does this compare to the probability for 12:15 to 12:16? What does that say about Regina's arrival time?\
+1.   Explain how could you use this spinner (either version) to simulate values from an Exponential distribution with rate parameter 2.5 (like in @exm-exponential-orders).\
     \
     \
     \
     \
 
-```{r}
-#| label: fig-meeting-nonuniform
-#| fig-cap: "Simulated values of $X$ with the pdf in @exm-meeting-nonuniform-pdf. (We'll see how this simulation works soon.)"
-#| echo: false
-
-N_rep <- 10000
-
-u <- runif(N_rep, 0, 1)
-
-x <- 60 * sqrt(u)
-
-hist(x, freq = FALSE, main = "")
-```
 
 
-```{r}
-#| label: fig-meeting-compare
-#| echo: false
-#| fig-cap: "Probability of Regina arriving at each minute between noon (0) and 1:00PM (60), to the nearest minute, for the Uniform(0, 60) distribution (blue) and the distribution in @exm-meeting-nonuniform-pdf (orange)."
+::: {#exr-exponential-orders-memoryless}
+Continuing @exm-exponential-orders. 
+Let $X$ be the waiting time (hours) until the next order and assume $X$ has an Exponential(2.5) distribution.
+:::
 
-x <- (1:59) / 60
+1.  Find the conditional probability that the waiting time from now until the next order is greater than 3 hours given that no orders occur in the next hour. 
+Be sure to write a valid probability statement involving $X$ before computing.
+\
+\
+\
+\
+\
+1.  Compare to $\text{P}(X > 2)$. 
+What do you notice?
+\
+\
+\
+\
+\
 
-px1 <- rep(1 / 60, length(x))
-
-px2 <- (x + 0.5 / 60)^2 - (x - 0.5 / 60)^2
-
-df <- data.frame(x, "uniform" = px1, "non uniform" = px2)
-
-df <- df %>%
-  pivot_longer(!x, names_to = "probmeasure", values_to = "probability")
-
-ggplot(df, aes(x = x * 60, probability, col = probmeasure)) +
-  geom_point() +
-  theme_classic() +
-  scale_color_manual(
-    values = c("orange", "skyblue"),
-    aesthetics = c("color", "fill")
-  ) +
-  labs(col = "Distribution", x = "Value", y = "Probability")
-```
-
-
--   **The probability that a continuous random variable** $X$ equals any particular value is 0. That is, if $X$ is continuous then $\text{P}(X=x)=0$ for all $x$.\
--   For continuous random variables, it doesn't really make sense to talk about the probability that the random value is *equal to* a particular value. However, we can consider the probability that a random variable is *close to* a particular value.
--   The density $f_X(x)$ at value $x$ is *not* a probability.
--   Rather, the density $f_X(x)$ at value $x$ is related to the probability that the RV $X$ takes a value "close to $x$" in the following sense $$
-    \text{P}\left(x-\frac{\epsilon}{2} \le X \le x+\frac{\epsilon}{2}\right) \approx f_X(x)\epsilon, \qquad \text{for small $\epsilon$}
-    $$
--   The quantity $\epsilon$ is a small number that represents the desired degree of precision. For example, rounding to two decimal places corresponds to $\epsilon=0.01$.
--   What's important about a pdf is *relative* heights. For example, if $f_X(x_2)= 2f_X(x_1)$ then $X$ is roughly "twice as likely to be near $x_2$ than to be near $x_1$" in the above sense. $$
-    \frac{f_X(x_2)}{f_X(x_1)} = \frac{f_X(x_2)\epsilon}{f_X(x_1)\epsilon} \approx  \frac{\text{P}\left(x_2-\frac{\epsilon}{2} \le X \le x_2+\frac{\epsilon}{2}\right)}{\text{P}\left(x_1-\frac{\epsilon}{2} \le X \le x_1+\frac{\epsilon}{2}\right)}
-    $$
-
-
-## Exponential Distributions
-
-
-
-
-
-::: {#exm-exponential-quakes}
-Suppose that we model the waiting time, measured continuously in hours, from now until the next earthquake (of any magnitude) occurs in southern CA as a continuous random variable $X$ with pdf
+-   **Memoryless property.**  If $W$ has an Exponential($\lambda$) distribution then for any $w,h>0$
 $$
-f_X(x) = 2 e^{-2x}, \qquad x \ge0
+\text{P}(W>w+h\,\vert\, W>w) = \text{P}(W>h)
 $$
-This is the pdf of the "Exponential(2)" distribution.
-:::
-
-1.  Sketch the pdf of $X$. What does this tell you about waiting times?\
-    \
-    \
-    \
-    \
-2.  Without doing any integration, approximate the probability that $X$ rounded to the nearest minute is 0.5 hours.\
-    \
-    \
-    \
-    \
-3.  Without doing any integration determine how much more likely that $X$ rounded to the nearest minute is to be 0.5 than 1.0.\
-    \
-    \
-    \
-    \
-4.  Compute and interpret $\text{P}(X > 0.25)$.\
-    \
-    \
-    \
-    \
-5.  Compute and interpret $\text{P}(X \le 3)$.\
-    \
-    \
-    \
-    \
-
--   A continuous random variable $X$ has an **Exponential distribution** with *rate* parameter $\lambda>0$ if its pdf is $$
-    f_X(x) = \lambda e^{-\lambda x}, \qquad x \ge 0
-    $$
--   If $X$ has an Exponential($\lambda$) distribution then $$\text{P}(X>x)  = e^{-\lambda x}, \quad x\ge 0$$
--   Exponential distributions are often used to model the *waiting time* in a random process until some event occurs.
-    -   $\lambda$ is the average *rate* at which events occur over time (e.g., 2 per hour)
-    -   $1/\lambda$ is the mean time between events (e.g., 1/2 hour)
+-   Given that we have already waited $w$ units of time, the conditional probability that we wait at least an additional $h$ units of time is the same as the unconditional probability that we wait at least  $h$ units of time.
+-   In this sense, the future waiting time does not "remember" how long we have already waited.
+-   A continuous random variable $W$ has the memoryless property if and only if $W$ has an Exponential distribution. 
+That is, Exponential distributions are the *only* continuous^[Geometric distributions are the only discrete distributions with the discrete analog of the memoryless property.] distributions with the memoryless property.
+-   If $W$ has an Exponential($\lambda$) distribution then the conditional distribution of the *excess* waiting time, $W - w$, given $\{W>w\}$ is Exponential($\lambda$).
 
 
-```{r}
-#| label: fig-exponential-pdf-area
-#| echo: false
-#| fig-cap: "Probability density function of $X$ with an Exponential distribution with rate 2. The shaded area represents $P(X < 0.25)$."
-
-x <- seq(0, 4, 0.001)
-y <- dexp(x, rate = 2)
-xddf <- data.frame(x = x, y = y)
-# qplot(x,y,data=xddf,geom="line")+
-ggplot(data = xddf, aes(x = x, y = y)) +
-  geom_line() +
-  geom_ribbon(
-    data = subset(xddf, x < 0.25),
-    aes(ymax = y),
-    ymin = 0,
-    fill = "orange",
-    colour = NA
-  ) +
-  scale_y_continuous(limits = c(0, 2), expand = c(0, 0)) +
-  theme_classic() +
-  xlab(expression(x)) +
-  ylab(expression(f[X](x))) #+
-#  ggtitle(paste("P(1<X<2.5) for X ~ Exponential(1)"))
-```
-
-
-
-
-```{r}
-#| label: fig-exponential-pdf-area2
-#| echo: false
-#| fig-cap:  "Illustration that the probability that $X$ is close to $x$ can be approximated by the area of a rectangle with height equal to the density at $x$, $f_X(x)$. The density height at $x = 0.5$ is roughly 2.7 times greater than the density height at $x = 1$ so the probability that $X$ is close to 0.5 is roughly 2.7 times greater than the probability that $X$ is close to 1."
-
-x <- seq(0, 5, 0.001)
-y <- dexp(x, rate = 2)
-xddf <- data.frame(x = x, y = y)
-ggplot(data = xddf, aes(x = x, y = y)) +
-  geom_line() +
-  scale_y_continuous(limits = c(0, 2), expand = c(0, 0)) +
-  theme_classic() +
-  xlab(expression(x)) +
-  ylab(expression(f[X](x))) +
-  #  ggtitle(paste("P(1<X<2.5) for X ~ Exponential(1)")) +
-  geom_rect(
-    data = xddf,
-    mapping = aes(
-      xmin = 0.5 - 0.1 / 2,
-      xmax = 0.5 + 0.1 / 2,
-      ymin = 0,
-      ymax = dexp(0.5, rate = 2)
-    ),
-    color = "orange",
-    fill = "orange"
-  ) +
-  geom_rect(
-    data = xddf,
-    mapping = aes(
-      xmin = 1.0 - 0.1 / 2,
-      xmax = 1.0 + 0.1 / 2,
-      ymin = 0,
-      ymax = dexp(1.0, rate = 2)
-    ),
-    color = "skyblue",
-    fill = "skyblue"
-  )
-```
-
-
-
-## Expected Values
-
-
--   The **expected value** (a.k.a. *expectation* a.k.a. *mean*), of a random variable $X$ is a number denoted $\text{E}(X)$ representing the probability-weighted average value of $X$.
--   The expected value of a continuous random variable with pdf $f_X$ is defined as $$
-    \text{E}(X) = \int_{-\infty}^\infty x f_X(x) dx
-    $$
--   Replace the generic bounds $(-\infty, \infty)$ with the possible values of the random variable
--   Note well that $\text{E}(X)$ represents *a single number*.
--   The expected value is the "balance point" (center of gravity) of a distribution.
--   The expected value of a random variable $X$ is defined by the probability-weighted average according to the underlying probability measure. But the expected value can also be interpreted as the **long-run average value**, and so can be approximated via simulation.
--   Read the symbol $\text{E}(\cdot)$ as
-    -   Simulate lots of values of what's inside $(\cdot)$
-    -   Compute the average. This is a "usual" average; just sum all the simulated values and divide by the number of simulated values.
-
-
-::: {#exm-exponential-quakes-ev}
-Continuing @exm-exponential-quakes, where $X$, the waiting time (hours) from now until the next earthquake (of any magnitude) occurs in southern CA, has an Exponential distribution with rate 2.
-:::
-
-1. Use simulation to approximate the long run average value of $X$.
-    \
-    \
-    \
-    \
-1. Set up the integral to compute $\text{E}(X)$.
-\
-\
-\
-\
-\
-1. Interpret $\text{E}(X)$.
-\
-\
-\
-\
-\
-1. Compute $\text{P}(X = \text{E}(X))$.
-\
-\
-\
-\
-\
-1. Compute $\text{P}(X \le \text{E}(X))$. (Is it equal to 50%?)
-\
-\
-\
-\
-\
-
--   If $X$ has an Exponential($\lambda$) distribution then $$\text{E}(X) = \frac{1}{\lambda}$$
--   For example, if events happen at rate $\lambda = 2$ per hour, then the average waiting time between events is $1/\lambda = 1/2$ hour.
-
-## Law of the Unconscious Statistician
-
-
-- The **"law of the unconscious statistician" (LOTUS)** says that the expected value of a transformed random variable can be found without finding the distribution of the transformed random variable, simply by applying the probability weights of the original random variable to the transformed values.
-\begin{align}
-	& \text{Discrete $X$ with pmf $p_X$:} & \text{E}[g(X)] & = \sum_x g(x) p_X(x)\\
-	& \text{Continuous $X$ with pdf $f_X$:} & \text{E}[g(X)] & =\int_{-\infty}^\infty g(x) f_X(x) dx
-\end{align}
-- LOTUS says we don't have to first find the distribution of $Y=g(X)$ to find $\text{E}[g(X)]$; rather, we just simply apply the transformation $g$ to each possible value $x$ of $X$ and then apply the corresponding weight for $x$ to $g(x)$.
-- Whether in the short run or the long run, in general
-\begin{align}
-\text{Average of $g(X)$} & \neq g(\text{Average of $X$})
-\end{align}
-- In terms of expected values, in general
-\begin{align}
-\text{E}(g(X)) & \neq g(\text{E}(X))
-\end{align}
-The left side $\text{E}(g(X))$ represents first transforming the $X$ values and then averaging the transformed values. The right side $g(\text{E}(X))$ represents first averaging the $X$ values and then plugging the average (a single number) into the transformation formula. 
-
-
-
-::: {#exm-exponential-quakes-var}
-Continuing @exm-exponential-quakes, where $X$, the waiting time (hours) from now until the next earthquake (of any magnitude) occurs in southern CA, has an Exponential distribution with rate 2.
-:::
-
-1. Use simulation to approximate the variance of $X$.
-    \
-    \
-    \
-    \
-1. Set up the integral to compute $\text{E}(X^2)$.
-\
-\
-\
-\
-\
-1. Compute $\text{Var}(X)$. (The previous part shows $\text{E}(X^2) = 0.5$)
-\
-\
-\
-\
-\
-1. Compute $\text{SD}(X)$.
-\
-\
-\
-\
-\
-
-
-
--   The **variance** of a random variable $X$ is
-    \begin{align}
-    \text{Var}(X) & = \text{E}\left(\left(X-\text{E}(X)\right)^2\right)\\
-    & = \text{E}\left(X^2\right) - \left(\text{E}(X)\right)^2
-    \end{align}
--   The **standard deviation** of a random variable is \begin{equation*}
-    \text{SD}(X) = \sqrt{\text{Var}(X)}
-    \end{equation*}
--   Variance is the long run average squared deviation from the mean.
--   Standard deviation measures, roughly, the long run average distance from the mean. The measurement units of the standard deviation are the same as for the random variable itself.
--   The definition $\text{E}((X-\text{E}(X))^2)$ represents the concept of variance. However, variance is usually computed using the following equivalent but slightly simpler formula.
-    $$
-    \text{Var}(X) = \text{E}\left(X^2\right) - \left(\text{E}\left(X\right)\right)^2
-    $$
--   That is, variance is the expected value of the square of $X$ minus the square of the expected value of $X$.\
--   Variance has many nice theoretical properties. Whenever you need to compute a standard deviation, first find the variance and then take the square root at the end.
--   If $X$ has an Exponential($\lambda$) distribution then
-    $$
-    \text{Var}(X)  = \frac{1}{\lambda^2}
-    $$

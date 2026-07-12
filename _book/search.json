@@ -290,6 +290,76 @@
     ]
   },
   {
+    "objectID": "cdf-and-quantile.html",
+    "href": "cdf-and-quantile.html",
+    "title": "13  Percentiles: Cumulative Distribution Functions and Quantile Functions",
+    "section": "",
+    "text": "13.1 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Percentiles: Cumulative Distribution Functions and Quantile Functions</span>"
+    ]
+  },
+  {
+    "objectID": "cdf-and-quantile.html#exercises",
+    "href": "cdf-and-quantile.html#exercises",
+    "title": "13  Percentiles: Cumulative Distribution Functions and Quantile Functions",
+    "section": "",
+    "text": "Exercise 13.1 Continuing Exercise 12.1. In a certain population, household income \\(X\\) ($ thousands) follows the pdf \\[\nf_X(x) = c x^{-2.5}, \\quad x \\ge 30\n\\] for an appropriate constant \\(c\\). Note that the measurement units are $ thousands, so 1 represents 1 thousand dollars. (This is not a super realistic example, but just go with it.)\n\n\nCompute \\(\\text{P}(X\\le 100)\\) and phrase the result in terms of a percentile.\n\n\n\n\n\nFind the cdf of \\(X\\).\n\n\n\n\n\nFind the 10th percentile.\n\n\n\n\n\nFind the quantile function of \\(X\\).\n\n\n\n\n\nSketch a circular spinner for simulating values of \\(X\\).\n\n\n\n\n\n\n\nExercise 13.2 Let \\(X\\) be the number of heads in 3 flips of a fair coin.\n\n\nFind the pmf of \\(X\\) and sketch a plot of it.\n\n\n\n\n\nFind the cdf of \\(X\\) and sketch a plot of it.\n\n\n\n\n\nLet \\(Y\\) be the number of tails in 3 flips of a fair coin. Find the cdf of \\(Y\\).\n\n\n\n\n\n\n\nA cdf is a non-decreasing function: if \\(x_1 \\le x_2\\) then \\(F_X(x_1)\\le F_X(x_2)\\).\nA cdf approaches 0 as the input approaches \\(-\\infty\\): \\(\\lim_{x\\to-\\infty}F_X(x) = 0\\)\nA cdf approaches 1 as the input approaches \\(\\infty\\): \\(\\lim_{x\\to\\infty}F_X(x) = 1\\)\nThe cdf of a discrete random variable is a step function.\n\nThe steps occur at the possible values of the random variable.\nThe height of a particular step corresponds to the probability of that value, given by the pmf.\n\nThe cdf of a continuous random variable is a continuous function.\n\nThe cdf of a continuous random variable is obtained by integrating the pdf, so\nThe pdf of a continuous random variable is obtained by differentiating the cdf \\[\nF_X' = f_X \\qquad \\text{if $X$ is continuous}\n\\]\n\nFor any random variable \\(X\\) with cdf \\(F_X\\) \\[\nF_X(b) - F_X(a) = \\text{P}(a&lt;X \\le b)\n\\] Whether the inequalities in the above event are strict (\\(&lt;\\)) or not (\\(\\le\\)) matters for discrete random variables, but not for continuous.\nRandom variables \\(X\\) and \\(Y\\) have the same distribution if their cdfs are the same, that is, if \\(F_X(u) = F_Y(u)\\) for all \\(u\\).\nThat is, two random variables have the same distribution if all the percentiles are the same.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Percentiles: Cumulative Distribution Functions and Quantile Functions</span>"
+    ]
+  },
+  {
+    "objectID": "expected-values-continuous.html",
+    "href": "expected-values-continuous.html",
+    "title": "14  Expected Values of Continuous Random Variables",
+    "section": "",
+    "text": "14.1 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Expected Values of Continuous Random Variables</span>"
+    ]
+  },
+  {
+    "objectID": "expected-values-continuous.html#exercises",
+    "href": "expected-values-continuous.html#exercises",
+    "title": "14  Expected Values of Continuous Random Variables",
+    "section": "",
+    "text": "Exercise 14.1 Continuous Exercise 12.1. In a certain population, household income \\(X\\) ($ thousands) follows the pdf \\[\nf_X(x) = c x^{-2.5}, \\quad x \\ge 30\n\\] for an appropriate constant \\(c\\). Note that the measurement units are $ thousands, so 1 represents 1 thousand dollars. (This is not a super realistic example, but just go with it.)\n\n\nCompute \\(\\text{E}(X)\\).\n\n\n\n\n\nInterpret \\(\\text{E}(X)\\) in context.\n\n\n\n\n\nCompute and interpret \\(\\text{P}(X \\le \\text{E}(X))\\).\n\n\n\n\n\nCompute \\(\\text{Var}(X)\\).\n\n\n\n \nCompute and interpret \\(\\text{SD}(X)\\).",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Expected Values of Continuous Random Variables</span>"
+    ]
+  },
+  {
+    "objectID": "exponential.html",
+    "href": "exponential.html",
+    "title": "15  Exponential Distributions",
+    "section": "",
+    "text": "15.1 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Exponential Distributions</span>"
+    ]
+  },
+  {
+    "objectID": "exponential.html#exercises",
+    "href": "exponential.html#exercises",
+    "title": "15  Exponential Distributions",
+    "section": "",
+    "text": "Exercise 15.1 Use the “multiples of the mean rule” to create a circular spinner for simulating values from a generic Exponential distribution.\n\n\nVersion 1: label the circular axis in increments of 0.5, 1.0, 1.5, 2.0, 2.5, etc., multiple of the mean. Careful: the values should not be evenly spaced.\n\n\n\n\n\nSketch a histogram with equal bin widths—0 to 0.5, 0.5 to 1.0, 1.0 to 1.5, etc.—that you would expect to see after spinning the version 1 spinner many times. Does it have an Exponential shape?\n\n\n\n\n\nVersion 2: label the circular axis so that your spinner has 10 sectors each with probability 0.1.\n\n\n\n\n\nSketch a histogram that you would expect to see after spinning the version 2 spinner many times. Start by sketching a histogram with unequal bin widths, then sketch the correspond equal bin width histogram. Does it have an Exponential shape?\n\n\n\n\n\nExplain how could you use this spinner (either version) to simulate values from an Exponential distribution with rate parameter 2.5 (like in Example 15.1).\n\n\n\n\n\n\n\nExercise 15.2 Continuing Example 15.1. Let \\(X\\) be the waiting time (hours) until the next order and assume \\(X\\) has an Exponential(2.5) distribution.\n\n\nFind the conditional probability that the waiting time from now until the next order is greater than 3 hours given that no orders occur in the next hour. Be sure to write a valid probability statement involving \\(X\\) before computing.\n\n\n\n\n\nCompare to \\(\\text{P}(X &gt; 2)\\). What do you notice?\n\n\n\n\n\n\n\nMemoryless property. If \\(W\\) has an Exponential(\\(\\lambda\\)) distribution then for any \\(w,h&gt;0\\) \\[\n\\text{P}(W&gt;w+h\\,\\vert\\, W&gt;w) = \\text{P}(W&gt;h)\n\\]\nGiven that we have already waited \\(w\\) units of time, the conditional probability that we wait at least an additional \\(h\\) units of time is the same as the unconditional probability that we wait at least \\(h\\) units of time.\nIn this sense, the future waiting time does not “remember” how long we have already waited.\nA continuous random variable \\(W\\) has the memoryless property if and only if \\(W\\) has an Exponential distribution. That is, Exponential distributions are the only continuous1 distributions with the memoryless property.\nIf \\(W\\) has an Exponential(\\(\\lambda\\)) distribution then the conditional distribution of the excess waiting time, \\(W - w\\), given \\(\\{W&gt;w\\}\\) is Exponential(\\(\\lambda\\)).",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Exponential Distributions</span>"
+    ]
+  },
+  {
+    "objectID": "exponential.html#footnotes",
+    "href": "exponential.html#footnotes",
+    "title": "15  Exponential Distributions",
+    "section": "",
+    "text": "Geometric distributions are the only discrete distributions with the discrete analog of the memoryless property.↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Exponential Distributions</span>"
+    ]
+  },
+  {
     "objectID": "hw-01.html",
     "href": "hw-01.html",
     "title": "Homework 1",
