@@ -1,31 +1,48 @@
 # Homework 3 {.unnumbered}
 
-{{< include _r_setup.qmd >}}
 
 
-## Problem 5
 
+## Problem 1
 
 Maya is a basketball player who makes 40% of her three point field goal attempts. 
 Suppose that at the end of every practice session, she attempts three pointers until she makes one and then stops.
 Let $X$ be the total number of shots she attempts in a practice session.
 Assume shot attempts are independent, each with probability of 0.4 of being successful.
 
-a. What are the possible values that $X$ can take?  Is $X$ discrete or continuous?
-a. Explain why $X$ does *not* have a Binomial distribution.
-a. Describe in detail how you could, in principle, conduct a simulation using physical objects (coins, cards, dice, etc) and how you would use the results to approximate the distribution of $X$.
-a. Compute and interpret $\text{P}(X=1)$.
-a. Compute and interpret $\text{P}(X=2)$.
-a. Compute and interpret $\text{P}(X=3)$.
-a. Find the probability mass function of $X$. Be sure to specify the possible values.
-a. Construct a table, plot, and spinner corresponding to the distribution of $X$.
-a. Compute $\text{P}(X>5)$ without summing. (Hint: what needs to be true about the first 5 attempts for $X > 5$?)
+1.  Identify by name the distribution of $X$. 
+Be sure to specify the values of any relevant parameters.
+1.  Specify the probability mass function of $X$. Be sure to specify the possible values.
+1.  Construct a table, plot, and spinner corresponding to the distribution of $X$.
+1.  Compute $\text{P}(X>5)$ without summing.
+1.  Compute and interpret $\text{E}(X)$.
+1.  Compute and interpret $\text{SD}(X)$.
+
+
+## Problem 2
+
+Ron and Leslie agree to the following bet.
+They'll ask Professor Ross if he saw the Eras Tour live.
+If he did, Leslie will pay
+Ron \$200; if not, Ron will pay Leslie \$100.
+(Neither has any direct information about whether or not Prof Ross saw the Eras Tour live.)
+
+1.  Given this setup, which of the following is being judged as more likely: that Prof Ross saw the Eras Tour, or that he did not?  Why?
+1.  Ron and Leslie agree that this is a fair bet, and neither would accept worse odds.
+What is their subjective probability that Professor Ross saw the Eras Tour?
+1.  Suppose they were to hypothetically repeat this bet many times, say 3000 times. 
+Given the probability from the previous part, how many times would you expect Leslie to win? 
+To lose? 
+What would you expect Leslie's net dollar winnings to be? 
+In what sense is this bet "fair"? 
+1.  Let $X$ be Leslie's net winnings. 
+Identify the distribution of $X$.
+(Remember: Leslie's winnings are Ron's losses and vice versa.)
+1.  Compute and interpret $\text{E}(X)$.
 
 
 
-
-## Problem 7
-
+## Problem 3
 
 Suppose that a total of 350 students at a college are taking a particular statistics course.
 The college offers five sections of the course, each taught by a different instructor.
@@ -38,21 +55,21 @@ The class sizes are shown in the following table.
     
 We are interested in: What is the average class size?
 
-a. Suppose we randomly select one of the 5 *instructors*.
+1.  Suppose we randomly select one of the 5 *instructors*.
 Let $X$ be the class size for the selected instructor.
 Specify the distribution of $X$. (A table is fine.)
-a. Compute and interpret $\text{E}(X)$.
-a. Compute and interpret $\text{P}(X = \text{E}(X))$.
-a. Suppose we randomly select one of the 350 *students*.
+1.  Compute and interpret $\text{E}(X)$.
+1.  Compute and interpret $\text{P}(X = \text{E}(X))$.
+1.  Suppose we randomly select one of the 350 *students*.
 Let $Y$ be the class size for the selected student.
 Specify the distribution of $Y$. (A table is fine.)
-a. Compute and interpret $\text{E}(Y)$.
-a. Compute and interpret $\text{P}(Y = \text{E}(Y))$.
-a. Comment on how these two expected values compare, and explain why they differ as they do.
+1.  Compute and interpret $\text{E}(Y)$.
+1.  Compute and interpret $\text{P}(Y = \text{E}(Y))$.
+1.  Comment on how these two expected values compare, and explain why they differ as they do.
 Which average would you say is more relevant?
 
 
-## Problem 1
+## Problem 4
 
 (This is an overly simplified example from actuarial science.) A life insurance company sells a term insurance policy to a 21 year old man (the "insured") that pays \$100,000 to a designated beneficiary if the insured dies within the next 5 years, and pays nothing if the insured does not die before age 26.
 The probability that a randomly chosen 21-year-old man will die each year can be found in mortality tables.
@@ -69,10 +86,26 @@ The company doesn't pay out anything if the insured does not die in the 5 year t
 |           25 |              |     0.00193 |
 |  26 or older |              |             |
 
-a.  Find the distribution of $Y$ by completing the above table. For example, the value -99,750 provides an example of how $Y$ is calculated when the insured dies in the first year of the policy.
-b.  Compute $\text{E}(Y)$.
-c.  Write a sentence explaining in this context in what sense the number from the previous part is "expected".
-d.  Would you be willing to sell such an insurance policy to one of your 21 year old friends? Explain why this is good business for the insurance company, but not for you.
-e.  Compute $\text{Var}(Y)$
-f.  Compute $\text{SD}(Y)$.
-g.  Compute the probability that $Y$ is more than 1 standard deviation above its mean.
+1.  Find the distribution of $Y$ by completing the above table. For example, the value -99,750 provides an example of how $Y$ is calculated when the insured dies in the first year of the policy.
+1.  Compute $\text{E}(Y)$.
+1.  Write a sentence explaining in this context in what sense the number from the previous part is "expected".
+1.  Would you be willing to sell such an insurance policy to one of your 21 year old friends? Explain why this is good business for the insurance company, but not for you.
+1.  Compute $\text{Var}(Y)$
+1.  Compute $\text{SD}(Y)$.
+1.  Compute the probability that $Y$ is more than 1 standard deviation above its mean.
+
+
+## Problem 5
+
+In a sample of 50 Olympic women's gymnasts the heights have a symmetric bell-shaped distribution with mean 60 inches and standard deviation 3 inches.
+In a sample of 50 Olympic men's basketball players the heights have symmetric bell-shaped distribution with mean 76 inches and the standard deviation 5 inches. 
+Suppose the two samples are combined to obtain a sample with 100 heights. 
+Choose one of the options below to complete the following sentence; explain your reasoning without doing any calculations (hint: drawing a picture might help; also, what is the mean of the combined sample?). 
+The standard deviation of the combined sample is:
+
+a.  Less than 3 inches
+a.  Equal to 3 inches
+a.  Between 3 and 5 inches
+a.  Equal to 5 inches
+a.  Greater than 5 inches
+

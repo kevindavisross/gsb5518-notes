@@ -1,5 +1,88 @@
 # Homework 6 {.unnumbered}
 
+
+
+## Problem 3
+
+Solve Example 11.3 from the Normal distribution handout (the problem on daily high temperatures in SLO.)
+
+## Problem 4
+
+Solve Example 11.4 from the Normal distribution handout (the problem on "effect size".)
+
+## Problem 5
+
+The latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3).
+Each package contains a single unknown prize.
+Suppose we only buy 3 packages and we consider as our sample space outcome the results of just these 3 packages (prize in package 1, prize in package 2, prize in package 3).
+For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package.
+Let $X$ be the number of distinct prizes obtained in these 3 packages.
+Let $Y$ be the number of these 3 packages that contain prize 1.
+Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages.
+There are 27 possible, equally likely outcomes
+
+```{r}
+#| echo: false
+#| message: false
+
+k <- 3
+
+outcomes <- expand.grid(1:k, 1:k, 1:k)
+
+
+n_outcomes <- nrow(outcomes)
+
+X <- rep("", n_outcomes)
+Y <- rep("", n_outcomes)
+
+outcomes <- outcomes %>%
+  bind_cols(X, Y)
+
+names(outcomes) <- c(paste("box", 1:k, sep = ""), "X", "Y")
+
+outcomes %>%
+  kbl() %>%
+  kable_styling(fixed_thead = TRUE)
+```
+
+a.  Evaluate $X$ and $Y$ for each of the outcomes.
+b.  Construct a two-way table representing the *joint distribution* of $X$ and $Y$.
+c.  Sketch a plot representing the joint distribution of $X$ and $Y$.
+d.  Construct a spinner corresponding to the joint distribution of $X$ and $Y$.
+e.  Describe two ways to simulate an $(X, Y)$ pair.
+f.  Identify the *marginal* distribution of $X$, and construct a corresponding spinner.
+g.  Identify the *marginal* distribution of $Y$, and construct a corresponding spinner.
+h.  Describe in detail in words how you could conduct a simulation and use the results to approximate. (This part is asking you to describe the process in words; not to write code.)
+    i. $\text{P}(X = 3)$
+    i. $\text{P}(X = 2, Y = 1)$
+    i. $\text{E}(X)$
+    i. $\text{E}(Y)$
+    i. $\text{E}(XY)$
+    i. $\text{SD}(X)$
+    i. $\text{SD}(Y)$
+    1. $\text{Cov}(X, Y)$
+    i. $\text{Corr}(X, Y)$
+i.  **Coding required.** Code and run the simulation from the previous part and use the simulation results to approximate each of
+    i. $\text{P}(X = 3)$
+    i. $\text{P}(X = 2, Y = 1)$
+    i. $\text{E}(X)$
+    i. $\text{E}(Y)$
+    i. $\text{E}(XY)$
+    i. $\text{SD}(X)$
+    i. $\text{SD}(Y)$
+    1. $\text{Cov}(X, Y)$
+    i. $\text{Corr}(X, Y)$
+j.  Compute
+    i. $\text{P}(X = 3)$
+    i. $\text{P}(X = 2, Y = 1)$
+    i. $\text{E}(X)$ iii.$\text{E}(Y)$
+    i. $\text{E}(XY)$
+    i. $\text{SD}(X)$ iii.$\text{SD}(Y)$
+    1. $\text{Cov}(X, Y)$
+    i. $\text{Corr}(X, Y)$
+
+
+
 ## Problem 1
 
 You have a brand new coin and you want to estimate $p$, the probability that it lands on heads.

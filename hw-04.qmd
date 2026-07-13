@@ -1,251 +1,86 @@
 # Homework 4 {.unnumbered}
 
-{{< include _r_setup.qmd >}}
 
 
+## Problem 1
 
-::: {#exm-binomial-sum}
 Xavier bets on red on each of 3 spins of a roulette wheel.
 After the third spin, Xavier leaves and Zander arrives and bets on black on the next two spins.
 Let $X$ be the number of bets that Xavier wins and let $Z$ be the number that Zander wins.
 
 1.  Identify the distribution of $X$ and the distribution of $Z$.
-\
-\
-\
-\
-\
 1.  Are $X$ and $Z$ independent?
 Explain.
-\
-\
-\
-\
-\
-1.  Compute $\text{P}(X = 2, Z = 1)$. 
-\
-\
-\
-\
-\
+1.  Compute and interpret $\text{P}(X = 2, Z = 1)$. 
 1.  What does $X+Z$ represent in this context?
 Identify the distribution of $X+Z$ without doing any calculations.
-\
-\
-\
-\
-\
-1.  Compute $\text{P}(X + Z = 3)$. 
-\
-\
-\
-\
-\
-1.  Suppose that Yolanda bets on black on all 5 spins of the wheel.
+Be sure to specify the values of any parameters.
+Explain your reasoning.
+1.  Compute $\text{P}(X + Z = 3)$ without summing many terms. 
+1.  Suppose instead that Yolanda bets on black on all 5 spins of the wheel.
 Does $X + Y$ have a Binomial distribution?
-Explain. 
-\
-\
-\
-\
-\
-1.  Suppose instead that Zavier bet on the number 7 in his two bets.
+Answer yes or no and explain. 
+1.  Suppose instead that Zander bet on the number 7 in his two bets.
 Does $X + Z$ have a Binomial distribution in this case?
-Explain. 
-\
-\
-\
-\
-\
-:::
+Answer yes or no and explain. 
 
-
-## Problem 6
-
-
-
-Suppose the number of earthquakes per hour, for a certain range of magnitudes in a certain region, follows a Poisson distribution with parameter 0.7.
-
-a. Compute and interpret the probability that there is at least one earthquake of this size in the region in any given hour.
-a. Compute and interpret the probability that there are exactly 3 earthquakes of this size in the region in any given hour.
-a. Interpret the value 0.7 in context.
-a. Construct a table, plot, and spinner corresponding to a Poisson(0.7) distribution.
-
-
-## Problem 1
-
-In a certain region, times (minutes) between occurrences of earthquakes (of any magnitude) have a distribution with percentiles displayed in the table below.
-
-a.  Construct a spinner corresponding to this distribution.
-b.  What percent of times are between 26.8 and 110.0 minutes?
-c.  Let $F$ be the cdf. Evaluate and interpret $F(42.8)$.
-d.  Let $Q$ be the quantile function. Evaluate and interpret $Q(0.9)$.
-e.  Sketch (by hand) a histogram of this distribution.
-
-```{r}
-#| echo: false
-exponential_spinner <- data.frame(p = 0.1 * (1:9)) %>%
-  mutate(x = round(qexp(p, rate = 1 / 120), 1))
-
-exponential_spinner %>%
-  mutate(p = paste(100 * p, "th", sep = "")) %>%
-  kbl(col.names = c("Percentile", "Value (minutes)")) %>%
-  kable_styling()
-```
 
 ## Problem 2
 
-(Continued from previous HW.) In the Regina/Cady problem, let $W=|R-Y|$ be the amount of time the first person to arrive has to wait for the second person.
-Recall that $W$ is a continuous random variable with pdf $$
-f_W(w) = 2(1-w), \quad 0 < w < 1.
-$$ a.
-Let $F$ be the cdf.
-Evaluate and interpret $F(0.25)$.
-a.
-Find an expression for the cdf of $W$.
+Suppose the number of earthquakes per hour, for a certain range of magnitudes in a certain region, follows a Poisson distribution with parameter 0.7, independently from hour to hour.
+
+1.  Compute and interpret the probability that there is at least one earthquake of this size in the region in any given hour.
+1.  Compute and interpret the probability that there are exactly 3 earthquakes of this size in the region in any given hour.
+1.  Interpret the value 0.7 in context.
+1.  Construct a table, plot, and spinner corresponding to a Poisson(0.7) distribution.
+1.  Let $X$ be the number of earthquakes in a 2 hour period. 
+Identify by name the distribution of $X$. 
+Be sure to specify the values of any relevant parameters.
+1.  Compute and interpret $\text{P}(X = 3)$.
+
+
+## Problem 3
+
+Recall @exm-meeting-event. 
+Regina and Cady are meeting for lunch. 
+Suppose they each arrive uniformly at random at a time between noon and 1:00, independently of each other. 
+Record their arrival times as minutes after noon, so noon corresponds to 0 and 1:00 to 60.
+Recall the sample space from @exm-meeting-outcome and assume a uniform probability measure $\text{P}$.
+
+Let $R$ be Regina's arrival time and $Y$ Cady's. 
+Then $W = |R - Y|$ is the amount of time (minutes) the first person to arrive waits for the second person to arrive.
+
+1.  Compute and interpret $\text{P}(W<15)$. 
+(Hint: we computed this already in @exm-meeting-event.)
+1.  Compute and interpret $\text{P}(W>45)$.
+(Hint: use a method similar to the previous part.)
+1.  It can be shown that $W$ has pdf
+$$
+f_W(w) = (2/3600)(1-w), \qquad 0<w<60.
+$$
+
+    Sketch a plot of the pdf. Describe roughly what this means in context.
+1.  Use the pdf to compute $\text{P}(W<15)$. 
 Set up an integral, but sketch a picture and use geometry to compute.
-b.
-Find and interpret the 25th percentile of $W$.
-(You can do the next part first if you want, but it might help to start with a specific number like in this part.) c.
-Find the quantile function of $W$.
-d.
-Sketch a spinner corresponding to the distribution of $W$.
-Label the 25th, 50th, and 75th percentiles.
-e.
-**Coding required.** Use your simulation results from before to approximate the 25th, 50th, and 75th percentiles.
+1.  Use the pdf to compute $\text{P}(W>45)$. 
+Set up an integral, but sketch a picture and use geometry to compute.
 
-## Problem 3
-
-Solve Example 11.3 from the Normal distribution handout (the problem on daily high temperatures in SLO.)
 
 ## Problem 4
 
-Solve Example 11.4 from the Normal distribution handout (the problem on "effect size".)
+Continuing with the setup of Problem 3.
+Consider $T = \min(R, Y)$ is the time (minutes after noon) at which the first person arrives.
 
-## Problem 5
-
-The latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3).
-Each package contains a single unknown prize.
-Suppose we only buy 3 packages and we consider as our sample space outcome the results of just these 3 packages (prize in package 1, prize in package 2, prize in package 3).
-For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package.
-Let $X$ be the number of distinct prizes obtained in these 3 packages.
-Let $Y$ be the number of these 3 packages that contain prize 1.
-Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages.
-There are 27 possible, equally likely outcomes
-
-```{r}
-#| echo: false
-#| message: false
-
-k = 3
-
-outcomes = expand.grid(1:k, 1:k, 1:k)
-
-
-n_outcomes = nrow(outcomes)
-
-X = rep("", n_outcomes)
-Y = rep("", n_outcomes)
-
-outcomes <- outcomes %>%
-  bind_cols(X, Y)
-
-names(outcomes) = c(paste("box", 1:k, sep = ""), "X", "Y")
-
-outcomes %>%
-  kbl() %>%
-  kable_styling(fixed_thead = TRUE)
-
-```
-
-a.  Evaluate $X$ and $Y$ for each of the outcomes.
-b.  Construct a two-way table representing the *joint distribution* of $X$ and $Y$.
-c.  Sketch a plot representing the joint distribution of $X$ and $Y$.
-d.  Construct a spinner corresponding to the joint distribution of $X$ and $Y$.
-e.  Describe two ways to simulate an $(X, Y)$ pair.
-f.  Identify the *marginal* distribution of $X$, and construct a corresponding spinner.
-g.  Identify the *marginal* distribution of $Y$, and construct a corresponding spinner.
-h.  Describe in detail in words how you could conduct a simulation and use the results to approximate. (This part is asking you to describe the process in words; not to write code.)
-    i. $\text{P}(X = 3)$
-    i. $\text{P}(X = 2, Y = 1)$
-    i. $\text{E}(X)$
-    i. $\text{E}(Y)$
-    i. $\text{E}(XY)$
-    i. $\text{SD}(X)$
-    i. $\text{SD}(Y)$
-    1. $\text{Cov}(X, Y)$
-    i. $\text{Corr}(X, Y)$
-i.  **Coding required.** Code and run the simulation from the previous part and use the simulation results to approximate each of
-    i. $\text{P}(X = 3)$
-    i. $\text{P}(X = 2, Y = 1)$
-    i. $\text{E}(X)$
-    i. $\text{E}(Y)$
-    i. $\text{E}(XY)$
-    i. $\text{SD}(X)$
-    i. $\text{SD}(Y)$
-    1. $\text{Cov}(X, Y)$
-    i. $\text{Corr}(X, Y)$
-j.  Compute
-    i. $\text{P}(X = 3)$
-    i. $\text{P}(X = 2, Y = 1)$
-    i. $\text{E}(X)$ iii.$\text{E}(Y)$
-    i. $\text{E}(XY)$
-    i. $\text{SD}(X)$ iii.$\text{SD}(Y)$
-    1. $\text{Cov}(X, Y)$
-    i. $\text{Corr}(X, Y)$
-
-
-## Problem 2
-
-In a certain population, household income $X$ (\$ thousands) follows the pdf
+1.  Is $T$ the same random variable as $W$ from Problem 3? Explain.
+1.  Compute and interpret $\text{P}(T<15)$. 
+(Hint: we computed something similar in @exm-meeting-event.)
+1.  Compute and interpret $\text{P}(T>45)$.
+(Hint: use a method similar to the previous part.)
+1.  It can be shown that $T$ has pdf
 $$
-f_X(x) = c x^{-2.5}, \quad x \ge 30
-$$
-for an appropriate constant $c$.
-Note that the measurement units are \$ thousands, so 1 represents 1 thousand dollars.
-
-a.  What are the possible values of $X$? Sketch the pdf of $X$.
-b.  Find the value of $c$.
-c.  Find the probability that a household has an income over \$200K.
-d.  Find the probability that a household has an income exactly equal to \$200K.
-e.  Without integrating, find the probability that a household has an income, rounded to the nearest thousand dollars, of \$200K.
-f.  Without integrating, determine how many times more likely it is for a household to have an income, rounded to the nearest thousand dollars, of \$100K than \$200K.
-
-## Problem 3
-
-In the meeting time problem, assume that Regina's $R$ and Cady's $Y$ arrival times (measured in fractions of the hour after noon, e.g. 0.25 represents 12:15), each follow a Uniform(0, 1) distribution, independently of each other.
-Let $W = |R - Y|$ be the amount of time (hours) the first person to arrive waits for the second person to arrive.
-It can be shown that $W$ has pdf
-$$
-f_W(w) = 2(1-w), \qquad 0<w<1.
+f_T(t) = (2/3600)(1-t), \qquad 0<t<60.
 $$
 
-a.  Sketch a plot of the pdf. Describe roughly what this means in context.
-b.  **Coding required.** Code and run a simulation to approximate the distribution of $W$. Does the histogram reasonably match up with the pdf? Then use the simulation results to approximate $\text{P}(W < 0.25)$.
-c.  Use the pdf to compute $\text{P}(W < 0.25)$ and interpret the value. Set up an integral, but sketch a picture and use geometry to compute.
+    Does $T$ have the same distribution as $W$ from Problem 3? Explain what this means.
 
-## Problem 4
-
-(Continued.) In the Regina/Cady problem, let $W=|R-Y|$ be the amount of time the first person to arrive has to wait for the second person.
-Recall that $W$ is a continuous random variable with pdf
-$$
-f_W(w) = 2(1-w), \quad 0 < w < 1.
-$$
-
-a.  **Coding required.** Use your simulation results from before to approximate $\text{E}(W)$, $\text{E}(W^2)$, $\text{Var}(W)$, and $\text{SD}(W)$.
-b.  Compute and interpret $\text{E}(W)$.
-c.  Compute $\text{E}(W^2)$.
-d.  Compute $\text{Var}(W)$
-e.  Compute $\text{SD}(W)$.
-f.  Explain in words in detail how you could use the Uniform(0, 1) spinner and simulation to approximate $\text{Var}(W)$.
-g.  Compute the probability that $W$ is more than 1 SD away from its mean.
-
-
-## Problem 5
-
-Katniss throws a dart at a circular dartboard with radius 1 foot.
-Suppose that Katniss's dart lands at a uniformly random location on the dartboard (and she never misses the dartboard).
-
-a.  Compute the probability that Katniss's dart lands within 1 inch of the center of the dartboard.
-b.  Compute the probability that Katniss's dart lands more than 1 inch but less than 2 inches away from the center of the dartboard.
 

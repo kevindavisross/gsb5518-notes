@@ -13,11 +13,11 @@
 1.  Suppose that at some point in 2023 your subjective probabilities for who would win the 2024 U.S. Presidential Election satisfied the following. 
 (Imagine a time before Trump had been declared the Republican nominee, and while Biden was the presumptive Democratic nominee there was still speculation that he should step aside.)
 
--   The Democratic nominee and the Republican nominee are equally likely to be the winner of the Presidential Election
--   Joe Biden is 5 times more likely to win than Kamala Harris, and no other Democratic candidate has a chance of winning
--   Donald Trump is twice as likely to win as any other Republican candidate.
+    -   The Democratic nominee and the Republican nominee are equally likely to be the winner of the Presidential Election
+    -   Joe Biden is 5 times more likely to win than Kamala Harris, and no other Democratic candidate has a chance of winning
+    -   Donald Trump is twice as likely to win as any other Republican candidate.
     
-Create a table of your subjective probabilities.
+    Create a table of your subjective probabilities.
 
 
 

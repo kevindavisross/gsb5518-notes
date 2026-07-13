@@ -360,16 +360,6 @@
     ]
   },
   {
-    "objectID": "hw-01.html",
-    "href": "hw-01.html",
-    "title": "Homework 1",
-    "section": "",
-    "text": "Create a table of your subjective probabilities.",
-    "crumbs": [
-      "Homework 1"
-    ]
-  },
-  {
     "objectID": "hw-01.html#footnotes",
     "href": "hw-01.html#footnotes",
     "title": "Homework 1",
@@ -437,6 +427,116 @@
     "text": "Problem 5\nConsider a “best-of-5” series of games between two teams: games are played until one of the teams has won 3 games (requiring at most 5 games total). Suppose one team, team A, is better than the other, having a 0.55 probability of winning any particular game. Assume the results of the games are independent (and ignore advantage, etc). Let \\(X\\) represent the number of games played in the series. (Hint: It’s helpful to first construct a two-way table of probabilities with the number of games played and which team wins, and then use it to answer the following questions. It will also help to list some outcomes, like AABA (team A wins game 1, 2, and 4, and B wins game 3).)\n\nCompute the probability that team A wins the series in 3 games.\nCompute the probability that the series ends in 3 games.\nCompute the probability that team A wins the series.\nAre the events “team A wins the series” and “the series ends in 3 games” independent? Explain by comparing relevant probabilities.\nLet \\(X\\) represent the number of games played in the series. Find the distribution of \\(X\\).",
     "crumbs": [
       "Homework 2"
+    ]
+  },
+  {
+    "objectID": "hw-03.html",
+    "href": "hw-03.html",
+    "title": "Homework 3",
+    "section": "",
+    "text": "Problem 1\nMaya is a basketball player who makes 40% of her three point field goal attempts. Suppose that at the end of every practice session, she attempts three pointers until she makes one and then stops. Let \\(X\\) be the total number of shots she attempts in a practice session. Assume shot attempts are independent, each with probability of 0.4 of being successful.",
+    "crumbs": [
+      "Homework 3"
+    ]
+  },
+  {
+    "objectID": "hw-03.html#problem-1",
+    "href": "hw-03.html#problem-1",
+    "title": "Homework 3",
+    "section": "",
+    "text": "Identify by name the distribution of \\(X\\). Be sure to specify the values of any relevant parameters.\nSpecify the probability mass function of \\(X\\). Be sure to specify the possible values.\nConstruct a table, plot, and spinner corresponding to the distribution of \\(X\\).\nCompute \\(\\text{P}(X&gt;5)\\) without summing.\nCompute and interpret \\(\\text{E}(X)\\).\nCompute and interpret \\(\\text{SD}(X)\\).",
+    "crumbs": [
+      "Homework 3"
+    ]
+  },
+  {
+    "objectID": "hw-03.html#problem-2",
+    "href": "hw-03.html#problem-2",
+    "title": "Homework 3",
+    "section": "Problem 2",
+    "text": "Problem 2\nRon and Leslie agree to the following bet. They’ll ask Professor Ross if he saw the Eras Tour live. If he did, Leslie will pay Ron $200; if not, Ron will pay Leslie $100. (Neither has any direct information about whether or not Prof Ross saw the Eras Tour live.)\n\nGiven this setup, which of the following is being judged as more likely: that Prof Ross saw the Eras Tour, or that he did not? Why?\nRon and Leslie agree that this is a fair bet, and neither would accept worse odds. What is their subjective probability that Professor Ross saw the Eras Tour?\nSuppose they were to hypothetically repeat this bet many times, say 3000 times. Given the probability from the previous part, how many times would you expect Leslie to win? To lose? What would you expect Leslie’s net dollar winnings to be? In what sense is this bet “fair”?\nLet \\(X\\) be Leslie’s net winnings. Identify the distribution of \\(X\\). (Remember: Leslie’s winnings are Ron’s losses and vice versa.)\nCompute and interpret \\(\\text{E}(X)\\).",
+    "crumbs": [
+      "Homework 3"
+    ]
+  },
+  {
+    "objectID": "hw-03.html#problem-3",
+    "href": "hw-03.html#problem-3",
+    "title": "Homework 3",
+    "section": "Problem 3",
+    "text": "Problem 3\nSuppose that a total of 350 students at a college are taking a particular statistics course. The college offers five sections of the course, each taught by a different instructor. The class sizes are shown in the following table.\n\n\n\nSection\nA\nB\nC\nD\nE\n\n\nNumber of students\n35\n35\n35\n35\n210\n\n\n\nWe are interested in: What is the average class size?\n\nSuppose we randomly select one of the 5 instructors. Let \\(X\\) be the class size for the selected instructor. Specify the distribution of \\(X\\). (A table is fine.)\nCompute and interpret \\(\\text{E}(X)\\).\nCompute and interpret \\(\\text{P}(X = \\text{E}(X))\\).\nSuppose we randomly select one of the 350 students. Let \\(Y\\) be the class size for the selected student. Specify the distribution of \\(Y\\). (A table is fine.)\nCompute and interpret \\(\\text{E}(Y)\\).\nCompute and interpret \\(\\text{P}(Y = \\text{E}(Y))\\).\nComment on how these two expected values compare, and explain why they differ as they do. Which average would you say is more relevant?",
+    "crumbs": [
+      "Homework 3"
+    ]
+  },
+  {
+    "objectID": "hw-03.html#problem-4",
+    "href": "hw-03.html#problem-4",
+    "title": "Homework 3",
+    "section": "Problem 4",
+    "text": "Problem 4\n(This is an overly simplified example from actuarial science.) A life insurance company sells a term insurance policy to a 21 year old man (the “insured”) that pays $100,000 to a designated beneficiary if the insured dies within the next 5 years, and pays nothing if the insured does not die before age 26. The probability that a randomly chosen 21-year-old man will die each year can be found in mortality tables. The company collects a premium of $250 at the beginning of each year of the 5 years of the term, as long as the insured is alive, as payment for the insurance. The amount \\(Y\\) (in dollars) that the company earns on this policy is $250 per year, less the $100,000 that it pays out in the event the insured dies. The company doesn’t pay out anything if the insured does not die in the 5 year term.\n\n\n\nAge at death\nEarnings \\(Y\\)\nProbability\n\n\n\n\n21\n−99,750\n0.00183\n\n\n22\n\n0.00186\n\n\n23\n\n0.00189\n\n\n24\n\n0.00191\n\n\n25\n\n0.00193\n\n\n26 or older\n\n\n\n\n\n\nFind the distribution of \\(Y\\) by completing the above table. For example, the value -99,750 provides an example of how \\(Y\\) is calculated when the insured dies in the first year of the policy.\nCompute \\(\\text{E}(Y)\\).\nWrite a sentence explaining in this context in what sense the number from the previous part is “expected”.\nWould you be willing to sell such an insurance policy to one of your 21 year old friends? Explain why this is good business for the insurance company, but not for you.\nCompute \\(\\text{Var}(Y)\\)\nCompute \\(\\text{SD}(Y)\\).\nCompute the probability that \\(Y\\) is more than 1 standard deviation above its mean.",
+    "crumbs": [
+      "Homework 3"
+    ]
+  },
+  {
+    "objectID": "hw-03.html#problem-5",
+    "href": "hw-03.html#problem-5",
+    "title": "Homework 3",
+    "section": "Problem 5",
+    "text": "Problem 5\nIn a sample of 50 Olympic women’s gymnasts the heights have a symmetric bell-shaped distribution with mean 60 inches and standard deviation 3 inches. In a sample of 50 Olympic men’s basketball players the heights have symmetric bell-shaped distribution with mean 76 inches and the standard deviation 5 inches. Suppose the two samples are combined to obtain a sample with 100 heights. Choose one of the options below to complete the following sentence; explain your reasoning without doing any calculations (hint: drawing a picture might help; also, what is the mean of the combined sample?). The standard deviation of the combined sample is:\n\nLess than 3 inches\nEqual to 3 inches\nBetween 3 and 5 inches\nEqual to 5 inches\nGreater than 5 inches",
+    "crumbs": [
+      "Homework 3"
+    ]
+  },
+  {
+    "objectID": "hw-04.html",
+    "href": "hw-04.html",
+    "title": "Homework 4",
+    "section": "",
+    "text": "Problem 1\nXavier bets on red on each of 3 spins of a roulette wheel. After the third spin, Xavier leaves and Zander arrives and bets on black on the next two spins. Let \\(X\\) be the number of bets that Xavier wins and let \\(Z\\) be the number that Zander wins.",
+    "crumbs": [
+      "Homework 4"
+    ]
+  },
+  {
+    "objectID": "hw-04.html#problem-1",
+    "href": "hw-04.html#problem-1",
+    "title": "Homework 4",
+    "section": "",
+    "text": "Identify the distribution of \\(X\\) and the distribution of \\(Z\\).\nAre \\(X\\) and \\(Z\\) independent? Explain.\nCompute and interpret \\(\\text{P}(X = 2, Z = 1)\\).\nWhat does \\(X+Z\\) represent in this context? Identify the distribution of \\(X+Z\\) without doing any calculations. Be sure to specify the values of any parameters. Explain your reasoning.\nCompute \\(\\text{P}(X + Z = 3)\\) without summing many terms.\nSuppose instead that Yolanda bets on black on all 5 spins of the wheel. Does \\(X + Y\\) have a Binomial distribution? Answer yes or no and explain.\nSuppose instead that Zander bet on the number 7 in his two bets. Does \\(X + Z\\) have a Binomial distribution in this case? Answer yes or no and explain.",
+    "crumbs": [
+      "Homework 4"
+    ]
+  },
+  {
+    "objectID": "hw-04.html#problem-2",
+    "href": "hw-04.html#problem-2",
+    "title": "Homework 4",
+    "section": "Problem 2",
+    "text": "Problem 2\nSuppose the number of earthquakes per hour, for a certain range of magnitudes in a certain region, follows a Poisson distribution with parameter 0.7, independently from hour to hour.\n\nCompute and interpret the probability that there is at least one earthquake of this size in the region in any given hour.\nCompute and interpret the probability that there are exactly 3 earthquakes of this size in the region in any given hour.\nInterpret the value 0.7 in context.\nConstruct a table, plot, and spinner corresponding to a Poisson(0.7) distribution.\nLet \\(X\\) be the number of earthquakes in a 2 hour period. Identify by name the distribution of \\(X\\). Be sure to specify the values of any relevant parameters.\nCompute and interpret \\(\\text{P}(X = 3)\\).",
+    "crumbs": [
+      "Homework 4"
+    ]
+  },
+  {
+    "objectID": "hw-04.html#problem-3",
+    "href": "hw-04.html#problem-3",
+    "title": "Homework 4",
+    "section": "Problem 3",
+    "text": "Problem 3\nRecall Example 2.6. Regina and Cady are meeting for lunch. Suppose they each arrive uniformly at random at a time between noon and 1:00, independently of each other. Record their arrival times as minutes after noon, so noon corresponds to 0 and 1:00 to 60. Recall the sample space from Example 2.2 and assume a uniform probability measure \\(\\text{P}\\).\nLet \\(R\\) be Regina’s arrival time and \\(Y\\) Cady’s. Then \\(W = |R - Y|\\) is the amount of time (minutes) the first person to arrive waits for the second person to arrive.\n\nCompute and interpret \\(\\text{P}(W&lt;15)\\). (Hint: we computed this already in Example 2.6.)\nCompute and interpret \\(\\text{P}(W&gt;45)\\). (Hint: use a method similar to the previous part.)\nIt can be shown that \\(W\\) has pdf \\[\nf_W(w) = (2/3600)(1-w), \\qquad 0&lt;w&lt;60.\n\\]\nSketch a plot of the pdf. Describe roughly what this means in context.\nUse the pdf to compute \\(\\text{P}(W&lt;15)\\). Set up an integral, but sketch a picture and use geometry to compute.\nUse the pdf to compute \\(\\text{P}(W&gt;45)\\). Set up an integral, but sketch a picture and use geometry to compute.",
+    "crumbs": [
+      "Homework 4"
+    ]
+  },
+  {
+    "objectID": "hw-04.html#problem-4",
+    "href": "hw-04.html#problem-4",
+    "title": "Homework 4",
+    "section": "Problem 4",
+    "text": "Problem 4\nContinuing with the setup of Problem 3. Consider \\(T = \\min(R, Y)\\) is the time (minutes after noon) at which the first person arrives.\n\nIs \\(T\\) the same random variable as \\(W\\) from Problem 3? Explain.\nCompute and interpret \\(\\text{P}(T&lt;15)\\). (Hint: we computed something similar in Example 2.6.)\nCompute and interpret \\(\\text{P}(T&gt;45)\\). (Hint: use a method similar to the previous part.)\nIt can be shown that \\(T\\) has pdf \\[\nf_T(t) = (2/3600)(1-t), \\qquad 0&lt;t&lt;60.\n\\]\nDoes \\(T\\) have the same distribution as \\(W\\) from Problem 3? Explain what this means.",
+    "crumbs": [
+      "Homework 4"
     ]
   },
   {
