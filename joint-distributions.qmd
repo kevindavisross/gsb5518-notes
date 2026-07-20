@@ -2,7 +2,9 @@
 
 {{< include _r_setup.qmd >}}
 
-
+-   The *joint distribution* of random variables $X$ and $Y$ is a probability distribution on $(x, y)$ *pairs*, and describes how the values of $X$ and $Y$ vary together or jointly.
+-   Marginal distributions can be obtained from a joint distribution by "stacking"/"collapsing"/"aggregating" out the other variable.
+-   **In general, marginal distributions alone are not enough to determine a joint distribution.** (The exception is when random variables are *independent.*)
 
 ::: {#exm-dice-joint-dist}
 Roll a fair four-sided die twice.
@@ -21,55 +23,11 @@ Recall @tbl-dice-rv.
     \
     \
     \
-2.  Construct a two-way displaying the joint distribution on $X$ and $Y$.\
+1.  Construct a two-way displaying the joint distribution on $X$ and $Y$.\
     \
     \
     \
     \
-3.  Sketch a plot depicting the joint distribution of $X$ and $Y$.\
-    \
-    \
-    \
-    \
-4.  Starting with the two-way table, how could you obtain $\text{P}(X = 5)$?
-\
-\
-\
-\
-\
-4.  Starting with the two-way table, how could you obtain the marginal distribution of $X$? of $Y$?\
-    \
-    \
-    \
-    \
-5.  Starting with the marginal distribution of $X$ and the marginal distribution of $Y$, could you necessarily construct the two-way table of the joint distribution? Explain.\
-    \
-    \
-    \
-    \
-
--   The *joint distribution* of random variables $X$ and $Y$ is a probability distribution on $(x, y)$ *pairs*, and describes how the values of $X$ and $Y$ vary together or jointly.
--   Marginal distributions can be obtained from a joint distribution by "stacking"/"collapsing"/"aggregating" out the other variable.
--   **In general, marginal distributions alone are not enough to determine a joint distribution.** (The exception is when random variables are *independent.*)
-
-
-
-```{r}
-#| label: tbl-dice-joint-flat
-#| echo: false
-#| tbl-cap: "Flat table representing the joint distribution of the sum ($X$) and larger ($Y$) of two rolls of a four-sided die."
-
-x <- c(2, 3, 4, 4, 5, 5, 6, 6, 7, 8)
-y <- c(1, 2, 2, 3, 3, 4, 3, 4, 4, 4)
-p <- c(1, 2, 1, 2, 2, 2, 1, 2, 2, 1) / 16
-
-kbl(
-  data.frame(paste("(", x, ", ", y, ")", sep = ""), p),
-  col.names = c("(x, y)", "P(X = x, Y = y)"),
-  digits = 4
-) |>
-  kable_styling()
-```
 
 
 
@@ -84,27 +42,7 @@ kbl(
 | 7          	|    0 	|    0 	|    0 	| 2/16 	|
 | 8          	|    0 	|    0 	|    0 	| 1/16 	|
 
-: Two-way table representing the joint distribution of the sum ($X$) and larger ($Y$) of two rolls of a four-sided die. {#tbl-letters}
-
-
-
-```{r}
-#| echo: false
-
-scatterplot3d(
-  x,
-  y,
-  p,
-  pch = 16,
-  type = "h",
-  main = "3D Impulse Plot",
-  zlab = "Probability",
-  zlim = c(0, 0.15),
-  xlim = c(2 - 0.000, 8 + 0.000),
-  ylim = c(1 - 0.000, 4 + 0.000),
-  color = "skyblue"
-)
-```
+: Two-way table representing the joint distribution of the sum ($X$) and larger ($Y$) of two rolls of a four-sided die. {#tbl-dice-joint-twoway}
 
 
 
@@ -114,261 +52,21 @@ scatterplot3d(
 #| echo: false
 #| fig-cap: "Tile plot representing the joint distribution of the sum ($X$) and larger ($Y$) of two rolls of a four-sided die."
 
+x <- c(2, 3, 4, 4, 5, 5, 6, 6, 7, 8)
+y <- c(1, 2, 2, 3, 3, 4, 3, 4, 4, 4)
+p <- c(1, 2, 1, 2, 2, 2, 1, 2, 2, 1) / 16
+
+
 data.frame(x, y, p) |>
   ggplot(aes(x = x, y = y, fill = p)) +
   geom_tile(colour = "grey50") +
-  geom_text(aes(label = p), col = "white") +
+  geom_text(aes(label = p), col = "white", fontface = "bold") +
   scale_x_continuous(breaks = 2:8) +
   scale_fill_viridis(limits = c(0, 2 / 16 + 0.01)) +
   labs(x = "X (sum)", y = "Y (max)", fill = "Probability") +
   theme_classic()
 ```
 
-
-
-
-::: {#exm-dice-spinners-ex22}
-Continuing the dice rolling example, construct a spinner representing the joint distribution of $X$ and $Y$.
-:::
-
-\
-\
-\
-\
-\
-
-
-
-
-
-```{r}
-#| label: fig-dice-joint-spinner
-#| fig-cap: "Spinner representing the joint distribution of the sum ($X$) and larger ($Y$) of two rolls of a fair four-sided die."
-#| echo: false
-
-knitr::include_graphics(c(
-  "_graphics/spinner-dice-sum-max.png"
-))
-```
-
-
--   The **joint probability mass function (pmf)** of two *discrete* random variables $(X,Y)$ defined on a probability space is the function defined by
-$$
-p_{X,Y}(x,y) = \text{P}(X= x, Y= y) \qquad \text{ for all } x,y
-$$
--   Remember to specify the possible $(x, y)$ pairs when defining a joint pmf.
-
-::: {#exm-poisson-hr-joint}
-Let $X$ be the number of home runs hit by the home team, and $Y$ the number of home runs hit by the away team in a randomly selected Major League Baseball game.
-Suppose that $X$ and $Y$ have joint pmf
-:::
-
-$$
-p_{X, Y}(x, y)
-=
-\begin{cases}
-e^{-2.3}\frac{1.2^{x}1.1^{y}}{x!y!}, & x = 0, 1, 2, \ldots; y = 0, 1, 2, \ldots,\\
-0, & \text{otherwise.}
-\end{cases}
-$$
-
-1.  Compute and interpret the probability that the home teams hits 2 home runs and the away team hits 1 home run.
-\
-\
-\
-\
-\
-
-1.  Construct a two-way table representation of the joint pmf (you can use software or a spreadsheet).
-\
-\
-\
-\
-\
-
-1.  Compute and interpret the probability that each team hits at most 3 home runs.
-\
-\
-\
-\
-\
-
-1.  Compute and interpret the probability that both teams combine to hit a total of 3 home runs.
-\
-\
-\
-\
-\
-
-1.  Compute and interpret the probability that the home team and the away team hit the same number of home runs.
-\
-\
-\
-\
-\
-
-1.  Compute and interpret the probability that the home team hits 2 home runs.
-\
-\
-\
-\
-\
-
-1.  Compute and interpret the probability that the away team hits 1 home run.
-\
-\
-\
-\
-\
-
--   Recall that we can obtain marginal distributions from a joint distribution.
--   *Marginal pmfs* are determined by the joint pmf via the law of total probability.
--   If we imagine a plot with blocks whose heights represent the joint probabilities, the marginal probability of a particular value of one variable can be obtained by "stacking" all the blocks corresponding to that value.
-
-\begin{align*}
-p_X(x) & = \sum_y p_{X,Y}(x,y) & & \text{a function of $x$ only}
-\\
-p_Y(y) & = \sum_x p_{X,Y}(x,y) & & \text{a function of $y$ only}
-\\
-\end{align*}
-
-
-## Joint probability density fuctions
-
-
-
-
--   The joint distribution of two continuous random variables can be specified by a joint pdf, a *surface* specifying the density of $(x, y)$ pairs.
--   The probability that the $(X,Y)$ pair of random variables lies is some region is the *volume* under the joint pdf surface over the region.
--   The **joint probability density function (pdf)** of two *continuous* random variables $(X,Y)$ defined on a probability space is the function $f_{X,Y}$ which satisfies, for any region $S$
-$$
- \text{P}[(X,Y)\in S] = \iint\limits_{S}  f_{X,Y}(x,y)\, dx dy 
-$$
--   A joint pdf is a surface with height $f_{X,Y}(x,y)$ at $(x, y)$.
--   The probability that the $(X,Y)$ pair of random variables lies in the region $A$ is the *volume* under the pdf surface over the region $A$
--   The height of the density surface at a particular $(x,y)$ pair is related to the probability that $(X, Y)$ takes a value "close to" $(x, y)$:
-$$
-\text{P}(x-\epsilon/2<X <  x+\epsilon/2,\; y-\epsilon/2<Y < y+\epsilon/2) = \epsilon^2 f_{X, Y}(x, y) \qquad \text{for small $\epsilon$}
-$$
-
-
--   The joint distribution is a distribution on $(X, Y)$ pairs. A mathematical expression of a joint distribution is a function of both values of $X$ and values of $Y$.
-Pay special attention to the possible values; the possible values of one variable might be restricted by the value of the other.
--   The marginal distribution of $Y$ is a distribution on $Y$ values only, regardless of the value of $X$.
-A mathematical expression of a marginal distribution will have only values of the single variable in it; for example, an expression for the marginal distribution of $Y$ will only have $y$ in it (no $x$, not even in the possible values).
-
-
-
-## Independence of random variables
-
-
-
-
--   Two random variables $X$ and $Y$ defined on a probability space with probability measure $\text{P}$ are **independent** if $\text{P}(X\le x, Y\le y) = \text{P}(X\le x)\text{P}(Y\le y)$ for all $x, y$.
-That is, two random variables are independent if their joint cdf is the product of their marginal cdfs.
--   Random variables $X$ and $Y$ are independent if and only if the joint distribution factors into the product of the marginal distributions.
-The definition is in terms of cdfs, but analogous statements are true for pmfs and pdfs.
-\begin{align*}
-\text{Discrete RVs $X$ and $Y$} & \text{ are independent}\\
-\Longleftrightarrow p_{X,Y}(x,y) & = p_X(x)p_Y(y) & & \text{for all $x, y$}
-\end{align*}
-\begin{align*}
-\text{Continuous RVs $X$ and $Y$} & \text{ are independent}\\
-\Longleftrightarrow f_{X,Y}(x,y) & = f_X(x)f_Y(y) & & \text{for all $x,y$}
-\end{align*}
--   Random variables $X$ and $Y$ are independent if and only if their joint distribution can be factored into the product of a function of values of $X$ alone and a function of values of $Y$ alone.
-That is, $X$ and $Y$ are independent if and only if there exist functions $g$ and $h$ for which
-$$
-f_{X,Y}(x,y) \propto g(x)h(y) \qquad \text{ for all $x$, $y$}
-$$
--   $X$ and $Y$ are independent if and only if the joint distribution factors into a product of the marginal distributions.
-The above result says that you can determine if that's true without first finding the marginal distributions.
-
-
-::: {#exm-poisson-hr-joint-independent}
-Let $X$ be the number of home runs hit by the home team, and $Y$ the number of home runs hit by the away team in a randomly selected Major League Baseball game.
-Suppose that $X$ and $Y$ are independent, $X$ has a Poisson(1.2) distribution and $Y$ has a Poisson(1.1) distribution.
-:::
-
-1.  Find the joint pmf of $X$ and $Y$.\ 
-    \ 
-    \ 
-    \ 
-    \ 
-    \ 
-
-1.  How could you have from the setup of @exm-poisson-hr-joint that $X$ and $Y$ were independent?
-
-
-
-
--   The *joint distribution* of random variables $X$ and $Y$ is a probability distribution on $(x, y)$ *pairs*, and describes how the values of $X$ and $Y$ vary together or jointly.
--   We can also study *conditional distributions* of random variables given the values of some random variables.
-    How does the distribution of $Y$ change for different values of $X$ (and vice versa)?
-
-::: {#exm-dice-conditional}
-Roll a fair four-sided die twice.
-Let $X$ be the sum of the two rolls, and let $Y$ be the larger of the two rolls (or the common value if a tie).
-We have previously found the joint and marginal distributions of $X$ and $Y$, displayed in the two-way table below.
-:::
-
-| $p_{X, Y}(x, y)$ |      |      |      |      |            |
-|------------------|-----:|-----:|-----:|-----:|-----------:|
-| $x$ \\ $y$       |    1 |    2 |    3 |    4 | $p_{X}(x)$ |
-| 2                | 1/16 |    0 |    0 |    0 |       1/16 |
-| 3                |    0 | 2/16 |    0 |    0 |       2/16 |
-| 4                |    0 | 1/16 | 2/16 |    0 |       3/16 |
-| 5                |    0 |    0 | 2/16 | 2/16 |       4/16 |
-| 6                |    0 |    0 | 1/16 | 2/16 |       3/16 |
-| 7                |    0 |    0 |    0 | 2/16 |       2/16 |
-| 8                |    0 |    0 |    0 | 1/16 |       1/16 |
-| $p_Y(y)$         | 1/16 | 3/16 | 5/16 | 7/16 |            |
-
-1.  Compute $p_{X|Y}(6|4) = \text{P}(X=6|Y=4)$.\
-    \
-    \
-    \
-    \
-2.  Construct a table, plot, and spinner to represent the conditional distribution of $X$ given $Y=4$.\
-    \
-    \
-    \
-    \
-3.  Construct a table, plot, and spinner to represent the conditional distribution of $X$ given $Y=3$.\
-    \
-    \
-    \
-    \
-4.  Construct a table, plot, and spinner to represent the conditional distribution of $X$ given $Y=2$.\
-    \
-    \
-    \
-    \
-5.  Construct a table, plot, and spinner to represent the conditional distribution of $X$ given $Y=1$.\
-    \
-    \
-    \
-    \
-6.  Compute $p_{Y|X}(4|6) = \text{P}(Y=4|X=6)$.\
-    \
-    \
-    \
-    \
-7.  Construct a table, plot, and spinner to represent the distribution of $Y$ given $X=6$.\
-    \
-    \
-    \
-    \
-8.  Construct a table, plot, and spinner to represent the distribution of $Y$ given $X=5$.\
-    \
-    \
-    \
-    \
-9.  Construct a table, plot, and spinner to represent the distribution of $Y$ given $X=4$.\
-    \
-    \
-    \
-    \
 
 -   The **conditional distribution of** $Y$ given $X=x$ is the distribution of $Y$ values over only those outcomes for which $X=x$. It is a distribution on values of $Y$ only; treat $x$ as a fixed constant when conditioning on the event $\{X=x\}$.
 -   Conditional distributions can be obtained from a joint distribution by *slicing and renormalizing*. The conditional distribution of $Y$ given $X=x$, where $x$ represents a particular number, can be thought of as:
@@ -381,6 +79,32 @@ We have previously found the joint and marginal distributions of $X$ and $Y$, di
 
 
 
+
+
+::: {#exm-dice-conditional-dist}
+Continuing @exm-dice-joint-dist.
+:::
+
+1.  Make a table representing the conditional distribution of $X$ given $Y=4$.\
+    \
+    \
+    \
+    \
+1.  Make a table representing the conditional distribution of $X$ given $Y=3$.\
+    \
+    \
+    \
+    \
+1.  Make a table representing the conditional distribution of $X$ given $Y=2$.\
+    \
+    \
+    \
+    \
+1.  Make a table representing the conditional distribution of $X$ given $Y=1$.\
+    \
+    \
+    \
+    \
 
 
 
@@ -410,81 +134,189 @@ ggplot(data.frame(y, p), aes(x = x, xend = x, y = 0, yend = p)) +
 ```
 
 
-
-```{r}
-#| label: fig-dice-conditional-spinners
-#| echo: false
-#| fig-cap: "Spinners representing the family of conditional distributions of $X$ given $Y$ in the dice rolling example. Each spinner represents a conditional distribution of $X$ given $Y=y$ for a particular value of $y= 1, 2, 3, 4$."
-
-make_discrete_spinner <- function(x, p, title = "") {
-  xp <- data.frame(x, p)
-  cdf <- c(0, cumsum(xp$p))
-  plotp <- (cdf[-1] + cdf[-length(cdf)]) / 2
-  ggplot(xp, aes(x = "", y = p, fill = x)) +
-    geom_bar(width = 1, stat = "identity", color = "black", fill = "white") +
-    coord_polar("y", start = 0) +
-    theme_void() +
-    # plot the possible values on the outside
-    scale_y_continuous(breaks = plotp, labels = xp$x, limits = c(0, 1)) +
-    theme(axis.text.x = element_text(size = 16, face = "bold")) +
-    # plot the probabilities as percents inside
-    geom_text(
-      aes(y = plotp, label = format(percent(round(p, 3)), 0)),
-      size = 4
-    ) +
-    labs(title = title)
-}
-
-
-spinner1 <- make_discrete_spinner(2, 1, "Distribution of X given Y = 1")
-
-spinner2 <- make_discrete_spinner(
-  3:4,
-  c(2, 1) / 3,
-  "Distribution of X given Y = 2"
-)
-
-spinner3 <- make_discrete_spinner(
-  4:6,
-  c(2, 2, 1) / 5,
-  "Distribution of X given Y = 3"
-)
-
-spinner4 <- make_discrete_spinner(
-  5:8,
-  c(2, 2, 2, 1) / 7,
-  "Distribution of X given Y = 4"
-)
-
-grid.arrange(spinner1, spinner2, spinner3, spinner4, ncol = 2)
-```
+-   The **conditional expected value** (a.k.a. *conditional expectation* a.k.a. *conditional mean*), of a random variable $Y$ given the event $\{X=x\}$, defined on a probability space with measure $\text{P}$, is a *number* denoted $\text{E}(Y|X=x)$ representing the probability-weighted average value of $Y$, where the weights are determined by the conditional distribution of $Y$ given $X=x$.
+    \begin{align*}
+	& \text{Discrete $X, Y$ with conditional pmf $p_{Y|X}$:} & \text{E}(Y|X=x) & = \sum_y y p_{Y|X}(y|x)\\
+    \end{align*}
+-   Remember, when conditioning on $X=x$, $x$ is treated as a fixed constant. The conditional expected value  $\text{E}(Y | X=x)$ is  a *number* representing the mean of the conditional distribution of $Y$ given $X=x$.
+-   The conditional expected value $\text{E}(Y | X=x)$ is the long run average value of $Y$ over only those outcomes for which $X=x$.
+-   To approximate $\text{E}(Y|X = x)$, simulate many $(X, Y)$ pairs, discard the pairs for which $X\neq x$, and average the $Y$ values for the pairs that remain. 
 
 
 
-::: {#exm-dice-conditional-sim}
-We have already discussed two ways for simulating an $(X, Y)$ pair in the dice rolling example: simulate a pair of rolls and measure $X$ (sum) and $Y$ (max), or spin the joint distribution spinner for $(X, Y)$ once.
+::: {#exm-dice-conditional-ev}
+Continuing @exm-dice-conditional-dist.
 :::
 
-1.  Now describe another way for simulating an $(X, Y)$ pair using the spinners in @exm-dice-conditional. (Hint: you'll need one more spinner in addition to the four from the previous example.)\
+1.	Compute and interpret $\text{E}(X | Y = 4)$.\
     \
     \
     \
     \
-2.  Describe in detail how you can simulate $(X, Y)$ pairs and use the results to approximate $\text{P}(X = 6 | Y = 4)$.\
+2.	Without computing, will $\text{E}(X | Y = 3)$ be greater than, less than, or equal to $\text{E}(X | Y = 4)$?\
     \
     \
     \
     \
-3.  Describe in detail how you can simulate $(X, Y)$ pairs and use the results to approximate the conditional distribution of $X$ given $Y = 4$.\
+ 
+
+
+
+
+-   The **joint probability mass function (pmf)** of two *discrete* random variables $(X,Y)$ defined on a probability space is the function defined by
+$$
+p_{X,Y}(x,y) = \text{P}(X= x, Y= y) \qquad \text{ for all } x,y
+$$
+-   Remember to specify the possible $(x, y)$ pairs when defining a joint pmf.
+
+
+
+
+
+
+::: {#exm-poisson-hr-joint}
+Let $X$ be the number of home runs hit by the home team, and $Y$ the number of home runs hit by the away team in a randomly selected Major League Baseball game.
+Suppose that $X$ and $Y$ have joint pmf
+:::
+
+$$
+p_{X, Y}(x, y)
+=
+\begin{cases}
+e^{-2.4}\frac{1.21^{x}1.19^{y}}{x!y!}, & x = 0, 1, 2, \ldots; y = 0, 1, 2, \ldots,\\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+1.  Compute and interpret $\text{P}(X = 2, Y = 1)$.
+\
+\
+\
+\
+\
+1.  Construct a two-way table representation of the joint pmf (you can use software or a spreadsheet).
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{P}(X \le 3, Y \le 3)$.
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{P}(X + Y = 3)$.
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{P}(X = Y)$.
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{P}(X = 2)$.
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{P}(Y = 1)$.
+\
+\
+\
+\
+\
+
+
+-   Two random variables $X$ and $Y$ defined on a probability space with probability measure $\text{P}$ are **independent** if $\text{P}(X\le x, Y\le y) = \text{P}(X\le x)\text{P}(Y\le y)$ for all $x, y$.
+That is, two random variables are independent if their joint cdf is the product of their marginal cdfs.
+-   Random variables $X$ and $Y$ are independent if and only if the joint distribution factors into the product of the marginal distributions.
+The definition is in terms of cdfs, but analogous statements are true for pmfs and pdfs.
+\begin{align*}
+\text{Discrete RVs $X$ and $Y$} & \text{ are independent}\\
+\Longleftrightarrow p_{X,Y}(x,y) & = p_X(x)p_Y(y) & & \text{for all $x, y$}
+\end{align*}
+\begin{align*}
+\text{Continuous RVs $X$ and $Y$} & \text{ are independent}\\
+\Longleftrightarrow f_{X,Y}(x,y) & = f_X(x)f_Y(y) & & \text{for all $x,y$}
+\end{align*}
+
+
+
+## Exercises
+
+
+::: {#exr-dice-joint-marginal}
+Continuing @exm-dice-joint-dist.
+:::
+
+
+1.  Starting with the two-way table representing the joint distribution of $X$ and $Y$, how could you obtain $\text{P}(X = 5)$?
+\
+\
+\
+\
+\
+1.  Starting with the two-way table, how could you obtain the marginal distribution of $X$? of $Y$?\
     \
     \
     \
     \
-4.  Describe in detail how you can simulate values from the conditional distribution of $X$ given $Y=4$ without simulating $(X, Y)$ pairs.\
+1.  Starting with the marginal distribution of $X$ and the marginal distribution of $Y$, could you necessarily construct the two-way table of the joint distribution? Explain.\
     \
     \
     \
     \
+1.  Remember that you constructed a spinner corresponding to the marginal distribution of $Y$ in @exm-dice-rv. Suppose you also construct a separate spinner corresponding to the marginal distribution of $X$. Donny Don't says: "to simulate an $(X, Y)$ pair I can just spin the $X$ spinner once to get $X$ and spin the $Y$ spinner once to get $Y$." Do you agree? Explain.\
+    \
+    \
+    \
+    \
+
+-   Recall that we can obtain marginal distributions from a joint distribution.
+-   *Marginal pmfs* are determined by the joint pmf via the law of total probability.
+-   If we imagine a plot with blocks whose heights represent the joint probabilities, the marginal probability of a particular value of one variable can be obtained by "stacking" all the blocks corresponding to that value.
+-   For discrete random variables $X$ and $Y$:
+\begin{align*}
+p_X(x) & = \sum_y p_{X,Y}(x,y) & & \text{a function of $x$ only}
+\\
+p_Y(y) & = \sum_x p_{X,Y}(x,y) & & \text{a function of $y$ only}
+\\
+\end{align*}
+
+
+
+
+::: {#exr-dice-joint-sim}
+Continuing @exr-dice-joint-marginal.
+:::
+
+1.  Construct a spinner that could be used to simulate $(X, Y)$ pairs with the proper joint distribution.\
+    \
+    \
+    \
+    \
+1.  How could you use @exm-dice-conditional-dist to construct a series of spinners to simulate $(X, Y)$ pairs with the proper joint distribution? (Hint: consider simulating $Y$ first; then how would you simulate $X$?)\
+    \
+    \
+    \
+    \
+1.  Explain how you could use simulation to approximate the conditional distribution of $Y$ given $X = 6$.\
+    \
+    \
+    \
+    \
+1.  Explain how you could use simulation to approximate $\text{E}(Y | X = 6)$.\
+    \
+    \
+    \
+    \
+
+
 
 
 -   Rather than directly simulating from a joint distribution, we can simulate an $(X, Y)$ pair in two stages:
@@ -494,166 +326,6 @@ We have already discussed two ways for simulating an $(X, Y)$ pair in the dice r
     $$
     \text{joint} = \text{conditional}\times\text{marginal}
     $$
--   In many problems a joint distribution is nsturally described by specifying the marginal distribution of $X$ and the family of conditional distributions of $Y$ given values of $X$
+-   In many problems a joint distribution is naturally described by specifying the marginal distribution of $X$ and the family of conditional distributions of $Y$ given values of $X$. (This is sometimes called a "hierarchical model".)
 
 
-
-
-```{r}
-#| echo: false
-
-N_rep <- 16000
-
-# first roll
-u1 <- sample(1:4, size = N_rep, replace = TRUE)
-
-# second roll
-u2 <- sample(1:4, size = N_rep, replace = TRUE)
-
-# sum
-x <- u1 + u2
-
-# max
-y <- pmax(u1, u2)
-```
-
-
-```{r}
-#| echo: false
-
-dice_sim <- data.frame(1:N_rep, u1, u2, x, y)
-
-# dice_sim |>
-#   head() |>
-#   kbl(col.names = c("Repetition", "First roll", "Second roll", "X (sum)", "Y (max)")) |>
-#   kable_styling(fixed_thead = TRUE) |>
-#     row_spec(which(head(y) == 4), bold = TRUE, color = "white", background = "#FFA500")
-```
-
-
-
-```{r}
-#| label: dice-sim-tile
-#| echo: false
-#| fig-cap:
-#|   - "Mosaic plot of conditional distributions of X given values of Y"
-#|   - "Mosaic plot of conditional distributions of Y given values of X"
-#| layout-ncol: 2
-#| warning: false
-
-ggplot(dice_sim) +
-  ggmosaic::geom_mosaic(
-    aes(x = product(x, y), fill = x),
-    offset = 0
-  ) +
-  scale_fill_viridis_d(option = "D") +
-  ggmosaic::theme_mosaic() +
-  theme(
-    axis.text.y = element_blank(),
-    axis.title = element_text(size = 12),
-    legend.title = element_text(size = 12),
-    panel.grid = element_blank()
-  ) +
-  labs(
-    x = "y",
-    fill = "x",
-    y = "P(X = x | Y = y)"
-  )
-
-ggplot(dice_sim) +
-  ggmosaic::geom_mosaic(
-    aes(x = product(y, x), fill = y),
-    offset = 0
-  ) +
-  scale_fill_viridis_d(option = "D") +
-  ggmosaic::theme_mosaic() +
-  theme(
-    axis.text.y = element_blank(),
-    axis.title = element_text(size = 12),
-    legend.title = element_text(size = 12),
-    panel.grid = element_blank()
-  ) +
-  labs(
-    x = "x",
-    fill = "y",
-    y = "P(Y = y | X = x)"
-  )
-```
-
-
-
-
-
-
-
--   Be sure to distinguish between joint, conditional, and marginal distributions.
--   The joint distribution of $X$ and $Y$ is a distribution on $(X, Y)$ pairs. A mathematical expression of a joint distribution is a function of both values of $X$ and values of $Y$.
--   The conditional distribution of $Y$ given $X=x$ is a distribution on $Y$ values (among $(X, Y)$ pairs with a fixed value of $X=x$). A mathematical expression of a conditional distribution will involve both $x$ and $y$, but $x$ is treated like a fixed constant and $y$ is treated as the variable. Note: the possible values of $Y$ might depend on the value of $x$.
--   The marginal distribution of $Y$ is a distribution on $Y$ values only, regardless of the value of $X$. A mathematical expression of a marginal distribution will have only values of the single variable in it; for example, an expression for the marginal distribution of $Y$ will only have $y$ in it (no $x$, not even in the possible values).
--   **Be careful** when conditioning with continuous random variables. Remember that the probability that a continuous random variable is equal to a particular value is 0; that is, for continuous $X$, $\text{P}(X=x)=0$. - Mathematically, when we condition on $\{X=x\}$ we are really conditioning on $\{|X-x|<\epsilon\}$ --- the event that the random variable $X$ is within $\epsilon$ of the value $x$ --- and seeing what happens in the idealized limit when $\epsilon\to0$.
--   Practically, $\epsilon$ represents our "close enough" degree of precision, e.g., $\epsilon=0.01$ if "within 0.01" is close enough.
--   When conditioning on a continuous random variable $X$ in a simulation, *never* condition on $\{X=x\}$; rather, condition on $\{|X-x|<\epsilon\}$ where $\epsilon$ represents the suitable degree of precision.
-
-## Conditional Expected Value
-
-
-::: {#exm-dice-ce}
-Roll a fair four-sided die twice.  Let $X$ be the sum of the two rolls, and let $Y$ be the larger of the two rolls (or the common value if a tie).
-
-:::
-
-| $p_{X, Y}(x, y)$ |      |      |      |      |            |
-|------------------|-----:|-----:|-----:|-----:|-----------:|
-| $x$ \\ $y$       |    1 |    2 |    3 |    4 | $p_{X}(x)$ |
-| 2                | 1/16 |    0 |    0 |    0 |       1/16 |
-| 3                |    0 | 2/16 |    0 |    0 |       2/16 |
-| 4                |    0 | 1/16 | 2/16 |    0 |       3/16 |
-| 5                |    0 |    0 | 2/16 | 2/16 |       4/16 |
-| 6                |    0 |    0 | 1/16 | 2/16 |       3/16 |
-| 7                |    0 |    0 |    0 | 2/16 |       2/16 |
-| 8                |    0 |    0 |    0 | 1/16 |       1/16 |
-| $p_Y(y)$         | 1/16 | 3/16 | 5/16 | 7/16 |            |
-
-
-1. Compute and interpret $\text{E}(Y)$. How could you find a simulation-based approximation?
-\
-\
-\
-1.  We have seen that the long run average value of $Y$ is 3.125. Would you expect the conditional long run average value of $Y$ given $X = 8$ to be greater than, less than, or equal to 3.125? Explain without doing any calculations. What about given $X = 3$?\
-    \
-    \
-    \
-    \
-6.  How could you use simulation to approximate the conditional long run average value of $Y$ given $X = 6$?\
-    \
-    \
-    \
-    \
-1. Compute and interpret $\text{E}(Y|X=6)$.
-\
-\
-\
-1. Find $\text{E}(Y|X=x)$ for each possible value of $x$ of $X$.
-\
-\
-\
-\
-\
-1. Compute and interpret $\text{E}(X|Y = 4)$. How could you find a simulation-based approximation?
-\
-\
-\
-1. Find $\text{E}(X|Y = y)$ for each possible value $y$ of $Y$.
-\
-\
-\
-\
-\
-
--   The **conditional expected value** (a.k.a. *conditional expectation* a.k.a. *conditional mean*), of a random variable $Y$ given the event $\{X=x\}$, defined on a probability space with measure $\text{P}$, is a *number* denoted $\text{E}(Y|X=x)$ representing the probability-weighted average value of $Y$, where the weights are determined by the conditional distribution of $Y$ given $X=x$.
-    \begin{align*}
-	& \text{Discrete $X, Y$ with conditional pmf $p_{Y|X}$:} & \text{E}(Y|X=x) & = \sum_y y p_{Y|X}(y|x)\\
-    \end{align*}
--   Remember, when conditioning on $X=x$, $x$ is treated as a fixed constant. The conditional expected value  $\text{E}(Y | X=x)$ is  a *number* representing the mean of the conditional distribution of $Y$ given $X=x$.
--   The conditional expected value $\text{E}(Y | X=x)$ is the long run average value of $Y$ over only those outcomes for which $X=x$.
--   To approximate $\text{E}(Y|X = x)$, simulate many $(X, Y)$ pairs, discard the pairs for which $X\neq x$, and average the $Y$ values for the pairs that remain. 

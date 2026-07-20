@@ -1,6 +1,6 @@
 # Homework 1 Solutions {.unnumbered}
 
-{{< include _r_setup.qmd >}}
+
 
 
 
@@ -23,18 +23,40 @@ d.  In about 82.2% of sets of 9 rolls there are at most 2 6s.
 
 ## Problem 2
 
-Suppose your subjective probabilities for the 2022 World Series champion satisfy the following conditions.
+1.  Suppose that at some point in 2023 your subjective probabilities for who would win the 2024 U.S. Presidential Election satisfied the following. 
+(Imagine a time before Trump had been declared the Republican nominee, and while Biden was the presumptive Democratic nominee there was still speculation that he should step aside.)
 
--   The White Sox and Brewers are equally likely to win
--   The Astros are 1.5 times more likely than the White Sox to win
--   The Dodgers are 2 times more likely than the Astros to win
--   The winner is as likely to be among these four teams --- Dodgers, Astros, White Sox, Brewers --- as not
+    -   The Democratic nominee and the Republican nominee are equally likely to be the winner of the Presidential Election
+    -   Joe Biden is 5 times more likely to win than Kamala Harris, and no other Democratic candidate has a chance of winning
+    -   Donald Trump is twice as likely to win as any other Republican candidate.
+    
+    Create a table of your subjective probabilities.
 
-Construct a table of your subjective probabilities like the one in @exm-worldseries.
+
 
 ### Solution
 
-See [Example 1.5 in my probability notes](https://bookdown.org/kevin_davisross/probsim-book/consistency.html#exm:worldseries-proportional).
+
+It helps to designate one outcome as the "baseline". It doesn't matter which one; we'll choose Kamala Harris.
+
+-   Suppose Harris accounts for 1 "unit".
+-   Biden accounts for 5 units
+-   Other Democrat candidates account for 0 units
+-   Democrats in total account for 6 units
+-   Republicans in total account for 6 units
+-   Trump accounts for 4 units
+-   Other Republican accounts for 2 units
+
+| Candidate        | “Units” |  Probability | As Percent |
+|------------------|--------:|-------------:|-----------:|
+| Biden            |       5 | 5/12 = 0.417 |      41.7% |
+| Harris           |       1 | 1/12 = 0.083 |       8.3% |
+| Other Democrat   |       0 |            0 |         0% |
+| Trump            |       4 | 4/12 = 0.333 |      33.3% |
+| Other Republican |       2 | 2/12 = 0.167 |      16.7% |
+| Total            |      12 |            1 |       100% |
+
+
 
 ## Problem 3
 
@@ -131,7 +153,7 @@ e.  Comparing the probability of happening once versus at least once (like you w
 ### Solution
 
 Results vary.
-See [Section 1.5 of my probability notes](https://bookdown.org/kevin_davisross/probsim-book/probofwhat.html) for discussion.
+See [Section 1.6 of my probability textbook](https://kevindavisross.github.io/friendly-probability-book/literacy-probability.html#sec-probofwhat) for discussion.
 
 ## Problem 5
 
@@ -165,4 +187,151 @@ b.  Compute the probability that Katniss's dart lands more than 1 inch but less 
 
 ### Solution
 
-See [Example 3.30 in my probability notes](https://bookdown.org/kevin_davisross/probsim-book/sec-uniform-prob.html#exm:uniform-dart)
+See @fig-event-dartboard for pictures.
+
+1.  @fig-event-dartboard-1: $A$, Katniss's dart lands within 1 inch of the center of the dartboard.
+1.  @fig-event-dartboard-2: $B$, Katniss's dart lands more than 1 inch but less than 2 inches away from the center of the dartboard.
+
+
+Since the dart lands uniformly at random anywhere on the dartboard, probabilities are computed as the ratio between the area corresponding to the event of interest divided by the area of the total dartboard ($12^2\pi$ square-inches.)
+
+Find the area of the shaded pieces by subtracting areas of circles.
+
+1.  $\text{P}(A) = \frac{1^2\pi}{12^2\pi} = 1/144 = 0.00694$
+1.  $\text{P}(B) = \frac{2^2\pi - 1^2\pi}{12^2\pi} = 3/144 = 0.021$
+
+
+```{r}
+#| label: fig-event-dartboard
+#| echo: false
+#| fig-cap: "Events in dartboard problem"
+#| fig-subcap: 
+#|   - "Within 1 inch of center"
+#|   - "More than 1 but less than 2 inches from center"
+#| layout-ncol: 2
+
+# Draw 12 equally spaced annuli with the outermost shaded and a center dot
+
+circle_xy <- function(cx = 0, cy = 0, r = 1, n = 720) {
+  t <- seq(0, 2 * pi, length.out = n)
+  cbind(x = cx + r * cos(t), y = cy + r * sin(t))
+}
+
+R <- 1
+n_annuli <- 12
+radii <- seq(0, R, length.out = n_annuli + 1)
+
+# INNER
+par(mar = c(1, 1, 1, 1))
+plot(
+  0,
+  0,
+  type = "n",
+  asp = 1,
+  xlab = "",
+  ylab = "",
+  xlim = c(-1.05, 1.05),
+  ylim = c(-1.05, 1.05),
+  axes = FALSE,
+  bty = "n"
+)
+
+
+# --- Shade inner annulus (just a filled circle of radius 1/12) ---
+inner <- circle_xy(r = radii[2]) # radius = 1/12
+polygon(inner, col = "orange", border = NA)
+
+# Draw annulus boundaries
+for (r in radii[-1]) {
+  boundary <- circle_xy(r = r)
+  lines(boundary, lwd = 1.2)
+}
+
+# Add center dot
+points(0, 0, pch = 19, cex = 0.5)
+
+
+# SECOND INNER
+
+par(mar = c(1, 1, 1, 1))
+plot(
+  0,
+  0,
+  type = "n",
+  asp = 1,
+  xlab = "",
+  ylab = "",
+  xlim = c(-1.05, 1.05),
+  ylim = c(-1.05, 1.05),
+  axes = FALSE,
+  bty = "n"
+)
+
+# --- Shade the 2nd innermost annulus (between r=1/12 and r=2/12) ---
+outer_ring <- circle_xy(r = radii[3]) # radius = 2/12
+polygon(outer_ring, col = "orange", border = NA)
+inner_hole <- circle_xy(r = radii[2]) # radius = 1/12
+polygon(inner_hole, col = "white", border = NA)
+
+# Draw annulus boundaries
+for (r in radii[-1]) {
+  boundary <- circle_xy(r = r)
+  lines(boundary, lwd = 1.2)
+}
+
+# Add center dot
+points(0, 0, pch = 19, cex = 0.5)
+
+# # OUTER
+
+# par(mar = c(1,1,1,1))
+# plot(0, 0, type = "n", asp = 1, xlab = "", ylab = "",
+#      xlim = c(-1.05, 1.05), ylim = c(-1.05, 1.05), axes = FALSE, bty = "n")
+
+# # Shade the outer annulus
+# outer <- circle_xy(r = R)
+# polygon(outer, col = "orange", border = NA)
+# inner_hole <- circle_xy(r = radii[n_annuli])
+# polygon(inner_hole, col = "white", border = NA)
+
+# # Draw annulus boundaries
+# for (r in radii[-1]) {
+#   boundary <- circle_xy(r = r)
+#   lines(boundary, lwd = 1.2)
+# }
+
+# # Add center dot
+# points(0, 0, pch = 19, cex = 0.5)
+```
+
+
+
+## Problem 7
+
+1.  Imagine a light that flashes every few seconds^[Thanks to Allan Rossman for this example.].
+The light randomly flashes green with probability 0.75 and red with probability 0.25, independently from flash to flash.
+
+
+    a.  Write down a sequence of G’s (for green) and R's (for red) to predict the colors for the next 40 flashes of this light.  Before you read on, please take a minute to think about how you would generate such a sequence yourself.
+    a.  Most people produce a sequence that has 30 G's and 10 R's, or close to those proportions, because they are trying to generate a sequence for which each outcome has a 75% chance for G and a 25% chance for R.
+    That is, they use a strategy in which they predict G with probability 0.75, and R with probability 0.25. How well does this strategy do?
+    Compute the probability of correctly predicting any single item in the sequence using this strategy.
+    a.  Describe a better strategy. (Hint: can you find a strategy for which the probability of correctly predicting any single flash is 0.75?)
+
+
+### Solution
+
+a.  Most people write a sequence with about 30 G and 10 R.
+a.  Use the law of total probability. 
+There are two cases for your guesses: G or R.
+    -   If you guess G then you are correct if it really flashes G, and it flashes G with probability 0.75.
+    -   If you guess R then you are correct if it really flashes R, and it flashes R with probability 0.25.
+
+    If you use a strategy where you guess G with probability 0.75, your probability of being correct is
+    \begin{align*}
+    \text{P}(\text{correct}) & = \text{P}(\text{correct} | \text{guess G}) \text{P}(\text{guess G}) + \text{P}(\text{correct} | \text{guess R}) \text{P}(\text{guess R})\\
+    & = (0.75)(0.75) + (0.25)(0.25) =0.625.
+    \end{align*}
+a.  If you get predict G every time, you are correct any time it is G, so the probability that you are correct is 0.75.
+
+

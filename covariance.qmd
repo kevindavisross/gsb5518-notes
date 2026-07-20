@@ -1,14 +1,48 @@
 # Covariance and Correlation
 
-{{< include _r_setup.qmd >}}
 
 
 
 Quantities like expected value and variance summarize characteristics of the *marginal* distribution of a single random variable.
 When there are multiple random variables their *joint* distribution is of interest.
-Covariance and correlation summarize a characteristic of the joint distribution of two random variables, namely, the degree to which they "co-deviate from the their respective means".
+*Covariance* and *correlation* summarize a characteristic of the joint distribution of two random variables, namely, the degree to which they "co-deviate from the their respective means".
 
-## Covariance
+
+::: {#exm-covariance-calc}
+We'll motivate the calculation of covariance by considering a small example.
+Say we have data on the sale price $X$ (measured in millions of dollars) and the living area $Y$ (measured in thousands of square feet) for a small sample of 10 houses.
+
+:::
+
+
+|      repetition     |       X     |        Y     | X deviation | Y deviation | Product |
+|---------------------|------------:|-------------:|------------:|------------:|--------:|
+|     1               |     0.28    |      1.12    |             |             |         |
+|     2               |     0.63    |      1.05    |             |             |         |
+|     3               |     0.76    |      1.67    |             |             |         |
+|     4               |     0.56    |      1.48    |             |             |         |
+|     5               |     0.36    |      0.43    |             |             |         |
+|     6               |     0.89    |      2.50    |             |             |         |
+|     7               |     0.47    |      1.71    |             |             |         |
+|     8               |     0.82    |      1.88    |             |             |         |
+|     9               |     0.71    |      0.85    |             |             |         |
+|     10              |     0.75    |      1.90    |             |             |         |
+|     Sum             |     6.23    |     14.59    |             |             |         |
+|     Average         |     0.62    |      1.46    |             |             |         |
+
+
+1.  Compute the average of the $X$ values and the average of the $Y$ values.
+1.  Compute the deviation from its mean for each $X$ value, and the deviation from its mean for each $Y$ value.
+1.  Compute the product of the paired deviations.
+1.  Compute the average of the products of the deviations. This is called the covariance. What are the measurement units?
+\
+\
+\
+\
+\
+
+
+
 
 -   The **covariance** between two random variables $X$ and $Y$ is
     \begin{align*}
@@ -20,88 +54,74 @@ Covariance and correlation summarize a characteristic of the joint distribution 
 
 ::: {#exm-dice-covariance}
 Roll a fair four-sided die twice and let $X$ be the sum of the two rolls, and $Y$ the larger of the two rolls.
+Recall @exm-dice-joint-dist and @tbl-dice-joint-twoway.
 :::
 
-1.  Specify the joint pmf of $X$ and $Y$. (These first few parts are review of things we have covered before.)\
-    \
-    \
-2.  Find the marginal pmf of $X$ and $\text{E}(X)$.\
-    \
-    \
-3.  Find the marginal pmf of $Y$ and $\text{E}(Y)$.\
-    \
-    \
-4.  Find $\text{E}(XY)$. Is it equal to $\text{E}(X)\text{E}(Y)$?\
+
+
+1.	Will $\text{Cov}(X,Y)$ be positive, negative, or close to 0? Explain without computing.\
     \
     \
     \
     \
-5.  Find $\text{Cov}(X, Y)$. Why is the covariance positive?\
+2.	Compute $\text{Cov}(X,Y)$ using the definition.\
     \
     \
     \
     \
-6.  Describe how you would use simulation to approximate $\text{Cov}(X, Y)$.\
+3.	Compute $\text{Cov}(X,Y)$ using the "shortcut" formula.\
     \
     \
     \
     \
+
+
+
 
 -   $\text{Cov}(X,Y)>0$ (positive association): above average values of $X$ tend to be associated with above average values of $Y$
 -   $\text{Cov}(X,Y)<0$ (negative association): above average values of $X$ tend to be associated with below average values of $Y$
 -   $\text{Cov}(X,Y)=0$ indicates that the random variables are **uncorrelated**: there is no overall positive or negative association. But be careful: if $X$ and $Y$ are uncorrelated there can still be a relationship between $X$ and $Y$; there is just no overall positive or negative association.. We will see examples that demonstrate that being uncorrelated does not necessarily imply that random variables are independent.
 
-::: {#exm-dice-covariance-sign}
-Continuing @exm-dice-covariance.
-Let $X$ be the sum of the two rolls, $Y$ the larger of the two rolls, $W$ the number of rolls equal to 4, and $Z$ the number of rolls equal to 1.
+
+
+::: {#exm-correlation-calc}
+We'll motivate the calculation of correlation by considering a small example.
+Continuing @exm-covariance-calc, say we have data on the sale price $X$ (measured in millions of dollars) and the living area $Y$ (measured in thousands of square feet) for a small sample of 10 houses.
+
 :::
 
-1.  Is $\text{Cov}(X, W)$ positive, negative, or zero? Why?\
-    \
-    \
-    \
-    \
-1.  Is $\text{Cov}(X, Z)$ positive, negative, or zero? Why?\
-    \
-    \
-    \
-    \
-1.  Let $V=W+Z$. Is $\text{Cov}(X, V)$ positive, negative, or zero? Why?\
-    \
-    \
-    \
-    \
-1.  Is $\text{Cov}(W, Z)$ positive, negative, or zero? Why?\
-    \
-    \
-    \
-    \
+
+| repetition |    X |     Y | Standardized X | Standardized Y | Product |
+|------------|-----:|------:|---------------:|---------------:|--------:|
+| 1          | 0.28 |  1.12 |                |                |         |
+| 2          | 0.63 |  1.05 |                |                |         |
+| 3          | 0.76 |  1.67 |                |                |         |
+| 4          | 0.56 |  1.48 |                |                |         |
+| 5          | 0.36 |  0.43 |                |                |         |
+| 6          | 0.89 |  2.50 |                |                |         |
+| 7          | 0.47 |  1.71 |                |                |         |
+| 8          | 0.82 |  1.88 |                |                |         |
+| 9          | 0.71 |  0.85 |                |                |         |
+| 10         | 0.75 |  1.90 |                |                |         |
+| Sum        | 6.23 | 14.59 |              0 |              0 |         |
+| Average    | 0.62 |  1.46 |              0 |              0 |         |
+| SD         | 0.19 |  0.57 |              1 |              1 |      NA |
 
 
-::: {#exm-variance-covariance}
-What is another name for $\text{Cov}(X, X)$?
-:::
-
+1.  Compute the average and SD of the $X$ values and the average and SD of the $Y$ values.
+1.  Compute the standardized value of each $X$ value, and the standardized value of each $Y$ value.
+1.  Compute the product of the paired standardized values.
+1.  Compute the average of the products of the standardized values. This is called the correlation.
+1.  Divide the covariance from @exm-covariance-calc by the product of the two standard deviations. 
+What do you notice?
 \
 \
 \
 \
 \
 
-## Correlation
 
-::: {#exm-football-cov}
-The covariance between height in inches and weight in pounds for football players is 96.
-:::
 
-1.  What are the measurement units of the covariance?\
-    \
-    \
-2.  Suppose height were measured in feet instead of inches. Would the shape of the joint distribution change? Would the strength of the association between height and weight change? Would the value of covariance change?\
-    \
-    \
-    \
-    \
 
 -   The **correlation (coefficient)** between random variables $X$ and $Y$ is
     \begin{align*}  
@@ -119,11 +139,41 @@ The covariance between height in inches and weight in pounds for football player
     \text{Cov}(X, Y) = \text{Corr}(X, Y)\text{SD}(X)\text{SD}(Y)
     $$
 
-::: {#exm-football-corr}
-The covariance between height in inches and weight in pounds for football players is 96.
-Heights have mean 74 and SD 3 inches.
-Weights have mean 250 pounds and SD 45 pounds.
-Find the correlation between weight and height.
+
+
+
+## Exercises
+
+::: {#exr-dice-covariance-sign}
+Continuing @exm-dice-covariance.
+Let $X$ be the sum of the two rolls, $Y$ the larger of the two rolls, $W$ the number of rolls equal to 4, and $Z$ the number of rolls equal to 1.
+You should explain your answers without doing any computation.
+:::
+
+1.  Is $\text{Cov}(X, W)$ positive, negative, or zero? Why?\
+    \
+    \
+    \
+    \
+1.  Is $\text{Cov}(X, Z)$ positive, negative, or zero? Why?\
+    \
+    \
+    \
+    \
+1.  Let $V=W+Z$; what does this represent? Is $\text{Cov}(X, V)$ positive, negative, or zero? Why?\
+    \
+    \
+    \
+    \
+1.  Is $\text{Cov}(W, Z)$ positive, negative, or zero? Why?\
+    \
+    \
+    \
+    \
+
+
+::: {#exr-variance-covariance}
+What is another name for $\text{Cov}(X, X)$?
 :::
 
 \
@@ -132,21 +182,22 @@ Find the correlation between weight and height.
 \
 \
 
-::: {#exm-dice-corr}
-Consider the probability space corresponding to two rolls of a fair four-sided die.
-Let $X$ be the sum of the two rolls, $Y$ the larger of the two rolls.
-Compute $\text{Corr}(X, Y)$.
+
+
+::: {#exr-corr-zero-scatter}
+Sketch a few scatterplots where $X$ and $Y$ have a correlation of 0, but they are not independent.\
+    \
+    \
+    \
+    \
 :::
 
-\
-\
-\
-\
-\
 
-
-::: {#exm-guess-corr}
+::: {#exr-guess-corr}
 Try the [Guessing Correlations applet](https://www.rossmanchance.com/applets/2021/guesscorrelation/GuessCorrelation.html)!
+Since we're interested in the long run, set number of points to 1000.
+There is nothing to submit for this exercise but play around with the applet to get a feel for the difference between a correlation of 0.8-ish versus 0.5-ish versus 0.2-ish.
+
 :::
 
 \
@@ -155,12 +206,6 @@ Try the [Guessing Correlations applet](https://www.rossmanchance.com/applets/202
 \
 \
 
-::: {#exm-corr-zero-scatter}
-Sketch a scatterplot where $X$ and $Y$ have a correlation of 0, but they are not independent.
-:::
 
-\
-\
-\
-\
-\
+
+

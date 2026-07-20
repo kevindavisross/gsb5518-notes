@@ -29,16 +29,15 @@ f_{X, Y}(x,y) & =
 #| message: false
 #| warning: false
 
-
 dbvn <- function(x, y, mu_x, mu_y, sigma_x, sigma_y, rho) {
-  z_x = (x - mu_x) / sigma_x
-  z_y = (y - mu_y) / sigma_y
-  exp(-0.5 * (z_x ** 2 + z_y ** 2 - 2 * rho * z_x * z_y) / (1 - rho ** 2)) /
-    (2 * pi * sigma_x * sigma_y * sqrt(1 - rho ** 2))
+  z_x <- (x - mu_x) / sigma_x
+  z_y <- (y - mu_y) / sigma_y
+  exp(-0.5 * (z_x**2 + z_y**2 - 2 * rho * z_x * z_y) / (1 - rho**2)) /
+    (2 * pi * sigma_x * sigma_y * sqrt(1 - rho**2))
 }
 
 
-z_grid = seq(-3, 3, 0.1)
+z_grid <- seq(-3, 3, 0.1)
 
 z_box <- expand_grid(x = z_grid, y = z_grid)
 
@@ -53,24 +52,15 @@ z_box_prob <- z_box |>
 #   summarize(max(value)) |>
 #   pull()
 
-
-
-ggplot(z_box_prob,
-       aes(x = x,
-           y = y,
-           z = bivariate_normal)) +
+ggplot(z_box_prob, aes(x = x, y = y, z = bivariate_normal)) +
   geom_raster(aes(fill = bivariate_normal), interpolate = TRUE) +
   geom_contour(color = "white") +
   scale_x_continuous(expand = c(0, 0), limits = c(-3, 3)) +
   scale_y_continuous(expand = c(0, 0), limits = c(-3, 3)) +
   scale_fill_viridis() +
-  labs(x = "X",
-       y = "Y",
-       fill = "Density") +
+  labs(x = "X", y = "Y", fill = "Density") +
   coord_fixed() +
   theme_classic()
-
-
 ```
 
 
@@ -92,45 +82,46 @@ ggplot(z_box_prob,
 #|   - "Bivariate Normal distribution with two conditional *slices* highlighted."
 #|   - "Two conditional Normal distributions."
 
-
-ggplot(z_box_prob,
-       aes(x = x,
-           y = y,
-           z = bivariate_normal)) +
+ggplot(z_box_prob, aes(x = x, y = y, z = bivariate_normal)) +
   geom_raster(aes(fill = bivariate_normal), interpolate = TRUE) +
   geom_contour(color = "white") +
   scale_x_continuous(expand = c(0, 0), limits = c(-3, 3)) +
   scale_y_continuous(expand = c(0, 0), limits = c(-3, 3)) +
   scale_fill_viridis() +
-  labs(x = "X",
-       y = "Y",
-       fill = "Density") +
+  labs(x = "X", y = "Y", fill = "Density") +
   coord_fixed() +
   theme_classic() +
-  geom_vline(xintercept = c(-0.5, 1.5), linetype = "solid", 
-                 color = c("#CC79A7", "#E69F00"), size = 2, alpha = 0.5)
+  geom_vline(
+    xintercept = c(-0.5, 1.5),
+    linetype = "solid",
+    color = c("#CC79A7", "#E69F00"),
+    size = 2,
+    alpha = 0.5
+  )
 
 
-ggplot(data = data.frame(u = c(-3, 3)),
-       mapping = aes(x = u)) +
-  stat_function(mapping = aes(colour = "x = 1.5"),
-                fun = dnorm,
-                args = list(mean = 0 + 0.7 * (1.5 - 0),
-                            sd = 1 * sqrt(1 - 0.7 ^ 2)),
-                size = 1.2) +
-  stat_function(mapping = aes(colour = "x = -0.5"),
-                fun = dnorm,
-                args = list(mean = 0 + 0.7 * (-0.5 - 0),
-                            sd = 1 * sqrt(1 - 0.7 ^ 2)),
-                size = 1.2) +
+ggplot(data = data.frame(u = c(-3, 3)), mapping = aes(x = u)) +
+  stat_function(
+    mapping = aes(colour = "x = 1.5"),
+    fun = dnorm,
+    args = list(mean = 0 + 0.7 * (1.5 - 0), sd = 1 * sqrt(1 - 0.7^2)),
+    size = 1.2
+  ) +
+  stat_function(
+    mapping = aes(colour = "x = -0.5"),
+    fun = dnorm,
+    args = list(mean = 0 + 0.7 * (-0.5 - 0), sd = 1 * sqrt(1 - 0.7^2)),
+    size = 1.2
+  ) +
   scale_colour_manual(values = c("#CC79A7", "#E69F00")) +
   scale_x_continuous(breaks = seq(-3, 3, 0.5)) +
-  labs(x = "y",
-       y = "Density",
-       col = "Given value of X",
-       title = "Conditional densities of Y given X = x") +
+  labs(
+    x = "y",
+    y = "Density",
+    col = "Given value of X",
+    title = "Conditional densities of Y given X = x"
+  ) +
   theme_classic()
-
 ```
 
 
@@ -157,7 +148,14 @@ $$
     $$
     
 
+one problem
 
+1.	Compute and interpret P(M > 700)
+2.	Compute and interpret P(M + R > 1500)
+3.	Compute and interpret P(M > R)
+
+
+another problem - the conditional stuff
 
 
 
@@ -228,37 +226,45 @@ Suppose that SAT Math ($M$) and Reading ($R$) scores of CalPoly students have a 
 #| message: false
 #| warning: false
 
-
-z_grid = seq(450, 850, 10)
+z_grid <- seq(450, 850, 10)
 
 z_box <- expand_grid(x = z_grid, y = z_grid)
 
 z_box_prob <- z_box |>
   mutate(bivariate_normal_sat = dbvn(x, y, 610, 640, 70, 80, 0.7))
 
-xs = seq(500, 750, 50)
+xs <- seq(500, 750, 50)
 
-ggplot(z_box_prob,
-       aes(x = x,
-           y = y,
-           z = bivariate_normal_sat)) +
+ggplot(z_box_prob, aes(x = x, y = y, z = bivariate_normal_sat)) +
   geom_raster(aes(fill = bivariate_normal_sat), interpolate = TRUE) +
   geom_contour(color = "white") +
   scale_x_continuous(expand = c(0, 0), limits = c(450, 800)) +
   scale_y_continuous(expand = c(0, 0), limits = c(450, 850)) +
   scale_fill_viridis() +
-  labs(x = "R",
-       y = "M",
-       fill = "Density") +
+  labs(x = "R", y = "M", fill = "Density") +
   coord_fixed() +
   theme_classic() +
-  geom_vline(xintercept = xs, linetype = "solid", 
-                 color = c("#E69F00"), size = 2, alpha = 0.3) +
-  geom_abline(intercept = 640 - 0.7 * 80 / 70 * 610, slope = 0.7 * 80 / 70, linetype = "solid", 
-                 color = c("#CC79A7"), size = 2, alpha = 0.5) +
-  geom_point(data = data.frame(x = xs, y = 640 + 0.7 * 80 / 70 * (xs - 610)),
-             aes(x = x, y = y, z = 0),
-             color = c("#CC79A7"), size = 3)
+  geom_vline(
+    xintercept = xs,
+    linetype = "solid",
+    color = c("#E69F00"),
+    size = 2,
+    alpha = 0.3
+  ) +
+  geom_abline(
+    intercept = 640 - 0.7 * 80 / 70 * 610,
+    slope = 0.7 * 80 / 70,
+    linetype = "solid",
+    color = c("#CC79A7"),
+    size = 2,
+    alpha = 0.5
+  ) +
+  geom_point(
+    data = data.frame(x = xs, y = 640 + 0.7 * 80 / 70 * (xs - 610)),
+    aes(x = x, y = y, z = 0),
+    color = c("#CC79A7"),
+    size = 3
+  )
 ```
 
 

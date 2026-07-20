@@ -64,5 +64,17 @@
   },
   "hw-04.qmd": {
     "hw-04.html": "9cfd991f"
+  },
+  "normal.qmd": {
+    "normal.html": "9bd5b188"
+  },
+  "hw-01-sol.qmd": {
+    "hw-01-sol.html": "5667ad23"
+  },
+  "joint-distributions.qmd": {
+    "joint-distributions.html": "0ffdaaa0"
+  },
+  "covariance.qmd": {
+    "covariance.html": "db64de91"
   }
 }

@@ -15,6 +15,7 @@ library(scales)
 library(scatterplot3d)
 library(gridExtra)
 library(grid)
+library(geomtextpath)
 
 
 options(ggplot2.continuous.colour = "viridis")

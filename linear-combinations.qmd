@@ -5,6 +5,11 @@
 
 
 
+
+
+
+
+
 ## Linear rescaling
 
 
@@ -194,5 +199,12 @@ Suppose that SAT Math ($M$) and Reading ($R$) scores of CalPoly students have a 
 
 -   $X$ and $Y$ have a Bivariate Normal distribution if and only if every linear combination of $X$ and $Y$ has a Normal distribution. That is, $X$ and $Y$ have a Bivariate Normal distribution if and only if $aX+bY+c$ has a  Normal distribution for all $a$, $b$, $c$. 
 -   In particular, if $X$ and $Y$ are independent and each has a Normal distribution then  $aX+bY+c$ has a  Normal distribution.
+
+
+
+
+
+## Exercises
+
 
 

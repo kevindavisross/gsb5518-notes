@@ -23,9 +23,9 @@ book:
     - cdf-and-quantile.qmd
     - expected-values-continuous.qmd
     - exponential.qmd
-    # - normal.qmd
-    # - joint-distributions.qmd
-    # - covariance.qmd
+    - normal.qmd
+    - joint-distributions.qmd
+    - covariance.qmd
     # - linear-combinations.qmd
     # - joint-normal.qmd
     # - from-probability-to-statistics.qmd
@@ -47,7 +47,7 @@ book:
     # - hw-08.qmd
     # - hw-09.qmd
     # # - project.qmd
-    # - hw-01-sol.qmd
+    - hw-01-sol.qmd
     # - hw-02-sol.qmd
     # - hw-03-sol.qmd
     # - hw-04-sol.qmd

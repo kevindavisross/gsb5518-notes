@@ -83,6 +83,48 @@ j.  Compute
 
 
 
+::: {#exm-normal-temp}
+Daily high temperatures (degrees Fahrenheit) in San Luis Obispo in August follow (approximately) A Normal distribution with a mean of 76.9 degrees F.
+The temperature exceeds 100 degrees Fahrenheit on about 1.5% of August days.
+:::
+
+1.  What is the standard deviation?\
+    \
+    \
+    \
+    \
+2.  Suppose the mean increases by 2 degrees Fahrenheit. On what percentage of August days will the daily high temperature exceed 100 degrees Fahrenheit? (Assume the standard deviation does not change.)\
+    \
+    \
+    \
+    \
+3.  A mean of 78.9 is 1.02 times greater than a mean of 76.9. By what (multiplicative) factor has the percentage of 100-degree days increased? What do you notice?\
+    \
+    \
+    \
+    \
+
+::: {#exm-effect-size}
+In a large class, scores on midterm 1 follow (approximately) a Normal$(\mu_1, \sigma)$ distribution and scores on midterm 2 follow (approximately) a Normal$(\mu_2, \sigma)$ distribution.
+Note that the SD $\sigma$ is the same on both exams.
+The 40th percentile of midterm 1 scores is equal to the 70th percentile of midterm 2 scores.
+Compute
+
+$$
+\frac{\mu_1-\mu_2}{\sigma}
+$$
+
+(This is one statistical measure of *effect size*.)
+:::
+
+\
+\
+\
+\
+\
+
+
+
 ## Problem 1
 
 You have a brand new coin and you want to estimate $p$, the probability that it lands on heads.
@@ -129,4 +171,34 @@ Carefully write the likelihood function.
 Then use your plot to verify that the MLE of $\lambda$ based on this sample is $1/\bar{x} = 5/105 = 0.0476$.
 (You can just zoom in on the plot.)
 1. Write a clearly worded sentence reporting in context your estimate of $\lambda$ from the previous part.
+
+
+
+::: {#exm-football-cov}
+The covariance between height in inches and weight in pounds for football players is 96.
+:::
+
+1.  What are the measurement units of the covariance?\
+    \
+    \
+2.  Suppose height were measured in feet instead of inches. Would the shape of the joint distribution change? Would the strength of the association between height and weight change? Would the value of covariance change?\
+    \
+    \
+    \
+    \
+
+::: {#exm-football-corr}
+The covariance between height in inches and weight in pounds for football players is 96.
+Heights have mean 74 and SD 3 inches.
+Weights have mean 250 pounds and SD 45 pounds.
+Find the correlation between weight and height.
+:::
+
+\
+\
+\
+\
+\
+
+
 
