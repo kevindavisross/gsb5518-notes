@@ -125,28 +125,6 @@ Write a general expression for the average profit per policy in this scenario.
 \
 \
 \
-1.  Compute the expected value of damage (not profit) as a probability-weighted average value.
-\
-\
-\
-\
-\
-
-1.  Interpret the value from the previous part as a long run average value in this context.
-\
-\
-\
-\
-\
-
-1.  How is the expected value of profit related to the expected value of damage?
-Does this make sense?
-Why?
-\
-\
-\
-\
-\
 
 
 

@@ -1,85 +1,20 @@
-# Estimation: From Probability to Statistics
+# Statistical Estimation: From Probability to Statistics
+
 
 ::: {#exm-prob-and-stat-questions}
-In each of the following scenarios, one of (i) and (ii)
-is a *probability* and one is a *statistics* question.
-Classify each
-question as "probability" or "statistics".
-Then discuss some general
-features of the probability questions, and some general features of the
-statistics questions
+Consider the following two scenarios. 
+Which is a *probability* scenario and which is a *statistics* scenario? 
+Discuss some features of each scenario
+
+
+-   Assume that the number of cars sold daily at a certain used car dealership follows a Poisson distribution with parameter 2.3, independently from day to day. How likely is it for the dealership to sell more than 100 cars in a month?
+-   The car dealership observes how many cars they sell each day for the next month. Given their data, is it reasonable to assume daily car sales follow a Poisson distribution? If so, how could they use the observed data to estimate the Poisson parameter?
+\
+\
+\
+\
+\
 :::
-
-1.  [U.S.
-    Satisfaction](https://news.gallup.com/poll/1669/general-mood-country.aspx)
-
-    -   Assume that 30% of Americans are satisfied with the way things
-        are going in the U.S. 
-        If a random sample of 1000 Americans is
-        selected, what are the chances that more than 330 Americans in
-        the sample are satisfied with the way things are going in the
-        U.S?
-
-    -   In a random sample of 1000 Americans, 330 Americans are
-        satisfied with the way things are going in the U.S. 
-        What percent
-        of all Americans are satisfied with the way things are going in
-        the U.S?
-
-2.  Great white shark length
-
-    -   Assume that lengths of female great white sharks follow a Normal
-        distribution with mean 16 ft and standard deviation 3 ft. 
-        If a
-        random sample of 40 female great white sharks is selected, what
-        are the chances that the average length in the sample is between
-        16.5 and 17.5 ft?
-
-    -   In a sample of 40 female great white sharks, the sample mean
-        length is 17.0 ft. 
-        What is the average length of female great
-        white sharks?
-
-3.  In a [clinical trial](https://beta.clinicaltrials.gov/), 200
-    subjects are randomly assigned to receive either an experimental
-    vaccine or no treatment (e.g., a placebo), and then each subject is
-    tested to see if they developed immunity.
-
-    -   If the vaccine is in reality not effective, what are the chances
-        that the proportion of subjects who develop immunity is twice as
-        large for those who received the vaccine than for those who did
-        not?
-
-    -   Among the 100 subjects who received the vaccine, 20 developed
-        immunity; among the 100 subjects who did not receive the
-        vaccine, 10 developed immunity. Is there evidence that the
-        vaccine is effective?
-
-4.  Snap streaks
-
-    -   Assume that lengths of streaks on Snapchat follow an Exponential
-        distribution, with mean 75 for teen users and mean 40 for adult
-        users. 
-        A random sample of 200 Snapchat users is selected, 100
-        teens and 100 adults. 
-        What are the chances that the sample mean
-        streak length for teens is with within 20 of the sample mean
-        streak length for adults?
-
-    -   In a random sample of 100 teen Snapchat users, the sample mean
-        streak length is 80. In a random sample of 100 adult Snapchat
-        users, the sample mean streak length is 35. 
-        In general, how much
-        longer do streak lengths for teen Snapchat users tend to be than
-        for adult Snapchat users?\
-    \
-    \
-    \
-    \
-    \
-    \
-    \
-    \
 
 -   **Probability:** Assume a model for a random (uncertain) process and
     evaluate probabilities of potential outcomes or events --- what
@@ -197,80 +132,127 @@ But he doesn't know the value of $\mu$, so he plans to use data from his first f
 Let $X_1, \ldots, X_n$ represent the number of cars sold for a sample of $n$ days.
 :::
 
-1.  What plays the role of the population distribution?
-    What is the parameter?
-    How do you interpret the parameter in this context?\
-    \
-    \
-    \
-    \
-2.  Suggest one estimator of $\mu$.
-    (Hint: what does $\mu$ represent for a Poisson distribution?)\
-    \
-    \
-    \
-    \
-3.  Suppose he collects data on $n=3$ days and observes $x_1=3$ cars sold on day 1, $x_2=0$ cars sold on day 2, and $x_3 = 2$ cars sold on day 3.
-    Compute the value of your estimator from the previous part for this sample.
-    That is, what is your estimate of $\mu$ based on this sample?\
-    \
-    \
-    \
-    \
-4.  Suggest another estimator of $\mu$.
-    (Hint: what else does $\mu$ represent for a Poisson distribution?)\
-    \
-    \
-    \
-    \
-5.  For a Poisson($\mu$) distribution $\mu$ is both the population mean
-    and the population variance.
-    So one reasonable estimator of $\mu$ is the sample mean $\bar{X}$.
-    Another reasonable estimator is the sample variance.
-    But there are two commonly used formulas for the sample variance, each of which provides an estimator of $\mu$
-    $$
-    \begin{aligned}
-        \hat{\sigma}^2 & = \frac{1}{n}\sum_{i=1}^n\left(X_i-\bar{X}\right)^2\\
-        S^2 & = \frac{1}{n-1}\sum_{i=1}^n\left(X_i-\bar{X}\right)^2
-    \end{aligned}
-    $$
-    Compute the value of each of these estimators for the (3, 0, 2) sample.
-    That is, what is your estimate of $\mu$ based on this sample if you use each of these estimators?\
-    \
-    \
-    \
-    \
-6.  At his previous dealeship at a different location, Jerry sold 2.3 cars per day on average.
-    Consider the estimator of $\mu$: $\frac{n}{n+100}\bar{X}+ \frac{100}{n+100}(2.3)$. Explain in words what this estimator represents.
-    In particular, what happens as $n$ increases?
-    Then compute the value of this estimator for the (3, 0, 2) sample.\
-    \
-    \
-    \
-    \
-7.  According to the Poisson($\mu$) distribution, the
-    probability of selling 0 cars in a day is $p_0=e^{-\mu}$.
-    Rearranging, $\mu = -\log p_0$.
-    Therefore, if $\hat{p}_0$ is the sample proportion of days with 0 cars sold, then another estimator of $\mu$ is $-\log\hat{p}_0$.
-    Compute the value of this estimator for the (3, 0, 2) sample.\
-    \
-    \
-    \
-    \
-8.  We have seen a few different, seemingly reasonable estimators of
-    $\mu$, and each produced a different estimate of $\mu$ based on the
-    same (3, 0, 2) sample data.
-    Which of these numbers is the best *estimate* of $\mu$?
-    That is, which of these estimates is closest to $\mu$?\
-    \
-    \
-    \
-    \
-9.  How might you investigate which of the *estimators* corresponds to the best estimation *procedure*?\
-    \
-    \
-    \
-    \
+1.  What plays the role of the population?
+\
+\
+\
+\
+\
+1.  What is the variable of interest?
+\
+\
+\
+\
+\
+1.  What is the population distribution?
+\
+\
+\
+\
+\
+1.  What is the main parameter of interest? How do you interpret it?
+\
+\
+\
+\
+\
+1.  Suggest one estimator of $\mu$.
+\
+\
+\
+\
+\
+1.  Suppose Jerry sells 3 cars on the first day, 0 cars on the second day, and 2 on the third day (that is, $x_1=3, x_2 = 0, x_3 = 2$).
+What would your estimate of $\mu$ be based on the (3, 0, 2) sample?
+\
+\
+\
+\
+\
+1.  Suggest another estimator of $\mu$.
+What would your estimate of $\mu$ be based on the (3, 0, 2) sample?
+\
+\
+\
+\
+\
+
+::: {#exm-intro-estimation-estimators}
+Continuing @exm-intro-estimation, we'll consider a few different estimators of $\mu$, which yield a few different estimates of $\mu$ based on the (3, 0, 2) sample.
+:::
+
+1.  Ahsoka suggests that since $\mu$ is the expected value or population mean of a Poisson distribution, our estimator should be the sample mean
+$$
+\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i
+$$ 
+Compute Ahsoka's estimate of $\mu$ based on the (3, 0, 2) sample.
+\
+\
+\
+\
+\
+1.  Boba suggests that since $\mu$ is the population variane of a Poisson distribution, our estimator should be the sample variance
+$$
+\hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^n (X_i-\bar{X})^2
+$$ 
+Compute Boba's estimate of $\mu$ based on the (3, 0, 2) sample.
+\
+\
+\
+\
+\
+1.  Cassian likes Boba's idea, but he heard that you should divide by $n-1$ instead of $n$ when computing the sample variance, so Cassian says our estimator should be this sample variance
+$$
+S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i-\bar{X})^2
+$$ 
+Compute Cassian's estimate of $\mu$ based on the (3, 0, 2) sample.
+\
+\
+\
+\
+\
+1.  Darth has data from 100 days of sales at another car dealership where the sample mean was 2.3, and he thinks that information should be able to help us. 
+He decides to take a weighted average of the sample mean we observe at the new dealership ($\bar{X}$) and 2.3, the average from the other dealership. 
+Darth's estimator is
+$$
+\frac{n}{n+100}\bar{X}+ \frac{100}{n+100}(2.3),
+$$
+reasoning that the more data we collect from the new dealership (represented by $n$), the less weight the 2.3 from the other dealership should get. 
+Compute Darth's estimate of $\mu$ based on the (3, 0, 2) sample.
+\
+\
+\
+\
+\
+1.  Ezra remembers the Poisson pattern. 
+In particular, he remembers that the probability of 0 cars sold in a day is $p_0=e^{-\mu}$, and rearranging shows that $\mu = -\log p_0$. 
+Ezra suggests that we estimate $p_0$ with the sample proportion of days with 0 cars sold, $\hat{p}_0$, so that
+$$
+-\log \hat{p}_0
+$$
+is Ezra's estimator of $\mu$. 
+Compute Ezra's estimate of $\mu$ based on the (3, 0, 2) sample.
+\
+\
+\
+\
+\
+1.  We have seen a few different estimators of $\mu$, each with a seemingly reasonable rationale behind it.
+Each estimator produces a different estimate of $\mu$ based on the
+same (3, 0, 2) sample data.
+Which of these 5 numbers is the best *estimate* of $\mu$?
+That is, which of 5 values is closest to the true value of $\mu$?
+\
+\
+\
+\
+\
+1.  How might you investigate which of the *estimators* corresponds to the best estimation *procedure* of estimaing $\mu$ for a Poisson distribution?
+\
+\
+\
+\
+\
 
 -   Because the true value of the parameter $\theta$ is unknown, we
     never know if the sample data provides a reasonable estimate of
@@ -303,3 +285,120 @@ The *frequentist* approach treats a parameter as a *fixed number*.
 The *Bayesian* approach treats an *unknown* parameter--- in other words, an *uncertain* parameter---as a *random variable* with a probability distribution that describes the degree of uncertainty.
 Both approaches are valid, each with advantages and disadvantages.
 The frequentist approach has been historically more prevalent, but the Bayesian approach has gained in popularity in the last 30 or so years.
+
+
+
+## Exercises
+
+
+
+
+::: {#exr-prob-and-stat-questions}
+In each of the following scenarios, one of (i) and (ii)
+is a *probability* and one is a *statistics* question.
+Classify each
+question as "probability" or "statistics".
+Then discuss some general
+features of the probability questions, and some general features of the
+statistics questions
+:::
+
+1.  [U.S.
+    Satisfaction](https://news.gallup.com/poll/1669/general-mood-country.aspx)
+
+    -   Assume that 30% of Americans are satisfied with the way things
+        are going in the U.S. 
+        If a random sample of 1000 Americans is
+        selected, what are the chances that more than 330 Americans in
+        the sample are satisfied with the way things are going in the
+        U.S?
+
+    -   In a random sample of 1000 Americans, 330 Americans are
+        satisfied with the way things are going in the U.S. 
+        What percent
+        of all Americans are satisfied with the way things are going in
+        the U.S?
+
+2.  Great white shark length
+
+    -   Assume that lengths of female great white sharks follow a Normal
+        distribution with mean 16 ft and standard deviation 3 ft. 
+        If a
+        random sample of 40 female great white sharks is selected, what
+        are the chances that the average length in the sample is between
+        16.5 and 17.5 ft?
+
+    -   In a sample of 40 female great white sharks, the sample mean
+        length is 17.0 ft. 
+        What is the average length of female great
+        white sharks?
+
+3.  In a [clinical trial](https://beta.clinicaltrials.gov/), 200
+    subjects are randomly assigned to receive either an experimental
+    vaccine or no treatment (e.g., a placebo), and then each subject is
+    tested to see if they developed immunity.
+
+    -   If the vaccine is in reality not effective, what are the chances
+        that the proportion of subjects who develop immunity is twice as
+        large for those who received the vaccine than for those who did
+        not?
+
+    -   Among the 100 subjects who received the vaccine, 20 developed
+        immunity; among the 100 subjects who did not receive the
+        vaccine, 10 developed immunity. Is there evidence that the
+        vaccine is effective?
+
+4.  Snap streaks
+
+    -   Assume that lengths of streaks on Snapchat follow an Exponential
+        distribution, with mean 75 for teen users and mean 40 for adult
+        users. 
+        A random sample of 200 Snapchat users is selected, 100
+        teens and 100 adults. 
+        What are the chances that the sample mean
+        streak length for teens is with within 20 of the sample mean
+        streak length for adults?
+
+    -   In a random sample of 100 teen Snapchat users, the sample mean
+        streak length is 80. In a random sample of 100 adult Snapchat
+        users, the sample mean streak length is 35. 
+        In general, how much
+        longer do streak lengths for teen Snapchat users tend to be than
+        for adult Snapchat users?\
+    \
+    \
+    \
+    \
+    \
+    \
+    \
+    \
+
+::: {#exr-prob-and-stat-questions}
+Continuing @exr-prob-and-stat-questions. In each scenario, identify
+::: 
+
+1.  What plays the role of the population(s)?
+\
+\
+\
+\
+\
+1.  What is the variable(s) of interest?
+\
+\
+\
+\
+\
+1.  What is the population distribution(s)?
+\
+\
+\
+\
+\
+1.  What is the main parameter(s) of interest?
+\
+\
+\
+\
+\

@@ -1,6 +1,6 @@
 # Joint Normal Distributions
 
-{{< include _r_setup.qmd >}}
+
 
 
 
@@ -20,50 +20,6 @@ f_{X, Y}(x,y) & =
 \text{SD}(Y) & = \sigma_Y\\
 \text{Corr}(X, Y) & = \rho
 \end{align*}
-
-
-```{r}
-#| echo: false
-#| label: fig-bvn-pdf
-#| fig-cap: "Bivariate Normal distribution with means (0, 0), standard deviations (1, 1) and correlation 0.7."
-#| message: false
-#| warning: false
-
-dbvn <- function(x, y, mu_x, mu_y, sigma_x, sigma_y, rho) {
-  z_x <- (x - mu_x) / sigma_x
-  z_y <- (y - mu_y) / sigma_y
-  exp(-0.5 * (z_x**2 + z_y**2 - 2 * rho * z_x * z_y) / (1 - rho**2)) /
-    (2 * pi * sigma_x * sigma_y * sqrt(1 - rho**2))
-}
-
-
-z_grid <- seq(-3, 3, 0.1)
-
-z_box <- expand_grid(x = z_grid, y = z_grid)
-
-z_box_prob <- z_box |>
-  mutate(bivariate_normal = dbvn(x, y, 0, 0, 1, 1, 0.7)) |>
-  mutate(bivariate_normal_sat = dbvn(x, y, 640, 610, 80, 70, 0.7))
-
-
-# z_box_max_prob = z_box_prob |>
-#   dplyr::select(!(1:2)) |>
-#   pivot_longer(cols = everything()) |>
-#   summarize(max(value)) |>
-#   pull()
-
-ggplot(z_box_prob, aes(x = x, y = y, z = bivariate_normal)) +
-  geom_raster(aes(fill = bivariate_normal), interpolate = TRUE) +
-  geom_contour(color = "white") +
-  scale_x_continuous(expand = c(0, 0), limits = c(-3, 3)) +
-  scale_y_continuous(expand = c(0, 0), limits = c(-3, 3)) +
-  scale_fill_viridis() +
-  labs(x = "X", y = "Y", fill = "Density") +
-  coord_fixed() +
-  theme_classic()
-```
-
-
 -   A Bivariate Normal Density has elliptical contours. For each height $c>0$ the set $\{(x,y): f_{X, Y}(x,y)=c\}$ is an ellipse. The density decreases as $(x, y)$ moves away from $(\mu_X, \mu_Y)$, most steeply along the minor axis of the ellipse, and least steeply along the major of the ellipse.
 -   A scatterplot of $(x,y)$ pairs generated from a Bivariate Normal distribution will have a rough linear association and the cloud of points will resemble an ellipse.
 -   If $X$ and $Y$ have a Bivariate Normal distribution, then the marginal distributions are also Normal: $X$ has a Normal$\left(\mu_X,\sigma_X\right)$ distribution and  $Y$ has a Normal$\left(\mu_Y,\sigma_Y\right)$.
@@ -72,60 +28,34 @@ ggplot(z_box_prob, aes(x = x, y = y, z = bivariate_normal)) +
 
 
 
-```{r}
-#| echo: false
-#| label: fig-bvn-conditional-slice
-#| message: false
-#| warning: false
-#| layout-ncol: 2
-#| fig-cap:
-#|   - "Bivariate Normal distribution with two conditional *slices* highlighted."
-#|   - "Two conditional Normal distributions."
-
-ggplot(z_box_prob, aes(x = x, y = y, z = bivariate_normal)) +
-  geom_raster(aes(fill = bivariate_normal), interpolate = TRUE) +
-  geom_contour(color = "white") +
-  scale_x_continuous(expand = c(0, 0), limits = c(-3, 3)) +
-  scale_y_continuous(expand = c(0, 0), limits = c(-3, 3)) +
-  scale_fill_viridis() +
-  labs(x = "X", y = "Y", fill = "Density") +
-  coord_fixed() +
-  theme_classic() +
-  geom_vline(
-    xintercept = c(-0.5, 1.5),
-    linetype = "solid",
-    color = c("#CC79A7", "#E69F00"),
-    size = 2,
-    alpha = 0.5
-  )
+::: {#exm-bvn-linear-combo}
+Suppose that SAT Math ($M$) and Reading ($R$) scores have (roughly) a Bivariate Normal distribution. 
+Math scores have mean 500 and SD 140, Reading scores have mean 520 and SD 110, and the correlation between scores is 0.6.
+:::
 
 
-ggplot(data = data.frame(u = c(-3, 3)), mapping = aes(x = u)) +
-  stat_function(
-    mapping = aes(colour = "x = 1.5"),
-    fun = dnorm,
-    args = list(mean = 0 + 0.7 * (1.5 - 0), sd = 1 * sqrt(1 - 0.7^2)),
-    size = 1.2
-  ) +
-  stat_function(
-    mapping = aes(colour = "x = -0.5"),
-    fun = dnorm,
-    args = list(mean = 0 + 0.7 * (-0.5 - 0), sd = 1 * sqrt(1 - 0.7^2)),
-    size = 1.2
-  ) +
-  scale_colour_manual(values = c("#CC79A7", "#E69F00")) +
-  scale_x_continuous(breaks = seq(-3, 3, 0.5)) +
-  labs(
-    x = "y",
-    y = "Density",
-    col = "Given value of X",
-    title = "Conditional densities of Y given X = x"
-  ) +
-  theme_classic()
-```
+1.	Compute and interpret $\text{P}(M > 700)$.
+\
+\
+\
+\
+\
+2.	Compute and interpret $\text{P}(M + R > 1500)$.
+\
+\
+\
+\
+\
+3.	Compute and interpret $\text{P}(M > R)$.
+\
+\
+\
+\
+\
 
 
--   If $X$ and $Y$ have a Bivariate Normal distribution then any conditional distribution is Normal. The conditional distribution of $Y$ given $X=x$ is
+
+-   If $X$ and $Y$ have a Bivariate Normal distribution then any conditional distribution of one variable given the value of the other is Normal. The conditional distribution of $Y$ given $X=x$ is
 $$
 N\left(\mu_Y + \frac{\rho\sigma_Y}{\sigma_X}\left(x-\mu_X\right),\;\sigma_Y\sqrt{1-\rho^2}\right)
 $$
@@ -146,29 +76,16 @@ $$
     $$
     \text{SD}(Y |X = x) = \sigma_Y\sqrt{1-\rho^2}
     $$
-    
-
-one problem
-
-1.	Compute and interpret P(M > 700)
-2.	Compute and interpret P(M + R > 1500)
-3.	Compute and interpret P(M > R)
 
 
-another problem - the conditional stuff
-
-
-
-::: {#exm-bvn-sat-calc}
-Suppose that SAT Math ($M$) and Reading ($R$) scores of CalPoly students have a Bivariate Normal distribution.  Math scores have mean 640 and SD 80, Reading scores have mean 610 and SD 70, and the correlation between scores is 0.7.
+::: {#exm-bvn-regression}
+Continuing @exm-bvn-linear-combo.
+Suppose that SAT Math ($M$) and Reading ($R$) scores have (roughly) a Bivariate Normal distribution. 
+Math scores have mean 500 and SD 140, Reading scores have mean 520 and SD 110, and the correlation between scores is 0.6.
+Now we'll consider the conditional distribution of Math scores given a Reading score of 700.
 :::
 
-1.  Identify the distribution of Math scores. Find the probability that a student has a Math score above 700.
-\
-\
-\
-\
-\
+
 1.  Compute and interpret $\text{E}(M|R = 700)$.
 \
 \
@@ -181,37 +98,7 @@ Suppose that SAT Math ($M$) and Reading ($R$) scores of CalPoly students have a 
 \
 \
 \
-1.  Identify the conditional distribution of Math scores given the Reading score is 700. Find the probability that a student has a higher Math than Reading score if the student scores 700 on Reading.
-\
-\
-\
-\
-\
-1.  Compute and interpret $\text{E}(M|R = 550)$.
-\
-\
-\
-\
-\
-1.  Compute and interpret $\text{SD}(M|R = 550)$.
-\
-\
-\
-\
-\
-1.  Identify the conditional distribution of Math scores given the Reading score is 550. Find the probability that a student has a higher Math than Reading score if the student scores 550 on Reading.
-\
-\
-\
-\
-\
-1.  Describe how you could simulate a single $(M, R)$ pair.
-\
-\
-\
-\
-\
-1.  Find and interpret $\text{E}(M|R)$.
+1.  Compute and interpret $\text{P}(M>700|R = 700)$.
 \
 \
 \
@@ -219,58 +106,66 @@ Suppose that SAT Math ($M$) and Reading ($R$) scores of CalPoly students have a 
 \
 
 
-```{r}
-#| echo: false
-#| label: fig-bvn-sat
-#| fig-cap: "A Bivariate Normal distribution with some conditional distributions and conditional expected values highlighted."
-#| message: false
-#| warning: false
-
-z_grid <- seq(450, 850, 10)
-
-z_box <- expand_grid(x = z_grid, y = z_grid)
-
-z_box_prob <- z_box |>
-  mutate(bivariate_normal_sat = dbvn(x, y, 610, 640, 70, 80, 0.7))
-
-xs <- seq(500, 750, 50)
-
-ggplot(z_box_prob, aes(x = x, y = y, z = bivariate_normal_sat)) +
-  geom_raster(aes(fill = bivariate_normal_sat), interpolate = TRUE) +
-  geom_contour(color = "white") +
-  scale_x_continuous(expand = c(0, 0), limits = c(450, 800)) +
-  scale_y_continuous(expand = c(0, 0), limits = c(450, 850)) +
-  scale_fill_viridis() +
-  labs(x = "R", y = "M", fill = "Density") +
-  coord_fixed() +
-  theme_classic() +
-  geom_vline(
-    xintercept = xs,
-    linetype = "solid",
-    color = c("#E69F00"),
-    size = 2,
-    alpha = 0.3
-  ) +
-  geom_abline(
-    intercept = 640 - 0.7 * 80 / 70 * 610,
-    slope = 0.7 * 80 / 70,
-    linetype = "solid",
-    color = c("#CC79A7"),
-    size = 2,
-    alpha = 0.5
-  ) +
-  geom_point(
-    data = data.frame(x = xs, y = 640 + 0.7 * 80 / 70 * (xs - 610)),
-    aes(x = x, y = y, z = 0),
-    color = c("#CC79A7"),
-    size = 3
-  )
-```
 
 
 
 
--  If the pair $(X,Y)$ has a joint Normal distribution then each of $X$ and $Y$ has a Normal distribution.
--  But the converse is not true.  That is, if each of $X$ and $Y$ has a  Normal distribution, it is not necessarily true that the pair $(X, Y)$ has a joint Normal distribution
--  However, if $X$ and $Y$ are *independent* and each of $X$ and $Y$ has a  Normal distribution, then the pair $(X, Y)$ has a joint Normal distribution. (But joint Normal is much more general that two independent Normal random variables.)
+## Exercises
 
+
+::: {#exr-normal-not-bvn}
+The moral of this exercise is more important than the details, so just explain intuitively without doing a lot of computations.
+
+Suppose that $X$ has a Normal(0, 1) distribution.
+Flip a coin and if it lands on heads let $Y=X$, and if tails let $Y=-X$.
+For example, say you spin a Normal(0, 1) spinner; the result would be $X$.
+If a spin lands on 1.234, then $Y$ is either 1.234 (if the coin lands on heads) or -1.234 (if tails).
+:::
+
+
+1.  Sketch a scatter plot of many $(X, Y)$ pairs. (Remember: either $Y=X$ or $Y=-X$.)
+\
+\
+\
+\
+\
+1.  Make an educated guess for the distribution of $Y$. (Hint:you know the distribution of $X$; what is the distribution of $-X$?)
+\
+\
+\
+\
+\
+1.  Is the conditional distribution of $Y$ given $X = 1.234$ Normal?
+\
+\
+\
+\
+\
+1.  Make an educated guess for $\text{Corr}(X, Y)$.
+\
+\
+\
+\
+\
+1.  Are $X$ and $Y$ independent?
+\
+\
+\
+\
+\
+1.  Does $X+Y$ have a Normal distribution? (Hint: what is $\text{P}(X+Y=0)$ in this exercise and what would it need to be if $X+Y$ had a Normal distribution?)
+\
+\
+\
+\
+\
+1.  Moral: In this exercise $X$ has a Normal distribution and $Y$ has a Normal distribution, but does the pair $(X, Y)$ have a Normal distribution?
+\
+\
+\
+\
+\
+
+-   If the pair $(X,Y)$ has a joint Normal distribution then each of $X$ and $Y$ has a Normal distribution.
+-   But the converse is not true.  That is, if each of $X$ and $Y$ has a  Normal distribution, it is not necessarily true that the pair $(X, Y)$ has a joint Normal distribution
+-   However, if $X$ and $Y$ are *independent* and each of $X$ and $Y$ has a  Normal distribution, then the pair $(X, Y)$ has a joint Normal distribution. (But joint Normal is much more general that two independent Normal random variables.)

@@ -76,5 +76,14 @@
   },
   "covariance.qmd": {
     "covariance.html": "db64de91"
+  },
+  "linear-combinations.qmd": {
+    "linear-combinations.html": "0e9577c3"
+  },
+  "joint-normal.qmd": {
+    "joint-normal.html": "2ae8cba5"
+  },
+  "from-probability-to-statistics.qmd": {
+    "from-probability-to-statistics.html": "c14ba52e"
   }
 }

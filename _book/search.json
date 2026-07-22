@@ -214,7 +214,7 @@
     "href": "variance.html#exercises",
     "title": "9  Variance and Standard Deviation",
     "section": "",
-    "text": "Example 9.5 The plots in Figure 9.1 summarize hypothetical distributions of quiz scores in six classes. All plots are on the same scale. Each quiz score is a whole number between 0 and 10 inclusive.\n\n\n\nDonny Dont says that C represents the smallest SD, since there is no variability in the heights of the bars. Do you agree that C represents “no variability”? Explain.\n\n\n\n\n\nWhat is the smallest possible value the SD of quiz scores could be? What would need to be true about the distribution for this to happen? (This scenario might not be represented by one of the plots.)\n\n\n\n\n\nWithout doing any calculations, arrange the classes in order based on their SDs from smallest to largest.\n\n\n\n\n\n\nIn one of the classes, the SD of quiz scores is 5. Which one? Why?\n\n\n\n\n\nIs the SD in F greater than, less than, or equal to 1? Why?\n\n\n\n\n\nWithout doing any calculations, provide a ballpark estimate of SD in each case.\n\n\n\n\n\nThe standard deviation in plot E is about 1.15. Suppose that the scores are curved by adding 2 points to every score. What is the standard deviation and variance of the revised scores?\n\n\n\n\n\nThe standard deviation in plot E is about 1.15. Suppose that the scores are curved by multiplying every score by 2. What is the standard deviation and variance of the revised scores?\n\n\n\n\n\n\n\nVariance and linear rescaling: If \\(X\\) is a random variable and \\(a, b\\) are non-random constants then \\[\\begin{align*}\n\\text{SD}(aX + b) & = |a|\\text{SD}(X)\\\\\n\\text{Var}(aX + b) & = a^2\\text{Var}(X)\n\\end{align*}\\]\n\n\nExercise 9.1 Recall the matching problem from Example 6.3, Exercise 7.3, and Exercise 8.2 with a general \\(n\\) and let \\(X\\) be the number of matches.\n\n\nCompute and interpret \\(\\text{Var}(X)\\) and \\(\\text{SD}(X)\\) when \\(n=3\\).\n\n\n\n\n\nCompute and interpret \\(\\text{Var}(X)\\) and \\(\\text{SD}(X)\\) for a general \\(n\\).\n\n\n\n\n\n\n\nExercise 9.2 Suppose that \\(X\\) has a Geometric(\\(p\\)) distribution.\n\n\nWithout doing any computations, determine \\(\\text{Var}(X)\\) if \\(p=1\\).\n\n\n\n\n\nAs \\(p\\) decreases, does \\(\\text{Var}(X)\\) increase or decrease? Why?\n\n\n\n\n\n\n\nIf \\(X\\) has a Geometric distribution with parameter \\(p\\) then \\(\\text{Var}(X) = (1-p)/p^2\\).",
+    "text": "Exercise 9.1 The plots in Figure 9.1 summarize hypothetical distributions of quiz scores in six classes. All plots are on the same scale. Each quiz score is a whole number between 0 and 10 inclusive.\n\n\n\nDonny Dont says that C represents the smallest SD, since there is no variability in the heights of the bars. Do you agree that C represents “no variability”? Explain.\n\n\n\n\n\nWhat is the smallest possible value the SD of quiz scores could be? What would need to be true about the distribution for this to happen? (This scenario might not be represented by one of the plots.)\n\n\n\n\n\nWithout doing any calculations, arrange the classes in order based on their SDs from smallest to largest.\n\n\n\n\n\n\nIn one of the classes, the SD of quiz scores is 5. Which one? Why?\n\n\n\n\n\nIs the SD in F greater than, less than, or equal to 1? Why?\n\n\n\n\n\nWithout doing any calculations, provide a ballpark estimate of SD in each case.\n\n\n\n\n\nThe standard deviation in plot E is about 1.15. Suppose that the scores are curved by adding 2 points to every score. What is the standard deviation and variance of the revised scores?\n\n\n\n\n\nThe standard deviation in plot E is about 1.15. Suppose that the scores are curved by multiplying every score by 2. What is the standard deviation and variance of the revised scores?\n\n\n\n\n\n\n\nVariance and linear rescaling: If \\(X\\) is a random variable and \\(a, b\\) are non-random constants then \\[\\begin{align*}\n\\text{SD}(aX + b) & = |a|\\text{SD}(X)\\\\\n\\text{Var}(aX + b) & = a^2\\text{Var}(X)\n\\end{align*}\\]\n\n\nExercise 9.2 Recall the matching problem from Example 6.3, Exercise 7.3, and Exercise 8.2 with a general \\(n\\) and let \\(X\\) be the number of matches.\n\n\nCompute and interpret \\(\\text{Var}(X)\\) and \\(\\text{SD}(X)\\) when \\(n=3\\).\n\n\n\n\n\nCompute and interpret \\(\\text{Var}(X)\\) and \\(\\text{SD}(X)\\) for a general \\(n\\).\n\n\n\n\n\n\n\nExercise 9.3 Suppose that \\(X\\) has a Geometric(\\(p\\)) distribution.\n\n\nWithout doing any computations, determine \\(\\text{Var}(X)\\) if \\(p=1\\).\n\n\n\n\n\nAs \\(p\\) decreases, does \\(\\text{Var}(X)\\) increase or decrease? Why?\n\n\n\n\n\n\n\nIf \\(X\\) has a Geometric distribution with parameter \\(p\\) then \\(\\text{Var}(X) = (1-p)/p^2\\).",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Variance and Standard Deviation</span>"
     ]
@@ -417,6 +417,76 @@
     "text": "Exercise 18.1 Continuing Example 18.2. Let \\(X\\) be the sum of the two rolls, \\(Y\\) the larger of the two rolls, \\(W\\) the number of rolls equal to 4, and \\(Z\\) the number of rolls equal to 1. You should explain your answers without doing any computation.\n\n\nIs \\(\\text{Cov}(X, W)\\) positive, negative, or zero? Why?\n\n\n\n\n\nIs \\(\\text{Cov}(X, Z)\\) positive, negative, or zero? Why?\n\n\n\n\n\nLet \\(V=W+Z\\); what does this represent? Is \\(\\text{Cov}(X, V)\\) positive, negative, or zero? Why?\n\n\n\n\n\nIs \\(\\text{Cov}(W, Z)\\) positive, negative, or zero? Why?\n\n\n\n\n\n\n\nExercise 18.2 What is another name for \\(\\text{Cov}(X, X)\\)?\n\n\n\nExercise 18.3 Sketch a few scatterplots where \\(X\\) and \\(Y\\) have a correlation of 0, but they are not independent.\n\n\n\n\n\n\n\nExercise 18.4 Try the Guessing Correlations applet! Since we’re interested in the long run, set number of points to 1000. There is nothing to submit for this exercise but play around with the applet to get a feel for the difference between a correlation of 0.8-ish versus 0.5-ish versus 0.2-ish.",
     "crumbs": [
       "<span class='chapter-number'>18</span>  <span class='chapter-title'>Covariance and Correlation</span>"
+    ]
+  },
+  {
+    "objectID": "linear-combinations.html",
+    "href": "linear-combinations.html",
+    "title": "19  Linear Combinations of Random Variables",
+    "section": "",
+    "text": "19.1 Exercises\nIn each scenario:",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Linear Combinations of Random Variables</span>"
+    ]
+  },
+  {
+    "objectID": "linear-combinations.html#exercises",
+    "href": "linear-combinations.html#exercises",
+    "title": "19  Linear Combinations of Random Variables",
+    "section": "",
+    "text": "Exercise 19.1 Consider a random variable \\(X\\) with \\(\\text{Var}(X)=1\\). What is \\(\\text{Var}(2X)\\)?\n\nWalt says: \\(\\text{SD}(2X) = 2\\text{SD}(X)\\) so \\(\\text{Var}(2X) = 2^2\\text{Var}(X) = 4(1) = 4\\).\nJesse says: Variance of a sum is a sum of variances, so \\(\\text{Var}(2X) = \\text{Var}(X+X)\\) which is equal to \\(\\text{Var}(X)+\\text{Var}(X) = 1+1=2\\).\n\nWho is correct? Why is the other wrong?\n\n\n\n\n\n\n\nExercise 19.2 Percent returns for assets \\(X\\), \\(Y\\), and \\(Z\\) follow a joint distribution with\n\nMean 10 and standard deviation 15 for asset \\(X\\),\nMean 5 and standard deviation 3 for asset \\(Y\\),\nCorrelation of −0.6 between asset \\(X\\) and asset \\(Y\\)\nAsset Z yields a constant return of 1 percent.\n\nAn investment portfolio has 60% of its funds in asset \\(X\\), 30% in asset \\(Y\\), and 10% in asset \\(Z\\).\n\n\nLet \\(R\\) be the portfolio return. Express \\(R\\) in terms of \\(X, Y, Z\\).\n\n\n\n\n\nCompute \\(\\text{E}(R)\\).\n\n\n\n\n\nCompute \\(\\text{Cov}(X, Y)\\).\n\n\n\n\n\nCompute \\(\\text{Cov}(X, Z)\\).\n\n\n\n\n\nCompute \\(\\text{SD}(R)\\).",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Linear Combinations of Random Variables</span>"
+    ]
+  },
+  {
+    "objectID": "joint-normal.html",
+    "href": "joint-normal.html",
+    "title": "20  Joint Normal Distributions",
+    "section": "",
+    "text": "20.1 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Joint Normal Distributions</span>"
+    ]
+  },
+  {
+    "objectID": "joint-normal.html#exercises",
+    "href": "joint-normal.html#exercises",
+    "title": "20  Joint Normal Distributions",
+    "section": "",
+    "text": "Exercise 20.1 The moral of this exercise is more important than the details, so just explain intuitively without doing a lot of computations.\nSuppose that \\(X\\) has a Normal(0, 1) distribution. Flip a coin and if it lands on heads let \\(Y=X\\), and if tails let \\(Y=-X\\). For example, say you spin a Normal(0, 1) spinner; the result would be \\(X\\). If a spin lands on 1.234, then \\(Y\\) is either 1.234 (if the coin lands on heads) or -1.234 (if tails).\n\n\nSketch a scatter plot of many \\((X, Y)\\) pairs. (Remember: either \\(Y=X\\) or \\(Y=-X\\).)\n\n\n\n\n\nMake an educated guess for the distribution of \\(Y\\). (Hint:you know the distribution of \\(X\\); what is the distribution of \\(-X\\)?)\n\n\n\n\n\nIs the conditional distribution of \\(Y\\) given \\(X = 1.234\\) Normal?\n\n\n\n\n\nMake an educated guess for \\(\\text{Corr}(X, Y)\\).\n\n\n\n\n\nAre \\(X\\) and \\(Y\\) independent?\n\n\n\n\n\nDoes \\(X+Y\\) have a Normal distribution? (Hint: what is \\(\\text{P}(X+Y=0)\\) in this exercise and what would it need to be if \\(X+Y\\) had a Normal distribution?)\n\n\n\n\n\nMoral: In this exercise \\(X\\) has a Normal distribution and \\(Y\\) has a Normal distribution, but does the pair \\((X, Y)\\) have a Normal distribution?\n\n\n\n\n\n\n\nIf the pair \\((X,Y)\\) has a joint Normal distribution then each of \\(X\\) and \\(Y\\) has a Normal distribution.\nBut the converse is not true. That is, if each of \\(X\\) and \\(Y\\) has a Normal distribution, it is not necessarily true that the pair \\((X, Y)\\) has a joint Normal distribution\nHowever, if \\(X\\) and \\(Y\\) are independent and each of \\(X\\) and \\(Y\\) has a Normal distribution, then the pair \\((X, Y)\\) has a joint Normal distribution. (But joint Normal is much more general that two independent Normal random variables.)",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Joint Normal Distributions</span>"
+    ]
+  },
+  {
+    "objectID": "from-probability-to-statistics.html",
+    "href": "from-probability-to-statistics.html",
+    "title": "21  Statistical Estimation: From Probability to Statistics",
+    "section": "",
+    "text": "21.1 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Statistical Estimation: From Probability to Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "from-probability-to-statistics.html#exercises",
+    "href": "from-probability-to-statistics.html#exercises",
+    "title": "21  Statistical Estimation: From Probability to Statistics",
+    "section": "",
+    "text": "Exercise 21.1 In each of the following scenarios, one of (i) and (ii) is a probability and one is a statistics question. Classify each question as “probability” or “statistics”. Then discuss some general features of the probability questions, and some general features of the statistics questions\n\n\nU.S. Satisfaction\n\nAssume that 30% of Americans are satisfied with the way things are going in the U.S. If a random sample of 1000 Americans is selected, what are the chances that more than 330 Americans in the sample are satisfied with the way things are going in the U.S?\nIn a random sample of 1000 Americans, 330 Americans are satisfied with the way things are going in the U.S. What percent of all Americans are satisfied with the way things are going in the U.S?\n\nGreat white shark length\n\nAssume that lengths of female great white sharks follow a Normal distribution with mean 16 ft and standard deviation 3 ft. If a random sample of 40 female great white sharks is selected, what are the chances that the average length in the sample is between 16.5 and 17.5 ft?\nIn a sample of 40 female great white sharks, the sample mean length is 17.0 ft. What is the average length of female great white sharks?\n\nIn a clinical trial, 200 subjects are randomly assigned to receive either an experimental vaccine or no treatment (e.g., a placebo), and then each subject is tested to see if they developed immunity.\n\nIf the vaccine is in reality not effective, what are the chances that the proportion of subjects who develop immunity is twice as large for those who received the vaccine than for those who did not?\nAmong the 100 subjects who received the vaccine, 20 developed immunity; among the 100 subjects who did not receive the vaccine, 10 developed immunity. Is there evidence that the vaccine is effective?\n\nSnap streaks\n\nAssume that lengths of streaks on Snapchat follow an Exponential distribution, with mean 75 for teen users and mean 40 for adult users. A random sample of 200 Snapchat users is selected, 100 teens and 100 adults. What are the chances that the sample mean streak length for teens is with within 20 of the sample mean streak length for adults?\nIn a random sample of 100 teen Snapchat users, the sample mean streak length is 80. In a random sample of 100 adult Snapchat users, the sample mean streak length is 35. In general, how much longer do streak lengths for teen Snapchat users tend to be than for adult Snapchat users?\n\n\n\n\n\n\n\n\n\n\n\n\nExercise 21.2 Continuing Exercise 21.2. In each scenario, identify\n\n\nWhat plays the role of the population(s)?\n\n\n\n\n\nWhat is the variable(s) of interest?\n\n\n\n\n\nWhat is the population distribution(s)?\n\n\n\n\n\nWhat is the main parameter(s) of interest?",
+    "crumbs": [
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Statistical Estimation: From Probability to Statistics</span>"
+    ]
+  },
+  {
+    "objectID": "from-probability-to-statistics.html#footnotes",
+    "href": "from-probability-to-statistics.html#footnotes",
+    "title": "21  Statistical Estimation: From Probability to Statistics",
+    "section": "",
+    "text": "Many problems of interest involve multiple variables (e.g., height, weight, income), in which case the population distribution is a joint distribution. But it is simpler — both conceptually and notationally — to consider just a single variable of interest.↩︎\nThere are two main philosophical approaches to statistical inference that differ mainly in whether they emphasize “fixed number” or “unknown”. The frequentist approach treats a parameter as a fixed number. The Bayesian approach treats an unknown parameter— in other words, an uncertain parameter—as a random variable with a probability distribution that describes the degree of uncertainty. Both approaches are valid, each with advantages and disadvantages. The frequentist approach has been historically more prevalent, but the Bayesian approach has gained in popularity in the last 30 or so years.↩︎\nAbuse of notation in the expression: \\(p_\\theta\\) on the left represents the joint distribution of \\((X_1, \\ldots, X_n)\\), a function with \\(n\\) inputs; \\(p_\\theta\\) on the right represents that marginal distribution of each \\(X_i\\) (since i.d.), a function with a single input.↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Statistical Estimation: From Probability to Statistics</span>"
     ]
   },
   {

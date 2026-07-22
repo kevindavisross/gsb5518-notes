@@ -184,7 +184,7 @@ Who scored relatively better on their test?
 
 
 
-::: {#exm-sd-matching}
+::: {#exr-sd-matching}
 The plots in @fig-sd-matching-plot summarize hypothetical distributions of quiz scores in six classes.
 All plots are on the same scale.
 Each quiz score is a whole number between 0 and 10 inclusive.

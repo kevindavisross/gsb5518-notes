@@ -26,9 +26,9 @@ book:
     - normal.qmd
     - joint-distributions.qmd
     - covariance.qmd
-    # - linear-combinations.qmd
-    # - joint-normal.qmd
-    # - from-probability-to-statistics.qmd
+    - linear-combinations.qmd
+    - joint-normal.qmd
+    - from-probability-to-statistics.qmd
     # - maximum-likelihood-estimation.qmd
     # - estimators-bias.qmd
     # - estimators-mse.qmd
