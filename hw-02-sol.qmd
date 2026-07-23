@@ -2,31 +2,196 @@
 
 {{< include _r_setup.qmd >}}
 
-
-
-Note: you can typically use software to compute probabilities for named distributions.
-But to get some practice with formulas, you should compute probabilities by hand for this assignment.
+In the solutions some of the parts have the wrong numbers, but all solutions should be there.
 
 ## Problem 1
 
+
+A standard deck of playing cards has 52 cards, 13 cards (2 through 10, jack, king, queen, ace) in each of 4 suits (hearts, diamonds, clubs, spades).
+Shuffle a deck and deals cards one at a time without replacement.
+
+
+1.  What is the probability that the first card dealt is a heart? 
+1.  What is the probability that the second card dealt is a heart? Just make a guess now before proceeding, but you'll revisit this a few parts down.
+1.  What is the probability that the second card dealt is a heart if the first card dealt is a heart? 
+1.  What is the probability that the second card dealt is a heart if the first card dealt is not a heart? 
+1.  Revisit part 2.
+What is the probability that the second card dealt is a heart?
+Hint: your answer should be a single number, but show all your work.
+1.   Find the probability that the first two cards dealt are hearts.
+1.   Find the probability that the first two cards dealt are hearts and the third card dealt is a diamond.
+
+
+### Solution
+
+1.  If the cards are well shuffled, then any of the cards in the deck is equally likely to be the first card dealt. 
+There are 13 hearts out of 52 cards in the deck, so the probability that the first card is a heart is 13/52 = 1/4 = 0.25.
+1.  It's still 13/52. If the cards are well shuffled, then any of the cards in the deck is equally likely to be the second card in the deck. 
+There are 13 hearts out of 52 cards in the deck, so the probability that the second card is a heart is 13/52 = 1/4 = 0.25. 
+See the following parts for more discussion.
+1.  If the first card dealt is a heart, there are 51 cards left in the deck, 12 of which are hearts (and all the remaining cards in the deck are equally likely to be the next one drawn). 
+So the conditional probability that the second card is a heart given that the first card is a heart is 12/51 = 0.2353.
+1.  If the first card dealt is not a heart, there are 51 cards left in the deck, 13 of which are hearts (and all the remaining cards in the deck are equally likely to be the next one drawn). 
+So the conditional probability that the second card is a heart given that the first card is NOT a heart is 13/51 = 0.2549.
+1.  The probability that the second card is a heart is 13/52 = 0.25. Don't let the fact that it is "second" fool you; if you do not know what the first card is, then you have no information that would revise your probability of what happens on the second card. If you do not know what the first card is, you need to consider both cases: either the first card is a heart or it's not. 
+Use the law of total probability:
+\begin{align*}
+\text{P}(H_2) & = \text{P}(H_2|H_1)\text{P}(H_1) + \text{P}(H_2|H_1^c)\text{P}(H_1^c) \\ 
+& =(12/51)(13/52) + (13/51)(39/52) = 13/52 = 0.25
+\end{align*}
+Imagine 2652 repetitions ($52\times51$, a convenient choice given these fractions) of drawing two cards, summarized in a two-way table.
+
+  |                 | First is H | First is NOT H | Total |
+  |-----------------|-----------:|---------------:|------:|
+  | Second is H     |        156 |            507 |   663 |
+  | Second is NOT H |        507 |           1482 |  1989 |
+  | Total           |        663 |           1989 |  2652 |
+
+1.  Use the multiplication rule: the probability the both cards are hearts is the product of the probability that the first card is a heart and the conditional probability that the second card is a heart given that the first card is a heart, (13/52)(12/51) = 0.0588.
+If we imagine 2652 repetitions, then we would expect the first card to be a heart in 663=2652(13/52) repetitions, and among these 663 repetitions we would expect the second card to be a heart in 156=663(12/51) repetitions, so the proportion of repetitions in which both cards are hearts is 156/2652 = 0.0588.
+1.  The third card adds a third "stage" but the multiplication rule extends naturally.
+The probability the first two cards dealt are hearts and the third card dealt is a diamond is (13/52)(12/51)(13/50)= 0.0153, the product of:
+    -   13/52, the probability that the first card is a heart,
+    -   12/51, the conditional probability that the second card is a heart given that the first card is a heart, and
+    -   13/50, the conditional probability that the third card is a diamond given that the first two cards are hearts. (If the first two cards are hearts, then there are 50 cards remaining in the deck, of which 13 are diamonds.)
+
+
+
+
+## Problem 2
+
+The ELISA test for HIV was widely used in the mid-1990s for screening blood donations. 
+As with most medical diagnostic tests, the ELISA test is not perfect. 
+If a person actually carries the HIV virus, experts estimate that this test gives a positive result 97.7% of the time. 
+(This number is called the *sensitivity* of the test.) 
+If a person does not carry the HIV virus, ELISA gives a negative (correct) result 92.6% of the time (the *specificity* of the test). 
+Estimates at the time were that 0.5% of the American public carried the HIV virus.
+
+Suppose that a randomly selected American tests positive; we are interested in the conditional probability that the person actually carries the virus.
+
+ 
+
+1.  Before proceeding, make a guess for the probability in question. Which range do you think it's in: 0-20%, 20-40%, 40-60%, 60-80%, or 80-100%?
+1.  Denote the probabilities provided in the setup using proper notation
+1.  Construct an appropriate two-way table and use it to compute the probability of interest.
+1.  Construct a Bayes table and use it to compute the probability of interest.
+1.  Explain why this probability is small, compared to the sensitivity and specificity.
+1.  By what factor has the probability of carrying HIV increased, given a positive test result, as compared to before the test?
+1.  Now suppose that 5% of individuals in a high-risk group carry the HIV virus.
+Consider a randomly selectd person from this group who takes the test. 
+Given that the test is positive, how many times more likely is it for the person not to have HIV than to have it?
+Answer without first computing a two-way or Bayes table.
+1.  Using the result from the previous part, compute the conditional probability that a person in this risk group who tests positive has HIV.
+1.  Is the posterior probability influenced by the prior probability?
+Discuss.
+
+### Solution
+
+1.  We don't know what you guessed, but from experience many people guess 80-100%.
+Afterall, the test is correct for most of people who carry HIV, and also correct for most people who don't carry HIV, so it seems like the test is correct most of the time.
+But this argument ignores one important piece of information that has a huge impact on the results: most people do not carry HIV.
+1.  Let $H$ denote the event that the person carries HIV (hypothesis), and let $E$ denote the event that the test is positive (evidence).
+Therefore, $H^c$ is the event that the person does not carry HIV, another hypothesis.
+We are given
+
+-   prior probability: $P(H) = 0.005$
+-   likelihood of testing positive, if the person carries HIV: $P(E|H) = 0.977$
+-   $P(E^c|H^c) = 0.926$
+-   likelihood of testing positive, if the person does not carry HIV: $P(E|H^c) = 1-P(E^c|H^c) = 1-0.926 = 0.074$
+-   We want to find the posterior probability $P(H|E)$. 
+
+1.  Assuming 1000000 Americans
+
+    |                    | Tests positive | Does not test positive |   Total |
+    |--------------------|---------------:|-----------------------:|--------:|
+    | Carries HIV        |           4885 |                    115 |    5000 |
+    | Does not carry HIV |          73630 |                 921370 |  995000 |
+    | Total              |          78515 |                 921485 | 1000000 |
+
+    Among the 78515 who test positive, 4885 carry HIV, so the probability that an American who tests positive actually carries HIV is 4885/78515 = 0.062.
+1.  See @tbl-bayes-elisa.
+1.  The result says that only 6.2% *of Americans who test positive* actually carry HIV.
+It is true that the test is correct for most Americans with HIV (4885 out of 5000) and incorrect only for a small proportion of Americans who do not carry HIV (73630 out of 995000).
+But since so few Americans carry HIV, the sheer *number* of false positives (73630) swamps the *number* of true positives (4885).
+1.  Prior to observing the test result, the prior probability that an American carries HIV is $P(H) = 0.005$. 
+The posterior probability that an American carries HIV given a positive test result is $P(H|E)=0.062$.
+$$
+  \frac{P(H|E)}{P(H)} = \frac{0.062}{0.005} =  12.44
+$$
+An American who tests positive is about 12.4 times more likely to carry HIV than an American whom the test result is not known.  
+So while 0.067 is still small in absolute terms, the posterior probability is much larger relative to the prior probability.
+1.  In this risk group
+
+-   a person is 19 times more likely to not have HIV than to have it ($0.95/0.05 = 19$).
+-   A positive test is 13.2 times *less* likely when the person does not have HIV than when they have it ($0.074/0.977 = 1/13.2$).
+-   The product of these ratios is $19(1/13.2) = 1.44$.
+
+Since posterior is proportional to the product of prior and likelihood, a person in this risk group who tests positive is 1.44 times more likely to not have HIV than to have HIV.
+
+1.  The posterior probabilities of not having HIV and having HIV are in a 1.44 to 1 ratio, the so the posterior probability of not having HIV is $1.44/(1+1.44) = 0.59$ and the posterior probability of having HIV is 0.41.
+1.  Yes, the posterior probability is influenced by the prior probability.
+Even though the prior probability of 5% is still relatively small in absolute terms, the posterior probability given a positive test is not close to 50/50.
+
+
+```{r}
+#| echo: false
+#| label: tbl-bayes-elisa
+#| tbl-cap: Bayes table for ELISA problem
+
+hypothesis <- c("Carries HIV", "Does not carry HIV")
+
+prior <- c(0.005, 1 - 0.005)
+
+likelihood <- c(0.977, 1 - 0.926) # given positive test
+
+product <- prior * likelihood
+
+posterior <- product / sum(product)
+
+bayes_table <- data.frame(hypothesis, prior, likelihood, product, posterior) |>
+  add_row(
+    hypothesis = "sum",
+    prior = sum(prior),
+    likelihood = NA,
+    product = sum(product),
+    posterior = sum(posterior)
+  )
+
+kable(bayes_table, digits = 4, align = 'r')
+```
+
+
+
+
+## Problem 3
+
+
 Consider three tennis players Arya ("A"), Brienne ("B"), and Cersei ("C").
 One of these players is better than the other two, who are equally good/bad.
-When the best player plays either of the others, she has a 2/3 probability of winning the match.
-When the other two players play each other, each has a 1/2 probability of winning the match.
+When the best player plays either of the others, she has a 2/3 probability of winning the match.   When the other two players play each other, each has a 1/2 probability of winning the match.
 But you do not know which player is the best.
 Based on watching the players warm up, you start with subjective probabilities of 0.5 that A is the best, 0.35 that B is the best, and 0.15 that C is the best.
 A and B will play the first match.
 
-1.  Suppose that A beats B in the first match. Compute your posterior probability that each of A, B, C is best given that A beats B in the first match.
-2.  Compare the posterior probabilities from the previous part to the prior probabilities. Explain how your probabilities changed, and why that makes sense.
-3.  **Coding required.** Code and run a simulation to simulate (1) who is the best player according to your prior distribution, (2) who wins the first match given who is the best player; then use the results to approximate the probabilities from part a.
-4.  Suppose instead that B beats A in the first match. Compute your posterior probability that each of A, B, C is best given that B beats A in the first match.
-5.  Compare the posterior probabilities from the previous part to the prior probabilities. Explain how your probabilities changed, and why that makes sense.
-6.  Now suppose again that A beats B in the first match, and also that A beats C in the second match. Compute your posterior probability that each of A, B, C is best given the results of the first two matches. (Hint: use as the prior your posterior probabilities from the previous part.) Explain how your probabilities changed, and why that makes sense.
+1.  Suppose that A beats B in the first match.
+Compute your posterior probability that each of A, B, C is best given that A beats B in the first match.
+1.  Compare the posterior probabilities from the previous part to the prior probabilities.
+Explain how your probabilities changed, and why that makes sense.
+1.  **Coding required.** Code and run a simulation to simulate (1) who is the best player according to your prior distribution, (2) who wins the first match given who is the best player; then use the results to approximate the probabilities from the first part.
+1.  Suppose instead that B beats A in the first match. Compute your posterior probability that each of A, B, C is best given that B beats A in the first match.
+1.  Compare the posterior probabilities from the previous part to the prior probabilities.
+Explain how your probabilities changed, and why that makes sense.
+1.  Now suppose again that A beats B in the first match, and also that A beats C in the second match.
+Compute your posterior probability that each of A, B, C is best given the results of the first two matches.
+(Hint: use as the prior your posterior probabilities from the previous part.)
+Explain how your probabilities changed, and why that makes sense.
+
 
 ### Solution
 
-a)  Hypotheses are which player is best (A, B, C). Evidence is that A beats B. The likelihood is the probability that A beats B given each of the best players.
+
+
+1.  Hypotheses are which player is best (A, B, C). Evidence is that A beats B. The likelihood is the probability that A beats B given each of the best players.
 
 -   If A is best, probability A beats B is 2/3.
 -   If B is best, probability A beats B is 1/3.
@@ -35,109 +200,84 @@ a)  Hypotheses are which player is best (A, B, C). Evidence is that A beats B. T
 ```{r}
 #| echo: false
 
-best_player = c("A", "B", "C")
+best_player <- c("A", "B", "C")
 
-prior = c(0.5, 0.35, 0.15)
+prior <- c(0.5, 0.35, 0.15)
 
-likelihood_A_beats_B = c(2 / 3, 1 / 3, 1 / 2)
+likelihood_A_beats_B <- c(2 / 3, 1 / 3, 1 / 2)
 
-product = prior * likelihood_A_beats_B
+product <- prior * likelihood_A_beats_B
 
-posterior = product / sum(product)
+posterior <- product / sum(product)
 
-bayes_table = data.frame(best_player,
-                         prior,
-                         likelihood_A_beats_B,
-                         product,
-                         posterior)
+bayes_table <- data.frame(
+  best_player,
+  prior,
+  likelihood_A_beats_B,
+  product,
+  posterior
+)
 
 bayes_table %>%
   adorn_totals("row") %>%
   kbl(digits = 4) %>%
   kable_styling()
 
-posterior_first = posterior
-
+posterior_first <- posterior
 ```
 
-b)  A's probability of being the best increased, which makes sense because A won the match.
+1.  A's probability of being the best increased, which makes sense because A won the match.
     B's probability of being the best decreased considerably, which makes sense because B lost the match.
     C's probability of being the best decreased slightly, despite C not being involved in the match.
 
-c)  Simulation below.
+1.  Description of simulation
 
-```{r}
+    -   Spinner that returns "A is best", "B is best", "C is best" with probability 0.5, 0.35, 0.15.
+    -   Three additional spinners:
+        -   "Given A is best": returns "A beats B" with probability 2/3 and "B beats A" with probability 1/3
+        -   "Given B is best": returns "A beats B" with probability 1/3 and "B beats A" with probability 2/3
+        -   "Given C is best": returns "A beats B" with probability 1/2 and "B beats A" with probability 1/2
+    -   Spin the first spinner once to determine who is best. Given the result of the first spin, spin the appropriate spinner to determine whether or not A beats B. The pair of spins is one repetition.
+    -   Repeat many times to simulate many pairs.
+    -   To find the conditional probabilities for which player is best given A beats B, only consider the repetitions in which A beats B, and among those repetitions find the proportion of repetitions where A is best, etc.
+1.  Hypotheses are which player is best (A, B, C). Evidence is that B beats A. The likelihood is the probability that B beats A given each of the best players.
 
-N_rep = 10000
-
-# initialize a data.frame for storing results
-best_winner = data.frame(best = character(),
-                         winner = character())
-
-for (i in 1:N_rep) {
-  best = sample(c("A", "B", "C"), size = 1, prob = c(0.5, 0.35, 0.15))
-  if (best == "A") {
-    winner = sample(c("A", "B"), size = 1, prob = c(2 / 3, 1 / 3))
-  } else if (best == "B"){
-    winner = sample(c("A", "B"), size = 1, prob = c(1 / 3, 2 / 3))
-  } else {
-    winner = sample(c("A", "B"), size = 1, prob = c(1 / 2, 1 / 2))}
-  best_winner[i, ] = c(best, winner)
-}
-
-# first few rows; each row is a (best player, first match winner) pair
-head(best_winner)
-
-# tabulate results with proportions
-table(best_winner) / N_rep
-
-# Approximate P(A is best | A wins first match)
-nrow(best_winner[(best_winner$best == "A") & (best_winner$winner == "A"), ]) / nrow(best_winner[best_winner$winner == "A", ])
-
-# Approximate P(B is best | A wins first match)
-nrow(best_winner[(best_winner$best == "B") & (best_winner$winner == "A"), ]) / nrow(best_winner[best_winner$winner == "A", ])
-
-# Approximate P(C is best | A wins first match)
-nrow(best_winner[(best_winner$best == "C") & (best_winner$winner == "A"), ]) / nrow(best_winner[best_winner$winner == "A", ])
-```
-
-d)  Hypotheses are which player is best (A, B, C). Evidence is that B beats A. The likelihood is the probability that B beats A given each of the best players.
-
--   If A is best, probability B beats A is 1/3.
--   If B is best, probability B beats A is 2/3.
--   If C is best, probability B beats A is 1/2.
+    -   If A is best, probability B beats A is 1/3.
+    -   If B is best, probability B beats A is 2/3.
+    -   If C is best, probability B beats A is 1/2.
 
 ```{r}
 #| echo: false
 
-best_player = c("A", "B", "C")
+best_player <- c("A", "B", "C")
 
-prior = c(0.5, 0.35, 0.15)
+prior <- c(0.5, 0.35, 0.15)
 
-likelihood_B_beats_A = c(1 / 3, 2 / 3, 1 / 2)
+likelihood_B_beats_A <- c(1 / 3, 2 / 3, 1 / 2)
 
-product = prior * likelihood_B_beats_A
+product <- prior * likelihood_B_beats_A
 
-posterior = product / sum(product)
+posterior <- product / sum(product)
 
-bayes_table = data.frame(best_player,
-                         prior,
-                         likelihood_B_beats_A,
-                         product,
-                         posterior)
+bayes_table <- data.frame(
+  best_player,
+  prior,
+  likelihood_B_beats_A,
+  product,
+  posterior
+)
 
 bayes_table %>%
   adorn_totals("row") %>%
   kbl(digits = 4) %>%
   kable_styling()
-
 ```
 
-e)  A's probability of being the best decreased, which makes sense because A lost the match.
+1.  A's probability of being the best decreased, which makes sense because A lost the match.
     B's probability of being the best increased, which makes sense because B won the match.
     C's probability of being the best changed slightly, despite C not being involved in the match.
 
-f)  The prior is the posterior from the first part.
+1.  The prior is the posterior from the first part.
     Evidence is that A beats C.
     The likelihood is the probability that A beats C given each of the best players.
 
@@ -148,55 +288,94 @@ f)  The prior is the posterior from the first part.
 ```{r}
 #| echo: false
 
-prior = posterior_first
+prior <- posterior_first
 
-likelihood_A_beats_C = c(2 / 3, 1 / 2, 1/ 3)
+likelihood_A_beats_C <- c(2 / 3, 1 / 2, 1 / 3)
 
-product = prior * likelihood_A_beats_C
+product <- prior * likelihood_A_beats_C
 
-posterior = product / sum(product)
+posterior <- product / sum(product)
 
-bayes_table = data.frame(best_player,
-                         prior,
-                         likelihood_A_beats_C,
-                         product,
-                         posterior)
+bayes_table <- data.frame(
+  best_player,
+  prior,
+  likelihood_A_beats_C,
+  product,
+  posterior
+)
 
 bayes_table %>%
   adorn_totals("row") %>%
   kbl(digits = 4) %>%
   kable_styling()
-
 ```
 
 By winning both matches, A's probability of being the best has increased considerably.
 By losing their only matches, B's and C's probabilities of being the best have decreased considerably.
 
-## Problem 2
 
-Solve @exm-counting-lottery.
+## Problem 4
+
+In the Powerball lottery, a player picks five different whole numbers between 1 and 69, and another whole number between 1 and 26 that is called the Powerball.  In the drawing, the 5 numbers are drawn without replacement from a "hopper" with balls labeled 1 through 69, but the Powerball is drawn from a separate hopper with balls labeled 1 through 26. The player wins the jackpot if both the first 5 numbers match those drawn, in any order, and the Powerball is a match.
+Under this set up, there are 292,201,338 possible winning numbers.
+
+
+1.  What is the probability the next winning number is 6-7-16-23-26, plus the Powerball number, 4.
+1.  What is the probability the next winning number is 1-2-3-4-5, plus the Powerball number, 6.
+1.  The Powerball drawing happens twice a week. Suppose you play the same Powerball number, twice a week, every week for over 50 years.  Let's say you purchase a ticket for 6000 drawings in total.  What is the probability that you win at least once?
+1.  Instead of playing for 50 years, you decide only to play one lottery, but you buy 6000 tickets, each with a different Powerball number.  What is the probability that at least one of your tickets wins?  How does this compare to the previous part?  Why?
+1.  Each ticket costs 2 dollars, but the jackpot changes from drawing to drawing.  Suppose you buy 6000 tickets for a single drawing. How large does the jackpot need to be for your "expected" profit to be positive?  To be \$100,000? (We're ignoring inflation, taxes, transaction costs, and any changes in the rules.)
+
 
 ### Solution
 
-See [Example 3.16 in my probability notes](https://bookdown.org/kevin_davisross/probsim-book/independence2.html#exm:counting-lottery)
 
-## Problem 3
+1.  Each of the possible winning numbers is equally likely, so the  probability is $1/292,201,338\approx 3\times 10^{-9}$. 
+1.  Each of the possible winning numbers is equally likely. 
+Remember, don't confuse a general event with a specific outcome.
+1.  The probability that you lose in any single drawing is $(1-1/292201338)$.
+The drawings are independent so the probability that you lose all 6000 is $(1-1/292201338)^{6000}$.
+The probability that you win at least once is $1 - (1-1/292201338)^{6000}\approx 0.00002$. 
+If many people each play 6000 drawings, about 2 in every 100,000 people win will at least once.
+1.  If you play 6000 different numbers, the events that each different number wins are disjoint. 
+So the probability you win at least once is $6000/292201338\approx 0.00002$. 
+This is about the same as the probability in the previous part. 
+When you play 6000 different independent drawings, there is a possibility that you win multiple times, so the events of winning in each different drawing are not disjoint. 
+But the probability of winning *multiple* lotteries is so small that it's negligible. 
+The probability of winning any single drawing is about 1 in 300 million. 
+The probability of winning twice in any two drawings is about 1 in 85 quadrillion.
+1.  You pay \$12,000 in total. 
+Let $w$ be the value of the jackpot. 
+You win either 0 or $w$ so your "expected" profit is $w(6000/292201338)-12000$. 
+But this not what you expect in a single repetition. Rather, it is the profit you would expect to see on average in the long run. 
+You probably won't be buying 6000 tickets for a large number of drawings, so your long run average isn't really relevant. 
+In any case, we must have $w>584,402,676$ for the expected profit to be positive. 
+Sometimes, but not often, the jackpot does get this high; even so, this just guarantees that your expected profit is positive. 
+In order for your expected long run average profit to be greater than just \$100,000, the jackpot must be over 5 billion dollars, and the largest jackpot ever was 1.6 billion. 
+The moral: there are better things to do with $12,000 dollars.
 
-Consider a "best-of-5" series of games between two teams: games are played until one of the teams has won 3 games (requiring at most 5 games total).
-Suppose one team, team A, is better than the other, having a 0.55 probability of winning any particular game.
-Assume the results of the games are independent (and ignore advantage, etc).
-Let $X$ represent the number of games played in the series.
+
+## Problem 5
+
+
+
+Consider a "best-of-5" series of games between two teams: games are played until one of the teams has won 3 games (requiring at most 5 games total). Suppose one team, team A, is better than the other, having a 0.55 probability of winning any particular game. Assume the results of the games are independent (and ignore advantage, etc).  Let $X$ represent the number of games played in the series.
 (Hint: It's helpful to first construct a two-way table of probabilities with the number of games played and which team wins, and then use it to answer the following questions. It will also help to list some outcomes, like AABA (team A wins game 1, 2, and 4, and B wins game 3).)
 
-a.  Compute the probability that team A wins the series in 3 games.
-b.  Compute the probability that the series ends in 3 games.
-c.  Compute the probability that team A wins the series.
-d.  Are the events "team A wins the series" and "the series ends in 3 games" independent? Explain by comparing relevant probabilities.
-e.  Let $X$ represent the number of games played in the series. Find the distribution of $X$.
+
+1.  Compute the probability that team A wins the series in 3 games.
+1.  Compute the probability that the series ends in 3 games.
+1.  Compute the probability that team A wins the series.
+1.  Are the events "team A wins the series" and "the series ends in 3 games" independent?  Explain by comparing relevant probabilities.
+1.  Let $X$ represent the number of games played in the series.  Find the distribution of $X$.
+
+
+
 
 ### Solution
 
-a.  It is helpful to construct a two-way table to answer the following questions.
+
+1.  It is helpful to construct a two-way table to answer the following questions.
 
     |                |                          |                                   |                                               |       |
     |:-------------|-------------:|-------------:|---------------:|-------------:|
@@ -215,16 +394,16 @@ a.  It is helpful to construct a two-way table to answer the following questions
 
     The probability that team A wins the series in 3 games is $\text{P}(X=3, A) = 0.55^3=0.166$.
 
-b.  Either the stronger team wins 3 in a row or loses 3 in a row.
+1.  Either the stronger team wins 3 in a row or loses 3 in a row.
     The probability is $0.55^3+(1-0.55)^3=0.2575$.
 
-c.  The probability that team A wins the series is the sum of first row: $\text{P}(A) = 0.593$.
+1.  The probability that team A wins the series is the sum of first row: $\text{P}(A) = 0.593$.
 
-d.  No. $\text{P}(X=3, A) = 0.55^3=0.166 \neq 0.152 = (0.2575)(0.593) = \text{P}(X=3)\text{P}(A)$.
+1.  No. $\text{P}(X=3, A) = 0.55^3=0.166 \neq 0.152 = (0.2575)(0.593) = \text{P}(X=3)\text{P}(A)$.
     Alternatively, $\text{P}(X = 3 | A) = 0.166/0.593 = 0.2799 \neq 0.2575 = \text{P}(X = 3)$.
     Given that $A$ wins the series the series it more likely to end in 3 games than when B wins the series.
 
-e.  Total row above.
+1.  Total row above.
     $X$ can take values 3, 4, or 5.
     Consider first the ways in which the stronger team wins in 4 games: AABA, ABAA, BAAA.
     (For example AABA, means the stronger team wins game 1, 2, and 4, and the weaker team wins game 3).
@@ -241,246 +420,3 @@ e.  Total row above.
      5 & \qquad & & \qquad 0.3675\\
     \end{align*}
 
-## Problem 4
-
-Randomly select a county in the U.S.
-Let $X$ be the leading digit in the county's population.
-[For example](https://en.wikipedia.org/wiki/List_of_counties_in_California), if the county's population is 10,040,000 (Los Angeles County) then $X=1$; if 3,170,000 (Orange County) then $X=3$; if 283,000 (SLO County) then $X=2$; if 30,600 (Lassen County) then $X=3$.
-The possible values of $X$ are $1, 2, \ldots, 9$.
-You might think that $X$ is equally likely to be any of its possible values.
-However, a more appropriate model is to assume that $X$ has pmf
-
-$$
-p_X(x) = 
-\begin{cases}
-\log_{10}(1+\frac{1}{x}), & x = 1, 2, \ldots, 9,\\
-0, & \text{otherwise}
-\end{cases}
-$$
-
-
-This distribution is known as [Benford's law](https://en.wikipedia.org/wiki/Benford's_law).
-
-a.  Construct a table specifying the distribution of $X$, and the corresponding spinner.\
-b.  Find $\text{P}(X \ge 3)$\
-c.  **Coding required.** Code and run a simulation and use the results to approximate the distribution of $X$. (In R, there are built in functions to simulate Benford's law, but I want you to use the `sample` function. In R, `log` is natural log; `log10` is base-10 log.)
-
-### Solution
-
-See [Example 4.6 of my probability notes](https://bookdown.org/kevin_davisross/probsim-book/discrete-random-variables-probability-mass-functions.html#exm:benford)
-
-```{r}
-possible_x = 1:9
-
-p_x = log10(1 + 1 / possible_x)
-
-x = sample(possible_x, size = 10000, prob = p_x, replace = TRUE)
-
-plot(table(x) / 10000,
-     ylab = "Relative frequency")
-
-
-```
-
-## Problem 5
-
-Maya is a basketball player who makes 40% of her three point field goal attempts.
-Suppose that at the end of every practice session, she attempts three pointers until she makes one and then stops.
-Let $X$ be the total number of shots she attempts in a practice session.
-Assume shot attempts are independent, each with probability of 0.4 of being successful.
-
-a.  What are the possible values that $X$ can take? Is $X$ discrete or continuous?
-b.  Explain why $X$ does *not* have a Binomial distribution.
-c.  Describe in detail how you could, in principle, conduct a simulation using physical objects (coins, cards, dice, etc) and how you would use the results to approximate the distribution of $X$.
-d.  Compute and interpret $\text{P}(X=1)$.
-e.  Compute and interpret $\text{P}(X=2)$.
-f.  Compute and interpret $\text{P}(X=3)$.
-g.  Find the probability mass function of $X$. Be sure to specify the possible values.
-h.  Construct a table, plot, and spinner corresponding to the distribution of $X$.
-i.  Compute $\text{P}(X>5)$ without summing. (Hint: what needs to be true about the first 5 attempts for $X > 5$?)
-
-### Solution
-
-a.  $X$ can take values 1, 2, 3, $\ldots$. Even though it is unlikely that $X$ is very large, there is no fixed upper bound. Even though $X$ can take infinitely many values, $X$ is a discrete random variables because it takes *countably* many possible values.
-b.  $X$ does not have a Binomial distribution since the number of trials is not fixed.
-c.  Construct a spinner that lands on "success" with probability 0.4. Spin the spinner until it lands on success and then stop and count the number of spins. This is one repetition, resulting in one value of $X$. Repeat many times to simulate many values of $X$. Summarize the simulated values to approximate the distribution. For example, counts the number of repetitions resulting in $X=1$ and divide by the total number of repetitions to approximate $\text{P}(X=1)$.
-d.  $X= 1$ only if she makes her first attempt, so $\text{P}(X = 1) = 0.4$. If Maya does this every practice, then in about 40% of practices she will make her first three pointer on her first attempt.
-e.  $X= 2$ only if she misses her first attempt and makes her second attempt, so since the attempts are independent $\text{P}(X = 2) = (0.6)(0.4)=0.24$. If Maya does this every practice, then in about 24% of practices she will make her first three pointer on her second attempt.
-f.  In order for $X$ to be 3, Maya must miss her first two attempts and make her third. Since the attempts are independent $\text{P}(X=3)=(1-0.4)^2(0.4)=0.144$. If Maya does this every practice, then in about 14.4% of practices she will make her first three pointer on her third attempt.
-g.  In order for $X$ to take value $x$, the first success must occur on attempt $x$, so the first $x-1$ attempts must be failures.
-
-    $$
-    p_X(x) = (1-0.4)^{x-1}(0.4), \qquad x = 1, 2, 3, \ldots  
-    $$
-    
-h.  See below. This distribution is called the Geometric distribution with parameter 0.4.
-i.  The key is to realize that Maya requires more than 5 attempts to obtain her first success if and only if the first 5 attempts are failures. Therefore,
-    
-    $$
-    P(X > 5) = (1-0.4)^5  = 0.078
-    $$
-
-```{r}
-#| echo: false
-#| message: false
-
-
-x = 1:9
-
-p = 0.4
-
-px = p * (1 - p) ^ (x - 1)
-
-df = data.frame(x, px)
-
-
-df |> kbl(col.names = c("x", "p(x)"),
-             digits = 4) %>%
-  kable_styling()
-
-plot(x, px, type = "h", xlab = "x", ylab = "p(x)", main = "Geometric(0.4) pmf")
-axis(1, x)
-
-```
-
-```{r poisson_1, echo = FALSE, warning = FALSE, message = FALSE}
-
-
-x_max = 6
-p = 0.4
-x = c(1:x_max, paste(x_max + 1, "+", sep = ""))
-p = c(p * (1 - p) ^ ((1:x_max) - 1), (1 - p) ^ x_max)
-
-xp <- data.frame(x, p)
-
-cdf = c(0, cumsum(xp$p))
-
-plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
-  
-spinner <- ggplot(xp, aes(x="", y=p, fill=x))+
-  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
-  coord_polar("y", start=0) +
-  theme_void() +
-  # plot the possible values on the outside
-  scale_y_continuous(breaks = plotp, labels=xp$x) +
-  theme(axis.text.x=element_text(size=14, face="bold")) +
-  # plot the probabilities as percents inside
-  geom_text(aes(y = plotp,
-                label = percent(p)), size=3,
-            color=c(rep("black", x_max), rep("white", 1))) +
-  ggtitle(paste("Geometric(", p,") distribution", sep=""))
-
-spinner
-```
-
-## Problem 6
-
-Suppose the number of earthquakes per hour, for a certain range of magnitudes in a certain region, follows a Poisson distribution with parameter 0.7.
-
-a.  Compute and interpret the probability that there is at least one earthquake of this size in the region in any given hour.
-b.  Compute and interpret the probability that there are exactly 3 earthquakes of this size in the region in any given hour.
-c.  Interpret the value 0.7 in context.
-d.  Construct a table, plot, and spinner corresponding to a Poisson(0.7) distribution.
-
-### Solution
-
-Let $X$ be the number of earthquakes in the region in a randomly selected hour.
-The pmf is
-
-$$
-p_X(x) = e^{-0.7}\frac{0.7^x}{x!}, \quad x = 0, 1, 2, \ldots
-$$
-
-a.  $\text{P}(X\ge 1)=1-\text{P}(X=0) = 1 - e^{-0.7}\frac{0.7^0}{0!}=1-e^{-0.7}=1-0.497=0.503$. In about 50% of hour long intervals there is at least one quake.
-b.  $\text{P}(X=3)= e^{-0.7}\frac{0.7^3}{3!}=0.028$. In about 3% of hour long intervals there are exactly 3 quakes.
-c.  Over many hour-long time intervals, there are 0.7 earthquakes per hour on average.
-d.  See below for table and spinner
-
-```{r}
-#| echo: true
-#| 
-x = 0:5
-
-mu = 0.7
-
-px = dpois(x, mu)
-
-df = data.frame(x, px)
-
-df |>
-  kbl(col.names = c("x", "p(x)"),
-             digits = 4) |>
-  kable_styling()
-```
-
-```{r}
-#| echo: true
-#| 
-
-plot(x, px, type = "h", xlab = "x", ylab = "p(x)", main = "Poisson(0.7) pmf")
-
-```
-
-```{r}
-#| echo: false
-#| message: false
-#| 
-
-
-
-lam = 0.7
-x = c(0:2, "3+")
-p = c(dpois(0:2, lambda=lam), 1-ppois(2, lambda=lam))
-
-xp <- data.frame(x, p)
-
-cdf = c(0, cumsum(xp$p))
-
-plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
-  
-spinner <- ggplot(xp, aes(x="", y=p, fill=x))+
-  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
-  coord_polar("y", start=0) +
-  theme_void() +
-  # plot the possible values on the outside
-  scale_y_continuous(breaks = plotp, labels=xp$x) +
-  theme(axis.text.x=element_text(size=14, face="bold")) +
-  # plot the probabilities as percents inside
-  geom_text(aes(y = plotp,
-                label = percent(p)), size=3,
-            color=c(rep("black", 3), rep("white", 1))) +
-  ggtitle(paste("Poisson(", lam,") distribution", sep=""))
-
-spinner
-```
-
-## Problem 7
-
-Suppose that a total of 350 students at a college are taking a particular statistics course.
-The college offers five sections of the course, each taught by a different instructor.
-The class sizes are shown in the following table.
-
-|                    |     |     |     |     |     |
-|:-------------------|----:|----:|----:|----:|----:|
-| Section            |   A |   B |   C |   D |   E |
-| Number of students |  35 |  35 |  35 |  35 | 210 |
-
-We are interested in: What is the average class size?
-
-a.  Suppose we randomly select one of the 5 *instructors*. Let $X$ be the class size for the selected instructor. Specify the distribution of $X$. (A table is fine.)
-b.  Compute and interpret $\text{E}(X)$.
-c.  Compute and interpret $\text{P}(X = \text{E}(X))$.
-d.  Suppose we randomly select one of the 350 *students*. Let $Y$ be the class size for the selected student. Specify the distribution of $Y$. (A table is fine.)
-e.  Compute and interpret $\text{E}(Y)$.
-f.  Compute and interpret $\text{P}(Y = \text{E}(Y))$.
-g.  Comment on how these two expected values compare, and explain why they differ as they do. Which average would you say is more relevant?
-
-### Solution
-
-a.  $X$ takes the value 210 with probability 1/5 and 35 with probability 4/5.
-b.  $\text{E}(X) = 210(1/5) + 35(4/5)=70$ is the average number of students per class from the instructors' perspective. If we randomly select an instructor, record the number of students in the instructor's class, and repeat, the long run average number of students will be 70.
-c.  $\text{P}(X = \text{E}(X)) = \text{P}(X = 70) = 0$. No instructor has a class whose size is equal to the average class size (from the instructor's perspective).
-d.  $Y$ takes the value 210 with probability 210/350 and 35 with probability 140/350.
-e.  $\text{E}(Y) = 210(210/350) + 35(140/350)=140$ is the average number of students per class from the students' perspective. If we randomly select a student, record the number of students in the selected student's class, and repeat, the long run average number of students will be 140.
-f.  $\text{P}(Y = \text{E}(Y)) = \text{P}(Y = 140) = 0$. No student is in a class whose size is equal to the average class size (from the students' perspective).
-g.  Colleges usually report average class size from the instructor/class perspective, which in this case would be 70 students. From the students' perspective, the average class size is not even close to 70! In fact, it's twice that size. Some students (140 of them, which is 40% of the total of 350 students) have the benefit of a small class size of 35. But most students (210 of them, which is 60% of the students) are stuck in a large class of 210 students. In other words, most students would be pretty seriously misled if they chose this college based on the advertised average class size of 35 students per class. From the students' perspective, it seems that 140 is the more relevant average to report. However, neither average really adequately represents what is happening here: there is wide variability in class sizes between large and small.

@@ -670,6 +670,106 @@
     ]
   },
   {
+    "objectID": "hw-05.html",
+    "href": "hw-05.html",
+    "title": "Homework 5",
+    "section": "",
+    "text": "Problem 1\nIn a certain region, times (minutes) between occurrences of earthquakes (of any magnitude) have a distribution with percentiles displayed in the table below.\nPercentile\nValue (minutes)\n\n\n\n\n10th\n12.6\n\n\n20th\n26.8\n\n\n30th\n42.8\n\n\n40th\n61.3\n\n\n50th\n83.2\n\n\n60th\n110.0\n\n\n70th\n144.5\n\n\n80th\n193.1\n\n\n90th\n276.3",
+    "crumbs": [
+      "Homework 5"
+    ]
+  },
+  {
+    "objectID": "hw-05.html#problem-1",
+    "href": "hw-05.html#problem-1",
+    "title": "Homework 5",
+    "section": "",
+    "text": "Construct a spinner corresponding to this distribution.\nWhat percent of times are between 26.8 and 110.0 minutes?\nLet \\(F\\) be the cdf. Evaluate and interpret \\(F(42.8)\\).\nLet \\(Q\\) be the quantile function. Evaluate and interpret \\(Q(0.9)\\).\nSketch (by hand) a histogram of this distribution.",
+    "crumbs": [
+      "Homework 5"
+    ]
+  },
+  {
+    "objectID": "hw-05.html#problem-2",
+    "href": "hw-05.html#problem-2",
+    "title": "Homework 5",
+    "section": "Problem 2",
+    "text": "Problem 2\nRecall Example 2.6. Regina and Cady are meeting for lunch. Suppose they each arrive uniformly at random at a time between noon and 1:00, independently of each other. Record their arrival times as minutes after noon, so noon corresponds to 0 and 1:00 to 60. Recall the sample space from Example 2.2 and assume a uniform probability measure \\(\\text{P}\\).\nLet \\(R\\) be Regina’s arrival time and \\(Y\\) Cady’s. Then \\(W = |R - Y|\\) is the amount of time (minutes) the first person to arrive waits for the second person to arrive. It can be shown that \\(W\\) has pdf \\[\nf_W(w) = (2/3600)(1-w), \\qquad 0&lt;w&lt;60.\n\\]\n\nLet \\(F\\) be the cdf. Evaluate and interpret \\(F(15)\\).\nFind an expression for the cdf of \\(W\\). Set up an integral, but sketch a picture and use geometry to compute.\nFind and interpret the 25th percentile of \\(W\\). (You can do the next part first if you want, but it might help to start with a specific number like in this part.)\nFind the quantile function of \\(W\\).\nSketch a spinner corresponding to the distribution of \\(W\\). Label the 25th, 50th, and 75th percentiles.",
+    "crumbs": [
+      "Homework 5"
+    ]
+  },
+  {
+    "objectID": "hw-05.html#problem-3",
+    "href": "hw-05.html#problem-3",
+    "title": "Homework 5",
+    "section": "Problem 3",
+    "text": "Problem 3\nContinuing Problem 2. For this problem you should set up integrals when appropriate but you can use software to compute them.\n\nExplain in full detail how you could use simulation to approximate\n\n\\(\\text{E}(W)\\)\n\\(\\text{E}(W^2)\\)\n\\(\\text{Var}(W)\\) (explain how you can do it directly without using the previous part.)\n\nCompute and interpret \\(\\text{E}(W)\\).\nCompute \\(\\text{E}(W^2)\\).\nCompute \\(\\text{Var}(W)\\)\nCompute and interpret \\(\\text{SD}(W)\\).\nCompute the probability that \\(W\\) is more than 1 SD away from its mean.",
+    "crumbs": [
+      "Homework 5"
+    ]
+  },
+  {
+    "objectID": "hw-05.html#problem-4",
+    "href": "hw-05.html#problem-4",
+    "title": "Homework 5",
+    "section": "Problem 4",
+    "text": "Problem 4\nLifetimes of a certain type of component are Exponentially distributed with mean 20 thousand hours.\n\nApproximate the probability that the lifetime, rounded to the nearest thousand hours, of a randomly selected component is 30 thousand hours.\nCompute the probability that a randomly selected component has a lifetime greater than 30 thousand hours.\nCompute the standard deviation of component lifetimes.\nSuppose a device contains 2 such components connected in series, so that the system functions only if both of the components are functioning. Suppose the component lifetimes are independent of each other. Compute the probability that the device has a lifetime greater than 30 thousand hours.\nLet \\(T\\) be the lifetime of the device. Compute \\(\\text{P}(T &gt; t)\\).\nIdentify the distribution of \\(T\\) by name, including the values of any relevant parameters.",
+    "crumbs": [
+      "Homework 5"
+    ]
+  },
+  {
+    "objectID": "hw-06.html",
+    "href": "hw-06.html",
+    "title": "Homework 6",
+    "section": "",
+    "text": "Problem 1\nFor many animal species, the lengths of particular bones follow a Normal distribution. For adult male humans, the length of the femur (thigh bone, the longest bone in humans) has an approximate Normal distribution with mean 48.2 cm and standard deviation of 4.5 cm.\nComplete each of the following parts by standardizing, drawing appropriate plots, and then providing an educated ballpark estimate based on the empirical rule. Then you can use software to get more precise values. But software should be your last step, not the first.",
+    "crumbs": [
+      "Homework 6"
+    ]
+  },
+  {
+    "objectID": "hw-06.html#problem-1",
+    "href": "hw-06.html#problem-1",
+    "title": "Homework 6",
+    "section": "",
+    "text": "What percent of adult male humans have a femur length above 50cm?\nWhat percent of adult male humans have a femur length between 40cm and 50cm?\nWhat is the 99th percentile of femur lengths for adult male humans?",
+    "crumbs": [
+      "Homework 6"
+    ]
+  },
+  {
+    "objectID": "hw-06.html#problem-2",
+    "href": "hw-06.html#problem-2",
+    "title": "Homework 6",
+    "section": "Problem 2",
+    "text": "Problem 2\nDaily high temperatures (degrees Fahrenheit) in San Luis Obispo in August follow (approximately) a Normal distribution with a mean of 76.9 degrees F. The temperature exceeds 100 degrees Fahrenheit on about 1.5% of August days.\n\nCompute the standard deviation.\nSuppose the mean increases by 2 degrees Fahrenheit. On what percentage of August days will the daily high temperature exceed 100 degrees Fahrenheit? (Assume the standard deviation does not change.)\nA mean of 78.9 is 1.02 times greater than a mean of 76.9. By what (multiplicative) factor has the percentage of 100-degree days increased? What do you notice?",
+    "crumbs": [
+      "Homework 6"
+    ]
+  },
+  {
+    "objectID": "hw-06.html#problem-3",
+    "href": "hw-06.html#problem-3",
+    "title": "Homework 6",
+    "section": "Problem 3",
+    "text": "Problem 3\nThe latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3). Each package contains a single unknown prize. Suppose we only buy 3 packages and we consider as our sample space outcome the results of just these 3 packages (prize in package 1, prize in package 2, prize in package 3). For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package. Let \\(X\\) be the number of distinct prizes obtained in these 3 packages. Let \\(Y\\) be the number of these 3 packages that contain prize 1. Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages; let \\(\\text{P}\\) denote the corresponding probability measure. There are 27 possible, equally likely outcomes\n\n\n\n\n\nbox1\nbox2\nbox3\nX\nY\n\n\n\n\n1\n1\n1\n\n\n\n\n2\n1\n1\n\n\n\n\n3\n1\n1\n\n\n\n\n1\n2\n1\n\n\n\n\n2\n2\n1\n\n\n\n\n3\n2\n1\n\n\n\n\n1\n3\n1\n\n\n\n\n2\n3\n1\n\n\n\n\n3\n3\n1\n\n\n\n\n1\n1\n2\n\n\n\n\n2\n1\n2\n\n\n\n\n3\n1\n2\n\n\n\n\n1\n2\n2\n\n\n\n\n2\n2\n2\n\n\n\n\n3\n2\n2\n\n\n\n\n1\n3\n2\n\n\n\n\n2\n3\n2\n\n\n\n\n3\n3\n2\n\n\n\n\n1\n1\n3\n\n\n\n\n2\n1\n3\n\n\n\n\n3\n1\n3\n\n\n\n\n1\n2\n3\n\n\n\n\n2\n2\n3\n\n\n\n\n3\n2\n3\n\n\n\n\n1\n3\n3\n\n\n\n\n2\n3\n3\n\n\n\n\n3\n3\n3\n\n\n\n\n\n\n\n\nEvaluate \\(X\\) and \\(Y\\) for each of the outcomes.\nConstruct a two-way table representing the joint distribution of \\(X\\) and \\(Y\\).\nSpecify the marginal distribution of \\(X\\) and compute \\(\\text{E}(X)\\).\nSpecify the marginal distribution of \\(Y\\) and compute \\(\\text{E}(Y)\\).\nCompute \\(\\text{Cov}(X, Y)\\)\nFind the conditional distribution of \\(Y\\) given \\(X=x\\) for each possible value of \\(x\\) of \\(X\\).\nCompute and interpret \\(\\text{E}(Y|X=x)\\) for each possible value of \\(x\\) of \\(X\\).\nFind the conditional distribution of \\(X\\) given \\(Y=y\\) for each possible value of \\(y\\) of \\(Y\\).\nCompute and interpret \\(\\text{E}(X|Y=y)\\) for each possible value of \\(y\\) of \\(Y\\).\nAre \\(X\\) and \\(Y\\) independent? Explain; support your answer with appropriate numbers.",
+    "crumbs": [
+      "Homework 6"
+    ]
+  },
+  {
+    "objectID": "hw-06.html#problem-4",
+    "href": "hw-06.html#problem-4",
+    "title": "Homework 6",
+    "section": "Problem 4",
+    "text": "Problem 4\nXavier and Yolanda are playing roulette. They both place bets on red on the same 3 spins of the roulette wheel before Xavier has to leave. (Remember, the probability that any bet on red on a single spin wins is 18/38.) After Xavier leaves, Yolanda places bets on red on 2 more spins of the wheel. Let \\(X\\) be the number of bets that Xavier wins (out of 3) and let \\(Y\\) be the number that Yolanda wins (out of 5).\n\nIdentify by name the marginal distribution of \\(X\\). Be sure to specify the values of any relevant parameters. Compute \\(\\text{E}(X)\\).\nIdentify by name the marginal distribution of \\(Y\\). Be sure to specify the values of any relevant parameters. Compute \\(\\text{E}(Y)\\).\nThe joint distribution of \\(X\\) and \\(Y\\) is represented in the table below. Explain why \\(p_{X, Y}(1, 4) = 0\\) and \\(p_{X, Y}(2, 1) = 0\\).\nCompute \\(p_{X, Y}(2, 3)\\). (Yes, the table tells you it’s 0.1766, but you have to show how this number can be computed based on the assumptions of the problem.)\nCompute \\(\\text{Cov}(X, Y)\\).\nAre \\(X\\) and \\(Y\\) independent? Explain; support your answer with appropriate numbers.\n\n\n\n\n\\(x\\), \\(y\\)\n0\n1\n2\n3\n4\n5\n\n\n\n\n0\n0.0404\n0.0727\n0.0327\n0\n0\n0\n\n\n1\n0\n0.1090\n0.1963\n0.0883\n0\n0\n\n\n2\n0\n0\n0.0981\n0.1766\n0.0795\n0\n\n\n3\n0\n0\n0\n0.0294\n0.0530\n0.0238",
+    "crumbs": [
+      "Homework 6"
+    ]
+  },
+  {
     "objectID": "hw-01-sol.html",
     "href": "hw-01-sol.html",
     "title": "Homework 1 Solutions",
@@ -757,6 +857,66 @@
     "text": "Thanks to Allan Rossman for this example.↩︎",
     "crumbs": [
       "Homework 1 Solutions"
+    ]
+  },
+  {
+    "objectID": "hw-02-sol.html",
+    "href": "hw-02-sol.html",
+    "title": "Homework 2 Solutions",
+    "section": "",
+    "text": "Problem 1\nIn the solutions some of the parts have the wrong numbers, but all solutions should be there.\nA standard deck of playing cards has 52 cards, 13 cards (2 through 10, jack, king, queen, ace) in each of 4 suits (hearts, diamonds, clubs, spades). Shuffle a deck and deals cards one at a time without replacement.",
+    "crumbs": [
+      "Homework 2 Solutions"
+    ]
+  },
+  {
+    "objectID": "hw-02-sol.html#problem-1",
+    "href": "hw-02-sol.html#problem-1",
+    "title": "Homework 2 Solutions",
+    "section": "",
+    "text": "What is the probability that the first card dealt is a heart?\nWhat is the probability that the second card dealt is a heart? Just make a guess now before proceeding, but you’ll revisit this a few parts down.\nWhat is the probability that the second card dealt is a heart if the first card dealt is a heart?\nWhat is the probability that the second card dealt is a heart if the first card dealt is not a heart?\nRevisit part 2. What is the probability that the second card dealt is a heart? Hint: your answer should be a single number, but show all your work.\nFind the probability that the first two cards dealt are hearts.\nFind the probability that the first two cards dealt are hearts and the third card dealt is a diamond.\n\n\nSolution\n\nIf the cards are well shuffled, then any of the cards in the deck is equally likely to be the first card dealt. There are 13 hearts out of 52 cards in the deck, so the probability that the first card is a heart is 13/52 = 1/4 = 0.25.\nIt’s still 13/52. If the cards are well shuffled, then any of the cards in the deck is equally likely to be the second card in the deck. There are 13 hearts out of 52 cards in the deck, so the probability that the second card is a heart is 13/52 = 1/4 = 0.25. See the following parts for more discussion.\nIf the first card dealt is a heart, there are 51 cards left in the deck, 12 of which are hearts (and all the remaining cards in the deck are equally likely to be the next one drawn). So the conditional probability that the second card is a heart given that the first card is a heart is 12/51 = 0.2353.\nIf the first card dealt is not a heart, there are 51 cards left in the deck, 13 of which are hearts (and all the remaining cards in the deck are equally likely to be the next one drawn). So the conditional probability that the second card is a heart given that the first card is NOT a heart is 13/51 = 0.2549.\nThe probability that the second card is a heart is 13/52 = 0.25. Don’t let the fact that it is “second” fool you; if you do not know what the first card is, then you have no information that would revise your probability of what happens on the second card. If you do not know what the first card is, you need to consider both cases: either the first card is a heart or it’s not. Use the law of total probability: \\[\\begin{align*}\n\\text{P}(H_2) & = \\text{P}(H_2|H_1)\\text{P}(H_1) + \\text{P}(H_2|H_1^c)\\text{P}(H_1^c) \\\\\n& =(12/51)(13/52) + (13/51)(39/52) = 13/52 = 0.25\n\\end{align*}\\] Imagine 2652 repetitions (\\(52\\times51\\), a convenient choice given these fractions) of drawing two cards, summarized in a two-way table.\n\n\n\n\n\nFirst is H\nFirst is NOT H\nTotal\n\n\n\n\nSecond is H\n156\n507\n663\n\n\nSecond is NOT H\n507\n1482\n1989\n\n\nTotal\n663\n1989\n2652\n\n\n\n\nUse the multiplication rule: the probability the both cards are hearts is the product of the probability that the first card is a heart and the conditional probability that the second card is a heart given that the first card is a heart, (13/52)(12/51) = 0.0588. If we imagine 2652 repetitions, then we would expect the first card to be a heart in 663=2652(13/52) repetitions, and among these 663 repetitions we would expect the second card to be a heart in 156=663(12/51) repetitions, so the proportion of repetitions in which both cards are hearts is 156/2652 = 0.0588.\nThe third card adds a third “stage” but the multiplication rule extends naturally. The probability the first two cards dealt are hearts and the third card dealt is a diamond is (13/52)(12/51)(13/50)= 0.0153, the product of:\n\n13/52, the probability that the first card is a heart,\n12/51, the conditional probability that the second card is a heart given that the first card is a heart, and\n13/50, the conditional probability that the third card is a diamond given that the first two cards are hearts. (If the first two cards are hearts, then there are 50 cards remaining in the deck, of which 13 are diamonds.)",
+    "crumbs": [
+      "Homework 2 Solutions"
+    ]
+  },
+  {
+    "objectID": "hw-02-sol.html#problem-2",
+    "href": "hw-02-sol.html#problem-2",
+    "title": "Homework 2 Solutions",
+    "section": "Problem 2",
+    "text": "Problem 2\nThe ELISA test for HIV was widely used in the mid-1990s for screening blood donations. As with most medical diagnostic tests, the ELISA test is not perfect. If a person actually carries the HIV virus, experts estimate that this test gives a positive result 97.7% of the time. (This number is called the sensitivity of the test.) If a person does not carry the HIV virus, ELISA gives a negative (correct) result 92.6% of the time (the specificity of the test). Estimates at the time were that 0.5% of the American public carried the HIV virus.\nSuppose that a randomly selected American tests positive; we are interested in the conditional probability that the person actually carries the virus.\n\nBefore proceeding, make a guess for the probability in question. Which range do you think it’s in: 0-20%, 20-40%, 40-60%, 60-80%, or 80-100%?\nDenote the probabilities provided in the setup using proper notation\nConstruct an appropriate two-way table and use it to compute the probability of interest.\nConstruct a Bayes table and use it to compute the probability of interest.\nExplain why this probability is small, compared to the sensitivity and specificity.\nBy what factor has the probability of carrying HIV increased, given a positive test result, as compared to before the test?\nNow suppose that 5% of individuals in a high-risk group carry the HIV virus. Consider a randomly selectd person from this group who takes the test. Given that the test is positive, how many times more likely is it for the person not to have HIV than to have it? Answer without first computing a two-way or Bayes table.\nUsing the result from the previous part, compute the conditional probability that a person in this risk group who tests positive has HIV.\nIs the posterior probability influenced by the prior probability? Discuss.\n\n\nSolution\n\nWe don’t know what you guessed, but from experience many people guess 80-100%. Afterall, the test is correct for most of people who carry HIV, and also correct for most people who don’t carry HIV, so it seems like the test is correct most of the time. But this argument ignores one important piece of information that has a huge impact on the results: most people do not carry HIV.\nLet \\(H\\) denote the event that the person carries HIV (hypothesis), and let \\(E\\) denote the event that the test is positive (evidence). Therefore, \\(H^c\\) is the event that the person does not carry HIV, another hypothesis. We are given\n\n\nprior probability: \\(P(H) = 0.005\\)\nlikelihood of testing positive, if the person carries HIV: \\(P(E|H) = 0.977\\)\n\\(P(E^c|H^c) = 0.926\\)\nlikelihood of testing positive, if the person does not carry HIV: \\(P(E|H^c) = 1-P(E^c|H^c) = 1-0.926 = 0.074\\)\nWe want to find the posterior probability \\(P(H|E)\\).\n\n\nAssuming 1000000 Americans\n\n\n\n\n\n\n\n\n\n\nTests positive\nDoes not test positive\nTotal\n\n\n\n\nCarries HIV\n4885\n115\n5000\n\n\nDoes not carry HIV\n73630\n921370\n995000\n\n\nTotal\n78515\n921485\n1000000\n\n\n\nAmong the 78515 who test positive, 4885 carry HIV, so the probability that an American who tests positive actually carries HIV is 4885/78515 = 0.062.\nSee Table 1.\nThe result says that only 6.2% of Americans who test positive actually carry HIV. It is true that the test is correct for most Americans with HIV (4885 out of 5000) and incorrect only for a small proportion of Americans who do not carry HIV (73630 out of 995000). But since so few Americans carry HIV, the sheer number of false positives (73630) swamps the number of true positives (4885).\nPrior to observing the test result, the prior probability that an American carries HIV is \\(P(H) = 0.005\\). The posterior probability that an American carries HIV given a positive test result is \\(P(H|E)=0.062\\). \\[\n  \\frac{P(H|E)}{P(H)} = \\frac{0.062}{0.005} =  12.44\n\\] An American who tests positive is about 12.4 times more likely to carry HIV than an American whom the test result is not known.\nSo while 0.067 is still small in absolute terms, the posterior probability is much larger relative to the prior probability.\nIn this risk group\n\n\na person is 19 times more likely to not have HIV than to have it (\\(0.95/0.05 = 19\\)).\nA positive test is 13.2 times less likely when the person does not have HIV than when they have it (\\(0.074/0.977 = 1/13.2\\)).\nThe product of these ratios is \\(19(1/13.2) = 1.44\\).\n\nSince posterior is proportional to the product of prior and likelihood, a person in this risk group who tests positive is 1.44 times more likely to not have HIV than to have HIV.\n\nThe posterior probabilities of not having HIV and having HIV are in a 1.44 to 1 ratio, the so the posterior probability of not having HIV is \\(1.44/(1+1.44) = 0.59\\) and the posterior probability of having HIV is 0.41.\nYes, the posterior probability is influenced by the prior probability. Even though the prior probability of 5% is still relatively small in absolute terms, the posterior probability given a positive test is not close to 50/50.\n\n\n\n\n\nTable 1: Bayes table for ELISA problem\n\n\n\n\n\n\nhypothesis\nprior\nlikelihood\nproduct\nposterior\n\n\n\n\nCarries HIV\n0.005\n0.977\n0.0049\n0.0622\n\n\nDoes not carry HIV\n0.995\n0.074\n0.0736\n0.9378\n\n\nsum\n1.000\nNA\n0.0785\n1.0000",
+    "crumbs": [
+      "Homework 2 Solutions"
+    ]
+  },
+  {
+    "objectID": "hw-02-sol.html#problem-3",
+    "href": "hw-02-sol.html#problem-3",
+    "title": "Homework 2 Solutions",
+    "section": "Problem 3",
+    "text": "Problem 3\nConsider three tennis players Arya (“A”), Brienne (“B”), and Cersei (“C”). One of these players is better than the other two, who are equally good/bad. When the best player plays either of the others, she has a 2/3 probability of winning the match. When the other two players play each other, each has a 1/2 probability of winning the match. But you do not know which player is the best. Based on watching the players warm up, you start with subjective probabilities of 0.5 that A is the best, 0.35 that B is the best, and 0.15 that C is the best. A and B will play the first match.\n\nSuppose that A beats B in the first match. Compute your posterior probability that each of A, B, C is best given that A beats B in the first match.\nCompare the posterior probabilities from the previous part to the prior probabilities. Explain how your probabilities changed, and why that makes sense.\nCoding required. Code and run a simulation to simulate (1) who is the best player according to your prior distribution, (2) who wins the first match given who is the best player; then use the results to approximate the probabilities from the first part.\nSuppose instead that B beats A in the first match. Compute your posterior probability that each of A, B, C is best given that B beats A in the first match.\nCompare the posterior probabilities from the previous part to the prior probabilities. Explain how your probabilities changed, and why that makes sense.\nNow suppose again that A beats B in the first match, and also that A beats C in the second match. Compute your posterior probability that each of A, B, C is best given the results of the first two matches. (Hint: use as the prior your posterior probabilities from the previous part.) Explain how your probabilities changed, and why that makes sense.\n\n\nSolution\n\nHypotheses are which player is best (A, B, C). Evidence is that A beats B. The likelihood is the probability that A beats B given each of the best players.\n\n\nIf A is best, probability A beats B is 2/3.\nIf B is best, probability A beats B is 1/3.\nIf C is best, probability A beats B is 1/2.\n\n\n\n\n\n\nbest_player\nprior\nlikelihood_A_beats_B\nproduct\nposterior\n\n\n\n\nA\n0.50\n0.6667\n0.3333\n0.6349\n\n\nB\n0.35\n0.3333\n0.1167\n0.2222\n\n\nC\n0.15\n0.5000\n0.0750\n0.1429\n\n\nTotal\n1.00\n1.5000\n0.5250\n1.0000\n\n\n\n\n\n\nA’s probability of being the best increased, which makes sense because A won the match. B’s probability of being the best decreased considerably, which makes sense because B lost the match. C’s probability of being the best decreased slightly, despite C not being involved in the match.\nDescription of simulation\n\nSpinner that returns “A is best”, “B is best”, “C is best” with probability 0.5, 0.35, 0.15.\nThree additional spinners:\n\n“Given A is best”: returns “A beats B” with probability 2/3 and “B beats A” with probability 1/3\n“Given B is best”: returns “A beats B” with probability 1/3 and “B beats A” with probability 2/3\n“Given C is best”: returns “A beats B” with probability 1/2 and “B beats A” with probability 1/2\n\nSpin the first spinner once to determine who is best. Given the result of the first spin, spin the appropriate spinner to determine whether or not A beats B. The pair of spins is one repetition.\nRepeat many times to simulate many pairs.\nTo find the conditional probabilities for which player is best given A beats B, only consider the repetitions in which A beats B, and among those repetitions find the proportion of repetitions where A is best, etc.\n\nHypotheses are which player is best (A, B, C). Evidence is that B beats A. The likelihood is the probability that B beats A given each of the best players.\n\nIf A is best, probability B beats A is 1/3.\nIf B is best, probability B beats A is 2/3.\nIf C is best, probability B beats A is 1/2.\n\n\n\n\n\n\n\nbest_player\nprior\nlikelihood_B_beats_A\nproduct\nposterior\n\n\n\n\nA\n0.50\n0.3333\n0.1667\n0.3509\n\n\nB\n0.35\n0.6667\n0.2333\n0.4912\n\n\nC\n0.15\n0.5000\n0.0750\n0.1579\n\n\nTotal\n1.00\n1.5000\n0.4750\n1.0000\n\n\n\n\n\n\nA’s probability of being the best decreased, which makes sense because A lost the match. B’s probability of being the best increased, which makes sense because B won the match. C’s probability of being the best changed slightly, despite C not being involved in the match.\nThe prior is the posterior from the first part. Evidence is that A beats C. The likelihood is the probability that A beats C given each of the best players.\n\n\nIf A is best, probability A beats C is 2/3.\nIf B is best, probability A beats C is 1/2.\nIf C is best, probability A beats C is 1/3.\n\n\n\n\n\n\nbest_player\nprior\nlikelihood_A_beats_C\nproduct\nposterior\n\n\n\n\nA\n0.6349\n0.6667\n0.4233\n0.7273\n\n\nB\n0.2222\n0.5000\n0.1111\n0.1909\n\n\nC\n0.1429\n0.3333\n0.0476\n0.0818\n\n\nTotal\n1.0000\n1.5000\n0.5820\n1.0000\n\n\n\n\n\nBy winning both matches, A’s probability of being the best has increased considerably. By losing their only matches, B’s and C’s probabilities of being the best have decreased considerably.",
+    "crumbs": [
+      "Homework 2 Solutions"
+    ]
+  },
+  {
+    "objectID": "hw-02-sol.html#problem-4",
+    "href": "hw-02-sol.html#problem-4",
+    "title": "Homework 2 Solutions",
+    "section": "Problem 4",
+    "text": "Problem 4\nIn the Powerball lottery, a player picks five different whole numbers between 1 and 69, and another whole number between 1 and 26 that is called the Powerball. In the drawing, the 5 numbers are drawn without replacement from a “hopper” with balls labeled 1 through 69, but the Powerball is drawn from a separate hopper with balls labeled 1 through 26. The player wins the jackpot if both the first 5 numbers match those drawn, in any order, and the Powerball is a match. Under this set up, there are 292,201,338 possible winning numbers.\n\nWhat is the probability the next winning number is 6-7-16-23-26, plus the Powerball number, 4.\nWhat is the probability the next winning number is 1-2-3-4-5, plus the Powerball number, 6.\nThe Powerball drawing happens twice a week. Suppose you play the same Powerball number, twice a week, every week for over 50 years. Let’s say you purchase a ticket for 6000 drawings in total. What is the probability that you win at least once?\nInstead of playing for 50 years, you decide only to play one lottery, but you buy 6000 tickets, each with a different Powerball number. What is the probability that at least one of your tickets wins? How does this compare to the previous part? Why?\nEach ticket costs 2 dollars, but the jackpot changes from drawing to drawing. Suppose you buy 6000 tickets for a single drawing. How large does the jackpot need to be for your “expected” profit to be positive? To be $100,000? (We’re ignoring inflation, taxes, transaction costs, and any changes in the rules.)\n\n\nSolution\n\nEach of the possible winning numbers is equally likely, so the probability is \\(1/292,201,338\\approx 3\\times 10^{-9}\\).\nEach of the possible winning numbers is equally likely. Remember, don’t confuse a general event with a specific outcome.\nThe probability that you lose in any single drawing is \\((1-1/292201338)\\). The drawings are independent so the probability that you lose all 6000 is \\((1-1/292201338)^{6000}\\). The probability that you win at least once is \\(1 - (1-1/292201338)^{6000}\\approx 0.00002\\). If many people each play 6000 drawings, about 2 in every 100,000 people win will at least once.\nIf you play 6000 different numbers, the events that each different number wins are disjoint. So the probability you win at least once is \\(6000/292201338\\approx 0.00002\\). This is about the same as the probability in the previous part. When you play 6000 different independent drawings, there is a possibility that you win multiple times, so the events of winning in each different drawing are not disjoint. But the probability of winning multiple lotteries is so small that it’s negligible. The probability of winning any single drawing is about 1 in 300 million. The probability of winning twice in any two drawings is about 1 in 85 quadrillion.\nYou pay $12,000 in total. Let \\(w\\) be the value of the jackpot. You win either 0 or \\(w\\) so your “expected” profit is \\(w(6000/292201338)-12000\\). But this not what you expect in a single repetition. Rather, it is the profit you would expect to see on average in the long run. You probably won’t be buying 6000 tickets for a large number of drawings, so your long run average isn’t really relevant. In any case, we must have \\(w&gt;584,402,676\\) for the expected profit to be positive. Sometimes, but not often, the jackpot does get this high; even so, this just guarantees that your expected profit is positive. In order for your expected long run average profit to be greater than just $100,000, the jackpot must be over 5 billion dollars, and the largest jackpot ever was 1.6 billion. The moral: there are better things to do with $12,000 dollars.",
+    "crumbs": [
+      "Homework 2 Solutions"
+    ]
+  },
+  {
+    "objectID": "hw-02-sol.html#problem-5",
+    "href": "hw-02-sol.html#problem-5",
+    "title": "Homework 2 Solutions",
+    "section": "Problem 5",
+    "text": "Problem 5\nConsider a “best-of-5” series of games between two teams: games are played until one of the teams has won 3 games (requiring at most 5 games total). Suppose one team, team A, is better than the other, having a 0.55 probability of winning any particular game. Assume the results of the games are independent (and ignore advantage, etc). Let \\(X\\) represent the number of games played in the series. (Hint: It’s helpful to first construct a two-way table of probabilities with the number of games played and which team wins, and then use it to answer the following questions. It will also help to list some outcomes, like AABA (team A wins game 1, 2, and 4, and B wins game 3).)\n\nCompute the probability that team A wins the series in 3 games.\nCompute the probability that the series ends in 3 games.\nCompute the probability that team A wins the series.\nAre the events “team A wins the series” and “the series ends in 3 games” independent? Explain by comparing relevant probabilities.\nLet \\(X\\) represent the number of games played in the series. Find the distribution of \\(X\\).\n\n\nSolution\n\nIt is helpful to construct a two-way table to answer the following questions.\n\n\n\n\n\n\n\n\n\n\n\nx\n\n\n\n\n\n\n3\n4\n5\nTotal\n\n\nA wins\n0.553 = 0.166\n3(0.553)(0.45) = 0.225\n6(0.553)(0.45)2 = 0.202\n0.593\n\n\nA does not win\n0.453 = 0.091\n3(0.453)(0.55) = 0.150\n6(0.453)(0.55)2 = 0.165\n0.407\n\n\nTotal\n0.258\n0.375\n0.368\n1\n\n\n\nThere is only one outcome for which A wins in 3 games: AAA. There are three outcomes in which A wins in 4 games: AABA, ABAA, BAAA. (Not AAAB because then the series would be over in 3 games.) Since the games are independent, an outcome like AABA has probability \\((0.55^3)(0.45)\\), so the probability that A wins in 4 games is \\(3(0.55^3)(0.45)\\). There are six outcomes in which A wins in 5 games: AABBA, ABABA, BAABA, ABBAA, BABAA, BBAAA. (Not outcomes like AAABB or AABAB because then the series would be over in 3 or 4 games.) Since the games are independent, an outcome like AABBA has probability \\((0.55^3)(0.45)^2\\), so the probability that A wins in 5 games is \\(6(0.55^3)(0.45)\\). You can fill in the rest of the table similarly.\nThe probability that team A wins the series in 3 games is \\(\\text{P}(X=3, A) = 0.55^3=0.166\\).\nEither the stronger team wins 3 in a row or loses 3 in a row. The probability is \\(0.55^3+(1-0.55)^3=0.2575\\).\nThe probability that team A wins the series is the sum of first row: \\(\\text{P}(A) = 0.593\\).\nNo. \\(\\text{P}(X=3, A) = 0.55^3=0.166 \\neq 0.152 = (0.2575)(0.593) = \\text{P}(X=3)\\text{P}(A)\\). Alternatively, \\(\\text{P}(X = 3 | A) = 0.166/0.593 = 0.2799 \\neq 0.2575 = \\text{P}(X = 3)\\). Given that \\(A\\) wins the series the series it more likely to end in 3 games than when B wins the series.\nTotal row above. \\(X\\) can take values 3, 4, or 5. Consider first the ways in which the stronger team wins in 4 games: AABA, ABAA, BAAA. (For example AABA, means the stronger team wins game 1, 2, and 4, and the weaker team wins game 3). Each of these outcomes has probability \\(0.55^3(0.45)\\) so the probability that team A wins in 4 games in \\(3(0.55)^3(0.45)\\). Similarly, the probability that team B wins in 4 games is \\(3(0.45)^3(0.55)\\). So \\[\n\\text{P}(X = 4) = 3(0.55)^3(0.45) + 3(0.45)^3(0.55) = 0.3750\n\\] You could find \\(\\text{P}(X=5)\\) in a similar way, or just use the fact that the probabilities have to add up to 1. The distribution of \\(X\\) is given by the following table. \\[\\begin{align*}\nx & \\qquad & & \\qquad \\text{P}(X = x)\\\\\n3 & \\qquad & & \\qquad 0.2575\\\\\n4 & \\qquad & & \\qquad 0.3750\\\\\n5 & \\qquad & & \\qquad 0.3675\\\\\n\\end{align*}\\]",
+    "crumbs": [
+      "Homework 2 Solutions"
     ]
   },
   {

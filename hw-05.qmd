@@ -3,120 +3,15 @@
 {{< include _r_setup.qmd >}}
 
 
-
-## Problem 1
-
-(Continuing from a previous HW) The latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3).
-Each package contains a single unknown prize.
-Suppose we only buy 3 packages and we consider as our sample space outcome the results of just these 3 packages (prize in package 1, prize in package 2, prize in package 3).
-For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package.
-Let $X$ be the number of distinct prizes obtained in these 3 packages.
-Let $Y$ be the number of these 3 packages that contain prize 1.
-Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages; let $\text{P}$ denote the corresponding probability measure.
-
-a.  Find the conditional distribution of $Y$ given $X=x$ for each possible value of $x$ of $X$.
-b.  Compute and interpret $\text{E}(Y|X=x)$ for each possible value of $x$ of $X$.
-c.  Find the conditional distribution of $X$ given $Y=y$ for each possible value of $y$ of $Y$.
-d.  Compute and interpret $\text{E}(X|Y=y)$ for each possible value of $y$ of $Y$.
-e.  Explain how you could use spinners to implement the "marginal then conditional" method to simulate an $(X, Y)$ pair.
-f.  Suppose you have simulated many $(X, Y)$ pairs. Explain how you could use the simulation results to approximate:
-    i.  $\text{P}(X = 1 | Y = 0)$
-    ii. the conditional distribution of $X$ given $Y=0$
-    iii. $\text{E}(X| Y = 0)$
-
-## Problem 2
-
-Xavier and Yolanda are playing roulette.
-They both place bets on red on the same 3 spins of the roulette wheel before Xavier has to leave.
-(Remember, the probability that any bet on red on a single spin wins is 18/38.) After Xavier leaves, Yolanda places bets on red on 2 more spins of the wheel.
-Let $X$ be the number of bets that Xavier wins and let $Y$ be the number that Yolanda wins.
-
-a.  Identify by name the marginal distribution of $X$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(X)$.
-b.  Identify by name the marginal distribution of $Y$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(Y)$.
-c.  The joint distribution of $X$ and $Y$ is represented in the table below. Explain why $p_{X, Y}(1, 4) = 0$ and $p_{X, Y}(2, 1) = 0$.
-d.  Compute $p_{X, Y}(2, 3)$. (Yes, the table tells you it's 0.1766, but you have to show how this number can be computed based on the assumptions of the problem.)
-e.  Are $X$ and $Y$ independent? Justify your answer with an appropriate calculation.
-f.  Compute and interpret $\text{P}(X + Y) = 4$.
-g.  Make a table representing the marginal distribution of $X+Y$.
-h.  Use the table from the previous part to compute $\text{E}(X+Y)$, and verify that it is equal to $\text{E}(X)+\text{E}(Y)$.
-i.  Without doing any computation, determine if $\text{Var}(X+Y)$ will be greater than, less than, or equal to $\text{Var}(X) + \text{Var}(Y)$. Explain your reasoning.
-
-| $x$, $y$ |      0 |      1 |      2 |      3 |      4 |      5 |
-|----------|-------:|-------:|-------:|-------:|-------:|-------:|
-| 0        | 0.0404 | 0.0727 | 0.0327 |      0 |      0 |      0 |
-| 1        |      0 | 0.1090 | 0.1963 | 0.0883 |      0 |      0 |
-| 2        |      0 |      0 | 0.0981 | 0.1766 | 0.0795 |      0 |
-| 3        |      0 |      0 |      0 | 0.0294 | 0.0530 | 0.0238 |
-
-## Problem 3
-
-Percent returns for assets $X$, $Y$, and $Z$ follow a joint distribution with
-
--   Mean 10 and standard deviation 15 for asset X,
--   Mean 5 and standard deviation 3 for asset Y,
--   Correlation of −0.6 between asset X and asset Y
--   Asset Z yields a constant return of 1 percent.
-
-An investment portfolio has 60% of its funds in asset X, 30% in asset Y, and 10% in asset Z.
-
-a.  Let $R$ be the portfolio return. Express $R$ in terms of $X, Y, Z$.
-b.  Compute $\text{E}(R)$.
-c.  Compute $\text{Cov}(X, Y)$.
-d.  Compute $\text{Cov}(X, Z)$.
-e.  Compute $\text{SD}(R)$.
-
-## Problem 4
-
-Devi and Paxton are meeting.
-Arrival times are measured in minutes after noon, with negative times representing arrivals before noon.
-Devi's arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton's arrival time follows a Normal distribution with mean 25 and SD 10 minutes, independently of each other.
-
-For each of the following, find the appropriate standardized value and make a ballpark estimate of the probability.
-Then use software to compute the probability.
-
-a.  Compute the probability that Devi arrives before noon.
-b.  Compute the probability that Devi arrives first.
-c.  Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
-d.  **Coding required.** Code and run a simulation and use the results to approximate the probability from the previous part (just part c). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
-
-## Problem 5
-
-(Continued.) Devi and Paxton are meeting.
-Arrival times are measured in minutes after noon, with negative times representing arrivals before noon.
-Devi's arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton's arrival time follows a Normal distribution with mean 25 and SD 10 minutes.
-
-For each of the following, find the appropriate standardized value and make a ballpark estimate of the probability.
-Then use software to compute the probability.
-
-1.  Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation 0.8
-    a.  Compute the probability that Devi arrives first given that Paxton arrives at 12:10.
-    b.  Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
-    c.  **This part is optional.** Code and run a simulation and use the results to approximate the probability from the previous part (just part b). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
-2.  Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation -0.7
-    a.  Compute the probability that Devi arrives first given that Paxton arrives at 12:10.
-    b.  Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
-    c.  **This part is optional.** Code and run a simulation and use the results to approximate the probability from the previous part (just part b). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
-
-
-
-## Problem 5
-
-Katniss throws a dart at a circular dartboard with radius 1 foot.
-Suppose that Katniss's dart lands at a uniformly random location on the dartboard (and she never misses the dartboard).
-
-a.  Compute the probability that Katniss's dart lands within 1 inch of the center of the dartboard.
-b.  Compute the probability that Katniss's dart lands more than 1 inch but less than 2 inches away from the center of the dartboard.
-
-
 ## Problem 1
 
 In a certain region, times (minutes) between occurrences of earthquakes (of any magnitude) have a distribution with percentiles displayed in the table below.
 
-a.  Construct a spinner corresponding to this distribution.
-b.  What percent of times are between 26.8 and 110.0 minutes?
-c.  Let $F$ be the cdf. Evaluate and interpret $F(42.8)$.
-d.  Let $Q$ be the quantile function. Evaluate and interpret $Q(0.9)$.
-e.  Sketch (by hand) a histogram of this distribution.
+1.  Construct a spinner corresponding to this distribution.
+1.  What percent of times are between 26.8 and 110.0 minutes?
+1.  Let $F$ be the cdf. Evaluate and interpret $F(42.8)$.
+1.  Let $Q$ be the quantile function. Evaluate and interpret $Q(0.9)$.
+1.  Sketch (by hand) a histogram of this distribution.
 
 ```{r}
 #| echo: false
@@ -132,41 +27,58 @@ exponential_spinner %>%
 
 
 
+
+## Problem 2
+
+Recall @exm-meeting-event. 
+Regina and Cady are meeting for lunch. 
+Suppose they each arrive uniformly at random at a time between noon and 1:00, independently of each other. 
+Record their arrival times as minutes after noon, so noon corresponds to 0 and 1:00 to 60.
+Recall the sample space from @exm-meeting-outcome and assume a uniform probability measure $\text{P}$.
+
+Let $R$ be Regina's arrival time and $Y$ Cady's. 
+Then $W = |R - Y|$ is the amount of time (minutes) the first person to arrive waits for the second person to arrive.
+It can be shown that $W$ has pdf
+$$
+f_W(w) = (2/3600)(1-w), \qquad 0<w<60.
+$$
+
+
+1.  Let $F$ be the cdf.
+Evaluate and interpret $F(15)$.
+1.  Find an expression for the cdf of $W$.
+Set up an integral, but sketch a picture and use geometry to compute.
+1.  Find and interpret the 25th percentile of $W$.
+(You can do the next part first if you want, but it might help to start with a specific number like in this part.)
+1.  Find the quantile function of $W$.
+1.  Sketch a spinner corresponding to the distribution of $W$.
+Label the 25th, 50th, and 75th percentiles.
+
+
 ## Problem 3
 
-In the Regina/Cady problem, let $W=|R-Y|$ be the amount of time the first person to arrive has to wait for the second person.
-Recall that $W$ is a continuous random variable with pdf $$
-f_W(w) = 2(1-w), \quad 0 < w < 1.
-$$ a.
-Let $F$ be the cdf.
-Evaluate and interpret $F(0.25)$.
-a.
-Find an expression for the cdf of $W$.
-Set up an integral, but sketch a picture and use geometry to compute.
-b.
-Find and interpret the 25th percentile of $W$.
-(You can do the next part first if you want, but it might help to start with a specific number like in this part.) c.
-Find the quantile function of $W$.
-d.
-Sketch a spinner corresponding to the distribution of $W$.
-Label the 25th, 50th, and 75th percentiles.
-e.
-**Coding required.** Use your simulation results from before to approximate the 25th, 50th, and 75th percentiles.
+Continuing Problem 2. For this problem you should set up integrals when appropriate but you can use software to compute them.
+
+1.  Explain in full detail how you could use simulation to approximate
+    a.  $\text{E}(W)$
+    a.  $\text{E}(W^2)$
+    a.  $\text{Var}(W)$ (explain how you can do it directly without using the previous part.)
+1.  Compute and interpret $\text{E}(W)$.
+1.  Compute $\text{E}(W^2)$.
+1.  Compute $\text{Var}(W)$
+1.  Compute and interpret $\text{SD}(W)$.
+1.  Compute the probability that $W$ is more than 1 SD away from its mean.
 
 
 ## Problem 4
 
-(Continued.) In the Regina/Cady problem, let $W=|R-Y|$ be the amount of time the first person to arrive has to wait for the second person.
-Recall that $W$ is a continuous random variable with pdf
-$$
-f_W(w) = 2(1-w), \quad 0 < w < 1.
-$$
+Lifetimes of a certain type of component are Exponentially distributed with mean 20 thousand hours.
 
-a.  **Coding required.** Use your simulation results from before to approximate $\text{E}(W)$, $\text{E}(W^2)$, $\text{Var}(W)$, and $\text{SD}(W)$.
-b.  Compute and interpret $\text{E}(W)$.
-c.  Compute $\text{E}(W^2)$.
-d.  Compute $\text{Var}(W)$
-e.  Compute $\text{SD}(W)$.
-f.  Explain in words in detail how you could use the Uniform(0, 1) spinner and simulation to approximate $\text{Var}(W)$.
-g.  Compute the probability that $W$ is more than 1 SD away from its mean.
-
+1.  Approximate the probability that the lifetime, rounded to the nearest thousand hours,  of a randomly selected component is 30 thousand hours.
+1.  Compute the probability that a randomly selected component has a lifetime greater than 30 thousand hours.
+1.  Compute the standard deviation of component lifetimes.
+1.  Suppose a device contains 2 such components connected in series, so that the system functions only if both of the components are functioning. 
+Suppose the component lifetimes are independent of each other.
+Compute the probability that the *device* has a lifetime greater than 30 thousand hours.
+1.  Let $T$ be the lifetime of the *device*. Compute $\text{P}(T > t)$.
+1.  Identify the distribution of $T$ by name, including the values of any relevant parameters.

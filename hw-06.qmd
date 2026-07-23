@@ -1,16 +1,33 @@
 # Homework 6 {.unnumbered}
 
+{{< include _r_setup.qmd >}}
+
+## Problem 1
+
+For many animal species, the lengths of particular bones follow a Normal distribution.
+For adult male humans, the length of the femur (thigh bone, the longest bone in humans) has an approximate Normal distribution with mean 48.2 cm and standard deviation of 4.5 cm.  
+Complete each of the following parts by standardizing, drawing appropriate plots, and then providing an educated ballpark estimate based on the empirical rule. 
+Then you can use software to get more precise values. 
+But software should be your last step, not the first.
+
+1.  What percent of adult male humans have a femur length above 50cm?
+1.  What percent of adult male humans have a femur length between 40cm and 50cm?
+1.  What is the 99th percentile of femur lengths for adult male humans?
+
+
+## Problem 2
+
+Daily high temperatures (degrees Fahrenheit) in San Luis Obispo in August follow (approximately) a Normal distribution with a mean of 76.9 degrees F.
+The temperature exceeds 100 degrees Fahrenheit on about 1.5% of August days.
+
+1.  Compute the standard deviation.
+1.  Suppose the mean increases by 2 degrees Fahrenheit. 
+On what percentage of August days will the daily high temperature exceed 100 degrees Fahrenheit? (Assume the standard deviation does not change.)
+1.  A mean of 78.9 is 1.02 times greater than a mean of 76.9. 
+By what (multiplicative) factor has the percentage of 100-degree days increased? What do you notice?
 
 
 ## Problem 3
-
-Solve Example 11.3 from the Normal distribution handout (the problem on daily high temperatures in SLO.)
-
-## Problem 4
-
-Solve Example 11.4 from the Normal distribution handout (the problem on "effect size".)
-
-## Problem 5
 
 The latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3).
 Each package contains a single unknown prize.
@@ -18,7 +35,7 @@ Suppose we only buy 3 packages and we consider as our sample space outcome the r
 For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package.
 Let $X$ be the number of distinct prizes obtained in these 3 packages.
 Let $Y$ be the number of these 3 packages that contain prize 1.
-Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages.
+Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages; let $\text{P}$ denote the corresponding probability measure.
 There are 27 possible, equally likely outcomes
 
 ```{r}
@@ -35,170 +52,49 @@ n_outcomes <- nrow(outcomes)
 X <- rep("", n_outcomes)
 Y <- rep("", n_outcomes)
 
-outcomes <- outcomes %>%
+outcomes <- outcomes |>
   bind_cols(X, Y)
 
 names(outcomes) <- c(paste("box", 1:k, sep = ""), "X", "Y")
 
-outcomes %>%
-  kbl() %>%
-  kable_styling(fixed_thead = TRUE)
+outcomes |> kable()
 ```
 
-a.  Evaluate $X$ and $Y$ for each of the outcomes.
-b.  Construct a two-way table representing the *joint distribution* of $X$ and $Y$.
-c.  Sketch a plot representing the joint distribution of $X$ and $Y$.
-d.  Construct a spinner corresponding to the joint distribution of $X$ and $Y$.
-e.  Describe two ways to simulate an $(X, Y)$ pair.
-f.  Identify the *marginal* distribution of $X$, and construct a corresponding spinner.
-g.  Identify the *marginal* distribution of $Y$, and construct a corresponding spinner.
-h.  Describe in detail in words how you could conduct a simulation and use the results to approximate. (This part is asking you to describe the process in words; not to write code.)
-    i. $\text{P}(X = 3)$
-    i. $\text{P}(X = 2, Y = 1)$
-    i. $\text{E}(X)$
-    i. $\text{E}(Y)$
-    i. $\text{E}(XY)$
-    i. $\text{SD}(X)$
-    i. $\text{SD}(Y)$
-    1. $\text{Cov}(X, Y)$
-    i. $\text{Corr}(X, Y)$
-i.  **Coding required.** Code and run the simulation from the previous part and use the simulation results to approximate each of
-    i. $\text{P}(X = 3)$
-    i. $\text{P}(X = 2, Y = 1)$
-    i. $\text{E}(X)$
-    i. $\text{E}(Y)$
-    i. $\text{E}(XY)$
-    i. $\text{SD}(X)$
-    i. $\text{SD}(Y)$
-    1. $\text{Cov}(X, Y)$
-    i. $\text{Corr}(X, Y)$
-j.  Compute
-    i. $\text{P}(X = 3)$
-    i. $\text{P}(X = 2, Y = 1)$
-    i. $\text{E}(X)$ iii.$\text{E}(Y)$
-    i. $\text{E}(XY)$
-    i. $\text{SD}(X)$ iii.$\text{SD}(Y)$
-    1. $\text{Cov}(X, Y)$
-    i. $\text{Corr}(X, Y)$
+1.  Evaluate $X$ and $Y$ for each of the outcomes.
+1.  Construct a two-way table representing the joint distribution of $X$ and $Y$.
+1.  Specify the marginal distribution of $X$ and compute $\text{E}(X)$.
+1.  Specify the marginal distribution of $Y$ and compute $\text{E}(Y)$.
+1.  Compute $\text{Cov}(X, Y)$
+1.  Find the conditional distribution of $Y$ given $X=x$ for each possible value of $x$ of $X$.
+1.  Compute and interpret $\text{E}(Y|X=x)$ for each possible value of $x$ of $X$.
+1.  Find the conditional distribution of $X$ given $Y=y$ for each possible value of $y$ of $Y$.
+1.  Compute and interpret $\text{E}(X|Y=y)$ for each possible value of $y$ of $Y$.
+1.  Are $X$ and $Y$ independent? Explain; support your answer with appropriate numbers.
 
 
 
-::: {#exm-normal-temp}
-Daily high temperatures (degrees Fahrenheit) in San Luis Obispo in August follow (approximately) A Normal distribution with a mean of 76.9 degrees F.
-The temperature exceeds 100 degrees Fahrenheit on about 1.5% of August days.
-:::
 
-1.  What is the standard deviation?\
-    \
-    \
-    \
-    \
-2.  Suppose the mean increases by 2 degrees Fahrenheit. On what percentage of August days will the daily high temperature exceed 100 degrees Fahrenheit? (Assume the standard deviation does not change.)\
-    \
-    \
-    \
-    \
-3.  A mean of 78.9 is 1.02 times greater than a mean of 76.9. By what (multiplicative) factor has the percentage of 100-degree days increased? What do you notice?\
-    \
-    \
-    \
-    \
+## Problem 4
 
-::: {#exm-effect-size}
-In a large class, scores on midterm 1 follow (approximately) a Normal$(\mu_1, \sigma)$ distribution and scores on midterm 2 follow (approximately) a Normal$(\mu_2, \sigma)$ distribution.
-Note that the SD $\sigma$ is the same on both exams.
-The 40th percentile of midterm 1 scores is equal to the 70th percentile of midterm 2 scores.
-Compute
+Xavier and Yolanda are playing roulette.
+They both place bets on red on the same 3 spins of the roulette wheel before Xavier has to leave.
+(Remember, the probability that any bet on red on a single spin wins is 18/38.) 
+After Xavier leaves, Yolanda places bets on red on 2 more spins of the wheel.
+Let $X$ be the number of bets that Xavier wins (out of 3) and let $Y$ be the number that Yolanda wins (out of 5).
 
-$$
-\frac{\mu_1-\mu_2}{\sigma}
-$$
-
-(This is one statistical measure of *effect size*.)
-:::
-
-\
-\
-\
-\
-\
+1.  Identify by name the marginal distribution of $X$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(X)$.
+1.  Identify by name the marginal distribution of $Y$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(Y)$.
+1.  The joint distribution of $X$ and $Y$ is represented in the table below. Explain why $p_{X, Y}(1, 4) = 0$ and $p_{X, Y}(2, 1) = 0$.
+1.  Compute $p_{X, Y}(2, 3)$. (Yes, the table tells you it's 0.1766, but you have to show how this number can be computed based on the assumptions of the problem.)
+1.  Compute $\text{Cov}(X, Y)$.
+1.  Are $X$ and $Y$ independent? Explain; support your answer with appropriate numbers.
 
 
-
-## Problem 1
-
-You have a brand new coin and you want to estimate $p$, the probability that it lands on heads.
-You flip the coin $n$ times and observe $X$ heads.
-
-
-a. Suggest an estimator of $p$; it should be an expression involving $X$ and $n$. Describe in words what your estimator is. (Hint: what is the most obvious estimator you can think of?)
-a. Suppose you observe $x = 6$ heads in $n=10$ flips. Use your estimator to compute an estimate of $p$ based on this sample.
-a. Consider the estimator (called the "plus four" estimator)
-    $$
-    \frac{X + 2}{n + 4} = \left(\frac{4}{n+4}\right)\left(0.5\right) + \left(\frac{n}{n+4}\right)\left(\frac{X}{n}\right)
-    $$
-    Explain in words what this estimator does.
-    (The two expressions in the equation above are just different ways of expressing the estimator.)
-a. Use the estimator from the previous part and compute an estimate of $p$ based on a sample with 6 heads in 10 flips.
-a. If you observe 6 heads in 10 flips, which of your two estimates is a better estimate of $p$? Explain.
-a. Compute and interpret the probability of observing 6 heads in 10 flips if $p = 0.6$.
-a. Compute and intepret the probability of observing 6 heads in 10 flips if $p = 0.571$.
-a. Compare the values from the two previous parts. If you observed 6 heads in 10 flips, which of the values --- 0.6 or 0.571 --- would you choose as your estimate of $p$? Explain your reasoning.
-a. Suppose you observe 6 heads in 10 flips. Carefully write the likelihood function.
-a. Continuing the previous part, use any software of your choice and plot the likelihood function. Based on your plot, what value appears to be the maximum likelihood estimate of $p$ based on a sample with 6 heads in 10 flips?
-(You can do this just by zooming in on the plot.)
-a. Continuing the previous part, carefully write the log-likelihood function.
-a. Use calculus to find the maximum likelihood estimate of $p$ based on observing 6 heads in 10 flips.
-a. Now suppose you observe $x$ heads in 10 flips. Carefully write the likelihood function.
-a. Continuing the previous part, carefully write the log-likelihood function.
-a. Use calculus to find a general expression for the maximum likelihood estimate of $p$ based on observing $x$ heads in 10 flips. (Your answer will be an expression involving $x$.)
-
-
-
-## Problem 2
-
-
-Suppose that times (minutes) between earthquakes (of any magnitude in a certain region) follow an Exponential distribution with rate parameter $\lambda$.
-Let $X_1, \ldots, X_n$ be a random sample of times (minutes) between earthquakes for  $n$ earthquakes.
-It can be shown that the MLE of $\lambda$ is $1/\bar{X}$.
-
-1. Explain intuitively why $1/\bar{X}$ is a reasonable estimator of $\lambda$. 
-Hint: it's not just because it's the MLE; think of properties of Exponential distributions.
-1. Suppose the observed sample is: 20, 37, 13, 10, 25 minutes.
-Carefully write the likelihood function.
-(For a random sample from a continuous distribution, to find the likelihood function you plug each observed value into the pdf and then form the product.)
-1. Use any software you want to carefully plot the likelihood function from the previous part.
-Then use your plot to verify that the MLE of $\lambda$ based on this sample is $1/\bar{x} = 5/105 = 0.0476$.
-(You can just zoom in on the plot.)
-1. Write a clearly worded sentence reporting in context your estimate of $\lambda$ from the previous part.
-
-
-
-::: {#exm-football-cov}
-The covariance between height in inches and weight in pounds for football players is 96.
-:::
-
-1.  What are the measurement units of the covariance?\
-    \
-    \
-2.  Suppose height were measured in feet instead of inches. Would the shape of the joint distribution change? Would the strength of the association between height and weight change? Would the value of covariance change?\
-    \
-    \
-    \
-    \
-
-::: {#exm-football-corr}
-The covariance between height in inches and weight in pounds for football players is 96.
-Heights have mean 74 and SD 3 inches.
-Weights have mean 250 pounds and SD 45 pounds.
-Find the correlation between weight and height.
-:::
-
-\
-\
-\
-\
-\
-
+| $x$, $y$ |      0 |      1 |      2 |      3 |      4 |      5 |
+|----------|-------:|-------:|-------:|-------:|-------:|-------:|
+| 0        | 0.0404 | 0.0727 | 0.0327 |      0 |      0 |      0 |
+| 1        |      0 | 0.1090 | 0.1963 | 0.0883 |      0 |      0 |
+| 2        |      0 |      0 | 0.0981 | 0.1766 | 0.0795 |      0 |
+| 3        |      0 |      0 |      0 | 0.0294 | 0.0530 | 0.0238 |
 
 
