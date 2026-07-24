@@ -56,7 +56,7 @@ Then $W = |R - Y|$ is the amount of time (minutes) the first person to arrive wa
 (Hint: use a method similar to the previous part.)
 1.  It can be shown that $W$ has pdf
 $$
-f_W(w) = (2/3600)(1-w), \qquad 0<w<60.
+f_W(w) = (2/3600)(60-w), \qquad 0<w<60.
 $$
 
     Sketch a plot of the pdf. Describe roughly what this means in context.
@@ -78,7 +78,7 @@ Consider $T = \min(R, Y)$ is the time (minutes after noon) at which the first pe
 (Hint: use a method similar to the previous part.)
 1.  It can be shown that $T$ has pdf
 $$
-f_T(t) = (2/3600)(1-t), \qquad 0<t<60.
+f_T(t) = (2/3600)(60-t), \qquad 0<t<60.
 $$
 
     Does $T$ have the same distribution as $W$ from Problem 3? Explain what this means.

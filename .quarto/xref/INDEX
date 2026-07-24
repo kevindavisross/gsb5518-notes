@@ -94,5 +94,14 @@
   },
   "hw-06.qmd": {
     "hw-06.html": "d43d771f"
+  },
+  "maximum-likelihood-estimation.qmd": {
+    "maximum-likelihood-estimation.html": "1847fdc5"
+  },
+  "estimators-bias.qmd": {
+    "estimators-bias.html": "c2c87f19"
+  },
+  "estimators-mse.qmd": {
+    "estimators-mse.html": "6c04baa8"
   }
 }

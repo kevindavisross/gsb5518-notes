@@ -8,124 +8,46 @@
 -   But bias is only one consideration. Bias only considers the average
     value of the estimator over many samples, which is just one feature
     of the estimator's sampling distribution.
-    
-
-::: {#exm-variance-sample-mean}
-Consider a large population in which 20% of individuals
-have an annual income (\$ thousands) of 200, 40% of have an income of
-70, and 40% have an income of 10.
-For this population, the population
-mean is
-$$
-\mu = 10(0.4) + 70(0.4) + 200(0.2) = 72
-$$
-Also, the population variance is
-$$
-[10^2(0.4) + 70^2(0.4) + 200^2(0.2)] - 72^2 = 4816
-$$
-and the the population SD is $\sigma = 69.4$.
-
-Suppose our goal is to estimate $\mu$ based on a sample of size $n$.
-In this example, we know the population distribution and we know the population
-mean $\mu = 72$, but in practice the population distribution
-and the population mean would be unknown.
-
-One estimator of the population mean $\mu$ is
-$$
-\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i
-$$
-
-First suppose $n=2$.
-:::
-
-
-
-1.  Determine the distribution of $\bar{X}$.\
-    \
-    \
-    \
-    \
-1.  Find and interpret $\textrm{P}(\bar{X}\ge 105)$.\
-    \
-    \
-    \
-    \
-1.  Compute $\textrm{E}(\bar{X})$. How does it relate to $\mu$? Why?\
-    \
-    \
-    \
-    \
-1.  Compute and interpret $\textrm{Var}(\bar{X})$. How does it relate
-    to the population variance $\sigma^2$?\
-    \
-    \
-    \
-    \
-1.  Compute and interpret $\textrm{SD}(\bar{X})$. How does it relate
-    to the population standard deviation $\sigma$?\
-    \
-    \
-    \
-    \
-
-
--   A **(simple) random sample** of size $n$ is a collection of random
-    variables $X_1,\ldots,X_n$ that are *independent* and *identically
-    distributed* (i.i.d.)
--   A **statistic** is a characteristic of the *sample* which can be
-    computed from the data. More precisely, a statistic is a function of
-    $X_1,\ldots,X_n$, but not of $\theta$.
-    -   That is, a statistic is itself a *random variable*, and
-        therefore has its own probability distribution, which describes
-        how values of the statistic would vary from sample-to-sample
-        over many (hypothetical) samples.
-    -   The probability distribution of a statistic is called a
-        **sampling distribution**.
--   Statistics exhibit **sample-to-sample variability**: the value of a
+-   Statistics exhibit *sample-to-sample variability*: the value of a
     statistic varies from sample to sample.
-    -   We can estimate the degree of this variability by *simulating
-        many hypothetical samples* and computing the value of the
-        statistic for each sample.
-    -   The resulting standard deviation, called the **standard error**,
-        measures the sample-to-sample variability of the statistic over
-        many (hypothetical) samples of the same size.
-    -   However, *in practice usually only a single sample is selected*
-        and a single value of the statistic is observed.
--   For many statistics (e.g., means and proportions) --- but not all
-    --- statistics from larger random samples vary less, from sample to
-    sample, than statistics from smaller random samples.
+-   When choosing between two *unbiased* estimators, the one with
+    smaller variance is generally preferred.
+-   Remember that the variance of an estimator will be a function of the
+    unknown parameter $\theta$, so we need to consider the variance
+    *function* for various potential values of $\theta$.
 
 
-::: {#exm-variance-sample-mean-increase-n}
-Continuing @exm-variance-sample-mean, now consider $n=8$. 
+
+
+::: {#exm-poisson-compare-var}
+Consider again estimating $\mu$ for a Poisson($\mu$)
+distribution based on a random sample $X_1, \ldots, X_n$ of size $n$. 
+We have seen that both $\bar{X}$ and $S^2$ are unbiased estimators of
+$\mu$. 
+If we want to choose between these two estimators, how do we
+decide?
 :::
 
+1.  Assume $n=3$ and $\mu=2.3$.
+    Describe in full detail how you could conduct a simulation to approximate the sample-to-sample distribution of $\bar{X}$ and its and its expected value and standard deviation. Then conduct the simulation and record the results. What does the standard deviation measure?\
+    \
+    \
+    \
+    \
+1.  Repeat part 1 for $S^2$.
+    \
+    \
+    \
+    \
+1.  Compare the simulation results for $\bar{X}$ and $S^2$ when $n=3$
+    and $\mu = 2.3$. Based on the simulation results, which estimator of
+    $\mu$ is preferred when $\mu = 2.3$ --- $\bar{X}$ or $S^2$? Why? But
+    then explain why this information isn't very helpful.\
+    \
+    \
+    \
+    \
 
-1.  How could you use simulation to approximate
-    the distribution of $\bar{X}$, and its expected value and SD?\
-    \
-    \
-    \
-    \
-1.  Find and interpret $\textrm{E}(\bar{X})$ without first finding the
-    distribution of $\bar{X}$, and compare to the simulation results.\
-    \
-    \
-    \
-    \
-1.  Find and interpret $\textrm{SD}(\bar{X})$ without first finding the
-    distribution of $\bar{X}$, and compare to the simulation results.
-    What does this measure variability of? Compare to $n=2$.\
-    \
-    \
-    \
-    \
-1.  Use simulation to find and interpret $\textrm{P}(\bar{X}\ge 105)$.
-    Compare to $n=2$.\
-    \
-    \
-    \
-    \
 
 
 
@@ -139,8 +61,6 @@ Continuing @exm-variance-sample-mean, now consider $n=8$.
     $$
     \textrm{E}(\bar{X}_n) = \mu
     $$
-    -   Over many random samples, sample means do not consistently
-        overestimate or consistently underestimate the population mean
 -   Sample-to-sample variability of sample means decreases as the sample
     size increases
     \begin{align*}
@@ -163,38 +83,13 @@ Continuing @exm-variance-sample-mean, now consider $n=8$.
 
 
 
-::: {#exm-poisson-unbiased}
-Consider again estimating $\mu$ for a Poisson($\mu$)
-distribution based on a random sample $X_1, \ldots, X_n$ of size $n$. 
-We have seen that both $\bar{X}$ and $S^2$ are unbiased estimators of
-$\mu$. 
-If we want to choose between these two estimators, how do we
-decide?
+
+::: {#exm-poisson-compare-var-functions}
+Continuing @exm-poisson-compare-var where the population is Poisson($\mu$).
 :::
 
-1.  Assume $n=3$ and $\mu=2.3$.
-    Describe in full detail how you could conduct a simulation to approximate the sample-to-sample distribution of $\bar{X}$ and its and its expected value and standard deviation. Then conduct the simulation and record the results. What does the standard deviation measure?\
-    \
-    \
-    \
-    \
-1.  Assume $n=3$ and $\mu=2.3$. Describe in full detail how you could
-    conduct a simulation to approximate the sample-to-sample
-    distribution of $S^2$ and its expected value and standard
-    deviation. Then conduct the simulation and record the results. What
-    does the standard deviation measure?\
-    \
-    \
-    \
-    \
-1.  Compare the simulation results for $\bar{X}$ and $S^2$ when $n=3$
-    and $\mu = 2.3$. Based on the simulation results, which estimator of
-    $\mu$ is preferred when $\mu = 2.3$ --- $\bar{X}$ or $S^2$? Why? But
-    then explain why this information isn't very helpful.\
-    \
-    \
-    \
-    \
+
+
 1.  Assuming $n= 3$ and $\mu = 2.3$, compute $\textrm{E}(\bar{X})$ and $\textrm{SD}(\bar{X})$, and compare to the simulation results.\
     \
     \
@@ -215,17 +110,30 @@ decide?
     function of $\mu$. 
     Regardless of the value of $\mu$, which estimator
     has smaller variance? 
-    Which of these two unbiased estimators of $\mu$, $\bar{X}$ or $S^2$, is preferred?\
+    Which of these two unbiased estimators of Poisson $\mu$, $\bar{X}$ or $S^2$, is preferred?\
+    \
+    \
+    \
+    \
+1.  Suppose $n=3$ and the sample is $(3, 0, 2)$. 
+For this sample $\bar{x} = 1.67$ and $s^2 = 2.33$. 
+Which number, 1.67 or 2.33, is a better estimate of $\mu$? 
+Explain.
+    \
+    \
+    \
+    \
+    \
+1.  Suppose $n=3$ and the sample is $(3, 0, 2)$. 
+For this sample $\bar{x} = 1.67$ and $s^2 = 2.33$.
+Which number, 1.67 or 2.33, would you choose as the estimate of $\mu$ based on this sample? 
+Why?
+    \
     \
     \
     \
     \
 
--   When choosing between two *unbiased* estimators, the one with
-    smaller variance is generally preferred.
--   Remember that the variance of an estimator will be a function of the
-    unknown parameter $\theta$, so we need to consider the variance
-    *function* for various potential values of $\theta$.
 
 
 -   MLE is one procedure for finding an estimator of a parameter
@@ -254,6 +162,8 @@ decide?
         and a single value of the statistic is observed, and we don't
         know what the population distribution is.
 
+
+
 ::: {#exm-poisson-mse}
 Continuing the situation of estimating $\mu$ for a
 Poisson($\mu$) distribution based on a random sample $X_1, \ldots, X_n$
@@ -273,8 +183,7 @@ Does that mean we should prefer $S^2$ over $\hat{\sigma}^2$?
     \
     \
     \
-2.  Compare the simulation results to those for $S^2$ (from a previous
-    handout.) For which estimator is the bias smaller? For which
+2.  Compare the simulation results to those for $S^2$ (from earlier). For which estimator is the bias smaller? For which
     estimator is the variance smaller? Is there a clear preference
     between the two estimators when $\mu = 2.3$?\
     \
@@ -282,29 +191,33 @@ Does that mean we should prefer $S^2$ over $\hat{\sigma}^2$?
     \
     \
 
-    -   Estimators can be evaluated based on both bias and variability.
-    -   Mean square error is a combined measure of both an estimator's
-        bias and its variability.
-    -   The **mean square error (MSE)** of an estimator $\hat{\theta}$
-        of a parameter $\theta$ is
-        $$
-        \text{MSE}_\theta(\hat{\theta}) = \textrm{E}\left(\left(\hat{\theta}-\theta\right)^2\right), \qquad \text{a function of $\theta$}
-        $$
-    -   Mean square error measures, on average, how far the estimator
-        deviates from the parameter it is estimating.
-    -   The MSE of an estimator is a function of the parameter $\theta$.
-        It can be shown that[^1]
-        \begin{align*}
-            \text{MSE}_\theta(\hat{\theta}) & = \textrm{Var}(\hat{\theta}) + \left(\textrm{E}(\hat{\theta})-\theta\right)^2\\
-            & = \textrm{Var}(\hat{\theta}) +\left(\text{bias}_\theta(\hat{\theta})\right)^2
-        \end{align*}
-    -   There can be many "reasonable" estimators of a parameter. Given
-        two estimators, it's often the situation that neither one has
-        smaller MSE for all potential values of $\theta$. Choosing an
-        estimator often involves a tradeoff between bias and
-        variability.
+-   Estimators can be evaluated based on both bias and variability.
+-   Mean square error is a combined measure of both an estimator's
+    bias and its variability.
+-   The **mean square error (MSE)** of an estimator $\hat{\theta}$
+    of a parameter $\theta$ is
+    $$
+    \text{MSE}_\theta(\hat{\theta}) = \textrm{E}\left(\left(\hat{\theta}-\theta\right)^2\right), \qquad \text{a function of $\theta$}
+    $$
+-   Mean square error measures, on average, how far the estimator
+    deviates from the parameter it is estimating.
+-   The MSE of an estimator is a function of the parameter $\theta$.
+    It can be shown that[^1]
+    \begin{align*}
+        \text{MSE}_\theta(\hat{\theta}) & = \textrm{Var}(\hat{\theta}) + \left(\textrm{E}(\hat{\theta})-\theta\right)^2\\
+        & = \textrm{Var}(\hat{\theta}) +\left(\text{bias}_\theta(\hat{\theta})\right)^2
+    \end{align*}
+-   There can be many "reasonable" estimators of a parameter. Given
+    two estimators, it's often the situation that neither one has
+    smaller MSE for all potential values of $\theta$. Choosing an
+    estimator often involves a tradeoff between bias and
+    variability.
 
-3.  Use the simulation results to compute the MSE of $S^2$ and
+::: {#exm-poisson-mse-functions}
+Continuing @exm-poisson-mse.
+:::
+
+1.  Use the simulation results to compute the MSE of $S^2$ and
     $\hat{\sigma}^2$ when $\mu = 2.3$. Determine which estimator has
     smaller MSE when $\mu=2.3$, but then explain why this information is
     not very useful.\
@@ -312,11 +225,7 @@ Does that mean we should prefer $S^2$ over $\hat{\sigma}^2$?
     \
     \
     \
-4.  Recall
-    $$
-    \textrm{Var}(S^2) = \frac{2\mu^2}{n-1} + \frac{\mu}{n}
-    $$
-    Find and plot the MSE functions of $S^2$ and $\hat{\sigma}^2$.
+1.  Plot the MSE functions of $S^2$ and $\hat{\sigma}^2$.
     Which
     estimator is preferred? Discuss.\
     \
@@ -324,31 +233,37 @@ Does that mean we should prefer $S^2$ over $\hat{\sigma}^2$?
     \
     \
 
+
 ::: {#exm-poisson-mse-no-best}
 Continuing estimating $\mu$ for a Poisson($\mu$)
 distribution.
-Consider $\bar{X}$ and the constant estimator 2.3.
+Consider $\bar{X}$ and the constant estimator 4.2.
 :::
 
-1.  Find the MSE of the constant estimator 2.3.\
+1.  Esplain what it means to use 4.2 as an estimation procedure.\
+\
+\
+\
+\
+1.  Find the MSE of the constant estimator 4.2.\
     \
     \
     \
     \
-2.  Find the MSE of $\bar{X}$.\
+1.  Find the MSE of $\bar{X}$.\
     \
     \
     \
     \
-3.  Suppose $n=3$. Plot the MSE functions of the two estimators. Does
+1.  Suppose $n=3$. Plot the MSE functions of the two estimators. Does
     either estimator have a better MSE? Explain.\
     \
     \
     \
     \
-4.  Donny Don't says: "neither estimator has smaller MSE for all values
-    of $\mu$. So we'll use the constant estimator 2.3 when $\mu$ is near
-    2.3 (between 1.57 and 3.36 if $n=3$) and we'll use $\bar{X}$ for
+1.  Donny Don't says: "neither estimator has smaller MSE for all values
+    of $\mu$. So we'll use the constant estimator 4.2 when $\mu$ is near
+    4.2 (between 3.17 and 5.56 if $n=3$) and we'll use $\bar{X}$ for
     other values of $\mu$". Do you agree with Donny's strategy? Do you
     see any problems with it?\
     \
@@ -357,7 +272,7 @@ Consider $\bar{X}$ and the constant estimator 2.3.
     \
 5.  What happens to the MSEs as $n$ increases? In particular, what
     happens to the range of values of $\mu$ for which the constant
-    estimator 2.3 has smaller MSE than $\bar{X}$?\
+    estimator 4.2 has smaller MSE than $\bar{X}$?\
     \
     \
     \
@@ -370,7 +285,7 @@ Consider $\bar{X}$ and the constant estimator 2.3.
     variability.
 -   MLEs generally have good properties. For many situations, roughly,
     -   The MLE is asymptotically unbiased; that is, the bias is small when the sample size is large
-    -   The variance of an MLE is about as small as it can be (for an unbiased estimator)
+    -   The variance of an MLE is about as small as it can be for an unbiased estimator
 -   But there are many reasonable estimation procedures besides MLE (e.g., Bayes estimators).
 -   Bias is estimation is not necessarily bad. Being willing to accept a little bit of bias can often lead to a beneficial reduction in variability.
     -   On the other hand, try to minimize bias in *data collection*: how the sample is selected, how the variables are measured, etc
@@ -383,3 +298,48 @@ Consider $\bar{X}$ and the constant estimator 2.3.
     $\textrm{Var}(Y) = \textrm{E}(Y^2) - (\textrm{E}(Y))^2$. Apply this
     to $Y=\hat{\theta}-\theta$, and remember that $\hat{\theta}$ is
     random but $\theta$ is not.
+
+
+
+## Exercises
+
+::: {#exr-exponential-rate-mse}
+Consider estimating the rate parameter $\lambda$ of an Exponential population based on data $X_1, \ldots, X_n$ from a random sample of size $n$.
+(For example, you want to estimate the rate at which earthquakes occur based on a sample of times between earthquakes.)
+
+We have seen that the MLE of $\lambda$ is $1/\bar{X}$.
+:::
+
+1.  Explain in full detail how you could conduct a simulation to approximate the MSE of $1/\bar{X}$ when $\lambda = 2$ for a given $n$.
+\
+\
+\
+\
+\
+1.  Explain in full detail how you could conduct a simulation to approximate the MSE *function* of $1/\bar{X}$ for a given $n$.
+\
+\
+\
+\
+\
+
+::: {#exr-normal-mse}
+Recall Darth's estimator of $\mu$ in the Poisson($\mu$) car dealership problem of @exm-intro-estimation-estimators
+
+$$
+\hat{\mu} = \frac{n}{n+100}\bar{X}+ \frac{100}{n+100}(2.3),
+$$
+:::
+
+1.  Compute the bias, variance, and MSE of $\hat{\mu}$ when $\mu=2$ for a sample of size $n=3$.
+\
+\
+\
+\
+\
+1.  Compute the bias, variance, and MSE *functions* of $\hat{\mu}$ for a sample of size $n=3$.
+\
+\
+\
+\
+\

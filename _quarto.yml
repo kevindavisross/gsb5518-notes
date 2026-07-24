@@ -29,9 +29,9 @@ book:
     - linear-combinations.qmd
     - joint-normal.qmd
     - from-probability-to-statistics.qmd
-    # - maximum-likelihood-estimation.qmd
-    # - estimators-bias.qmd
-    # - estimators-mse.qmd
+    - maximum-likelihood-estimation.qmd
+    - estimators-bias.qmd
+    - estimators-mse.qmd
     # - clt.qmd
     # - confidence-intervals.qmd
     # - bootstrapping.qmd

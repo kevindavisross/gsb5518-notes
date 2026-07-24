@@ -3,11 +3,14 @@
 
 ::: {#exm-ml-single}
 Suppose we are willing to assume a Poisson($\mu$) model
-for the number of cars sold in a day at a particular car dealership.
+for some variable $X$.
 But we don't know the value of $\mu$, so we'll collect
 data and use it to estimate $\mu$.
-Suppose first that we observe just a single day; let $X$ be the number of cars sold on this day.
-(We'll look at a sample of $n$ days soon.)
+Suppose first that we have just a single observation of $X$.
+(We'll look at a sample of size $n$ soon.)
+
+For context, think of $\mu$ as the long run average number of cars sold per day over many days at a new car dealership, and we're trying to estimate $\mu$ based on just the number of cars sold in a single day. 
+But what we really want is an estimation procedure that we can use any time we have data from a Poisson distribution, regardless of the context.
 :::
 
 1.  Does $X$ take values on a discrete or continuous scale?
@@ -16,79 +19,42 @@ Suppose first that we observe just a single day; let $X$ be the number of cars s
     \
     \
     \
-2.  *First some probability questions.*
-    Assume $\mu=2.3$. 
-    Find the pmf of $X$ and sketch a plot of it; what is this a function of?
-    Find and interpret the probability that in a single day there are 3 cars sold.\
+1.  Write the formula for the Poisson($\mu$) pmf.\
     \
     \
     \
     \
-3.  *Now back to some statistics questions.*
-    Now remember that in reality $\mu$ is unknown.
-    Suppose that $x=3$ home runs are observed in a single day. 
-    Now write the pmf plugging in everything we know; what is this a function of?
-    Is this function a pmf?\
+1.  Now remember that $\mu$ is unknown.
+    Suppose that a single observation yields $x=3$ (e.g. 3 cars are sold in a single day.) 
+    Now write the pmf plugging in everything we know; what is this a function of?\
     \
     \
     \
     \
-4.  Compute and intepret the probability that in a single day there are
-    3 cars sold if $\mu = 2.3$.\
+1.  Compute and intepret $\text{P}(X = 3)$ if $\mu = 2.3$.\
     \
     \
     \
     \
-5.  Compute and interpret the probability that in a single day there
-    are 3 cars sold if $\mu = 1$.\
+1.  Compute and intepret $\text{P}(X = 3)$ if $\mu = 1$.\
     \
     \
     \
     \
-6.  Compute and interpret the probability that in a single day there
-    are 3 cars sold if $\mu = 5$.\
+1.  Compute and intepret $\text{P}(X = 3)$ if $\mu = 4.8$.\
     \
     \
     \
     \
-7.  Compute and interpret the probability that in a single day there
-    are 3 cars sold if $\mu = 3.5$.\
+1.  Suppose that $x=3$.
+    Based just on this observation, which value --- 1, 2.3, or 4.8 --- would you choose as your estimate for $\mu$? Why?\
     \
     \
     \
     \
-8.  Suppose that $x=3$ cars are sold in a single day.
-    Based just on this day, which value --- 1, 2.3, 3.5, or 5 --- would you choose as your estimate for $\mu$? Why?\
-    \
-    \
-    \
-    \
-9.  We obviously have more choices for our estimate of $\mu$ than just
-    1, 2.3, 3.5, or 5.
-    Describe in principle the process you would follow to find the estimate of $\mu$ based on a single day with 3 cars sold.\
-    \
-    \
-    \
-    \
-10. Suppose that we observe $x=3$ cars sold in a single day.
-    Plot the likelihood function; be sure to label your axes.
-    Based on your plot, what would be your estimate of $\mu$?\
-    \
-    \
-    \
-    \
-11. Suppose that we observe $x=3$ cars sold in a single day.
-    Plot the log of the likelihood function.
-    Compare the plots of the likelihood function and the log-likelihood; what do you notice about where the maximum value occurs?\
-    \
-    \
-    \
-    \
-12. Now consider a general value of $x$ cars solds in a single day.
-    Carefully write the likelihood function,
-    and the log-likelihood function.
-    What are these functions of?
-    How would you use them to determine your estimate of $\mu$ given $x$ cars sold in a single day?\
+1.  We obviously have more choices for our estimate of $\mu$ than just
+    1, 2.3, or 4.8.
+    Describe in principle the process you would follow to find the estimate of $\mu$ based on a single observation $x=3$.\
     \
     \
     \
@@ -112,7 +78,7 @@ Suppose first that we observe just a single day; let $X$ be the number of cars s
     $$L(\hat{\theta}) \ge L(\theta) \text{ for all } \theta.$$
 -   Remember that an estimator $\hat{\theta}$ is a function of $X$, the
     observed data.
--   It is often convenient to consider the **log-likelihood function**
+-   It is often convenient to consider the **log-likelihood[^lognote] function**
     of $\theta$
     $$\ell(\theta) \equiv \ell_x(\theta) = \log L_x(\theta)\\
     $$
@@ -120,100 +86,58 @@ Suppose first that we observe just a single day; let $X$ be the number of cars s
     $\hat{\theta}$ is the MLE of $\theta$ if and only if
     $$\ell(\hat{\theta}) \ge \ell(\theta) \text{ for all } \theta.$$
 
+[^lognote]: "log" always means natural log.
+
 
 
 
 ::: {#exm-ml-sample}
 Suppose we are willing to assume a Poisson($\mu$) model
-for the number of cars sold in a day at a particular car dealership.
+for some variable $X$.
 But we don't know the value of $\mu$, so we'll collect
 data and use it to estimate $\mu$.
-But now we estimate $\mu$ based on a sample of $n$ days.
-Let $X_1, \ldots, X_n$ be the number of cars sold in a random sample of $n$ days.
-For example, suppose $n=3$ and we observe $x_1 = 3$, $x_2 = 0$, $x_3=2$.
+Let $X_1, \ldots, X_n$ be the data in a random sample of size $n$.
+For example, suppose $n=4$ and we observe $x_1 = 3$, $x_2 = 0$, $x_3=2$, $x_4=0$.
+
+For context, think of $\mu$ as the long run average number of cars sold per day over many days at a new car dealership, and we're trying to estimate $\mu$ based on just the number of cars sold in $n$ days (e.g., 3 cars sold on the first day, 0 on the second, 2 on the third, and 0 on the fourth). 
+But what we really want is an estimation procedure that we can use any time we have data from a Poisson distribution, regardless of the context.
+
 :::
 
-1.  *First some probability questions.*
-    Assume $\mu=2.3$ and $n=3$.
-    Find the joint pmf of $(X_1, X_2, X_3)$; what is this a function of?
-    Find and interpret the probability of observing the sample $(x_1 = 3, x_2 = 0, x_3=2)$.\
+1.  Write an expression for the likelihood function. What is this a function of?\
     \
     \
     \
     \
-2.  *Now back to some statistics questions.*
-    Now remember that in reality $\mu$ is unknown. 
-    Suppose that the sample $(x_1 = 3, x_2 = 0, x_3=2)$ is observed. 
-    Now write the joint pmf plugging in everything we know; what is this a function of?
-    Is this function a pmf?\
+1.  Compute and intepret the likelihood if $\mu = 2.3$.\
     \
     \
     \
     \
-3.  Compute the probability of observing the sample $(x_1 = 3, x_2 = 0, x_3=2)$ if $\mu = 2.3$.\
+1.  Compute and intepret the likelihood if $\mu = 1$.\
     \
     \
     \
     \
-4.  Compute the probability of observing the sample
-    $(x_1 = 3, x_2 = 0, x_3=2)$ if $\mu = 1$.\
+1.  Compute and intepret the likelihood if $\mu = 4.8$.\
     \
     \
     \
     \
-5.  Compute the probability of observing the sample
-    $(x_1 = 3, x_2 = 0, x_3=2)$ if $\mu = 5$.\
+1.  Suppose we observe the sample (3, 0, 2, 0).
+    Based just on this sample, which value --- 1, 2.3, or 4.8 --- would you choose as your estimate for $\mu$? Why?\
     \
     \
     \
     \
-6.  Compute the probability of observing the sample
-    $(x_1 = 3, x_2 = 0, x_3=2)$ if $\mu = 3.5$.\
+1.  We obviously have more choices for our estimate of $\mu$ than just
+    1, 2.3, or 4.8.
+    Describe in principle the process you would follow to find the estimate of $\mu$ based on the (3, 0, 2, 0) sample.\
     \
     \
     \
     \
-7.  Suppose the sample $(x_1 = 3, x_2 = 0, x_3=2)$ is observed.
-    Which value --- 1, 2.3, 3.5, or 5 --- would you choose as your estimate
-    for $\mu$? Why?\
-    \
-    \
-    \
-    \
-8.  We obviously have more choices for our estimate of $\mu$ than just
-    1, 2.3, 3.5, or 5.
-    Describe in principle the process you would
-    follow to find the estimate of $\mu$ based on observing the sample
-    $(x_1 = 3, x_2 = 0, x_3=2)$.\
-    \
-    \
-    \
-    \
-9.  Suppose that we observe the sample
-    $(x_1 = 3, x_2 = 0, x_3=2)$.
-    Plot the likelihood function; be sure to label your axes.
-    Based on your plot, what would be your estimate of $\mu$?\
-    \
-    \
-    \
-    \
-10. Suppose that we observe the sample
-    $(x_1 = 3, x_2 = 0, x_3=2)$.
-    Plot the log of the likelihood function.
-    Compare the plots of the likelihood function and the log-likelihood; what do you notice about where the maximum value occurs?\
-    \
-    \
-    \
-    \
-12. Now consider a general sample of size $n$.
-    Carefully write the likelihood function,
-    and the log-likelihood function.
-    What are these functions of?
-    How would you use them to determine your estimate of $\mu$ given $x$ cars sold in a single day?\
-    \
-    \
-    \
-    \
+
 
 
 -   Consider a random sample of $n$ values from a population $p_\theta$
@@ -244,47 +168,16 @@ For example, suppose $n=3$ and we observe $x_1 = 3$, $x_2 = 0$, $x_3=2$.
     $\hat{\theta}$ is the MLE of $\theta$ if and only if
     $$\ell(\hat{\theta}) \ge \ell(\theta) \text{ for all } \theta.$$
 
-
-::: {#exm-ml-sufficiency}
-Suppose instead of observing the number of cars sold on individual days, you only knew that in a sample of 3 days there were 5 cars sold in total.
-:::
-
-1.  *Probability question.* If $X_1, \ldots, X_n$ are i.i.d.
-    Poisson($\mu$), what is the distribution of $X_1+\cdots+X_n$?\
-    \
-    \
-    \
-    \
-2.  Write the likelihood function for a sample of 3 days in which a
-    total of 5 cars were sold.
-    How does this compare to the
-    likelihood function based on the sample $(3, 0, 2)$?\
-    \
-    \
-    \
-    \
-3.  Find the MLE of $\mu$ based on a sample of 3 days in which a total
-    of 5 cars are sold.\
-    \
-    \
-    \
-    \
-
--   In many situations, the full sample data is not necessary to find the MLE; rather, a few descriptive statistics are often sufficient to evaluate the likelihood and determine the MLE
--   Poisson($\mu$): the MLE of $\mu$ is the sample mean $\bar{X}$
--   Binomial($n$, $p$), with $n$ known: the MLE of $p$ is the sample proportion $\hat{p} = X/n$, where $X$ is the number of "successes" in the sample
--   Exponential($\lambda$): the MLE of $\lambda$ is the sample rate $1/\bar{X}$; the usual situation is where the $X$'s measure times between "events" and so $\bar{X}$ is the sample mean time between "events".
--   Normal($\mu$, $\sigma$), with both $\mu$ and $\sigma$ unknown: the MLEs of $\mu$, $\sigma^2$, and $\sigma$, are, respectively
-    \begin{align*}
-    \hat{\mu} & = \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i\\
-    \hat{\sigma}^2 & = \frac{1}{n} \sum_{i=1}^n \left(X_i - \bar{X}\right)^2\\
-    \hat{\sigma} & = \sqrt{\frac{1}{n} \sum_{i=1}^n \left(X_i - \bar{X}\right)^2}
-    \end{align*}
-
+[^1]: We usually have i.i.d. observations and so the joint density is
+    just the product of the marginal densities as we have defined it.
+    However, for more general situations the likelihood can be defined
+    directly as the joint density.
 
 ::: {#exm-invariance-poisson}
-Assume a Poisson($\mu$) model for the number of cars sold in a day at a particular car dealership.
-In 3 days, 5 cars are sold.
+We have seen that $\bar{X}$ is the MLE of $\mu$ in a Poisson($\mu$) model.
+(@exm-mle-calc-sample proves this fact using calculus.)
+Now we'll consider estimating some other parameters in the Poisson situation.
+Again, our goal is to determine procedures for Poisson models regardless of the context, but you can think in terms of the car dealership context.
 :::
 
 1.  Consider $\sqrt{\mu}$.
@@ -294,7 +187,7 @@ In 3 days, 5 cars are sold.
     \
     \
     \
-1.  What do you think the MLE of $\sqrt{\mu}$ is?\
+1.  What do you think the MLE of $\sqrt{\mu}$ is, in general and for the observed (3, 0, 2, 0) sample?\
     \
     \
     \
@@ -306,7 +199,7 @@ In 3 days, 5 cars are sold.
     \
     \
     \
-1.  What do you think the MLE of $e^{-\mu}$ is?\
+1.  What do you think the MLE of $e^{-\mu}$ is, in general and for the observed (3, 0, 2, 0) sample\
     \
     \
     \
@@ -318,25 +211,13 @@ In 3 days, 5 cars are sold.
     \
     \
     \
-1.  What do you think the MLE of $\mu e^{-\mu}$ is?\
-    \
-    \
-    \
-    \
-1.  Consider $\mu^2 e^{-\mu}/2$.
-    Is $\mu^2 e^{-\mu}/2$ a parameter or a statistic?
-    How would you interpret $\mu^2 e^{-\mu}/2$ in this context?\
-    \
-    \
-    \
-    \
-1.  What do you think the MLE of $\mu^2 e^{-\mu}/2$ is?\
+1.  What do you think the MLE of $\mu e^{-\mu}$ is, in general and for the observed (3, 0, 2, 0) sample?\
     \
     \
     \
     \
 1.  We started by assuming a Poisson model, but how do we know that is a reasonable assumption?
-   Suppose we observe the number of cars sold for a random sample of days.
+   Suppose we observe data for a random sample of size $n$.
    Suggest you might use the sample data to investigate whether a Poisson model is appropriate.
     \
     \
@@ -353,115 +234,24 @@ In 3 days, 5 cars are sold.
 
 
 
-::: {#exm-invariance-normal}
-Suppose that within a certain population, credit scores follow a Normal($\mu$, $\sigma$) distribution.
-In a random sample of 5 individuals from this population, the credit scores are 600, 630, 680, 700, 770. 
-:::
-
-1.  Compute the MLE of $\mu$.\
-    \
-    \
-    \
-    \
-1.  Compute the MLE of $\sigma$.\
-    \
-    \
-    \
-    \
-1.  Explain in words what it means for these parameters to be the MLE.\
-    \
-    \
-    \
-    \
-1.  Compute the MLE of the 16th percentile of credit scores for this population\
-    \
-    \
-    \
-    \
-1.  Compute the MLE of the 90th percentile of credit scores for this population\
-    \
-    \
-    \
-    \
-1.  Compute of the MLE of the population proportion of individuals with a credit score above 750.\
-    \
-    \
-    \
-    \
-
--   Maximum likelihood estimation procedures are widely applicable and
-    maximum likelihood estimators have many nice theoretical properties.
--   However, there are some drawbacks:
-    -   May require numerical maximization, which can be computationally
-        intensive (especially if many parameters)
-    -   May not be reliable estimators in small samples.
-    (Many of the nice theoretical properties of MLEs are true for large samples.)
-
-[^1]: We usually have i.i.d. observations and so the joint density is
-    just the product of the marginal densities as we have defined it.
-    However, for more general situations the likelihood can be defined
-    directly as the joint density.
-
-
-
-::: {#exm-mle-calc-single}
-We wish to estimate the parameter $\mu$ for a Poisson($\mu$) distribution based on a single observed value $X$.
-:::
-
-1.  Suppose that $x=3$.
-    Carefully write the likelihood function.\
-    \
-    \
-    \
-    \
-2.  Suppose that $x=3$.
-    Carefully write the log-likelihood function.\
-    \
-    \
-    \
-    \
-3.  Use calculus to find the MLE of $\mu$ given $x=3$.
-    Compare to what we found previously using graphical methods.\
-    \
-    \
-    \
-    \
-4.  Now consider a general $x$.
-    Carefully write the likelihood function.\
-    \
-    \
-    \
-    \
-5.  Now consider a general $x$.
-    Carefully write the log-likelihood function.\
-    \
-    \
-    \
-    \
-6.  Use calculus to find the MLE of $\mu$ given $x$.
-    Compare to what we found previously using graphical methods.\
-    \
-    \
-    \
-    \
 
 ::: {#exm-mle-calc-sample}
 We wish to estimate the parameter $\mu$ for a Poisson($\mu$) distribution based on a random sample of $n$ values $X_1\ldots, X_n$.
 :::
 
-1.  Suppose that $n=3$ and the sample is (3, 0, 2).
+1.  Suppose that $n=4$ and the sample is (3, 0, 2, 0).
     Carefully write the likelihood function.\
     \
     \
     \
     \
-2.  Suppose that $n=3$ and the sample is (3, 0, 2).
+2.  Suppose that $n=4$ and the sample is (3, 0, 2, 0).
     Carefully write the log-likelihood function.\
     \
     \
     \
     \
-3.  Use calculus to find the MLE of $\mu$ given $n=3$ and the sample (3, 0, 2).
+3.  Use calculus to find the MLE of $\mu$ given $n=4$ and the sample (3, 0, 2, 0).
     Compare to what we found previously using graphical methods.\
     \
     \
@@ -485,3 +275,90 @@ We wish to estimate the parameter $\mu$ for a Poisson($\mu$) distribution based 
     \
     \
     \
+
+
+-   In many situations, the full sample data is not necessary to find the MLE; rather, a few descriptive statistics are often sufficient to evaluate the likelihood and determine the MLE
+-   Poisson($\mu$): the MLE of $\mu$ is the sample mean $\bar{X}$
+-   Binomial($n$, $p$), with $n$ known: the MLE of $p$ is the sample proportion $\hat{p} = X/n$, where $X$ is the number of "successes" in the sample
+-   Exponential($\lambda$): the MLE of $\lambda$ is the sample rate $1/\bar{X}$; the usual situation is where the $X$'s measure times between "events" and so $\bar{X}$ is the sample mean time between "events".
+-   Normal($\mu$, $\sigma$), with both $\mu$ and $\sigma$ unknown: the MLEs of $\mu$, $\sigma^2$, and $\sigma$, are, respectively
+    \begin{align*}
+    \hat{\mu} & = \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i\\
+    \hat{\sigma}^2 & = \frac{1}{n} \sum_{i=1}^n \left(X_i - \bar{X}\right)^2\\
+    \hat{\sigma} & = \sqrt{\frac{1}{n} \sum_{i=1}^n \left(X_i - \bar{X}\right)^2}
+    \end{align*}
+
+
+
+
+-   Maximum likelihood estimation procedures are widely applicable and
+    maximum likelihood estimators have many nice theoretical properties.
+-   However, there are some drawbacks:
+    -   May require numerical maximization, which can be computationally
+        intensive (especially if many parameters)
+    -   May not be reliable estimators in small samples.
+
+
+
+## Exercises
+
+::: {#exr-exponential-mle}
+Suppose that times (minutes) between earthquakes (of any magnitude in a certain region) follow an Exponential distribution with rate parameter $\lambda$.
+Let $X_1, \ldots, X_n$ be a random sample of times (minutes) between earthquakes for  $n$ earthquakes.
+Suppose the data for a sample of size $n=5$ is: 20, 37, 13, 10, 25 minutes.
+:::
+
+1.  Carefully write the likelihood function for the observed sample.
+(Hint: For a random sample from a continuous distribution, to find the likelihood function you plug each observed value into the *pdf* and then form the product.)\
+    \
+    \
+    \
+    \
+1.  Use any software you want to carefully plot the likelihood function from the previous part.
+Then use your plot---you can just zoom in as needed---to find the MLE of $\lambda$ based on this sample. (Hint: you should find that the MLE is 0.0476, which is equal to $1/\bar{x} = 5/105 = 0.0476$.)\
+    \
+    \
+    \
+    \
+1.  Write a clearly worded sentence reporting in context your estimate of $\lambda$ from the previous part.\
+    \
+    \
+    \
+    \
+
+
+
+
+
+::: {#exr-invariance-normal}
+Suppose that within a certain population, credit scores follow a Normal($\mu$, $\sigma$) distribution.
+In a random sample of 5 individuals from this population, the credit scores are 600, 630, 680, 700, 770. 
+:::
+
+1.  Compute the MLE of $\mu$.\
+    \
+    \
+    \
+    \
+1.  Compute the MLE of $\sigma$.\
+    \
+    \
+    \
+    \
+1.  Explain in words what it means for these parameters to be the MLE.\
+    \
+    \
+    \
+    \
+1.  Compute the MLE of the 10th percentile of credit scores for this population\
+    \
+    \
+    \
+    \
+1.  Compute the MLE of the population proportion of individuals with a credit score above 750.\
+    \
+    \
+    \
+    \
+
+
