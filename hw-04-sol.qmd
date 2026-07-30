@@ -4,450 +4,384 @@
 
 
 
+
 ## Problem 1
 
-In a certain region, times (minutes) between occurrences of earthquakes (of any magnitude) have a distribution with percentiles displayed in the table below.
+Xavier bets on red on each of 3 spins of a roulette wheel.
+After the third spin, Xavier leaves and Zander arrives and bets on black on the next two spins.
+Let $X$ be the number of bets that Xavier wins and let $Z$ be the number that Zander wins.
 
-a.  Construct a spinner corresponding to this distribution.
-b.  What percent of times are between 26.8 and 110.0 minutes?
-c.  Let $F$ be the cdf. Evaluate and interpret $F(42.8)$.
-d.  Let $Q$ be the quantile function. Evaluate and interpret $Q(0.9)$.
-e.  Sketch (by hand) a histogram of this distribution.
-
-```{r}
-#| echo: false
-exponential_spinner = data.frame(p = 0.1 * (1:9)) %>%
-  mutate(x = round(qexp(p, rate = 1 / 120), 1))
-
-exponential_spinner %>%
-  mutate(p = paste(100 * p, "th", sep = "")) %>%
-  kbl(col.names = c("Percentile", "Value (minutes)")) %>%
-  kable_styling()
-  
-  
-  
-```
+1.  Identify the distribution of $X$ and the distribution of $Z$.
+1.  Are $X$ and $Z$ independent?
+Explain.
+1.  Compute and interpret $\text{P}(X = 2, Z = 1)$. 
+1.  What does $X+Z$ represent in this context?
+Identify the distribution of $X+Z$ without doing any calculations.
+Be sure to specify the values of any parameters.
+Explain your reasoning.
+1.  Compute $\text{P}(X + Z = 3)$ without summing many terms. 
+1.  Suppose instead that Yolanda bets on black on all 5 spins of the wheel.
+Does $X + Y$ have a Binomial distribution?
+Answer yes or no and explain. 
+1.  Suppose instead that Zander bet on the number 7 in his two bets.
+Does $X + Z$ have a Binomial distribution in this case?
+Answer yes or no and explain. 
 
 ### Solution
 
-a.  See below. The 50th percentile goes at "6 o'clock" (50% of the way around), etc.
-b.  60% are below 110.0 and 20% are below 26.8, so 40% are between 26.8 and 110.0 minutes.
-c.  $F(42.8)=\text{P}(X \le 42.8) = 0.3$, since 42.8 minutes is the 30th percentile.
-d.  $Q(0.9) = 276.3$, since 276.3 minutes is the 90th percentile.
-e.  We always end with a histogram with even bins, but sometimes it helps to start sketching a histogram with unever bins. We know that 10% of the values are between 0 and 12.6, 10% are between 12.6 and 26.8, 10% are between 26.8 and 42.8, etc. So if we split the bins of the histogram based on these percentiles, each bin would correspond to a relative frequency of 10%. HOWEVER, AREA in a histogram represents relative frequency. So each of the bins would have the same area, but they are unequally spaced, so they would not have the same height. For example, the first bin has area of 10% over a base of (0, 12.6), while the 80-90 percentile bin has area 10% spread over the interval (193.1, 276.3), so the bar for (193.1, 276.3) will have a smaller height than the bar for (0, 12.6). Sketching a histogram with these unevenly spaced bins first gives an idea of the shape; then you can sketch a histogram with a similar shape but equally spaced bins. We can see that density is highest near 0 and decreases as $x$ increases; notice the stretching and shrinking on the spinner. (The highest percentile is the 90th, so we don't know what the upper bound is that almost all values fall below.)
-
-```{r}
-#| echo: false
-
-n = 10
-
-xp <- data.frame(
-  x = (0:(n-1))/n,
-  p = rep(1/n, n)
-  )
-
-cdf = c(0, cumsum(xp$p))
-
-plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
-  
-spinner <- ggplot(xp, aes(x="", y=p, fill=x))+
-  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
-  coord_polar("y", start=0) +
-  theme_void() +
-  # plot the possible values on the outside
-  scale_y_continuous(breaks = xp$x, minor_breaks = (0:99)/100, labels=c("?|0", exponential_spinner$x)) +
-  theme(axis.text.x=element_text(size=12, face="bold")) +
-      annotate(geom="segment", y=(0:99)/100, yend = (0:99)/100,
-             x=1.48, xend= 1.52) +
-  # plot the probabilities as percents inside
-    geom_text(aes(y = plotp,
-                label = format(percent(round(p, 2)),0)), size=4) +
-  ggtitle(paste("Marginal distribution of time (minutes)", sep=""))
-
-spinner
-```
-
-```{r}
-#| echo: false
-
-
-x = pmin(rexp(10000, rate = 1 / 120), 600)
-hist(x, breaks = c(0, exponential_spinner$x, 600), main = "Histogram - uneven bins")
-```
-
-```{r}
-#| echo: false
-
-
-x = pmin(rexp(10000, rate = 1 / 120), 600)
-hist(x, main = "Histogram - even bins", freq = FALSE)
-```
+1.  $X$ has a Binomial(3, 18/38) distribution and $Z$ has a Binomial(2, 18/38) distribution.
+1.  Yes, $X$ only depends on the first three spins, and $Z$ only depends on the last two, and the spins are (physically) independent, so $X$ and $Z$ are independent.
+1.  Since $X$ and $X$ are independent $\text{P}(X = 2, Z = 1) = \text{P}(X = 2)\text{P}(Z = 1)=\binom{3}{2}(18/38)^2(20/38)^2\binom{2}{1}(18/38)^1(20/38)^1=(0.354)(0.499)=0.177$.
+Over many sets of 5 spins, 2 of the first 3 spins land on red and 1 of the last 2 spins land on black in about 18% of sets.
+1.  $X+Z$ is the total number of bets won by either of these players.
+The five spins satisfy the Binomial situation. 
+Each trial results in either "win" or not.
+The probability of a win on any bet is 18/38; it doesn't matter if they're betting on black or red because each has the same probability of winning.
+The spins are independent.
+Between the two players there is a fixed number of 5 bets and we are counting the number of wins.
+So $X+Z$ has a Binomial(5, 18/38) distribution.
+1.  $\text{P}(X+Z = 3)=\binom{5}{3}(18/38)^3(20/38)^2 = 0.294$. Note that $X=2, Z=1$ is only one way $X+Z = 3$.
+1.  $X + Y$ does not have a Binomial distribution, because the trials that determine $X$ are not independent of those that determine $Y$.
+The random variables $X$ and $Y$ are not independent.
+1.  $X+Z$ would not have a Binomial distribution, because there is not the same probability of win (success) on all trials (18/38 for the first three but 1/38 for the last two).
 
 ## Problem 2
 
-(Continued.) In the Regina/Cady problem, let $W=|R-Y|$ be the amount of time the first person to arrive has to wait for the second person.
-Recall that $W$ is a continuous random variable with pdf
+Suppose the number of earthquakes per hour, for a certain range of magnitudes in a certain region, follows a Poisson distribution with parameter 0.7, independently from hour to hour.
+
+1.  Compute and interpret the probability that there is at least one earthquake of this size in the region in any given hour.
+1.  Compute and interpret the probability that there are exactly 3 earthquakes of this size in the region in any given hour.
+1.  Interpret the value 0.7 in context.
+1.  Construct a table, plot, and spinner corresponding to a Poisson(0.7) distribution.
+1.  Let $X$ be the number of earthquakes in a 2 hour period. 
+Identify by name the distribution of $X$. 
+Be sure to specify the values of any relevant parameters.
+1.  Compute and interpret $\text{P}(X = 3)$.
+
+
+
+### Solution
+
+Let $X$ be the number of earthquakes in the region in a randomly selected hour.
+The pmf is
 
 $$
-f_W(w) = 2(1-w), \quad 0 < w < 1.
+p_X(x) = e^{-0.7}\frac{0.7^x}{x!}, \quad x = 0, 1, 2, \ldots
 $$
 
-a.  Let $F$ be the cdf. Evaluate and interpret $F(0.25)$.
-b.  Find an expression for the cdf of $W$. Set up an integral, but sketch a picture and use geometry to compute.
-c.  Find and interpret the 25th percentile of $W$. (You can do the next part first if you want, but it might help to start with a specific number like in this part.)
-d.  Find the quantile function of $W$.
-e.  Sketch a spinner corresponding to the distribution of $W$. Label the 25th, 50th, and 75th percentiles.
-f.  **Coding required.** Use your simulation results from before to approximate the 25th, 50th, and 75th percentiles.
+1.  $\text{P}(X\ge 1)=1-\text{P}(X=0) = 1 - e^{-0.7}\frac{0.7^0}{0!}=1-e^{-0.7}=1-0.497=0.503$. In about 50% of hour long intervals there is at least one quake.
+1.  $\text{P}(X=3)= e^{-0.7}\frac{0.7^3}{3!}=0.028$. In about 3% of hour long intervals there are exactly 3 quakes.
+1.  Over many hour-long time intervals, there are 0.7 earthquakes per hour on average.
+1.  See below.
+1.  Let $X$ be the number of earthquakes in a 2 hour period then $X$ has a Poisson(1.4) distribution. (This is similar to the car accident problem.)
+1.  $\text{P}(X = 3) = e^{-1.4}1.4^3/3! = 0.113$. 
+Over many 2-hour periods, there are 3 earthquakes in about 11.3% of 2-hour periods.
 
-### Solutions
+```{r}
+#| echo: true
+#| 
+x <- 0:5
 
-a.  $F(0.25)=\text{P}(W \le 0.25)$, which we computed on a previous HW to be $1 - (1-0.25)^2 = 0.4375$. On about 44% of days Regina arrives within the first 15 minutes (0.25 hours).
-b.  Similar to computing $F_W(0.25) = \text{P}(W\le 0.25)$ from an earlier problem, but replace 0.25 with a generic $w$ (and remember to change the dummy variable of integration). For $0<w<1$,
-    $$
-    F_W(w) = \text{P}(W < w) = \int_0^{w} 2(1-u)du = -(1-u)^2 \Big\vert_{w =0}^{u=w} = 1 - (1-w)^2
-    $$
-     Technically the cdf is defined for any value of $w$, so it's really $$
-     F_W(w) =
-     \begin{cases}
-     0, & w \le 0\\
-     1 - (1-w)^2, & 0 < w < 1\\
-     1, & w\ge 1
-     \end{cases}
-     $$
-c.  The 25th percentile satisfies $$
-     0.25 = \text{P}(W \le w) = F_W(w) = 1 - (1 - w)^2
-     $$ Solve to get $w=1-\sqrt{1-0.25} = 0.134$ The waiting time is at most 0.134 hours (about 8 minutes) on 25% of days.
-d.  To find the $p$ percentile $q$, use the same process as in in the previous part. $$
-     p = \text{P}(W\le w) = F_W(w) = 1 - (1 - w)^2
-     $$ Solve to get $w=1-\sqrt{1-p}$. So the quantile function is $Q_W(p) = 1 - \sqrt{1-p}, 0\le p\le 1$.
-e.  See spinner below. We can use the quantile function to label the spinner.
-    -   The 25th percentile of $Q_W(0.25) = 1 - \sqrt{1-0.25} = 0.134$ hours (8 minutes) would go at the 3 o'clock point.
-    -   The 50th percentile of $Q_W(0.5) = 1 - \sqrt{1-0.5} = 0.293$ hours (17.6 minutes) would go at the 6 o'clock point.
-    -   The 75th percentile of $Q_W(0.75) = 1 - \sqrt{1-0.75} = 0.5$ hours (30 minutes) would go at the 9 o'clock point.
-    -   Notice that the values around the spinner are unequally spaced. The density of $W$ is higher near 0 so intervals near 0 are stretched out; the density of $W$ is lower near 1 so intervals near 1 are shrunk.
-f. See simulation results below. Use the `quantile` function.
+mu <- 0.7
+
+px <- dpois(x, mu)
+
+df <- data.frame(x, px)
+
+df |>
+  kable(col.names = c("x", "p(x)"), digits = 4)
+```
+
+```{r}
+#| echo: true
+#| 
+
+plot(x, px, type = "h", xlab = "x", ylab = "p(x)", main = "Poisson(0.7) pmf")
+```
 
 ```{r}
 #| echo: false
-n = 12
+#| message: false
+#| 
 
-xp <- data.frame(
-  x = (0:(n-1))/n,
-  p = rep(1/n, n)
-  )
+lam <- 0.7
+x <- c(0:2, "3+")
+p <- c(dpois(0:2, lambda = lam), 1 - ppois(2, lambda = lam))
 
-cdf = c(0, cumsum(xp$p))
+xp <- data.frame(x, p)
 
-plotp = (cdf[-1] + cdf[-length(cdf)]) / 2
-  
-spinner <- ggplot(xp, aes(x="", y=p, fill=x))+
-  geom_bar(width = 1, stat = "identity", color="black", fill="white") + 
-  coord_polar("y", start=0) +
+cdf <- c(0, cumsum(xp$p))
+
+plotp <- (cdf[-1] + cdf[-length(cdf)]) / 2
+
+spinner <- ggplot(xp, aes(x = "", y = p, fill = x)) +
+  geom_bar(width = 1, stat = "identity", color = "black", fill = "white") +
+  coord_polar("y", start = 0) +
   theme_void() +
   # plot the possible values on the outside
-  scale_y_continuous(breaks = xp$x, minor_breaks = (0:99)/100, labels=c("1|0", round(1 - sqrt(1- xp$x[-1]), 4))) +
-  theme(axis.text.x=element_text(size=12, face="bold")) +
-      annotate(geom="segment", y=(0:99)/100, yend = (0:99)/100,
-             x=1.48, xend= 1.52) +
+  scale_y_continuous(breaks = plotp, labels = xp$x) +
+  theme(axis.text.x = element_text(size = 14, face = "bold")) +
   # plot the probabilities as percents inside
-  ggtitle(paste("W spinner", sep=""))
+  geom_text(
+    aes(y = plotp, label = percent(p)),
+    size = 3,
+    color = c(rep("black", 3), rep("white", 1))
+  ) +
+  ggtitle(paste("Poisson(", lam, ") distribution", sep = ""))
 
 spinner
 ```
 
 
-```{r}
-N_rep = 10000
 
-x = runif(N_rep, 0, 1)
-y = runif(N_rep, 0, 1)
-
-w = abs(x - y)
-
-hist(w)
-```
-
-```{r}
-
-quantile(w, 0.25)
-
-quantile(w, c(0.25, 0.5, 0.75))
-```
 
 ## Problem 3
 
-Solve Example 11.3 from the Normal distribution handout (the problem on daily high temperatures in SLO.)
+Recall @exm-meeting-event. 
+Regina and Cady are meeting for lunch. 
+Suppose they each arrive uniformly at random at a time between noon and 1:00, independently of each other. 
+Record their arrival times as minutes after noon, so noon corresponds to 0 and 1:00 to 60.
+Recall the sample space from @exm-meeting-outcome and assume a uniform probability measure $\text{P}$.
+
+Let $R$ be Regina's arrival time and $Y$ Cady's. 
+Then $W = |R - Y|$ is the amount of time (minutes) the first person to arrive waits for the second person to arrive.
+
+1.  Compute and interpret $\text{P}(W<15)$. 
+(Hint: we computed this already in @exm-meeting-event.)
+1.  Compute and interpret $\text{P}(W>45)$.
+(Hint: use a method similar to the previous part.)
+1.  It can be shown that $W$ has pdf
+$$
+f_W(w) = (2/3600)(60-w), \qquad 0<w<60.
+$$
+
+    Sketch a plot of the pdf. Describe roughly what this means in context.
+1.  Use the pdf to compute $\text{P}(W<15)$. 
+Set up an integral, but sketch a picture and use geometry to compute.
+1.  Use the pdf to compute $\text{P}(W>45)$. 
+Set up an integral, but sketch a picture and use geometry to compute.
+
 
 ### Solution
 
-See [Example 7.12 here](https://bookdown.org/kevin_davisross/probsim-book/normal-distributions.html)
+```{r}
+#| echo: false
+#| label: fig-meeting-waiting-events
+#| layout-ncol: 2
+
+# Define the hexagonal region where |x - y| < 15, clipped to [0,60] x [0,60]
+region <- data.frame(
+  x = c(0, 45, 60, 60, 15, 0),
+  y = c(15, 60, 60, 45, 0, 0)
+)
+
+ggplot() +
+  geom_polygon(
+    data = region,
+    aes(x = x, y = y),
+    fill = "steelblue",
+    alpha = 0.4
+  ) +
+  geom_abline(
+    intercept = 15,
+    slope = 1,
+    linetype = "dashed",
+    color = "steelblue"
+  ) +
+  geom_abline(
+    intercept = -15,
+    slope = 1,
+    linetype = "dashed",
+    color = "steelblue"
+  ) +
+  scale_x_continuous(limits = c(0, 60), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 60), expand = c(0, 0)) +
+  coord_fixed() +
+  labs(title = "W < 15", x = "R", y = "Y") +
+  theme_bw()
+
+
+# Two triangular regions where |x - y| > 45, clipped to [0,60] x [0,60]
+region1 <- data.frame(
+  # x - y > 45  (bottom-right corner)
+  x = c(45, 60, 60),
+  y = c(0, 0, 15)
+)
+
+region2 <- data.frame(
+  # y - x > 45  (top-left corner)
+  x = c(0, 0, 15),
+  y = c(45, 60, 60)
+)
+
+ggplot() +
+  geom_polygon(
+    data = region1,
+    aes(x = x, y = y),
+    fill = "orange",
+    alpha = 0.6
+  ) +
+  geom_polygon(
+    data = region2,
+    aes(x = x, y = y),
+    fill = "orange",
+    alpha = 0.6
+  ) +
+  geom_abline(
+    intercept = 45,
+    slope = 1,
+    linetype = "dashed",
+    color = "orange"
+  ) +
+  geom_abline(
+    intercept = -45,
+    slope = 1,
+    linetype = "dashed",
+    color = "orange"
+  ) +
+  scale_x_continuous(limits = c(0, 60), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 60), expand = c(0, 0)) +
+  coord_fixed() +
+  labs(title = "W > 45", x = "R", y = "Y") +
+  theme_bw()
+```
+
+1.  See blue shaded region above and use geometry to compute the area of the blue shaded region (it's easier to compute the area of the unshaded region first) divided by the total area of the square, which yields $\text{P}(W < 15) = 0.4375$.
+If they meet like this over many days, on about 44% of days the first person will wait less than 15 minutes for the second person to arrive.
+1.  See orange shaded region above and use geometry to compute the area of the orange shaded region divided by the total area of the square, which yields $\text{P}(W > 45) = 0.0625$.
+If they meet like this over many days, on about 6% of days the first person will wait more than 45 minutes for the second person to arrive.
+1.  See plot below. The density is highest at $w=0$ and decreases linearly to 0 at $w=60$. Waiting time is most likely to be close to 0 minutes, and likelihood of waiting close to $w$ minutes decreases as $w$ increases.
+1.  Integrate the pdf over $(0, 15)$; see the shaded blue area below. This gives an area of a trapezoid; the complementary unshaded area is a triangle with a base of (60 - 15), a height of $f(15) = (2/3600)(60-15)$, so the probability we want is $\text{P}(W<15) = 1-(1/2)(60-15)(2/3600)(60-15) = 1-(45/60)^2 = 0.4375$. As an integral
+    $$
+     \text{P}(W < 15) = \int_0^{15} (2/3600)(60-w)dw = 0.4375
+    $$
+1.  Integrate the pdf over $(45, 60)$; see the shaded orange area below. This gives an area of a triangle with a base of (60 - 45), a height of $f(45) = (2/3600)(60-45)$, so the probability we want is $\text{P}(T<45) = (1/2)(60-45)(2/3600)(60-45) = (15/60)^2 = 0.0625$. As an integral
+    $$
+     \text{P}(W < 45) = \int_{45}^{60} (2/3600)(60-w)dw = 0.0625
+    $$
+
+
+```{r}
+#| echo: false
+#| label: fig-meeting-waiting-pdf
+#| layout-ncol: 2
+
+# Define the function
+f <- function(x) (2 / 3600) * (60 - x)
+
+# Create data for the curve
+curve_data <- data.frame(x = seq(0, 60, length.out = 1000))
+curve_data$y <- f(curve_data$x)
+
+# ---- Plot 1: shade area under curve for x < 15 (steelblue) ----
+shade1 <- subset(curve_data, x <= 15)
+
+ggplot(curve_data, aes(x = x, y = y)) +
+  geom_area(data = shade1, aes(x = x, y = y), fill = "steelblue", alpha = 0.6) +
+  geom_line(color = "black", linewidth = 1) +
+  scale_x_continuous(limits = c(0, 60), expand = c(0, 0)) +
+  scale_y_continuous(
+    limits = c(0, max(curve_data$y) * 1.05),
+    expand = c(0, 0)
+  ) +
+  labs(title = "PDF of W with P(W < 15) shaded", x = "w", y = "f(w)") +
+  theme_bw()
+
+# ---- Plot 2: shade area under curve for x > 45 (orange) ----
+shade2 <- subset(curve_data, x >= 45)
+
+ggplot(curve_data, aes(x = x, y = y)) +
+  geom_area(data = shade2, aes(x = x, y = y), fill = "orange", alpha = 0.6) +
+  geom_line(color = "black", linewidth = 1) +
+  scale_x_continuous(limits = c(0, 60), expand = c(0, 0)) +
+  scale_y_continuous(
+    limits = c(0, max(curve_data$y) * 1.05),
+    expand = c(0, 0)
+  ) +
+  labs(title = "PDF of W with P(W > 45) shaded", x = "w", y = "f(w)") +
+  theme_bw()
+```
+
 
 ## Problem 4
 
-Solve Example 11.4 from the Normal distribution handout (the problem on "effect size".)
+Continuing with the setup of Problem 3.
+Consider $T = \min(R, Y)$ is the time (minutes after noon) at which the first person arrives.
+
+1.  Is $T$ the same random variable as $W$ from Problem 3? Explain.
+1.  Compute and interpret $\text{P}(T<15)$. 
+(Hint: we computed something similar in @exm-meeting-event.)
+1.  Compute and interpret $\text{P}(T>45)$.
+(Hint: use a method similar to the previous part.)
+1.  It can be shown that $T$ has pdf
+$$
+f_T(t) = (2/3600)(60-t), \qquad 0<t<60.
+$$
+
+    Does $T$ have the same distribution as $W$ from Problem 3? Explain what this means.
+
 
 ### Solution
 
-See [Example 7.13 here](https://bookdown.org/kevin_davisross/probsim-book/normal-distributions.html)
-
-## Problem 5
-
-The latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3).
-Each package contains a single unknown prize.
-Suppose we only buy 3 packages and we consider as our sample space outcome the results of just these 3 packages (prize in package 1, prize in package 2, prize in package 3).
-For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package.
-Let $X$ be the number of distinct prizes obtained in these 3 packages.
-Let $Y$ be the number of these 3 packages that contain prize 1.
-Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages.
-There are 27 possible, equally likely outcomes
-
 ```{r}
 #| echo: false
+#| label: fig-meeting-time-pdf
+#| layout-ncol: 2
 
-k = 3
+# ---- Plot 1: shade region where x < 15 OR y < 15 (steelblue) ----
+# This is the full square minus the inner square [15,60] x [15,60],
+# forming an "L" shape.
+region_or <- data.frame(
+  x = c(0, 60, 60, 15, 15, 0),
+  y = c(0, 0, 15, 15, 60, 60)
+)
 
-outcomes = expand.grid(1:k, 1:k, 1:k)
+ggplot() +
+  geom_polygon(
+    data = region_or,
+    aes(x = x, y = y),
+    fill = "steelblue",
+    alpha = 0.4
+  ) +
+  geom_vline(xintercept = 15, linetype = "dashed", color = "steelblue") +
+  geom_hline(yintercept = 15, linetype = "dashed", color = "steelblue") +
+  scale_x_continuous(limits = c(0, 60), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 60), expand = c(0, 0)) +
+  coord_fixed() +
+  labs(title = "T < 15", x = "R", y = "Y") +
+  theme_bw()
 
+# ---- Plot 2: shade region where x > 45 AND y > 45 (orange) ----
+region_and <- data.frame(
+  x = c(45, 60, 60, 45),
+  y = c(45, 45, 60, 60)
+)
 
-n_outcomes = nrow(outcomes)
-
-X = rep(NA, n_outcomes)
-Y = rep(NA, n_outcomes)
-
-for (i in 1:n_outcomes) {
-  X[i] = outcomes %>% slice(i) %>% unlist() %>% n_distinct()
-  Y[i] = sum(outcomes[i, ] == 1)
-}
-
-outcomes <- outcomes %>%
-  bind_cols(X, Y)
-
-names(outcomes) = c(paste("box", 1:k, sep = ""), "X", "Y")
-
-outcomes %>%
-  kbl() %>%
-  kable_styling(fixed_thead = TRUE)
-
+ggplot() +
+  geom_polygon(
+    data = region_and,
+    aes(x = x, y = y),
+    fill = "orange",
+    alpha = 0.6
+  ) +
+  geom_vline(xintercept = 45, linetype = "dashed", color = "orange") +
+  geom_hline(yintercept = 45, linetype = "dashed", color = "orange") +
+  scale_x_continuous(limits = c(0, 60), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 60), expand = c(0, 0)) +
+  coord_fixed() +
+  labs(title = "T > 45", x = "R", y = "Y") +
+  theme_bw()
 ```
 
-a.  Evaluate $X$ and $Y$ for each of the outcomes.
-b.  Construct a two-way table representing the *joint distribution* of $X$ and $Y$.
-c.  Sketch a plot representing the joint distribution of $X$ and $Y$.
-d.  Construct a spinner corresponding to the joint distribution of $X$ and $Y$.
-e.  Describe two ways to simulate an $(X, Y)$ pair.
-f.  Identify the *marginal* distribution of $X$, and construct a corresponding spinner.
-g.  Identify the *marginal* distribution of $Y$, and construct a corresponding spinner.
-h.  Describe in detail in words how you could conduct a simulation and use the results to approximate. (This part is asking you to describe the process in words; not to write code.)
-    i.  $\text{P}(X = 3)$
-    ii. $\text{P}(X = 2, Y = 1)$ iii.$\text{E}(X)$ iii.$\text{E}(Y)$
-    iii. $\text{E}(XY)$
-    iv. $\text{SD}(X)$ iii.$\text{SD}(Y)$
-    v.  $\text{Cov}(X, Y)$
-    vi. $\text{Corr}(X, Y)$
-i.  **Coding required.** Code and run the simulation from the previous part and use the simulation results to approximate each of
-    i.  $\text{P}(X = 3)$
-    ii. $\text{P}(X = 2, Y = 1)$ iii.$\text{E}(X)$ iii.$\text{E}(Y)$
-    iii. $\text{E}(XY)$
-    iv. $\text{SD}(X)$ iii.$\text{SD}(Y)$
-    v.  $\text{Cov}(X, Y)$
-    vi. $\text{Corr}(X, Y)$
-j.  Compute
-    i.  $\text{P}(X = 3)$
-    ii. $\text{P}(X = 2, Y = 1)$ iii.$\text{E}(X)$ iii.$\text{E}(Y)$
-    iii. $\text{E}(XY)$
-    iv. $\text{SD}(X)$ iii.$\text{SD}(Y)$
-    v.  $\text{Cov}(X, Y)$
-    vi. $\text{Corr}(X, Y)$
-
-### Solution
-
-These don't quite match the assignment, but the ideas are similar.
-
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
-library(dplyr)
-library(knitr)
-library(kableExtra)
-
-k = 3
-
-outcomes = expand.grid(1:k, 1:k, 1:k)
+1.  No. $T$ and $W$ are different random variables. They are measuring different things. 
+For example, if Regina arrives at time 10 and Cady arrives and time 42, then the first arrival time $T$ is 10 and the waiting time $W$ is 32.
+1.  See blue shaded region above and use geometry to compute the area of the blue shaded region (it's easier to compute the area of the unshaded region first) divided by the total area of the square, which yields $\text{P}(T < 15) = 0.4375$.
+If they meet like this over many days, on about 44% of days the first person will arrive at most 15 minutes after noon.
+1.  See orange shaded region above and use geometry to compute the area of the orange shaded region divided by the total area of the square, which yields $\text{P}(T > 45) = 0.0625$.
+If they meet like this over many days, on about 6% of days the first person will arrive more than 45 minutes after noon.
+1.  Yes, $T$ and $W$ have the same distribution; they have the same pattern of variability over many days.
+Over many reps, 43.75% of reps have $W<15$ and 43.75% of reps have $T<15$ (though they're not the same reps). And so on. You could use the same spinner to simulates values of $W$ as you could $T$.
 
 
-n_outcomes = nrow(outcomes)
 
-X = rep(NA, n_outcomes)
-Y = rep(NA, n_outcomes)
-
-for (i in 1:n_outcomes) {
-  X[i] = outcomes %>% slice(i) %>% unlist() %>% n_distinct()
-  Y[i] = sum(outcomes[i, ] == 1)
-}
-
-outcomes <- outcomes %>%
-  bind_cols(X, Y)
-
-names(outcomes) = c(paste("box", 1:k, sep = ""), "X", "Y")
-
-outcomes %>%
-  kbl() %>%
-  kable_styling(fixed_thead = TRUE)
-
-```
-
-
-a.  One dimension will have possible values of $x$, the other possible values of $y$.
-    The interior cells should contain the probability of each $(x, y)$ pair.
-
-    |       |      |       |      |      |       |
-    |:------|-----:|------:|-----:|-----:|------:|
-    |       |  $y$ |       |      |      |       |
-    | $x$   |    0 |     1 |    2 |    3 | Total |
-    | 1     | 2/27 |     0 |    0 | 1/27 |  3/27 |
-    | 2     | 6/27 |  6/27 | 6/27 |    0 | 18/27 |
-    | 3     |    0 |  6/27 |    0 |    0 |  6/27 |
-    | Total | 8/27 | 12/27 | 6/27 | 1/27 |     1 |
-
-b.  Make a tile plot with color or shading representing probability; see below.
-
-c.  The spinner is below; it returns the 6 possible $(x, y)$ pairs with the proper probabilities.
-
-d.  Method 1: Simulate from the probability space: Label 3 cards: 1, 2, 3.
-    Shuffle the cards and deal one, then replace the card and repeat, dealing a total of 3 cards, e.g., 212.
-    Measure $X$ and $Y$ for the outcome.
-
-    Method 2: Simulate from the distribution.
-    Spin the spinner from the previous part once to generate an $(X, Y)$ pair.
-
-e.  The possible values of $X$ are in the leftmost column and the probabilities are in the Total column.
-    See previous HW solutions for plot and spinner.
-
-f.  The possible values of $Y$ are in the top row (0, 1, 2, 3) and the probabilities are in the Total row.
-    See previous HW solutions for plot and spinner.
-
-g.  Method 1: Simulate from the probspace: Draw three "boxes" and observe the prize sequence, and measure $X$.
-
-    Method 2: Simulate from marginal dist: Spin the $X$ spinner once and observe the value.
-
-    Method 3: Simulate from joint dist: Spin the joint distribution spinner once to obtain an $(X, Y)$ pair, and ignore $Y$.
-    (This is the one we didn't see on a previous HW.)
-
-h.  Describe in detail how you could conduct a simulation to and use the results to approximate
-
-    a.  $\text{P}(X = 3)$. Simulate many values of $X$, count the number of simulated values equal to 3, and divide by the number of simulated values (i.e., find the simulated relative frequency of 3)
-    b.  $\text{P}(X = 2, Y = 1)$. Simulate many $(X, Y)$ *pairs*, count the number of simulated pairs in which $X = 2$ and $Y = 1$, and divide by the number of simulated values (i.e., find the simulated relative frequency of the event $\{X = 2, Y = 1\}$)
-    c.  The long run average value of $X$. Simulate many values of $X$ and compute their average (i.e., sum the simulated values of $X$ and divide by the number of simulated values.)
-    d.  The long run average value of $XY$. Simulate many $(X, Y)$ *pairs*, find the product $XY$ for each pair, and compute the average value of the products (i.e., sum the simulated values of $XY$ and divide by the number of simulated pairs.)
-
-```{r}
-#| echo: false
-
-x = c(1, 1, 2, 2, 2, 3)
-y = c(0, 3, 0, 1, 2, 1)
-p = c(2, 1, 6, 6, 6, 6) / 27
-
-
-data.frame(x, y, p) %>%
-  ggplot(aes(x = x,
-              y = y,
-              fill = p)) +
-  geom_tile(colour = "grey50") +
-  geom_text(aes(label = round(p, 3)), col = "white") +
-  scale_x_continuous(breaks = 1:3) +
-  labs(fill = "Probability") +
-  theme_classic()
-
-```
-
-```{r}
-#| echo: false
-#| eval: true
-
-include_graphics("_graphics/spinner-hw-collector-joint.png")
-```
-
-There are many ways of doing the simulation.
-I'll use a for loop
-
-```{r}
-
-# Number of repetitions
-N_rep = 10000
-
-# Initialize place holders for X and Y
-# Each of X and Y will eventually contain 10000 values
-# but initially they are empty
-X = vector(length = N_rep)
-Y = vector(length = N_rep)
-
-
-for (i in 1:N_rep) {
-  # within the loop a single repetition is performed
-  
-  # simulate the 3 prizes
-  outcome  = sample(1:3, size = 3, replace = TRUE)
-  
-  # find the number of distinct prizes
-  x = length(unique(outcome))
-  
-  # count the number of prize 1s
-  y = sum(outcome == 1)
-  
-  # record the values in X and Y
-  X[i] = x
-  Y[i] = y
-}
-
-# After the loop runs each of X and Y will have 10000 values
-
-# X counts
-table(X)
-
-# Rough plot of approximate distribution of X
-plot(table(X) / N_rep,
-     xlab = "X",
-     ylab = "Relative frequency")
-
-
-# Y counts
-table(Y)
-
-
-# Rough plot of approximate distribution of Y
-plot(table(Y) / N_rep,
-     xlab = "Y",
-     ylab = "Relative frequency")
-
-
-# (X, Y) counts
-table(X, Y)
-
-# Approximate E(X)
-mean(X)
-
-# Approximate E(Y)
-mean(Y)
-
-# Approximate SD(X)
-sd(X)
-
-# Approximate SD(Y)
-sd(Y)
-
-# Approximate E(XY)
-mean(X * Y)
-
-# Approximate Cov(X, Y)
-cov(X, Y)
-
-# Approximate Corr(X, Y)
-cor(X, Y)
-
-# Approximate P(X = 3)
-sum(X == 3) / N_rep
-
-# Approximate P(X = 2, Y = 1)
-sum((X == 2) * (Y == 1)) / N_rep
-
-
-```
 

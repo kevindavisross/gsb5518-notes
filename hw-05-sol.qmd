@@ -3,435 +3,274 @@
 {{< include _r_setup.qmd >}}
 
 
+
 ## Problem 1
 
-(Continuing from a previous HW) The latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3).
-Each package contains a single unknown prize.
-Suppose we only buy 3 packages and we consider as our sample space outcome the results of just these 3 packages (prize in package 1, prize in package 2, prize in package 3).
-For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package.
-Let $X$ be the number of distinct prizes obtained in these 3 packages.
-Let $Y$ be the number of these 3 packages that contain prize 1.
-Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages; let $\text{P}$ denote the corresponding probability measure.
+In a certain region, times (minutes) between occurrences of earthquakes (of any magnitude) have a distribution with percentiles displayed in the table below.
 
-a.  Find the conditional distribution of $Y$ given $X=x$ for each possible value of $x$ of $X$.
-a.  Compute and interpret $\text{E}(Y|X=x)$ for each possible value of $x$ of $X$.
-b.  Find the conditional distribution of $X$ given $Y=y$ for each possible value of $y$ of $Y$.
-a.  Compute and interpret $\text{E}(X|Y=y)$ for each possible value of $y$ of $Y$.
-c.  Explain how you could use spinners to implement the "marginal then conditional" method to simulate an $(X, Y)$ pair.
-d.  Suppose you have simulated many $(X, Y)$ pairs. Explain how you could use the simulation results to approximate:
-    i.  $\text{P}(X = 1 | Y = 0)$
-    ii. the conditional distribution of $X$ given $Y=0$
-    iii. $\text{E}(X = 1 | Y = 0)$
+1.  Construct a spinner corresponding to this distribution.
+1.  What percent of times are between 26.8 and 110.0 minutes?
+1.  Let $F$ be the cdf. Evaluate and interpret $F(42.8)$.
+1.  Let $Q$ be the quantile function. Evaluate and interpret $Q(0.9)$.
+1.  Sketch (by hand) a histogram of this distribution.
+
+```{r}
+#| echo: false
+exponential_spinner <- data.frame(p = 0.1 * (1:9)) %>%
+  mutate(x = round(qexp(p, rate = 1 / 120), 1))
+
+exponential_spinner %>%
+  mutate(p = paste(100 * p, "th", sep = "")) %>%
+  kbl(col.names = c("Percentile", "Value (minutes)")) %>%
+  kable_styling()
+```
+
 
 ### Solution
 
-a.  Each row of the table below represents a different conditional distribution of $Y$ given $X=x$. For example, the row for $x=1$ represents the conditional distribution of $Y$ given $X=1$: Given $X=1$, $Y$ is 0 with probability 2/3 and 3 with probability 1/3.
+1.  See below. The 50th percentile goes at "6 o'clock" (50% of the way around), etc.
+1.  60% are below 110.0 and 20% are below 26.8, so 40% are between 26.8 and 110.0 minutes.
+1.  $F(42.8)=\text{P}(X \le 42.8) = 0.3$, since 42.8 minutes is the 30th percentile.
+1.  $Q(0.9) = 276.3$, since 276.3 minutes is the 90th percentile.
+1.  We always end with a histogram with even bins, but sometimes it helps to start sketching a histogram with unever bins. We know that 10% of the values are between 0 and 12.6, 10% are between 12.6 and 26.8, 10% are between 26.8 and 42.8, etc. So if we split the bins of the histogram based on these percentiles, each bin would correspond to a relative frequency of 10%. HOWEVER, AREA in a histogram represents relative frequency. So each of the bins would have the same area, but they are unequally spaced, so they would not have the same height. For example, the first bin has area of 10% over a base of (0, 12.6), while the 80-90 percentile bin has area 10% spread over the interval (193.1, 276.3), so the bar for (193.1, 276.3) will have a smaller height than the bar for (0, 12.6). Sketching a histogram with these unevenly spaced bins first gives an idea of the shape; then you can sketch a histogram with a similar shape but equally spaced bins. We can see that density is highest near 0 and decreases as $x$ increases; notice the stretching and shrinking on the spinner. (The highest percentile is the 90th, so we don't know what the upper bound is that almost all values fall below.)
 
-    |     |     |     |     |     |       |
-    |-----|----:|----:|----:|----:|------:|
-    |     | $y$ |     |     |     |       |
-    |     |   0 |   1 |   2 |   3 | Total |
-    | $x$ |     |     |     |     |       |
-    | 1   | 2/3 |   0 |   0 | 1/3 |     1 |
-    | 2   | 1/3 | 1/3 | 1/3 |   0 |     1 |
-    | 3   |   0 |   1 |   0 |   0 |     1 |
+```{r}
+#| echo: false
+
+n <- 10
+
+xp <- data.frame(
+  x = (0:(n - 1)) / n,
+  p = rep(1 / n, n)
+)
+
+cdf <- c(0, cumsum(xp$p))
+
+plotp <- (cdf[-1] + cdf[-length(cdf)]) / 2
+
+spinner <- ggplot(xp, aes(x = "", y = p, fill = x)) +
+  geom_bar(width = 1, stat = "identity", color = "black", fill = "white") +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  # plot the possible values on the outside
+  scale_y_continuous(
+    breaks = xp$x,
+    minor_breaks = (0:99) / 100,
+    labels = c("?|0", exponential_spinner$x)
+  ) +
+  theme(axis.text.x = element_text(size = 12, face = "bold")) +
+  annotate(
+    geom = "segment",
+    y = (0:99) / 100,
+    yend = (0:99) / 100,
+    x = 1.48,
+    xend = 1.52
+  ) +
+  # plot the probabilities as percents inside
+  geom_text(aes(y = plotp, label = format(percent(round(p, 2)), 0)), size = 4) +
+  ggtitle(paste("Marginal distribution of time (minutes)", sep = ""))
+
+spinner
+```
+
+```{r}
+#| echo: false
+
+x <- pmin(rexp(10000, rate = 1 / 120), 600)
+hist(
+  x,
+  breaks = c(0, exponential_spinner$x, 600),
+  main = "Histogram - uneven bins"
+)
+```
+
+```{r}
+#| echo: false
+
+x <- pmin(rexp(10000, rate = 1 / 120), 600)
+hist(x, main = "Histogram - even bins", freq = FALSE)
+```
 
 
-a. Take expected values according to each conditional distribution.  In general, $\text{E}(Y|X=x)$ depends on $x$, but in this case $\text{E}(Y|X=x) = 1$ for all values of $x$.; regardless of how many distinct prizez people obtain in their, the average number of prize 1s obtains is 1.
-
-    \begin{align*}
-    x & \quad \text{E}(Y|X=x)\\
-    1 & \quad 0(2/3) + 3(1/3) = 1\\
-    2 & \quad 0(1/3) + 1(1/3) + 2(1/3) = 1\\
-    3 & \quad 1(1) = 1
-    \end{align*}
-
-b.  Each column of the table below represents a different conditional distribution of $X$ given $Y=y$. For example, the column for $y=1$ represents the conditional distribution of $X$ given $Y=1$: Given $Y=1$, $X$ is 1 with probability 1/4 and 2 with probability 3/4.
-
-    |       |     |     |     |     |
-    |-------|----:|----:|----:|----:|
-    |       | $y$ |     |     |     |
-    |       |   0 |   1 |   2 |   3 |
-    | $x$   |     |     |     |     |
-    | 1     | 1/4 |   0 |   0 |   1 |
-    | 2     | 3/4 | 1/2 |   1 |   0 |
-    | 3     |   0 | 1/2 |   0 |   0 |
-    | Total |   1 |   1 |   1 |   1 |
 
 
-a. Take expected values according to each conditional distribution. For example, $\text{E}(X|Y = 0) = 1.75$; among the people who never get prize 1 in their 3 boxes, the average number of distinct prizes they obtain is 1.75.
-
-    \begin{align*}
-    y & \quad \text{E}(X|Y=y)\\
-    0 & \quad 1(1/4) + 2(3/4) = 1.75\\
-    1 & \quad 2(1/2) + 3(1/2) = 2.5\\
-    2 & \quad 2(1) = 2\\
-    3 & \quad 1(1) = 1
-    \end{align*}
-
-
-c.  Simulate a value of $X$ from its marginal distribution: 1, 2, 3 with probability 3/27, 18/27, 6/27 (see previous HW for spinner). Given the value of $x$, simulate $Y$ from the appropriate conditional distribution of $Y$ given $X=x$:
-    -   if $x =1$, simulate $Y$ from a spinner that returns values 0, 3 with probability 2/3, 1/3
-    -   if $x = 2$, simulate $Y$ from a spinner that returns values 0, 1, 2 with probability 1/3, 1/3, 1/3
-    -   if $x =3$ then $Y$ is 1 with probability 1.
-    -   (You could also simulate $Y$ first and then given $Y=y$ simulate $X$ from the appropriate conditional distribution of $X$ given $Y=y$.)
-d.  Simulate many $(X, Y)$ pairs using any appropriate method.
-    i.  Discard all pairs for which $Y$ is not 0, count the number of remaining pairs in which $X=1$ and divide by the number of non-discarded pairs (all with $Y=0$).
-    ii. Discard all pairs for which $Y$ is not 0, and summarize the $X$ values to find the conditional relative frequency of each possible $X$ value as in the previous part (given $Y=0$, the possible values of $X$ are 1 and 2).
-    iii. Discard all pairs for which $Y$ is not 0 and sum all the $X$ values for the remaining pairs and divide by the number of non-discarded pairs to find the conditional average.
-    iv. (In all the above, be careful about the margin of error.)
 
 ## Problem 2
 
-Xavier and Yolanda are playing roulette. They both place bets on red on the same 3 spins of the roulette wheel before Xavier has to leave. (Remember, the probability that any bet on red on a single spin wins is 18/38.) After Xavier leaves, Yolanda places bets on red on 2 more spins of the wheel. Let $X$ be the number of bets that Xavier wins and  let $Y$ be the number that Yolanda wins.
+Recall @exm-meeting-event. 
+Regina and Cady are meeting for lunch. 
+Suppose they each arrive uniformly at random at a time between noon and 1:00, independently of each other. 
+Record their arrival times as minutes after noon, so noon corresponds to 0 and 1:00 to 60.
+Recall the sample space from @exm-meeting-outcome and assume a uniform probability measure $\text{P}$.
 
-a. Identify by name the marginal distribution of $X$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(X)$.
-a. Identify by name the marginal distribution of $Y$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(Y)$.
-a. The joint distribution of $X$ and $Y$ is represented in the table below. Explain why $p_{X, Y}(1, 4) = 0$ and $p_{X, Y}(2, 1) = 0$.
-a. Compute $p_{X, Y}(2, 3)$. (Yes, the table tells you it's 0.1766, but you have to show how this number can be computed based on the assumptions of the problem.)
-a. Are $X$ and $Y$ independent? Justify your answer with an appropriate calculation.
-a. Compute and interpret $\text{P}(X + Y) = 4$.
-a. Make a table representing the marginal distribution of $X+Y$.
-a. Use the table from the previous part to compute $\text{E}(X+Y)$, and verify that it is equal to $\text{E}(X)+\text{E}(Y)$.
-a. Without doing any computation, determine if $\text{Var}(X+Y)$ will be greater than, less than, or equal to $\text{Var}(X) + \text{Var}(Y)$. Explain your reasoning.
+Let $R$ be Regina's arrival time and $Y$ Cady's. 
+Then $W = |R - Y|$ is the amount of time (minutes) the first person to arrive waits for the second person to arrive.
+It can be shown that $W$ has pdf
+$$
+f_W(w) = (2/3600)(60-w), \qquad 0<w<60.
+$$
 
 
-| $x$, $y$ |      0 |      1 |      2 |      3 |      4 |      5 |
-|----------|-------:|-------:|-------:|-------:|-------:|-------:|
-| 0        | 0.0404 | 0.0727 | 0.0327 |      0 |      0 |      0 |
-| 1        |      0 |  0.109 | 0.1963 | 0.0883 |      0 |      0 |
-| 2        |      0 |      0 | 0.0981 | 0.1766 | 0.0795 |      0 |
-| 3        |      0 |      0 |      0 | 0.0294 |  0.053 | 0.0238 |
+1.  Let $F$ be the cdf.
+Evaluate and interpret $F(15)$.
+1.  Find an expression for the cdf of $W$.
+Set up an integral, but sketch a picture and use geometry to compute.
+1.  Find and interpret the 25th percentile of $W$.
+(You can do the next part first if you want, but it might help to start with a specific number like in this part.)
+1.  Find the quantile function of $W$.
+1.  Sketch a spinner corresponding to the distribution of $W$.
+Label the 25th, 50th, and 75th percentiles.
 
 
 ### Solution
 
-a. $X$ has a Binomial distribution with parameters $n=3$ and $p = 18/38$, so $\text{E}(X) = np = 3(18/38) = 1.42$.
-a. $Y$ has a Binomial distribution with parameters $n=5$ and $p = 18/38$, so $\text{E}(X) = np = 5(18/38) = 2.37$.
-a. In the first 3 bets Yolanda wins the same number of games as Xavier, and Yolanda only plays two more games. So $Y$ can't be more than $X+2$, and $Y$ can't be less than $X$.
-a. To have $X = 2$ and $Y=3$ we need to have exactly two wins in the first 3 bets (where both play) exactly 1 win in the last 2 bets (Yolanda only). The number of wins in the first 3 bests is Binomial(3, 18/38), the number of wins in the last two bets is Binomial(2, 18/38) and the first 3 bets are independent of the last two bets. So the probability is `dbinom(2, 3, 18 / 38) * dbinom(1, 2, 18 / 38)` = `r round(dbinom(2, 3, 18 / 38) * dbinom(1, 2, 18 / 38), 3)` or
+1.  $F(15)=\text{P}(W \le 15)$, which we computed on a previous HW to be $1 - (1-15/60)^2 = 0.4375$. 
+If they meet like this over many days, on about 44% of days the first person needs to wait at most 15 minutes for the second person to arrive.
+1.  Similar to computing $F_W(15) = \text{P}(W\le 15)$ from an earlier problem, but replace 15 with a generic $w$ (and remember to change the dummy variable of integration). For $0<w<60$,
     $$
-    p_{X, Y}(2, 3) = \text{P}(X = 2, Y = 3) = \left(\binom{3}{1}(18/38)^2(20/38)^1\right)\left(\binom{2}{1}(18/38)^1(20/38)^1\right) = 0.177
+    F_W(w) = \text{P}(W \le w) = \int_0^{w} (2/3600)(60-u)du = 1 - (1-w/60)^2
     $$
-a. No. $X$ and $Y$ are not independent. For example $\text{P}(X = 0) = 0.15$ but $\text{P}(X=0|Y = 0) = 1$.
-a. Sum over the $(X, Y)$ pairs for which $X + Y = 4$: (0, 4), (1, 3), (2, 2), (3, 1), (4, 0). So 0 + 0.0883 + 0.0981 + 0 = 0.1864. Suppose they do this every time they visit the casino. Over many visits to the casino, together they win a total of 4 bets in 18.6% of visits
-a. The possible values are $0, 1, \ldots, 8$. Fill in the probabilities like in the previous part. (Alternative $X + Y$ has the same distribution as $2X + Z$ where $X$ and $Z$ are independent and $Z$ (number of wins in last two bets) has a Binomial(2, 18/38) distribution).
+     Technically the cdf is defined for any value of $w$, so it's really $$
+     F_W(w) =
+     \begin{cases}
+     0, & w \le 0\\
+     1 - (1-w/60)^2, & 0 < w < 60\\
+     1, & w\ge 60
+     \end{cases}
+     $$
+1.  The 25th percentile satisfies
+    $$
+     0.25 = \text{P}(W \le w) = F_W(w) = 1 - (1 - w/60)^2
+     $$
+    Solve to get $w= 60(1-\sqrt{1-0.25})= 8.03$. The waiting time is at most (about) 8 minutes on 25% of days.
+1.  To find the $p$ percentile, use the same process as in in the previous part.
+    $$
+     p = \text{P}(W\le w) = F_W(w) = 1 - (1 - w/60)^2
+     $$
+    Solve to get $w=60(1-\sqrt{1-p)}$. So the quantile function is $Q_W(p) = 60(1 - \sqrt{1-p}), 0\le p\le 1$.
+1.  See spinner below. We can use the quantile function to label the spinner.
+    -   The 25th percentile of $Q_W(0.25) = 60(1 - \sqrt{1-0.25}) = 8.02$ minutes would go at the "3 o'clock" point.
+    -   The 50th percentile of $Q_W(0.5) = 60(1 - \sqrt{1-0.5}) = 17.57$ minutes would go at the "6 o'clock" point.
+    -   The 75th percentile of $Q_W(0.75) = 60(1 - \sqrt{1-0.75}) = 30$ minutes would go at the "9 o'clock" point.
+    -   Notice that the values around the spinner are unequally spaced. The density of $W$ is higher near 0 so intervals near 0 are stretched out; the density of $W$ is lower near 60 minutes so intervals near 60 are shrunk.
 
-    | Value | Probability |
-    |-------|------------:|
-    | 0     |      0.0404 |
-    | 1     |      0.0727 |
-    | 2     |      0.1417 |
-    | 3     |      0.1963 |
-    | 4     |      0.1864 |
-    | 5     |      0.1766 |
-    | 6     |      0.1089 |
-    | 7     |      0.0530 |
-    | 8     |      0.0238 |
-     
-a. From the table $\text{E}(X+Y) = 0(0.404) + 1(0.0727 + \cdots + 8(0.0238) = 3.79$, and  $\text{E}(X)+\text{E}(Y) = 3(18/38) + 5(18/38) = 3.79$. (These are exactly equal; any differences are just rounding errors)
-a. There is a positive association so $\text{Var}(X+Y)$ will be greater than $\text{Var}(X) + \text{Var}(Y)$.
+```{r}
+#| echo: false
+n <- 12
+
+xp <- data.frame(
+  x = (0:(n - 1)) / n,
+  p = rep(1 / n, n)
+)
+
+cdf <- c(0, cumsum(xp$p))
+
+plotp <- (cdf[-1] + cdf[-length(cdf)]) / 2
+
+spinner <- ggplot(xp, aes(x = "", y = p, fill = x)) +
+  geom_bar(width = 1, stat = "identity", color = "black", fill = "white") +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  # plot the possible values on the outside
+  scale_y_continuous(
+    breaks = xp$x,
+    minor_breaks = (0:99) / 100,
+    labels = c("60|0", round(60 * (1 - sqrt(1 - xp$x[-1])), 2))
+  ) +
+  theme(axis.text.x = element_text(size = 12, face = "bold")) +
+  annotate(
+    geom = "segment",
+    y = (0:99) / 100,
+    yend = (0:99) / 100,
+    x = 1.48,
+    xend = 1.52
+  ) +
+  # plot the probabilities as percents inside
+  ggtitle(paste("W spinner", sep = ""))
+
+spinner
+```
+
 
 
 
 
 ## Problem 3
 
+Continuing Problem 2. For this problem you should set up integrals when appropriate but you can use software to compute them.
 
-Percent returns for assets $X$, $Y$, and $Z$ follow a joint distribution with
+1.  Explain in full detail how you could use simulation to approximate
+    a.  $\text{E}(W)$
+    a.  $\text{E}(W^2)$
+    a.  $\text{Var}(W)$ (explain how you can do it directly without using the previous part.)
+1.  Compute and interpret $\text{E}(W)$.
+1.  Compute $\text{E}(W^2)$.
+1.  Compute $\text{Var}(W)$
+1.  Compute and interpret $\text{SD}(W)$.
+1.  Compute the probability that $W$ is more than 1 SD away from its mean.
 
-- Mean 10 and standard deviation 15 for asset X,
-- Mean 5 and standard deviation 3 for asset Y,
-- Correlation of −0.6 between asset X and asset Y
-- Asset Z yields a constant return of 1 percent.
-
-An investment portfolio has 60% of its funds in asset X, 30% in asset Y, and 10% in asset Z.
-
-a. Let $R$ be the portfolio return. Express $R$ in terms of $X, Y, Z$. 
-a. Compute $\text{E}(R)$.
-a. Compute $\text{Cov}(X, Y)$.
-a. Compute $\text{Cov}(X, Z)$.
-a. Compute $\text{SD}(R)$.
 
 
 ### Solution
 
+1.  Simulate many values of $W$ (e.g., using the spinner from the previous part).
+    a.  Average the values of $W$ to approximate $E(W)$.
+    a.  Square each simulated value of $W$ and average the $W^2$ values to approximate $E(W^2)$.
+    a.  For each simulated value of $W$, subtract the average of $W$ and square to get the squared deviation and average the squared deviations to approximate $\text{Var}(W)$.
+1.  Use the definition of EV for continuous RV
+    $$
+     \text{E}(W) = \int_0^{60} w f_W(w) dw = \int_0^1 w\left(2/3600(60-w)\right)dw = 20
+     $$
+     If they were to meet like this over many days, the long run average time the first person has to wait for the second person to arrive is 20 minutes.
+1.  Use LOTUS
+    $$
+     \text{E}(W^2) = \int_0^{60} w^2 f_W(w) dw = \int_0^{60} w^2\left(2/3600(60-w)\right)dw = 600
+     $$
+1.  We did all the work in the previous parts. $\text{Var}(W) = \text{E}(W^2) - \text{E}(W)^2 = 600 - (20)^2 = 200$ square-minutes.
+1.  $\text{SD}(W) = 14.1$ minutes
+1.  $\text{P}(|W-\text{E}(W)|>\text{SD}(W)) = \text{P}(W>20 + 14.1) + \text{P}(W < 20 - 14.1)$. In this case you can find the corresponding probability/area in this case with geometry. Also, integrating gives
+    $$
+    \int_0^{20 - 14.1} 2/3600(60-w)dw + \int_{20 + 14.1}^1 2/3600(60-w)dw = 0.37
+    $$
 
 
-a. $R = 0.6X + 0.3Y + 0.1Z$
-a. Linearity of expected value
-    $$
-    \text{E}(R)=\text{E}(0.6X + 0.3Y + 0.1Z) = 0.6\text{E}(X) + 0.3\text{E}(Y) + 0.1\text{E}(Z) = 0.6(10) + 0.3(5) + 0.1(1) = 7.6
-    $$
-a. $\text{Cov}(X, Y) = \text{Corr}(X, Y)\text{SD}(X)\text{SD}(Y) = (-0.6)(15)(3) = -27$
-a. $Z$ is constant so $\text{Cov}(X, Z)=0$
-a. Use properties of variance and covariance
-\begin{align*}
-& \text{Var}(0.6X + 0.3Y + 0.1Z) & &  
-\\ & = \text{Var}(0.6X + 0.3Y) & & \text{$Z$ is constant, no affect variability}\\
- & = \text{Var}(0.6X) + \text{Var}(0.3Y) + 2\text{Cov}(0.6X, 0.3Y) & & \text{variance of sum}\\
- & = 0.6^2\text{Var}(X) + 0.3^2\text{Var}(Y) + 2(0.6)(0.3)\text{Cov}(X, Y) && \text{rules for variance}\\
- & =  0.6^2\text{SD}(X)^2 + 0.3^2\text{SD}(Y)^2 + 2(0.6)(0.3)\text{Corr}(X, Y)\text{SD}(X)\text{SD}(Y) && \text{correlation}\\
- & = 0.6^2(15^2) + 0.3^2(3)^2 + 2(0.6)(0.3)(-0.6)(15)(3) & & \\
- & = 72.09
- \end{align*}
- So $\text{SD}(R) = \sqrt{\text{Var}(R)} = \sqrt{72} = 8.49$.
+
+
 
 ## Problem 4
 
-Devi and Paxton are meeting.
-Arrival times are measured in minutes after noon, with negative times representing arrivals before noon.
-Devi's arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton's arrival time follows a Normal distribution with mean 25 and SD 10 minutes, independently of each other.
+Lifetimes of a certain type of component are Exponentially distributed with mean 20 thousand hours.
 
-For each of the following, find the appropriate standardized value and make a ballpark estimate of the probability. Then use software to compute the probability.
-
-a. Compute the probability that Devi arrives before noon.
-a. Compute the probability that Devi arrives first.
-a. Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
-a. **Coding required.** Code and run a simulation and use the results to approximate the probability from the previous part (just part c). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
-
-### Solution
-
-
-a. If $V$ is Devi's arrival time, $V\sim N(20, 15)$. We want $\text{P}(V < 0)$. The standardized value for 0 is $(0 - 20)/15=-1.333$; that is, 0 is 1.333 SDs below the mean. From the empirical rule, 87% of values are within 1.5 SDs of the mean, so our estimated probability is more than 6.5%. For software, see below; $\text{P}(V < 0)=0.09$.
-a. If $X$ is Paxton's arrival time, we want $\text{P}(X > V) = \text{P}(X - V >0)$. Since $X$ and $V$ are independent each with a Normal distribution, then $X - V$ has a Normal distribution. The mean is $20-15 = 5$, and since $X$ and $V$ are independent
-    $$
-    \text{Var}(X - V) = \text{Var}(X) + \text{Var}(V) - 2\text{Cov}(X, V) = 10^2 + 15^2 - 0 = 325
-    $$
-    So $\text{SD}(X - V) = \sqrt{325} = 18.0$. 
-    We want $\text{P}(X - V > 0)$. The standardized value for 0 is $(0 - 5)/18=-0.277$; that is, 0 is 0.277 SDs below the mean.
-    The probability will be more than 50%. For software, see below; $\text{P}(X - V > 0)=0.61$.
-a. We want $\text{P}(|X - V| >15) = \text{P}(X - V > 15) + \text{P}(X - V < -15)$. The standardized value for 15 is $(15 - 5) / 18 = 0.556$. The standardized value for -15 is $(-15 - 5) / 18 = -1.11$. The probability that a value is more than 1 SD below the mean is about 0.16; the probability that a value is more than 0.5 SDs above the mean is about 0.31. So the probability that we want is less than 0.47. It's $\text{P}(|X - V| > 15) = 0.42$.
-
-
-```{r}
-pnorm((0 - 20) / 15)
-
-pnorm(0, 20, 15)
-```
-
-```{r}
-1 - pnorm((0 - 5) / 18)
-
-1 - pnorm(0, 5, 18)
-```
-
-
-```{r}
-1 - pnorm((15 - 5) / 18) + pnorm((-15 - 5) / 18)
-
-1 - pnorm(15, 5, 18) + pnorm(-15, 5, 18)
-```
-
-
-
-
-
-```{r}
-N_rep = 10000
-
-V = rnorm(N_rep, 20, 15)
-X = rnorm(N_rep, 25, 10)
-
-sum(abs(V - X) > 15) / N_rep
-
-cor(V, X)
-
-mean(V)
-
-sd(V)
-
-mean(X)
-
-sd(X)
-```
-
-
-```{r}
-plot(V, X, col = ifelse(abs(V - X) > 15, "orange", "gray"))
-abline(a = 15, b = 1, col = "orange")
-abline(a = -15, b = 1, col = "orange")
-```
-
-
-
-```{r}
-ggplot(data.frame(V, X), aes(x = V, y = X)) +
-  stat_density_2d(aes(fill = ..level..), geom = "polygon", colour="white") +
-  geom_abline(slope = 1, intercept = c(-15, 15), col = "orange", size = 2)
-
-
-
-
-```
-
-## Problem 5 part 1
-
-(Continued.) Devi and Paxton are meeting. Arrival times are measured in minutes after noon, with negative times representing arrivals before noon. Devi’s arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton’s arrival time follows a Normal distribution with mean 25 and SD 10 minutes.
-
-For each of the following, find the appropriate standardized value and make a ballpark estimate of the probability. Then use software to compute the probability.
-
-Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation 0.8
-
-a. Compute the probability that Devi arrives first given that Paxton arrives at 12:10.
-a. Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
-a. **Coding required.** Code and run a simulation and use the results to approximate the probability from the previous part (just part b). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
+1.  Approximate the probability that the lifetime, rounded to the nearest thousand hours,  of a randomly selected component is 30 thousand hours.
+1.  Compute the probability that a randomly selected component has a lifetime greater than 30 thousand hours.
+1.  Compute the standard deviation of component lifetimes.
+1.  Suppose a device contains 2 such components connected in series, so that the system functions only if both of the components are functioning. 
+Suppose the component lifetimes are independent of each other.
+Compute the probability that the *device* has a lifetime greater than 30 thousand hours.
+1.  Let $T$ be the lifetime of the *device*. Compute $\text{P}(T > t)$.
+1.  Identify the distribution of $T$ by name, including the values of any relevant parameters.
 
 
 ### Solution
 
-
-
-Let $V$ be Devi's arrival time and let $X$ be Paxton's arrival time.
-
-
-a. We want $\text{P}(V < X | X = 10) = \text{P}(V < 10 | X = 10)$. Paxton's time is 1.5 SDs below the mean, $\frac{10 - 25}{10} = -1.5$. Devi's conditional mean arrival time is 1.2 SDs below the mean, $0.8(-1.5) = -1.2$, so Devi's conditional mean arrival time is $\text{E}(V | X = 10) = 20 -1.2(15) =2$. Devi's conditional SD is $\text{SD}(V|X = 10) = 15\sqrt{1-0.8^2} = 9$. So $(V | (X = 10))\sim N(2, 9)$. $\text{P}(V < 10 | X = 10) = \text{P}(Z < \frac{10-2}{9}) = \text{P}(Z < 0.889)$; ballpark estimate a little less than 84%. Software (below) gives 0.81.
-a. We want $\text{P}(|X - V| >15) = \text{P}(X - V > 15) + \text{P}(X - V < -15)$.  Since $X$ and $V$ have a Bivariate Normal distribution, then $X - V$ has a Normal distribution. The mean is $20-15 = 5$, and
-    $$
-    \text{Var}(X - V) = \text{Var}(X) + \text{Var}(V) - 2\text{Cov}(X, V) = 10^2 + 15^2 - 2(0.8)(10)(15) = 85
-    $$
-    So $\text{SD}(X - V) = \sqrt{85} = 9.2$.
-    The standardized value for 15 is $(15 - 5) / 9.2 = 1.08$. The standardized value for -15 is $(-15 - 5) / 9.2 = -2.17$. The probability that a value is more than 2 SDs below the mean is about 0.025; the probability that a value is more than 1 SD above the mean is about 0.16. So the probability that we want is less than 0.185. It's $\text{P}(|X - V| > 15) = 0.15$.
-
-
-
-```{r}
-pnorm((10 - 2) / 9)
-
-pnorm(10, 2, 9)
-```
-
-```{r}
-1 - pnorm((15 - 5) / 9.2) + pnorm((-15 - 5) / 9.2)
-
-1 - pnorm(15, 5, 9.2) + pnorm(-15, 5, 9.2)
-```
-
-
-
-
-
-```{r}
-N_rep = 10000
-
-V = rnorm(N_rep, 20, 15)
-X = rnorm(N_rep, 25 + 10 * 0.8 * (V - 20) / 15, 10 * sqrt(1 - 0.8 ^ 2))
-
-sum(abs(V - X) > 15) / N_rep
-
-cor(V, X)
-
-mean(V)
-
-sd(V)
-
-mean(X)
-
-sd(X)
-```
-
-
-```{r}
-plot(V, X, col = ifelse(abs(V - X) > 15, "orange", "gray"))
-abline(a = 15, b = 1, col = "orange")
-abline(a = -15, b = 1, col = "orange")
-```
-
-
-
-```{r}
-ggplot(data.frame(V, X), aes(x = V, y = X)) +
-  stat_density_2d(aes(fill = ..level..), geom = "polygon", colour="white") +
-  geom_abline(slope = 1, intercept = c(-15, 15), col = "orange", size = 2)
-
-
-
-
-```
-
-
-
-
-
-## Problem 5 part 2
-
-(Continued.) Devi and Paxton are meeting. Arrival times are measured in minutes after noon, with negative times representing arrivals before noon. Devi’s arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton’s arrival time follows a Normal distribution with mean 25 and SD 10 minutes.
-
-For each of the following, find the appropriate standardized value and make a ballpark estimate of the probability. Then use software to compute the probability.
-
-Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation -0.7
-
-a. Compute the probability that Devi arrives first given that Paxton arrives at 12:10.
-a. Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
-a. **Coding required.** Code and run a simulation and use the results to approximate the probability from the previous part (just part b). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
-
-
-### Solution
-
-a. We want $\text{P}(V < X | X = 10) = \text{P}(V < 10 | X = 10)$. Paxton's time is 1.5 SDs below the mean, $\frac{10 - 25}{10} = -1.5$. Devi's conditional mean arrival time is 1.05 SDs *above* the mean, $(-0.7)(-1.5) = 1.05$, so Devi's conditional mean arrival time is $\text{E}(V | X = 10) = 20 +1.05(15) =35.75$. Devi's conditional SD is $\text{SD}(V|X = 10) = 15\sqrt{1-0.7^2} = 10.7$. So $(V | (X = 10))\sim N(35.75, 10.7)$. $\text{P}(V < 10 | X = 10) = \text{P}(Z < \frac{10-35.75}{10.7}) = \text{P}(Z < -2.4)$; ballpark estimate is about 0.005. Software (below) gives 0.008.
-a. We want $\text{P}(|X - V| >15) = \text{P}(X - V > 15) + \text{P}(X - V < -15)$.  Since $X$ and $V$ have a Bivariate Normal distribution, then $X - V$ has a Normal distribution. The mean is $20-15 = 5$, and
-    $$
-    \text{Var}(X - V) = \text{Var}(X) + \text{Var}(V) - 2\text{Cov}(X, V) = 10^2 + 15^2 - 2(-0.7)(10)(15) = 535
-    $$
-    So $\text{SD}(X - V) = \sqrt{535} = 23.1$.
-    The standardized value for 15 is $(15 - 5) / 23.1 = 0.43$. The standardized value for -15 is $(-15 - 5) / 23.1 = -0.86$. The probability that a value is more than 1 SD below the mean is about 0.16; the probability that a value is more than 0.5 SD above the mean is about 0.31. So the probability that we want is about 0.47. It's $\text{P}(|X - V| > 15) = 0.53$.
-
-
-
-
-
-```{r}
-pnorm((10 - 35.75) / 10.7)
-
-pnorm(10, 35.75, 10.7)
-```
-
-```{r}
-1 - pnorm((15 - 5) / 23.1) + pnorm((-15 - 5) / 23.1)
-
-1 - pnorm(15, 5, 23.1) + pnorm(-15, 5, 23.1)
-```
-
-
-
-
-
-```{r}
-N_rep = 10000
-
-V = rnorm(N_rep, 20, 15)
-X = rnorm(N_rep, 25 + 10 * (-0.7) * (V - 20) / 15, 10 * sqrt(1 - 0.7 ^ 2))
-
-sum(abs(V - X) > 15) / N_rep
-
-cor(V, X)
-
-mean(V)
-
-sd(V)
-
-mean(X)
-
-sd(X)
-```
-
-
-```{r}
-plot(V, X, col = ifelse(abs(V - X) > 15, "orange", "gray"))
-abline(a = 15, b = 1, col = "orange")
-abline(a = -15, b = 1, col = "orange")
-```
-
-
-
-```{r}
-ggplot(data.frame(V, X), aes(x = V, y = X)) +
-  stat_density_2d(aes(fill = ..level..), geom = "polygon", colour="white") +
-  geom_abline(slope = 1, intercept = c(-15, 15), col = "orange", size = 2)
-
-
-
-
-```
-
+For a single component the pdf of lifetime $X$ (thousand hours) is $f(x) =(1/20)e^{-x/20}, x>0 $
+
+1.  The probability that the lifetime, rounded to the nearest thousand hours, of a randomly selected component is 30 thousand hours is approximately $f(30)(1)$; the (1) is because we're rounding to the nearest 1 thousand hours. $f(30)(1) = (1/20)e^{-30/20}(1) = 0.011$.
+1.  For Exponential $P(X > 30) = e^{-30/20} = 0.223$.
+1.  For Exponential the SD and the EV are the same, 20 thousand hours.
+1.  Let $X_1, X_2$ be the lifetime of the two components. The device functions only in both components function
+\begin{align*}
+P(T > 30) & = P(X_1 > 30, X_2 > 30) & & \\
+& = P(X_1 > 30)P(X_2>30) & & \text{independence}\\
+& = e^{-30/20}e^{-30/20} & & \text{Exponential}\\
+& = e^{-(2/20)30} = 0.05
+\end{align*}
+1.  Same as the previous calculation with 30 replaced by $t>0$.
+\begin{align*}
+P(T > t) & = P(X_1 > t, X_2 > t) & & \\
+& = P(X_1 > t)P(X_2>t) & & \text{independence}\\
+& = e^{-t/20}e^{-t/20} & & \text{Exponential}\\
+& = e^{-(2/20)t}
+\end{align*}
+1.  The previous calculation shows that the cdf of $T$ follows an Exponential form, so $T$ has an Exponential distribution with rate parameter 2/20=0.1 and mean 10 thousand hours.
 

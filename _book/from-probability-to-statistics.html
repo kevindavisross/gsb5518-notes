@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>21&nbsp; Statistical Estimation: From Probability to Statistics – GSB518 Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./maximum-likelihood-estimation.html" rel="next">
+<link href="./joint-normal.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./from-probability-to-statistics.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Estimation: From Probability to Statistics</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">GSB518 Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./randomness-and-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Randomness and Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Probability Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conditional-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bayes-rule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bayes Rule</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./independence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Independence of Events</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./discrete-rv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Discrete Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-mass-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Probability Mass Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expected-value.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Expected Value</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./variance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Variance and Standard Deviation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./binomial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Binomial Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Poisson Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./continuous-pdf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Continuous Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cdf-and-quantile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Percentiles: Cumulative Distribution Functions and Quantile Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expected-values-continuous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Expected Values of Continuous Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exponential.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Exponential Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Normal Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joint-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Joint and Conditional Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./covariance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Covariance and Correlation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear-combinations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Linear Combinations of Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joint-normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Joint Normal Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./from-probability-to-statistics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Estimation: From Probability to Statistics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./maximum-likelihood-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimators-bias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Bias of Estimators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimators-mse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Variance and Mean Square Error of an Estimator</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 5</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 6</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-01-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-02-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-03-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-04-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-05-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 5 solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./distribution-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Summary of Some Common Distributions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">21.1</span> Exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Estimation: From Probability to Statistics</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="exm-prob-and-stat-questions" class="theorem example">
+<p><span class="theorem-title"><strong>Example 21.1</strong></span> Consider the following two scenarios. Which is a <em>probability</em> scenario and which is a <em>statistics</em> scenario? Discuss some features of each scenario</p>
+<ul>
+<li>Assume that the number of cars sold daily at a certain used car dealership follows a Poisson distribution with parameter 2.3, independently from day to day. How likely is it for the dealership to sell more than 100 cars in a month?</li>
+<li>The car dealership observes how many cars they sell each day for the next month. Given their data, is it reasonable to assume daily car sales follow a Poisson distribution? If so, how could they use the observed data to estimate the Poisson parameter?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ul>
+</div>
+<ul>
+<li><p><strong>Probability:</strong> Assume a model for a random (uncertain) process and evaluate probabilities of potential outcomes or events — what might the data look like?</p>
+<ul>
+<li><p>In probability, a model is assumed and parameters are assumed to be known, but the data is unknown.</p></li>
+<li><p>In probability, we typically call the model a “distribution” and the data “random variables”.</p></li>
+</ul></li>
+<li><p><strong>Statistical inference:</strong> Observe sample data and make conclusions about the process that generated the data</p>
+<ul>
+<li><p>In statistics, the data is observed but parameters are unknown.</p></li>
+<li><p>In statistics, we typically call the model the “population” and the data the “sample”.</p></li>
+</ul></li>
+<li><p><em>Statistical inference</em> involves using sample data to make conclusions about the population.</p>
+<ul>
+<li><p><strong>Point estimation:</strong> Estimate an unknown population parameter with a single number based on sample data</p></li>
+<li><p><strong>Interval estimation:</strong> Estimate an unknown population parameter with a plausible range of values based on sample data</p></li>
+<li><p><strong>Hypothesis testing:</strong> Assess the evidence that the sample data provides regarding a particular claim about unknown population parameters.</p></li>
+</ul></li>
+<li><p>The <em>population distribution</em> is the distribution of individual values of the variable of interest. A <em>parameter</em>, generically denoted <span class="math inline">\(\theta\)</span>, is a number that summarizes the population distribution.</p></li>
+<li><p>The <strong>population distribution</strong>, denoted <span class="math inline">\(p_\theta\)</span> or <span class="math inline">\(p_\theta(x)\)</span>, is a probability model for the distribution of values of a variable<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math inline">\(X\)</span> over all <em>individuals</em> in the population.</p>
+<ul>
+<li><p>If the variable <span class="math inline">\(X\)</span> is discrete, then <span class="math inline">\(p_\theta\)</span> represents a probability mass function (pmf): <span class="math inline">\(p_\theta(x) = \textrm{P}(X=x)\)</span></p></li>
+<li><p>If the variable <span class="math inline">\(X\)</span> is continuous, then <span class="math inline">\(p_\theta\)</span> represents a probability density function (pdf): <span class="math inline">\(p_\theta(x) \approx \frac{1}{\epsilon}\textrm{P}(x - \epsilon/2 &lt; X &lt; x + \epsilon/2)\)</span></p></li>
+</ul></li>
+<li><p>A <strong>parameter</strong>, generically denoted <span class="math inline">\(\theta\)</span>, is a characteristic of the population distribution, often computed as an expected value of some function of <span class="math inline">\(X\)</span>.</p>
+<ul>
+<li><p>In some cases <span class="math inline">\(\theta\)</span> represents a vector of multiple parameters.</p></li>
+<li><p>For example, if <span class="math inline">\(p_\theta\)</span> represents a Normal distribution, then <span class="math inline">\(\theta\)</span> might represent the pair <span class="math inline">\(\theta \equiv (\mu, \sigma)\)</span> consisting of the population mean and the population standard deviation.</p></li>
+</ul></li>
+<li><p>A parameter is a <em>fixed number</em> but its value is <em>unknown</em><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p></li>
+<li><p>Many statistical studies involve <em>random sampling</em> from a population.</p></li>
+<li><p>A <strong>(simple) random sample</strong> of size <span class="math inline">\(n\)</span> is a collection of random variables <span class="math inline">\(X_1,\ldots,X_n\)</span> that are <em>independent</em> and <em>identically distributed</em> (i.i.d.)</p>
+<ul>
+<li><p>Identically distributed — each individual <span class="math inline">\(X_i\)</span> has the same marginal distribution — the population distribution — since they are sampled from the same population: <span class="math display">\[X_i \sim p_\theta \quad \text{for all $i=1, \ldots, n$}\]</span></p></li>
+<li><p>Independent — the values are sampled independently, so the joint distribution<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> is the product of marginal distributions: <span class="math display">\[p_\theta(x_1, \ldots, x_n) = p_\theta(x_1)p_\theta(x_2)\cdots p_\theta(x_n)\quad \text{for all $x_1,\ldots, x_n$}\]</span></p></li>
+</ul></li>
+<li><p>A <strong>statistic</strong> is a characteristic of the <em>sample</em> which can be computed from the data. More precisely, a statistic is a function of <span class="math inline">\(X_1,\ldots,X_n\)</span>, but not of <span class="math inline">\(\theta\)</span>.</p>
+<ul>
+<li><p>That is, a statistic is itself a <em>random variable</em>, and therefore has its own probability distribution, which describes how values of the statistic would vary from sample-to-sample over many (hypothetical) samples.</p></li>
+<li><p>The probability distribution of a statistic is called a <strong>sampling distribution</strong>.</p></li>
+<li><p>The <em>distribution</em> of a statistic will depend on <span class="math inline">\(\theta\)</span>, but the <em>value</em> of a statistic will not.</p></li>
+</ul></li>
+<li><p>A statistic <span class="math inline">\(\hat{\theta}\equiv T(X_1,\ldots,X_n)\)</span> used to estimate a parameter <span class="math inline">\(\theta\)</span> is called a <strong>(point) estimator</strong>.</p>
+<ul>
+<li><p>Naturally, we hope that there is some correspondence between our estimator <span class="math inline">\(\hat{\theta}\)</span> and the parameter it is estimating <span class="math inline">\(\theta\)</span> — for example, estimating the population mean with the sample mean — but the definition does not require this.</p></li>
+<li><p>When the numerical value of a statistic is calculated from observed sample data, its value is called a <em>(point) estimate</em> of the parameter.</p></li>
+<li><p>The estimator <span class="math inline">\(\hat{\theta}\)</span> is a RV whose value changes from sample to sample; an estimate is the observed value computed based on the results of a single sample.</p></li>
+</ul></li>
+</ul>
+<div id="exm-intro-estimation" class="theorem example">
+<p><span class="theorem-title"><strong>Example 21.2</strong></span> Jerry has just opened a car dealership in a new location. He assumes that the number of cars he’ll sell in a day has a Poisson(<span class="math inline">\(\mu\)</span>) distribution. But he doesn’t know the value of <span class="math inline">\(\mu\)</span>, so he plans to use data from his first few days of business to estimate <span class="math inline">\(\mu\)</span>. Let <span class="math inline">\(X_1, \ldots, X_n\)</span> represent the number of cars sold for a sample of <span class="math inline">\(n\)</span> days.</p>
+</div>
+<ol type="1">
+<li>What plays the role of the population?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>What is the variable of interest?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>What is the population distribution?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>What is the main parameter of interest? How do you interpret it?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Suggest one estimator of <span class="math inline">\(\mu\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Suppose Jerry sells 3 cars on the first day, 0 cars on the second day, and 2 on the third day (that is, <span class="math inline">\(x_1=3, x_2 = 0, x_3 = 2\)</span>). What would your estimate of <span class="math inline">\(\mu\)</span> be based on the (3, 0, 2) sample?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Suggest another estimator of <span class="math inline">\(\mu\)</span>. What would your estimate of <span class="math inline">\(\mu\)</span> be based on the (3, 0, 2) sample?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<div id="exm-intro-estimation-estimators" class="theorem example">
+<p><span class="theorem-title"><strong>Example 21.3</strong></span> Continuing <a href="#exm-intro-estimation" class="quarto-xref">Example&nbsp;<span>21.2</span></a>, we’ll consider a few different estimators of <span class="math inline">\(\mu\)</span>, which yield a few different estimates of <span class="math inline">\(\mu\)</span> based on the (3, 0, 2) sample.</p>
+</div>
+<ol type="1">
+<li>Ahsoka suggests that since <span class="math inline">\(\mu\)</span> is the expected value or population mean of a Poisson distribution, our estimator should be the sample mean <span class="math display">\[
+\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i
+\]</span> Compute Ahsoka’s estimate of <span class="math inline">\(\mu\)</span> based on the (3, 0, 2) sample.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Boba suggests that since <span class="math inline">\(\mu\)</span> is the population variane of a Poisson distribution, our estimator should be the sample variance <span class="math display">\[
+\hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^n (X_i-\bar{X})^2
+\]</span> Compute Boba’s estimate of <span class="math inline">\(\mu\)</span> based on the (3, 0, 2) sample.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Cassian likes Boba’s idea, but he heard that you should divide by <span class="math inline">\(n-1\)</span> instead of <span class="math inline">\(n\)</span> when computing the sample variance, so Cassian says our estimator should be this sample variance <span class="math display">\[
+S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i-\bar{X})^2
+\]</span> Compute Cassian’s estimate of <span class="math inline">\(\mu\)</span> based on the (3, 0, 2) sample.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Darth has data from 100 days of sales at another car dealership where the sample mean was 2.3, and he thinks that information should be able to help us. He decides to take a weighted average of the sample mean we observe at the new dealership (<span class="math inline">\(\bar{X}\)</span>) and 2.3, the average from the other dealership. Darth’s estimator is <span class="math display">\[
+\frac{n}{n+100}\bar{X}+ \frac{100}{n+100}(2.3),
+\]</span> reasoning that the more data we collect from the new dealership (represented by <span class="math inline">\(n\)</span>), the less weight the 2.3 from the other dealership should get. Compute Darth’s estimate of <span class="math inline">\(\mu\)</span> based on the (3, 0, 2) sample.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Ezra remembers the Poisson pattern. In particular, he remembers that the probability of 0 cars sold in a day is <span class="math inline">\(p_0=e^{-\mu}\)</span>, and rearranging shows that <span class="math inline">\(\mu = -\log p_0\)</span>. Ezra suggests that we estimate <span class="math inline">\(p_0\)</span> with the sample proportion of days with 0 cars sold, <span class="math inline">\(\hat{p}_0\)</span>, so that <span class="math display">\[
+-\log \hat{p}_0
+\]</span> is Ezra’s estimator of <span class="math inline">\(\mu\)</span>. Compute Ezra’s estimate of <span class="math inline">\(\mu\)</span> based on the (3, 0, 2) sample.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>We have seen a few different estimators of <span class="math inline">\(\mu\)</span>, each with a seemingly reasonable rationale behind it. Each estimator produces a different estimate of <span class="math inline">\(\mu\)</span> based on the same (3, 0, 2) sample data. Which of these 5 numbers is the best <em>estimate</em> of <span class="math inline">\(\mu\)</span>? That is, which of 5 values is closest to the true value of <span class="math inline">\(\mu\)</span>?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>How might you investigate which of the <em>estimators</em> corresponds to the best estimation <em>procedure</em> of estimaing <span class="math inline">\(\mu\)</span> for a Poisson distribution?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<ul>
+<li>Because the true value of the parameter <span class="math inline">\(\theta\)</span> is unknown, we never know if the sample data provides a reasonable estimate of <span class="math inline">\(\theta\)</span></li>
+<li>Rather, we evaluate the estimation <em>procedure</em> for potential values of <span class="math inline">\(\theta\)</span>: How does the estimation procedure perform over many possible samples given potential values of <span class="math inline">\(\theta\)</span>?</li>
+<li>Some questions of interest when estimating a parameter <span class="math inline">\(\theta\)</span>
+<ul>
+<li>How do we find an estimator of <span class="math inline">\(\theta\)</span>?</li>
+<li>What are properties of “good” estimators?</li>
+<li>How can we tell if one estimator is “better” than another?</li>
+<li>Can we find a “best” estimator of <span class="math inline">\(\theta\)</span>? (Short answer: no)</li>
+<li>How do we determine the margin of error for an estimator?</li>
+</ul></li>
+</ul>
+<section id="exercises" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">21.1</span> Exercises</h2>
+<div id="exr-prob-and-stat-questions" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 21.1</strong></span> In each of the following scenarios, one of (i) and (ii) is a <em>probability</em> and one is a <em>statistics</em> question. Classify each question as “probability” or “statistics”. Then discuss some general features of the probability questions, and some general features of the statistics questions</p>
+</div>
+<ol type="1">
+<li><p><a href="https://news.gallup.com/poll/1669/general-mood-country.aspx">U.S. Satisfaction</a></p>
+<ul>
+<li><p>Assume that 30% of Americans are satisfied with the way things are going in the U.S. If a random sample of 1000 Americans is selected, what are the chances that more than 330 Americans in the sample are satisfied with the way things are going in the U.S?</p></li>
+<li><p>In a random sample of 1000 Americans, 330 Americans are satisfied with the way things are going in the U.S. What percent of all Americans are satisfied with the way things are going in the U.S?</p></li>
+</ul></li>
+<li><p>Great white shark length</p>
+<ul>
+<li><p>Assume that lengths of female great white sharks follow a Normal distribution with mean 16 ft and standard deviation 3 ft. If a random sample of 40 female great white sharks is selected, what are the chances that the average length in the sample is between 16.5 and 17.5 ft?</p></li>
+<li><p>In a sample of 40 female great white sharks, the sample mean length is 17.0 ft. What is the average length of female great white sharks?</p></li>
+</ul></li>
+<li><p>In a <a href="https://beta.clinicaltrials.gov/">clinical trial</a>, 200 subjects are randomly assigned to receive either an experimental vaccine or no treatment (e.g., a placebo), and then each subject is tested to see if they developed immunity.</p>
+<ul>
+<li><p>If the vaccine is in reality not effective, what are the chances that the proportion of subjects who develop immunity is twice as large for those who received the vaccine than for those who did not?</p></li>
+<li><p>Among the 100 subjects who received the vaccine, 20 developed immunity; among the 100 subjects who did not receive the vaccine, 10 developed immunity. Is there evidence that the vaccine is effective?</p></li>
+</ul></li>
+<li><p>Snap streaks</p>
+<ul>
+<li><p>Assume that lengths of streaks on Snapchat follow an Exponential distribution, with mean 75 for teen users and mean 40 for adult users. A random sample of 200 Snapchat users is selected, 100 teens and 100 adults. What are the chances that the sample mean streak length for teens is with within 20 of the sample mean streak length for adults?</p></li>
+<li><p>In a random sample of 100 teen Snapchat users, the sample mean streak length is 80. In a random sample of 100 adult Snapchat users, the sample mean streak length is 35. In general, how much longer do streak lengths for teen Snapchat users tend to be than for adult Snapchat users?<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+</ul></li>
+</ol>
+<div id="exr-prob-and-stat-questions" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 21.2</strong></span> Continuing <a href="#exr-prob-and-stat-questions" class="quarto-xref">Exercise&nbsp;<span>21.2</span></a>. In each scenario, identify</p>
+</div>
+<ol type="1">
+<li>What plays the role of the population(s)?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>What is the variable(s) of interest?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>What is the population distribution(s)?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>What is the main parameter(s) of interest?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Many problems of interest involve multiple variables (e.g., height, weight, income), in which case the population distribution is a joint distribution. But it is simpler — both conceptually and notationally — to consider just a single variable of interest.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>There are two main philosophical approaches to statistical inference that differ mainly in whether they emphasize “fixed number” or “unknown”. The <em>frequentist</em> approach treats a parameter as a <em>fixed number</em>. The <em>Bayesian</em> approach treats an <em>unknown</em> parameter— in other words, an <em>uncertain</em> parameter—as a <em>random variable</em> with a probability distribution that describes the degree of uncertainty. Both approaches are valid, each with advantages and disadvantages. The frequentist approach has been historically more prevalent, but the Bayesian approach has gained in popularity in the last 30 or so years.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Abuse of notation in the expression: <span class="math inline">\(p_\theta\)</span> on the left represents the joint distribution of <span class="math inline">\((X_1, \ldots, X_n)\)</span>, a function with <span class="math inline">\(n\)</span> inputs; <span class="math inline">\(p_\theta\)</span> on the right represents that marginal distribution of each <span class="math inline">\(X_i\)</span> (since i.d.), a function with a single input.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./joint-normal.html" class="pagination-link" aria-label="Joint Normal Distributions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Joint Normal Distributions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./maximum-likelihood-estimation.html" class="pagination-link" aria-label="Maximum Likelihood Estimation">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

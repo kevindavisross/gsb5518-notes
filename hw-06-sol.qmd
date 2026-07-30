@@ -81,14 +81,24 @@ a. Differentiate the log-likelihood with respect to $p$. $x$ is treated like a c
 ```{r}
 #| echo: true
 
-p = seq(0, 1, 0.001)
+p <- seq(0, 1, 0.001)
 
-plot(p, dbinom(6, 10, p), type = "l",
-     xlab = "p",
-     ylab = "L(p)",
-     main = "Likelihood of 6 successes in 10 trials")
-segments(x0 = 0.6, x1 = 0.6, y0 = -1, y1 = dbinom(6, 10, 0.6), col = "orange", lty = 2)
-
+plot(
+  p,
+  dbinom(6, 10, p),
+  type = "l",
+  xlab = "p",
+  ylab = "L(p)",
+  main = "Likelihood of 6 successes in 10 trials"
+)
+segments(
+  x0 = 0.6,
+  x1 = 0.6,
+  y0 = -1,
+  y1 = dbinom(6, 10, 0.6),
+  col = "orange",
+  lty = 2
+)
 ```
 
 
@@ -126,17 +136,404 @@ Then use your plot to verify that the MLE of $\lambda$ based on this sample is $
 ```{r}
 #| echo: true
 
-x = c(20, 37, 13, 10, 25)
+x <- c(20, 37, 13, 10, 25)
 
-xbar = mean(x)
+xbar <- mean(x)
 
-lambda = seq(0, 0.2, 0.001)
+lambda <- seq(0, 0.2, 0.001)
 
-plot(lambda, lambda ^ 5 * exp(-lambda * sum(x)), type = "l",
-     xlab = "p",
-     ylab = "L(p)",
-     main = "Likelihood of a total time of 105 minutes for 5 quakes")
-segments(x0 = 1 / xbar, x1 = 1 / xbar, y0 = -1, y1 = (1 / xbar) ^ 5 * exp(-(1 / xbar) * sum(x)), col = "orange", lty = 2)
-
+plot(
+  lambda,
+  lambda^5 * exp(-lambda * sum(x)),
+  type = "l",
+  xlab = "p",
+  ylab = "L(p)",
+  main = "Likelihood of a total time of 105 minutes for 5 quakes"
+)
+segments(
+  x0 = 1 / xbar,
+  x1 = 1 / xbar,
+  y0 = -1,
+  y1 = (1 / xbar)^5 * exp(-(1 / xbar) * sum(x)),
+  col = "orange",
+  lty = 2
+)
 ```
+
+
+
+
+
+The latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3).
+Each package contains a single unknown prize.
+Suppose we only buy 3 packages and we consider as our sample space outcome the results of just these 3 packages (prize in package 1, prize in package 2, prize in package 3).
+For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package.
+Let $X$ be the number of distinct prizes obtained in these 3 packages.
+Let $Y$ be the number of these 3 packages that contain prize 1.
+Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages.
+There are 27 possible, equally likely outcomes
+
+```{r}
+#| echo: false
+
+k <- 3
+
+outcomes <- expand.grid(1:k, 1:k, 1:k)
+
+
+n_outcomes <- nrow(outcomes)
+
+X <- rep(NA, n_outcomes)
+Y <- rep(NA, n_outcomes)
+
+for (i in 1:n_outcomes) {
+  X[i] <- outcomes %>% slice(i) %>% unlist() %>% n_distinct()
+  Y[i] <- sum(outcomes[i, ] == 1)
+}
+
+outcomes <- outcomes %>%
+  bind_cols(X, Y)
+
+names(outcomes) <- c(paste("box", 1:k, sep = ""), "X", "Y")
+
+outcomes %>%
+  kbl() %>%
+  kable_styling(fixed_thead = TRUE)
+```
+
+a.  Evaluate $X$ and $Y$ for each of the outcomes.
+b.  Construct a two-way table representing the *joint distribution* of $X$ and $Y$.
+c.  Sketch a plot representing the joint distribution of $X$ and $Y$.
+d.  Construct a spinner corresponding to the joint distribution of $X$ and $Y$.
+e.  Describe two ways to simulate an $(X, Y)$ pair.
+f.  Identify the *marginal* distribution of $X$, and construct a corresponding spinner.
+g.  Identify the *marginal* distribution of $Y$, and construct a corresponding spinner.
+h.  Describe in detail in words how you could conduct a simulation and use the results to approximate. (This part is asking you to describe the process in words; not to write code.)
+    i.  $\text{P}(X = 3)$
+    ii. $\text{P}(X = 2, Y = 1)$ iii.$\text{E}(X)$ iii.$\text{E}(Y)$
+    iii. $\text{E}(XY)$
+    iv. $\text{SD}(X)$ iii.$\text{SD}(Y)$
+    v.  $\text{Cov}(X, Y)$
+    vi. $\text{Corr}(X, Y)$
+i.  **Coding required.** Code and run the simulation from the previous part and use the simulation results to approximate each of
+    i.  $\text{P}(X = 3)$
+    ii. $\text{P}(X = 2, Y = 1)$ iii.$\text{E}(X)$ iii.$\text{E}(Y)$
+    iii. $\text{E}(XY)$
+    iv. $\text{SD}(X)$ iii.$\text{SD}(Y)$
+    v.  $\text{Cov}(X, Y)$
+    vi. $\text{Corr}(X, Y)$
+j.  Compute
+    i.  $\text{P}(X = 3)$
+    ii. $\text{P}(X = 2, Y = 1)$ iii.$\text{E}(X)$ iii.$\text{E}(Y)$
+    iii. $\text{E}(XY)$
+    iv. $\text{SD}(X)$ iii.$\text{SD}(Y)$
+    v.  $\text{Cov}(X, Y)$
+    vi. $\text{Corr}(X, Y)$
+
+### Solution
+
+These don't quite match the assignment, but the ideas are similar.
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+k <- 3
+
+outcomes <- expand.grid(1:k, 1:k, 1:k)
+
+
+n_outcomes <- nrow(outcomes)
+
+X <- rep(NA, n_outcomes)
+Y <- rep(NA, n_outcomes)
+
+for (i in 1:n_outcomes) {
+  X[i] <- outcomes %>% slice(i) %>% unlist() %>% n_distinct()
+  Y[i] <- sum(outcomes[i, ] == 1)
+}
+
+outcomes <- outcomes %>%
+  bind_cols(X, Y)
+
+names(outcomes) <- c(paste("box", 1:k, sep = ""), "X", "Y")
+
+outcomes %>%
+  kbl() %>%
+  kable_styling(fixed_thead = TRUE)
+```
+
+
+a.  One dimension will have possible values of $x$, the other possible values of $y$.
+    The interior cells should contain the probability of each $(x, y)$ pair.
+
+    |       |      |       |      |      |       |
+    |:------|-----:|------:|-----:|-----:|------:|
+    |       |  $y$ |       |      |      |       |
+    | $x$   |    0 |     1 |    2 |    3 | Total |
+    | 1     | 2/27 |     0 |    0 | 1/27 |  3/27 |
+    | 2     | 6/27 |  6/27 | 6/27 |    0 | 18/27 |
+    | 3     |    0 |  6/27 |    0 |    0 |  6/27 |
+    | Total | 8/27 | 12/27 | 6/27 | 1/27 |     1 |
+
+b.  Make a tile plot with color or shading representing probability; see below.
+
+c.  The spinner is below; it returns the 6 possible $(x, y)$ pairs with the proper probabilities.
+
+d.  Method 1: Simulate from the probability space: Label 3 cards: 1, 2, 3.
+    Shuffle the cards and deal one, then replace the card and repeat, dealing a total of 3 cards, e.g., 212.
+    Measure $X$ and $Y$ for the outcome.
+
+    Method 2: Simulate from the distribution.
+    Spin the spinner from the previous part once to generate an $(X, Y)$ pair.
+
+e.  The possible values of $X$ are in the leftmost column and the probabilities are in the Total column.
+    See previous HW solutions for plot and spinner.
+
+f.  The possible values of $Y$ are in the top row (0, 1, 2, 3) and the probabilities are in the Total row.
+    See previous HW solutions for plot and spinner.
+
+g.  Method 1: Simulate from the probspace: Draw three "boxes" and observe the prize sequence, and measure $X$.
+
+    Method 2: Simulate from marginal dist: Spin the $X$ spinner once and observe the value.
+
+    Method 3: Simulate from joint dist: Spin the joint distribution spinner once to obtain an $(X, Y)$ pair, and ignore $Y$.
+    (This is the one we didn't see on a previous HW.)
+
+h.  Describe in detail how you could conduct a simulation to and use the results to approximate
+
+    a.  $\text{P}(X = 3)$. Simulate many values of $X$, count the number of simulated values equal to 3, and divide by the number of simulated values (i.e., find the simulated relative frequency of 3)
+    b.  $\text{P}(X = 2, Y = 1)$. Simulate many $(X, Y)$ *pairs*, count the number of simulated pairs in which $X = 2$ and $Y = 1$, and divide by the number of simulated values (i.e., find the simulated relative frequency of the event $\{X = 2, Y = 1\}$)
+    c.  The long run average value of $X$. Simulate many values of $X$ and compute their average (i.e., sum the simulated values of $X$ and divide by the number of simulated values.)
+    d.  The long run average value of $XY$. Simulate many $(X, Y)$ *pairs*, find the product $XY$ for each pair, and compute the average value of the products (i.e., sum the simulated values of $XY$ and divide by the number of simulated pairs.)
+
+```{r}
+#| echo: false
+
+x <- c(1, 1, 2, 2, 2, 3)
+y <- c(0, 3, 0, 1, 2, 1)
+p <- c(2, 1, 6, 6, 6, 6) / 27
+
+
+data.frame(x, y, p) %>%
+  ggplot(aes(x = x, y = y, fill = p)) +
+  geom_tile(colour = "grey50") +
+  geom_text(aes(label = round(p, 3)), col = "white") +
+  scale_x_continuous(breaks = 1:3) +
+  labs(fill = "Probability") +
+  theme_classic()
+```
+
+```{r}
+#| echo: false
+#| eval: true
+
+include_graphics("_graphics/spinner-hw-collector-joint.png")
+```
+
+There are many ways of doing the simulation.
+I'll use a for loop
+
+```{r}
+
+# Number of repetitions
+N_rep <- 10000
+
+# Initialize place holders for X and Y
+# Each of X and Y will eventually contain 10000 values
+# but initially they are empty
+X <- vector(length = N_rep)
+Y <- vector(length = N_rep)
+
+
+for (i in 1:N_rep) {
+  # within the loop a single repetition is performed
+
+  # simulate the 3 prizes
+  outcome <- sample(1:3, size = 3, replace = TRUE)
+
+  # find the number of distinct prizes
+  x <- length(unique(outcome))
+
+  # count the number of prize 1s
+  y <- sum(outcome == 1)
+
+  # record the values in X and Y
+  X[i] <- x
+  Y[i] <- y
+}
+
+# After the loop runs each of X and Y will have 10000 values
+
+# X counts
+table(X)
+
+# Rough plot of approximate distribution of X
+plot(table(X) / N_rep, xlab = "X", ylab = "Relative frequency")
+
+
+# Y counts
+table(Y)
+
+
+# Rough plot of approximate distribution of Y
+plot(table(Y) / N_rep, xlab = "Y", ylab = "Relative frequency")
+
+
+# (X, Y) counts
+table(X, Y)
+
+# Approximate E(X)
+mean(X)
+
+# Approximate E(Y)
+mean(Y)
+
+# Approximate SD(X)
+sd(X)
+
+# Approximate SD(Y)
+sd(Y)
+
+# Approximate E(XY)
+mean(X * Y)
+
+# Approximate Cov(X, Y)
+cov(X, Y)
+
+# Approximate Corr(X, Y)
+cor(X, Y)
+
+# Approximate P(X = 3)
+sum(X == 3) / N_rep
+
+# Approximate P(X = 2, Y = 1)
+sum((X == 2) * (Y == 1)) / N_rep
+```
+
+
+a.  The smallest possible value of $X$ is 30 (thousand dollars). The pdf has a peak at 30 and decreases as $x$ increases. The density is 0 for $x<30$. We can sketch the general shape of $f(x)$ without knowing the value of $c$; $c$ just tells us how to label the density axis so the total area under the curve is 1.
+b.  $c$ is such that the total area under the curve is 1
+    $$
+     1 = \int_{30}^\infty c x^{-2.5} dx = c 30^{-1.5}/1.5
+     $$
+     Solve for $c= (1.5)30^{1.5}=246.5$. That is
+     $$
+     f_X(x) = (1.5)(30^{1.5}) x^{-2.5}, \quad x \ge 30
+     $$
+c.  The probability that a household has an income over \$200K is
+    $$
+     \text{P}(X > 200) = \int_{200}^\infty (1.5)30^{1.5} x^{-2.5} dx = (30/200)^{1.5} = 0.058
+     $$
+     About 5.8% percent of households in this area have an income over 200 thousand dollars.
+d.  $X$ is continuous so $\text{P}(X = 200) = 0$
+e.  In the measure units of $X$, 1 thousand dollars is 1 unit long, a small range in the scale of the variable. Can integrate but since it's a small range of values in the scale of the variable, can approximate
+    $$
+     \text{P}(200 - 0.5 < X < 200 + 0.5) \approx f_X(200)(1) = (1.5)30^{1.5}200^{-2.5}(1) = 0.000436
+     $$
+     About 0.04% of households in this area have an income, to the nearest thousand dollars, of 200 thousand dollars.
+f.  Ratio of the densities; note we don't need to know the value of $c$ to solve this part.
+    $$
+     \frac{f_X(100)}{f_X(200)} = \frac{100^{-2.5}}{200^{-2.5}} = 5.66
+     $$
+     In this area, a household is 5.66 times more likely to have an income, rounded to the nearest thousand dollars, of \$100K than \$200K.
+
+```{r}
+#| echo: false
+
+x <- seq(30, 300, 0.01)
+
+fx <- 1.5 * 30^1.5 * x^(-2.5)
+
+plot(
+  x,
+  fx,
+  type = "l",
+  xlab = "x (thousand dollars)",
+  ylab = "f(x)",
+  xlim = c(0, 300)
+)
+segments(x0 = -10, x1 = 30, y0 = 0, y1 = 0)
+```
+
+
+
+
+
+(Continuing from a previous HW) The latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3).
+Each package contains a single unknown prize.
+Suppose we only buy 3 packages and we consider as our sample space outcome the results of just these 3 packages (prize in package 1, prize in package 2, prize in package 3).
+For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package.
+Let $X$ be the number of distinct prizes obtained in these 3 packages.
+Let $Y$ be the number of these 3 packages that contain prize 1.
+Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages; let $\text{P}$ denote the corresponding probability measure.
+
+a.  Find the conditional distribution of $Y$ given $X=x$ for each possible value of $x$ of $X$.
+a.  Compute and interpret $\text{E}(Y|X=x)$ for each possible value of $x$ of $X$.
+b.  Find the conditional distribution of $X$ given $Y=y$ for each possible value of $y$ of $Y$.
+a.  Compute and interpret $\text{E}(X|Y=y)$ for each possible value of $y$ of $Y$.
+c.  Explain how you could use spinners to implement the "marginal then conditional" method to simulate an $(X, Y)$ pair.
+d.  Suppose you have simulated many $(X, Y)$ pairs. Explain how you could use the simulation results to approximate:
+    i.  $\text{P}(X = 1 | Y = 0)$
+    ii. the conditional distribution of $X$ given $Y=0$
+    iii. $\text{E}(X = 1 | Y = 0)$
+
+### Solution
+
+a.  Each row of the table below represents a different conditional distribution of $Y$ given $X=x$. For example, the row for $x=1$ represents the conditional distribution of $Y$ given $X=1$: Given $X=1$, $Y$ is 0 with probability 2/3 and 3 with probability 1/3.
+
+    |     |     |     |     |     |       |
+    |-----|----:|----:|----:|----:|------:|
+    |     | $y$ |     |     |     |       |
+    |     |   0 |   1 |   2 |   3 | Total |
+    | $x$ |     |     |     |     |       |
+    | 1   | 2/3 |   0 |   0 | 1/3 |     1 |
+    | 2   | 1/3 | 1/3 | 1/3 |   0 |     1 |
+    | 3   |   0 |   1 |   0 |   0 |     1 |
+
+
+a. Take expected values according to each conditional distribution.  In general, $\text{E}(Y|X=x)$ depends on $x$, but in this case $\text{E}(Y|X=x) = 1$ for all values of $x$.; regardless of how many distinct prizez people obtain in their, the average number of prize 1s obtains is 1.
+
+    \begin{align*}
+    x & \quad \text{E}(Y|X=x)\\
+    1 & \quad 0(2/3) + 3(1/3) = 1\\
+    2 & \quad 0(1/3) + 1(1/3) + 2(1/3) = 1\\
+    3 & \quad 1(1) = 1
+    \end{align*}
+
+b.  Each column of the table below represents a different conditional distribution of $X$ given $Y=y$. For example, the column for $y=1$ represents the conditional distribution of $X$ given $Y=1$: Given $Y=1$, $X$ is 1 with probability 1/4 and 2 with probability 3/4.
+
+    |       |     |     |     |     |
+    |-------|----:|----:|----:|----:|
+    |       | $y$ |     |     |     |
+    |       |   0 |   1 |   2 |   3 |
+    | $x$   |     |     |     |     |
+    | 1     | 1/4 |   0 |   0 |   1 |
+    | 2     | 3/4 | 1/2 |   1 |   0 |
+    | 3     |   0 | 1/2 |   0 |   0 |
+    | Total |   1 |   1 |   1 |   1 |
+
+
+a. Take expected values according to each conditional distribution. For example, $\text{E}(X|Y = 0) = 1.75$; among the people who never get prize 1 in their 3 boxes, the average number of distinct prizes they obtain is 1.75.
+
+    \begin{align*}
+    y & \quad \text{E}(X|Y=y)\\
+    0 & \quad 1(1/4) + 2(3/4) = 1.75\\
+    1 & \quad 2(1/2) + 3(1/2) = 2.5\\
+    2 & \quad 2(1) = 2\\
+    3 & \quad 1(1) = 1
+    \end{align*}
+
+
+c.  Simulate a value of $X$ from its marginal distribution: 1, 2, 3 with probability 3/27, 18/27, 6/27 (see previous HW for spinner). Given the value of $x$, simulate $Y$ from the appropriate conditional distribution of $Y$ given $X=x$:
+    -   if $x =1$, simulate $Y$ from a spinner that returns values 0, 3 with probability 2/3, 1/3
+    -   if $x = 2$, simulate $Y$ from a spinner that returns values 0, 1, 2 with probability 1/3, 1/3, 1/3
+    -   if $x =3$ then $Y$ is 1 with probability 1.
+    -   (You could also simulate $Y$ first and then given $Y=y$ simulate $X$ from the appropriate conditional distribution of $X$ given $Y=y$.)
+d.  Simulate many $(X, Y)$ pairs using any appropriate method.
+    i.  Discard all pairs for which $Y$ is not 0, count the number of remaining pairs in which $X=1$ and divide by the number of non-discarded pairs (all with $Y=0$).
+    ii. Discard all pairs for which $Y$ is not 0, and summarize the $X$ values to find the conditional relative frequency of each possible $X$ value as in the previous part (given $Y=0$, the possible values of $X$ are 1 and 2).
+    iii. Discard all pairs for which $Y$ is not 0 and sum all the $X$ values for the remaining pairs and divide by the number of non-discarded pairs to find the conditional average.
+    iv. (In all the above, be careful about the margin of error.)
 

@@ -4,301 +4,46 @@
 
 
 
+
 ## Problem 1
 
-(This is an overly simplified example from actuarial science.) A life insurance company sells a term insurance policy to a 21 year old man (the "insured") that pays \$100,000 to a designated beneficiary if the insured dies within the next 5 years, and pays nothing if the insured does not die before age 26.
-The probability that a randomly chosen 21-year-old man will die each year can be found in mortality tables.
-The company collects a premium of \$250 at the beginning of each year of the 5 years of the term, as long as the insured is alive, as payment for the insurance.
-The amount $Y$ (in dollars) that the company earns on this policy is \$250 per year, less the \$100,000 that it pays out in the event the insured dies.
-The company doesn't pay out anything if the insured does not die in the 5 year term.
-
-| Age at death | Earnings $Y$ | Probability |
-|-------------:|-------------:|------------:|
-|           21 |       99,750 |     0.00183 |
-|           22 |              |     0.00186 |
-|           23 |              |     0.00189 |
-|           24 |              |     0.00191 |
-|           25 |              |     0.00193 |
-|  26 or older |              |             |
-
-a.  Find the distribution of $Y$ by completing the above table. For example, the value -99,750 provides an example of how $Y$ is calculated when the insured dies in the first year of the policy.
-b.  Compute $\text{E}(Y)$.
-c.  Write a sentence explaining in this context in what sense the number from the previous part is "expected".
-d.  Would you be willing to sell such an insurance policy to one of your 21 year old friends? Explain why this is good business for the insurance company, but not for you.
-e.  Compute $\text{Var}(Y)$
-f.  Compute $\text{SD}(Y)$.
-g.  Compute the probability that $Y$ is more than 1 standard deviation above its mean.
-
-### Solution
-
-| Age at death | Earnings $Y$ | Probability |
-|--------------|-------------:|------------:|
-| 21           |       99,750 |     0.00183 |
-| 22           |      -99,500 |     0.00186 |
-| 23           |      -99,250 |     0.00189 |
-| 24           |      -99,000 |     0.00191 |
-| 25           |      -98,750 |     0.00193 |
-| 26 or older  |        1,250 |     0.99058 |
-
-a.  See above.
-    The earnings are computed according to the contract; the insurance company only needs to pay out the 100000 if the insured dies before age 26.
-    Since all the probabilities must add up to 1, the probability in the blank is $1 - (0.00183 + 0.00186 + 0.00189 + 0.00191 + 0.00193) = 0.99058$
-
-b.  $\text{E}(Y) = (-99750)(0.00183) + \cdots + (-98750)(0.00193) + (1250)(0.99058) = 303.23$
-
-c.  If the insurance company sells a large number of these policies to 21 year-old men then the insurance company will expect to make, on average, a profit of $303.36 per policy.
-    For example, if they sell 1 million policies, their total profit would be expected to be close to $303 million.
-
-d.  If you sell one policy, you are either going to make a profit of $1250, or you will pay out about $100,000.
-    The chances are high you will make a profit of $1250, but there is a risk that you will have to pay out around $100,000.
-    This risk is probably too great to take on considering the relatively small (in comparison) reward.
-
-    On the other hand, the insurance company sells *many* policies.
-    They operate in the long run.
-    Over many policies they make a profit, on average, of about $300 per policy.
-    For example, for a million policies this equates to a profit of $300 million.
-    There would be some variability around this, but in the long run the average will win out.
-    The company could be sure that they would only pay out the $100,000 benefit for less than 1% of policyholders, and they will be earning $1,250 on many other policies, more than enough to offset the relatively few $100,000 payouts there are.
-
-e.  $\text{E}(Y^2) = (-99750)^2(0.00183) + \cdots + (-98750)^2(0.00193) + (1250)^2(0.99058) = 94328849$.
-    Then $\text{Var}(Y) = \text{E}(Y^2) - (\text{E}(Y))^2 = 94328849 -(303)^2 = 94236827$.
-    This is a giant number because it's measured in $\text{dollars}^2$.
-
-f.  $\text{SD}(Y) = \sqrt{\text{Var}(Y)} = 9707$ dollars.
-
-g.  0. One SD above the mean here is 303 + 9707 = 10000 and $\text{P}(Y > 10000) = 0$ since it's not possible to have a value of this $Y$ which is more than 1 SD above its mean.
-
-## Problem 2
-
-In a certain population, household income $X$ (\$ thousands) follows the pdf
-$$
-f_X(x) = c x^{-2.5}, \quad x \ge 30
-$$
-for an appropriate constant $c$.
-Note that the measurement units are \$ thousands, so 1 represents 1 thousand dollars.
-
-a.  What are the possible values of $X$? Sketch the pdf of $X$.
-b.  Find the value of $c$.
-c.  Find the probability that a household has an income over \$200K.
-d.  Find the probability that a household has an income exactly equal to \$200K.
-e.  Without integrating, find the probability that a household has an income, rounded to the nearest thousand dollars, of \$200K.
-f.  Without integrating, determine how many times more likely it is for a household to have an income, rounded to the nearest thousand dollars, of \$100K than \$200K.
-
-### Solution
-
-a.  The smallest possible value of $X$ is 30 (thousand dollars). The pdf has a peak at 30 and decreases as $x$ increases. The density is 0 for $x<30$. We can sketch the general shape of $f(x)$ without knowing the value of $c$; $c$ just tells us how to label the density axis so the total area under the curve is 1.
-b.  $c$ is such that the total area under the curve is 1
-    $$
-     1 = \int_{30}^\infty c x^{-2.5} dx = c 30^{-1.5}/1.5
-     $$
-     Solve for $c= (1.5)30^{1.5}=246.5$. That is
-     $$
-     f_X(x) = (1.5)(30^{1.5}) x^{-2.5}, \quad x \ge 30
-     $$
-c.  The probability that a household has an income over \$200K is
-    $$
-     \text{P}(X > 200) = \int_{200}^\infty (1.5)30^{1.5} x^{-2.5} dx = (30/200)^{1.5} = 0.058
-     $$
-     About 5.8% percent of households in this area have an income over 200 thousand dollars.
-d.  $X$ is continuous so $\text{P}(X = 200) = 0$
-e.  In the measure units of $X$, 1 thousand dollars is 1 unit long, a small range in the scale of the variable. Can integrate but since it's a small range of values in the scale of the variable, can approximate
-    $$
-     \text{P}(200 - 0.5 < X < 200 + 0.5) \approx f_X(200)(1) = (1.5)30^{1.5}200^{-2.5}(1) = 0.000436
-     $$
-     About 0.04% of households in this area have an income, to the nearest thousand dollars, of 200 thousand dollars.
-f.  Ratio of the densities; note we don't need to know the value of $c$ to solve this part.
-    $$
-     \frac{f_X(100)}{f_X(200)} = \frac{100^{-2.5}}{200^{-2.5}} = 5.66
-     $$
-     In this area, a household is 5.66 times more likely to have an income, rounded to the nearest thousand dollars, of \$100K than \$200K.
-
-```{r}
-#| echo: false
-
-x <- seq(30, 300, 0.01)
-
-fx <- 1.5 * 30^1.5 * x^(-2.5)
-
-plot(
-  x,
-  fx,
-  type = "l",
-  xlab = "x (thousand dollars)",
-  ylab = "f(x)",
-  xlim = c(0, 300)
-)
-segments(x0 = -10, x1 = 30, y0 = 0, y1 = 0)
-```
-
-## Problem 3
-
-In the meeting time problem, assume that Regina's $R$ and Cady's $Y$ arrival times (measured in fractions of the hour after noon, e.g. 0.25 represents 12:!5), each follow a Uniform(0, 1) distribution, independently of each other.
-Let $W = |R - Y|$ be the amount of time (hours) the first person to arrive waits for the second person to arrive.
-It can be shown that $W$ has pdf
-$$
-f_W(w) = 2(1-w), \qquad 0<w<1.
-$$
-
-a.  Sketch a plot of the pdf. Describe roughly what this means in context.
-b.  **Coding required.** Code and run a simulation to approximate the distribution of $W$. Does the histogram reasonably match up with the pdf? Then use the simulation results to approximate $\text{P}(W < 0.25)$.
-c.  Use the pdf to compute $\text{P}(W < 0.25)$ and interpret the value. Set up an integral, but sketch a picture and use geometry to compute.
-
-### Solution
-
-a.  See plot below. The density is highest at $w=0$ and decreases linearly to 0 at $w=1$. Waiting time is most likely to be close to 0 minutes, and likelihood of waiting close to $w$ hours decreases as $w$ increases.
-b.  See simulation results below. pdf seems reasonable.
-c.  Integrate the pdf over $(0, 0.25)$. This gives an area of a trapezoid; the complementary area is a triangle with a base of (1 - 0.25), a height of $2(1-0.25)$, and an area of $(1/2)(1-0.25)(2(1-0.25)) = (1-0.25)^2$
-    $$
-     \text{P}(W < 0.25) = \int_0^{0.25} 2(1-w)dw = -(1-w)^2 \Big\vert_{w =0}^{w=0.25} = 1 - (1-0.25)^2 = 0.4375
-     $$
-     If they meet over many days, on any 43.75% of days the first person will have to wait less than 15 minutes for the second person.
-
-```{r}
-
-N_rep <- 10000
-
-x <- runif(N_rep, 0, 1)
-y <- runif(N_rep, 0, 1)
-
-w <- abs(x - y)
-
-hist(w, freq = FALSE, main = "")
-
-sum(w < 0.25) / N_rep
-```
-
-## Problem 4
-
-(Continued.) In the Regina/Cady problem, let $W=|R-Y|$ be the amount of time the first person to arrive has to wait for the second person.
-Recall that $W$ is a continuous random variable with pdf
-$$
-f_W(w) = 2(1-w), \quad 0 < w < 1.
-$$
-
-a.  **Coding required.** Use your simulation results from before to approximate $\text{E}(W)$, $\text{E}(W^2)$, $\text{Var}(W)$, and $\text{SD}(W)$.
-b.  Compute and interpret $\text{E}(W)$.
-c.  Compute $\text{E}(W^2)$.
-d.  Compute $\text{Var}(W)$
-e.  Compute $\text{SD}(W)$.
-f.  Explain in words in detail how you could use the Uniform(0, 1) spinner and simulation to approximate $\text{Var}(W)$.
-g.  Compute the probability that $W$ is more than 1 SD away from its mean.
-
-### Solution
-
-```{r}
-mean(w)
-
-mean(w^2)
-
-var(w)
-
-sd(w)
-```
-
-a.  See above.
-b.  Use the definition of EV for continuous RV
-    $$
-     \text{E}(W) = \int_0^1 w f_W(w) dw = \int_0^1 w\left(2(1-w)\right)dw = 1/3
-     $$
-     If they were to meet like this over many days, the long run average waiting time will be 1/3 hour (20 minutes).
-c.  Use LOTUS
-    $$
-     \text{E}(W^2) = \int_0^1 w^2 f_W(w) dw = \int_0^1 w^2\left(2(1-w)\right)dw = 1/6
-     $$
-d.  We did all the work in the previous parts. $\text{Var}(W) = \text{E}(W^2) - \text{E}(W)^2 = 1/6 - (1/3)^2 = 1/18$ square-hours.
-e.  $\text{SD}(W) = 0.236$ hours (about 14 minutes)
-f.  Explain how you could use the Uniform(0, 1) spinner and simulation to approximate $\text{Var}(W)$.
-    -   Spin the Uniform(0, 1) spinner twice to get $R, Y$ and set $W=|R-Y|$.
-    -   Repeat many times to simulate many values of $W$.
-    -   Average the values of $W$.
-    -   For each simulated value of $W$, subtract the average of $W$ and square to get the squared deviation
-    -   Average the squared deviations to approximate $\text{Var}(W)$.
-g.  $\text{P}(|W-\text{E}(W)|>\text{SD}(W)) = \text{P}(W>1/3 + 0.236) + \text{P}(W < 1/3 - 0.236)$. In this case you can find the corresponding probability/area in this case with geometry. Also, integrating gives
-    $$
-    \int_0^{1/3 - 0.236} 2(1-w)dw + \int_{1/3 + 0.236}^1 2(1-w)dw = 0.37
-    $$
-
-
-
-
-
-    
-
-## Problem 4
-
-Randomly select a county in the U.S.
-Let $X$ be the leading digit in the county's population.
-[For example](https://en.wikipedia.org/wiki/List_of_counties_in_California), if the county's population is 10,040,000 (Los Angeles County) then $X=1$; if 3,170,000 (Orange County) then $X=3$; if 283,000 (SLO County) then $X=2$; if 30,600 (Lassen County) then $X=3$.
-The possible values of $X$ are $1, 2, \ldots, 9$.
-You might think that $X$ is equally likely to be any of its possible values.
-However, a more appropriate model is to assume that $X$ has pmf
-
-$$
-p_X(x) = 
-\begin{cases}
-\log_{10}(1+\frac{1}{x}), & x = 1, 2, \ldots, 9,\\
-0, & \text{otherwise}
-\end{cases}
-$$
-
-
-This distribution is known as [Benford's law](https://en.wikipedia.org/wiki/Benford's_law).
-
-a.  Construct a table specifying the distribution of $X$, and the corresponding spinner.\
-b.  Find $\text{P}(X \ge 3)$\
-c.  **Coding required.** Code and run a simulation and use the results to approximate the distribution of $X$. (In R, there are built in functions to simulate Benford's law, but I want you to use the `sample` function. In R, `log` is natural log; `log10` is base-10 log.)
-
-### Solution
-
-See [Example 4.6 of my probability notes](https://bookdown.org/kevin_davisross/probsim-book/discrete-random-variables-probability-mass-functions.html#exm:benford)
-
-```{r}
-possible_x <- 1:9
-
-p_x <- log10(1 + 1 / possible_x)
-
-x <- sample(possible_x, size = 10000, prob = p_x, replace = TRUE)
-
-plot(table(x) / 10000, ylab = "Relative frequency")
-```
-
-## Problem 5
-
-Maya is a basketball player who makes 40% of her three point field goal attempts.
+Maya is a basketball player who makes 40% of her three point field goal attempts. 
 Suppose that at the end of every practice session, she attempts three pointers until she makes one and then stops.
 Let $X$ be the total number of shots she attempts in a practice session.
 Assume shot attempts are independent, each with probability of 0.4 of being successful.
 
-a.  What are the possible values that $X$ can take? Is $X$ discrete or continuous?
-b.  Explain why $X$ does *not* have a Binomial distribution.
-c.  Describe in detail how you could, in principle, conduct a simulation using physical objects (coins, cards, dice, etc) and how you would use the results to approximate the distribution of $X$.
-d.  Compute and interpret $\text{P}(X=1)$.
-e.  Compute and interpret $\text{P}(X=2)$.
-f.  Compute and interpret $\text{P}(X=3)$.
-g.  Find the probability mass function of $X$. Be sure to specify the possible values.
-h.  Construct a table, plot, and spinner corresponding to the distribution of $X$.
-i.  Compute $\text{P}(X>5)$ without summing. (Hint: what needs to be true about the first 5 attempts for $X > 5$?)
+1.  Identify by name the distribution of $X$. 
+Be sure to specify the values of any relevant parameters.
+1.  Specify the probability mass function of $X$. Be sure to specify the possible values.
+1.  Construct a table, plot, and spinner corresponding to the distribution of $X$.
+1.  Compute $\text{P}(X>5)$ without summing.
+1.  Compute and interpret $\text{E}(X)$.
+1.  Compute and interpret $\text{SD}(X)$.
+
+
 
 ### Solution
 
-a.  $X$ can take values 1, 2, 3, $\ldots$. Even though it is unlikely that $X$ is very large, there is no fixed upper bound. Even though $X$ can take infinitely many values, $X$ is a discrete random variables because it takes *countably* many possible values.
-b.  $X$ does not have a Binomial distribution since the number of trials is not fixed.
-c.  Construct a spinner that lands on "success" with probability 0.4. Spin the spinner until it lands on success and then stop and count the number of spins. This is one repetition, resulting in one value of $X$. Repeat many times to simulate many values of $X$. Summarize the simulated values to approximate the distribution. For example, counts the number of repetitions resulting in $X=1$ and divide by the total number of repetitions to approximate $\text{P}(X=1)$.
-d.  $X= 1$ only if she makes her first attempt, so $\text{P}(X = 1) = 0.4$. If Maya does this every practice, then in about 40% of practices she will make her first three pointer on her first attempt.
-e.  $X= 2$ only if she misses her first attempt and makes her second attempt, so since the attempts are independent $\text{P}(X = 2) = (0.6)(0.4)=0.24$. If Maya does this every practice, then in about 24% of practices she will make her first three pointer on her second attempt.
-f.  In order for $X$ to be 3, Maya must miss her first two attempts and make her third. Since the attempts are independent $\text{P}(X=3)=(1-0.4)^2(0.4)=0.144$. If Maya does this every practice, then in about 14.4% of practices she will make her first three pointer on her third attempt.
-g.  In order for $X$ to take value $x$, the first success must occur on attempt $x$, so the first $x-1$ attempts must be failures.
+1.  $X$ counts the number of successes until the first success in a sequence of Bernoulli(0.4) trials, so $X$ has a Geometric(0.4) distribution.
+1.  $X$ can take values 1, 2, 3, $\ldots$. Even though it is unlikely that $X$ is very large, there is no fixed upper bound. Even though $X$ can take infinitely many values, $X$ is a discrete random variables because it takes *countably* many possible values.
+In order for $X$ to take value $x$, the first success must occur on attempt $x$, so the first $x-1$ attempts must be failures.
 
     $$
     p_X(x) = (1-0.4)^{x-1}(0.4), \qquad x = 1, 2, 3, \ldots  
     $$
-    
-h.  See below. This distribution is called the Geometric distribution with parameter 0.4.
-i.  The key is to realize that Maya requires more than 5 attempts to obtain her first success if and only if the first 5 attempts are failures. Therefore,
+1.  See below. $\text{P}(X = 1) = 0.4$. If Maya does this every practice, then in about 40% of practices she will make her first three pointer on her first attempt.  $\text{P}(X = 2) = (0.6)(0.4)=0.24$. If Maya does this every practice, then in about 24% of practices she will make her first three pointer on her second attempt. And so on.
+1.  The key is to realize that Maya requires more than 5 attempts to obtain her first success if and only if the first 5 attempts are failures. Therefore,
     
     $$
-    P(X > 5) = (1-0.4)^5  = 0.078
+    \text{P}(X > 5) = (1-0.4)^5  = 0.078
     $$
+1.  Since $X$ has a Geometric(0.4) distribution, $\text{E}(X) =1/0.4 = 2.5$. 
+Over many practice sessions, she attempts on average 2.5 three pointers until she makes one per practice.
+1.  Since $X$ has a Geometric(0.4) distribution, $\text{Var}(X) =(1-0.4)/0.4^2 = 3.75$ so SD is 1.94.  
+Over many practice sessions, the number of attempts until making one varies by about 1.94 attempts per practice on average.
+
+
+
 
 ```{r}
 #| echo: false
@@ -313,7 +58,7 @@ px <- p * (1 - p)^(x - 1)
 df <- data.frame(x, px)
 
 
-df |> kbl(col.names = c("x", "p(x)"), digits = 4) %>% kable_styling()
+df |> kable(col.names = c("x", "p(x)"), digits = 4)
 
 plot(x, px, type = "h", xlab = "x", ylab = "p(x)", main = "Geometric(0.4) pmf")
 axis(1, x)
@@ -350,86 +95,53 @@ spinner <- ggplot(xp, aes(x = "", y = p, fill = x)) +
 spinner
 ```
 
-## Problem 6
 
-Suppose the number of earthquakes per hour, for a certain range of magnitudes in a certain region, follows a Poisson distribution with parameter 0.7.
 
-a.  Compute and interpret the probability that there is at least one earthquake of this size in the region in any given hour.
-b.  Compute and interpret the probability that there are exactly 3 earthquakes of this size in the region in any given hour.
-c.  Interpret the value 0.7 in context.
-d.  Construct a table, plot, and spinner corresponding to a Poisson(0.7) distribution.
+
+
+## Problem 2
+
+Ron and Leslie agree to the following bet.
+They'll ask Professor Ross if he saw the Eras Tour live.
+If he did, Leslie will pay
+Ron \$200; if not, Ron will pay Leslie \$100.
+(Neither has any direct information about whether or not Prof Ross saw the Eras Tour live.)
+
+1.  Given this setup, which of the following is being judged as more likely: that Prof Ross saw the Eras Tour, or that he did not?  Why?
+1.  Ron and Leslie agree that this is a fair bet, and neither would accept worse odds.
+What is their subjective probability that Professor Ross saw the Eras Tour?
+1.  Suppose they were to hypothetically repeat this bet many times, say 3000 times. 
+Given the probability from the previous part, how many times would you expect Leslie to win? 
+To lose? 
+What would you expect Leslie's net dollar winnings to be? 
+In what sense is this bet "fair"? 
+1.  Let $X$ be Leslie's net winnings. 
+Identify the distribution of $X$.
+(Remember: Leslie's winnings are Ron's losses and vice versa.)
+1.  Compute and interpret $\text{E}(X)$.
 
 ### Solution
 
-Let $X$ be the number of earthquakes in the region in a randomly selected hour.
-The pmf is
 
-$$
-p_X(x) = e^{-0.7}\frac{0.7^x}{x!}, \quad x = 0, 1, 2, \ldots
-$$
 
-a.  $\text{P}(X\ge 1)=1-\text{P}(X=0) = 1 - e^{-0.7}\frac{0.7^0}{0!}=1-e^{-0.7}=1-0.497=0.503$. In about 50% of hour long intervals there is at least one quake.
-b.  $\text{P}(X=3)= e^{-0.7}\frac{0.7^3}{3!}=0.028$. In about 3% of hour long intervals there are exactly 3 quakes.
-c.  Over many hour-long time intervals, there are 0.7 earthquakes per hour on average.
-d.  See below for table and spinner
+1.  The larger potential payout corresponds to the *less* likely event.
+So they think Professor Ross is more likely to *not* have a TikTok account than to have one.
+1.  The payouts are in a 2 to 1 ratio, so the odds that Professor Ross has a TikTok account are 2 to 1 against.
+So Professor Ross is twice as likely to not have a TikTok account than to have one.
+This corresponds to a subjective probability^[Technically, Ron and Leslie could still have different subjective probabilities. Leslie would not agree to worse odds, but she would accept better if Ron offered them.  For example, given a potential loss of \$200, Leslie would also agree to a potential payout from Ron of \$125 rather than \$100. That is, Leslie would accept odds of 1.6 to 1 against ($200/125 = 1.6$), corresponding to a subjective probability of $1/(1 + 1.6) = 0.385$.  So Leslie's subjective probability that Professor Ross has a TikTok account is *at least* 1/3.  Similarly, Ron's subjective probability that Professor Ross has a TikTok account is *at most* 1/3.] that Professor Ross has a TikTok account of 1/3 (and a probability that he does not have one of 2/3).
+1.  The probability that Leslie wins is 2/3, so you would expect her to win in 2000 of the 3000 repetitions.  She wins \$100 each time she wins, so you would expect her to win a total of $200,000 on games she wins.  The probability that she loses is 1/3, so you would expect her to lose in 1000 of the 3000 repetions. She loses \$200 each time, so you would expect her to lose a total of $200,000 on the games she loses.  So you would expect Leslie's net winnings to be 0, and likewise for Ron.  
 
-```{r}
-#| echo: true
-#| 
-x <- 0:5
+    | Winner | Expected number of repetitions | Leslie's winnings per repetition (\$) | Leslie's expected total winnings (\$) |
+    |--------|-------------------------------:|--------------------------------------:|--------------------------------------:|
+    | Leslie |                           2000 |                                   100 |                               200,000 |
+    | Ron    |                           1000 |                                  -200 |                              -200,000 |
+    | Total  |                           3000 |                                    NA |                                     0 |
 
-mu <- 0.7
+1.  The bet is fair in the sense that neither party is expected to profit or lose in the long run.
+1.  $X$ is 100 with probability 2/3 and -200 with probability 1/3, so $\text{E}(X) = (100)(2/3) + (-200)(1/3) = 0$.
+Over many such bets, Leslie's net winnings per bet would be 0 on average.
 
-px <- dpois(x, mu)
-
-df <- data.frame(x, px)
-
-df |>
-  kbl(col.names = c("x", "p(x)"), digits = 4) |>
-  kable_styling()
-```
-
-```{r}
-#| echo: true
-#| 
-
-plot(x, px, type = "h", xlab = "x", ylab = "p(x)", main = "Poisson(0.7) pmf")
-```
-
-```{r}
-#| echo: false
-#| message: false
-#| 
-
-lam <- 0.7
-x <- c(0:2, "3+")
-p <- c(dpois(0:2, lambda = lam), 1 - ppois(2, lambda = lam))
-
-xp <- data.frame(x, p)
-
-cdf <- c(0, cumsum(xp$p))
-
-plotp <- (cdf[-1] + cdf[-length(cdf)]) / 2
-
-spinner <- ggplot(xp, aes(x = "", y = p, fill = x)) +
-  geom_bar(width = 1, stat = "identity", color = "black", fill = "white") +
-  coord_polar("y", start = 0) +
-  theme_void() +
-  # plot the possible values on the outside
-  scale_y_continuous(breaks = plotp, labels = xp$x) +
-  theme(axis.text.x = element_text(size = 14, face = "bold")) +
-  # plot the probabilities as percents inside
-  geom_text(
-    aes(y = plotp, label = percent(p)),
-    size = 3,
-    color = c(rep("black", 3), rep("white", 1))
-  ) +
-  ggtitle(paste("Poisson(", lam, ") distribution", sep = ""))
-
-spinner
-```
-
-## Problem 7
+## Problem 3
 
 Suppose that a total of 350 students at a college are taking a particular statistics course.
 The college offers five sections of the course, each taught by a different instructor.
@@ -438,25 +150,130 @@ The class sizes are shown in the following table.
 |                    |     |     |     |     |     |
 |:-------------------|----:|----:|----:|----:|----:|
 | Section            |   A |   B |   C |   D |   E |
-| Number of students |  35 |  35 |  35 |  35 | 210 |
-
+| Number of students |  35 |  35 |  35 |  35 |  210|
+    
 We are interested in: What is the average class size?
 
-a.  Suppose we randomly select one of the 5 *instructors*. Let $X$ be the class size for the selected instructor. Specify the distribution of $X$. (A table is fine.)
-b.  Compute and interpret $\text{E}(X)$.
-c.  Compute and interpret $\text{P}(X = \text{E}(X))$.
-d.  Suppose we randomly select one of the 350 *students*. Let $Y$ be the class size for the selected student. Specify the distribution of $Y$. (A table is fine.)
-e.  Compute and interpret $\text{E}(Y)$.
-f.  Compute and interpret $\text{P}(Y = \text{E}(Y))$.
-g.  Comment on how these two expected values compare, and explain why they differ as they do. Which average would you say is more relevant?
+1.  Suppose we randomly select one of the 5 *instructors*.
+Let $X$ be the class size for the selected instructor.
+Specify the distribution of $X$. (A table is fine.)
+1.  Compute and interpret $\text{E}(X)$.
+1.  Compute and interpret $\text{P}(X = \text{E}(X))$.
+1.  Suppose we randomly select one of the 350 *students*.
+Let $Y$ be the class size for the selected student.
+Specify the distribution of $Y$. (A table is fine.)
+1.  Compute and interpret $\text{E}(Y)$.
+1.  Compute and interpret $\text{P}(Y = \text{E}(Y))$.
+1.  Comment on how these two expected values compare, and explain why they differ as they do.
+Which average would you say is more relevant?
+
 
 ### Solution
 
-a.  $X$ takes the value 210 with probability 1/5 and 35 with probability 4/5.
-b.  $\text{E}(X) = 210(1/5) + 35(4/5)=70$ is the average number of students per class from the instructors' perspective. If we randomly select an instructor, record the number of students in the instructor's class, and repeat, the long run average number of students will be 70.
-c.  $\text{P}(X = \text{E}(X)) = \text{P}(X = 70) = 0$. No instructor has a class whose size is equal to the average class size (from the instructor's perspective).
-d.  $Y$ takes the value 210 with probability 210/350 and 35 with probability 140/350.
-e.  $\text{E}(Y) = 210(210/350) + 35(140/350)=140$ is the average number of students per class from the students' perspective. If we randomly select a student, record the number of students in the selected student's class, and repeat, the long run average number of students will be 140.
-f.  $\text{P}(Y = \text{E}(Y)) = \text{P}(Y = 140) = 0$. No student is in a class whose size is equal to the average class size (from the students' perspective).
-g.  Colleges usually report average class size from the instructor/class perspective, which in this case would be 70 students. From the students' perspective, the average class size is not even close to 70! In fact, it's twice that size. Some students (140 of them, which is 40% of the total of 350 students) have the benefit of a small class size of 35. But most students (210 of them, which is 60% of the students) are stuck in a large class of 210 students. In other words, most students would be pretty seriously misled if they chose this college based on the advertised average class size of 35 students per class. From the students' perspective, it seems that 140 is the more relevant average to report. However, neither average really adequately represents what is happening here: there is wide variability in class sizes between large and small.
+1.  $X$ takes the value 210 with probability 1/5 and 35 with probability 4/5.
+1.  $\text{E}(X) = 210(1/5) + 35(4/5)=70$ is the average number of students per class from the instructors' perspective. If we randomly select an instructor, record the number of students in the instructor's class, and repeat, the long run average number of students will be 70.
+1.  $\text{P}(X = \text{E}(X)) = \text{P}(X = 70) = 0$. No instructor has a class whose size is equal to the average class size (from the instructor's perspective).
+1.  $Y$ takes the value 210 with probability 210/350 and 35 with probability 140/350.
+1.  $\text{E}(Y) = 210(210/350) + 35(140/350)=140$ is the average number of students per class from the students' perspective. If we randomly select a student, record the number of students in the selected student's class, and repeat, the long run average number of students will be 140.
+1.  $\text{P}(Y = \text{E}(Y)) = \text{P}(Y = 140) = 0$. No student is in a class whose size is equal to the average class size (from the students' perspective).
+1.  Colleges usually report average class size from the instructor/class perspective, which in this case would be 70 students. From the students' perspective, the average class size is not even close to 70! In fact, it's twice that size. Some students (140 of them, which is 40% of the total of 350 students) have the benefit of a small class size of 35. But most students (210 of them, which is 60% of the students) are stuck in a large class of 210 students. In other words, most students would be pretty seriously misled if they chose this college based on the advertised average class size of 35 students per class. From the students' perspective, it seems that 140 is the more relevant average to report. However, neither average really adequately represents what is happening here: there is wide variability in class sizes between large and small.
+
+
+
+## Problem 4
+
+(This is an overly simplified example from actuarial science.) A life insurance company sells a term insurance policy to a 21 year old man (the "insured") that pays \$100,000 to a designated beneficiary if the insured dies within the next 5 years, and pays nothing if the insured does not die before age 26.
+The probability that a randomly chosen 21-year-old man will die each year can be found in mortality tables.
+The company collects a premium of \$250 at the beginning of each year of the 5 years of the term, as long as the insured is alive, as payment for the insurance.
+The amount $Y$ (in dollars) that the company earns on this policy is \$250 per year, less the \$100,000 that it pays out in the event the insured dies.
+The company doesn't pay out anything if the insured does not die in the 5 year term.
+
+| Age at death | Earnings $Y$ | Probability |
+|-------------:|-------------:|------------:|
+|           21 |      −99,750 |     0.00183 |
+|           22 |              |     0.00186 |
+|           23 |              |     0.00189 |
+|           24 |              |     0.00191 |
+|           25 |              |     0.00193 |
+|  26 or older |              |             |
+
+1.  Find the distribution of $Y$ by completing the above table. For example, the value -99,750 provides an example of how $Y$ is calculated when the insured dies in the first year of the policy.
+1.  Compute $\text{E}(Y)$.
+1.  Write a sentence explaining in this context in what sense the number from the previous part is "expected".
+1.  Would you be willing to sell such an insurance policy to one of your 21 year old friends? Explain why this is good business for the insurance company, but not for you.
+1.  Compute $\text{Var}(Y)$
+1.  Compute $\text{SD}(Y)$.
+1.  Compute the probability that $Y$ is more than 1 standard deviation above its mean.
+
+
+### Solution
+
+
+| Age at death | Earnings $Y$ | Probability |
+|--------------|-------------:|------------:|
+| 21           |       99,750 |     0.00183 |
+| 22           |      -99,500 |     0.00186 |
+| 23           |      -99,250 |     0.00189 |
+| 24           |      -99,000 |     0.00191 |
+| 25           |      -98,750 |     0.00193 |
+| 26 or older  |        1,250 |     0.99058 |
+
+1.  See above.
+    The earnings are computed according to the contract; the insurance company only needs to pay out the 100000 if the insured dies before age 26.
+    Since all the probabilities must add up to 1, the probability in the blank is $1 - (0.00183 + 0.00186 + 0.00189 + 0.00191 + 0.00193) = 0.99058$
+
+1.  $\text{E}(Y) = (-99750)(0.00183) + \cdots + (-98750)(0.00193) + (1250)(0.99058) = 303.23$
+
+1.  If the insurance company sells a large number of these policies to 21 year-old men then the insurance company will expect to make, on average, a profit of $303.36 per policy.
+    For example, if they sell 1 million policies, their total profit would be expected to be close to $303 million.
+
+1.  If you sell one policy, you are either going to make a profit of $1250, or you will pay out about $100,000.
+    The chances are high you will make a profit of $1250, but there is a risk that you will have to pay out around $100,000.
+    This risk is probably too great to take on considering the relatively small (in comparison) reward.
+
+    On the other hand, the insurance company sells *many* policies.
+    They operate in the long run.
+    Over many policies they make a profit, on average, of about $300 per policy.
+    For example, for a million policies this equates to a profit of $300 million.
+    There would be some variability around this, but in the long run the average will win out.
+    The company could be sure that they would only pay out the $100,000 benefit for less than 1% of policyholders, and they will be earning $1,250 on many other policies, more than enough to offset the relatively few $100,000 payouts there are.
+
+1.  $\text{E}(Y^2) = (-99750)^2(0.00183) + \cdots + (-98750)^2(0.00193) + (1250)^2(0.99058) = 94328849$.
+    Then $\text{Var}(Y) = \text{E}(Y^2) - (\text{E}(Y))^2 = 94328849 -(303)^2 = 94236827$.
+    This is a giant number because it's measured in $\text{dollars}^2$.
+
+1.  $\text{SD}(Y) = \sqrt{\text{Var}(Y)} = 9707$ dollars.
+
+1.  0. One SD above the mean here is 303 + 9707 = 10000 and $\text{P}(Y > 10000) = 0$ since it's not possible to have a value of this $Y$ which is more than 1 SD above its mean.
+
+
+## Problem 5
+
+In a sample of 50 Olympic women's gymnasts the heights have a symmetric bell-shaped distribution with mean 60 inches and standard deviation 3 inches.
+In a sample of 50 Olympic men's basketball players the heights have symmetric bell-shaped distribution with mean 76 inches and the standard deviation 5 inches. 
+Suppose the two samples are combined to obtain a sample with 100 heights. 
+Choose one of the options below to complete the following sentence; explain your reasoning without doing any calculations (hint: drawing a picture might help; also, what is the mean of the combined sample?). 
+The standard deviation of the combined sample is:
+
+a.  Less than 3 inches
+a.  Equal to 3 inches
+a.  Between 3 and 5 inches
+a.  Equal to 5 inches
+a.  Greater than 5 inches
+
+
+
+
+
+### Solution
+
+Greater than 5 inches. 
+As a very rough measure of variability, think about the overall range. 
+The range of heights for both groups combined would be greater than the range of heights for either of the two groups separately, so you would expect more variability when the groups are combined. To see what happens with SD, it's easiest to draw a picture. 
+Looking at the gymnasts alone, the SD of 3 is the average distance from the mean of 60 inches. 
+Looking at the men's bball players alone, the SD of 5 is the average distance from the mean of 76. 
+If the two samples are combined, the sample mean height would be 68 inches (right in the middle of 60 and 76 because the groups have the same size). 
+The SD in the combined sample measures the average distance from the mean of 68. 
+The gymnasts heights tend to be closer to their mean of 60 than the overall mean of 68; similarly, the men's bball player heights  tend to be closer to their mean of 76 than the overall mean of 68. 
+So the average distance from the mean will be greater for the combined sample than for either of the two separate samples.
 

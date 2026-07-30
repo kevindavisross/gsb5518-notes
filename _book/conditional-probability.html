@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Conditional Probability – GSB518 Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./bayes-rule.html" rel="next">
+<link href="./probability-models.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./conditional-probability.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional Probability</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">GSB518 Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./randomness-and-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Randomness and Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Probability Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conditional-probability.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bayes-rule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bayes Rule</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./independence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Independence of Events</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./discrete-rv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Discrete Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-mass-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Probability Mass Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expected-value.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Expected Value</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./variance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Variance and Standard Deviation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./binomial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Binomial Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Poisson Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./continuous-pdf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Continuous Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cdf-and-quantile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Percentiles: Cumulative Distribution Functions and Quantile Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expected-values-continuous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Expected Values of Continuous Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exponential.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Exponential Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Normal Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joint-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Joint and Conditional Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./covariance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Covariance and Correlation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear-combinations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Linear Combinations of Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joint-normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Joint Normal Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./from-probability-to-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Estimation: From Probability to Statistics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./maximum-likelihood-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimators-bias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Bias of Estimators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimators-mse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Variance and Mean Square Error of an Estimator</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 5</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 6</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-01-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-02-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-03-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-04-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-05-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 5 solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./distribution-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Summary of Some Common Distributions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">3.1</span> Exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional Probability</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="exm-conditional-probability-def" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.1</strong></span> The probability<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> that a randomly selected American adult (18+) uses Snapchat is 0.24.</p>
+</div>
+<ol type="1">
+<li>Suppose the randomly selected adult is under age 30. Do you think the probability that a randomly selected <em>adult who is under age 30</em> uses Snapchat is 0.24? What if the adult is over age 30?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>The probability<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> that a randomly selected American adult is under age 30 is 0.20. Start to create a two-way table representing 10000 hypothetical U.S. adults. Is the probability that a randomly selected American adult both (1) is under age 30, <em>and</em> (2) uses Snapchat equal to <span class="math inline">\(0.20\times 0.24\)</span>? Explain.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Suppose that the probability that a randomly selected American adult both is use age 30 and uses Snapchat is 0.13. Construct an appropriate two-way table.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find the probability that a randomly selected American <em>adult who is under age 30</em> uses Snapchat.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>How can the probability in the previous part be written in terms of the probabilities provided earlier?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find the probability that a randomly selected American <em>adult who is over age 30</em> uses Snapchat.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Find the probability that a randomly selected American <em>adult who uses Snapchat</em> is under age 30.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<ul>
+<li><p>The <strong>conditional probability of event</strong> <span class="math inline">\(A\)</span> given event <span class="math inline">\(B\)</span>, denoted <span class="math inline">\(\text{P}(A|B)\)</span>, is defined as</p>
+<p><span class="math display">\[
+\text{P}(A|B) = \frac{\text{P}(A\cap B)}{\text{P}(B)}
+\]</span></p></li>
+<li><p>The conditional probability <span class="math inline">\(\text{P}(A|B)\)</span> represents how the likelihood or degree of uncertainty of event <span class="math inline">\(A\)</span> should be updated to reflect information that event <span class="math inline">\(B\)</span> has occurred.</p></li>
+<li><p>Conditional probabilities are probabilities. There are analagous conditional versions of the properties of probability, e.g.&nbsp;<span class="math inline">\(\text{P}(A^c|B) = 1 - \text{P}(A|B)\)</span>.</p></li>
+<li><p>In general, knowing whether or not event <span class="math inline">\(B\)</span> occurs influences the probability of event <span class="math inline">\(A\)</span>. That is,</p>
+<p><span class="math display">\[
+\text{In general, } \text{P}(A|B) \neq \text{P}(A)
+\]</span></p></li>
+<li><p>Be careful: order is essential in conditioning. That is,</p>
+<p><span class="math display">\[
+\text{In general, } \text{P}(A|B) \neq \text{P}(B|A)
+\]</span></p></li>
+<li><p>Within the context of two events, we have joint, conditional, and marginal probabilities.</p>
+<ul>
+<li>Joint: unconditional probability involving both events, <span class="math inline">\(\text{P}(A \cap B)\)</span>.</li>
+<li>Conditional: conditional probability of one event given the other, <span class="math inline">\(\text{P}(A | B)\)</span>, <span class="math inline">\(\text{P}(B | A)\)</span>.</li>
+<li>Marginal: unconditional probability of a single event <span class="math inline">\(\text{P}(A)\)</span>, <span class="math inline">\(\text{P}(B)\)</span>.</li>
+</ul></li>
+<li><p>The relationship <span class="math inline">\(\text{P}(A|B) = \text{P}(A\cap B)/\text{P}(B)\)</span> can be stated generically as</p>
+<p><span class="math display">\[
+\text{conditional} = \frac{\text{joint}}{\text{marginal}}
+\]</span></p></li>
+<li><p>When dealing with probabilities (or proportions or percentages) be sure to ask “probability <em>of what</em>?” Thinking in fraction terms, be careful to identify the correct reference group which corresponds to the denominator.</p></li>
+</ul>
+<div id="exm-nba-conditional" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.2</strong></span> The following two phrases contain exactly the same words, just in different orders. Which is larger, the numerical value of 1 or 2?</p>
+<ol type="1">
+<li>The probability that a randomly selected man who is greater than six feet tall plays in the National Basketball Association (NBA).</li>
+<li>The probability that a randomly selected man who plays in the National Basketball Association (NBA) is greater than six feet tall.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+</div>
+<div id="exm-multiplication-rule-def" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.3</strong></span> Suppose</p>
+<ul>
+<li>20% of adults are under age 30</li>
+<li>63% of adults under age 30 use TikTok</li>
+<li>31% of adults over age 30 TikTok</li>
+</ul>
+</div>
+<ol type="1">
+<li>Use the information to set up a hypothetical two-way table.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute the probability that an adult uses TikTok.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute the probability that an adult who uses TikTok is under age 30.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<ul>
+<li><p>Rearranging the definition of conditional probability we get the <strong>Multiplication rule:</strong> the probability that two events both occur is</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{P}(A \cap B) &amp; = \text{P}(A|B)\text{P}(B)\\
+&amp; = \text{P}(B|A)\text{P}(A)
+\end{aligned}
+\]</span></p></li>
+<li><p>The multiplication rule says that you should think “multiply” when you see “and”. However, be careful about <em>what</em> you are multiplying: to find a joint probability you need an unconditional and an appropriate conditional probability.</p></li>
+<li><p>You can condition either on <span class="math inline">\(A\)</span> or on <span class="math inline">\(B\)</span>, provided you have the appropriate marginal probability; often, conditioning one way is easier than the other.</p></li>
+<li><p>Be careful: the multiplication rule does <em>not</em> say that <span class="math inline">\(\text{P}(A\cap B)\)</span> is the same as <span class="math inline">\(\text{P}(A)\text{P}(B)\)</span>.</p></li>
+<li><p><strong>Law of total probability</strong> If <span class="math inline">\(C_1, C_2, C_3\ldots\)</span> are disjoint events with <span class="math inline">\(C_1\cup C_2 \cup C_3\cup \cdots =\Omega\)</span>, then <span class="math display">\[\begin{align*}
+\text{P}(A) &amp; = \text{P}(A \cap C_1) + \text{P}(A \cap C_2) + \text{P}(A \cap C_2) + \cdots \\
+&amp; = \text{P}(A |C_1)\text{P}(C_1) + \text{P}(A | C_2)\text{P}(C_2) + \text{P}(A | C_3)\text{P}(C_3) + \cdots
+\end{align*}\]</span></p></li>
+<li><p>The events <span class="math inline">\(C_1, C_2, C_3, \ldots\)</span>, which represent the “cases”, form a <em>partition</em> of the sample space; each outcome <span class="math inline">\(\omega\in\Omega\)</span> lies in exactly one of the <span class="math inline">\(C_i\)</span>.</p></li>
+<li><p>The law of total probability says that we can interpret the unconditional probability <span class="math inline">\(\text{P}(A)\)</span> as a probability-weighted average of the case-by-case conditional probabilities <span class="math inline">\(\text{P}(A|C_i)\)</span> where the weights <span class="math inline">\(\text{P}(C_i)\)</span> represent the probability of encountering each case.</p></li>
+</ul>
+<section id="exercises" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">3.1</span> Exercises</h2>
+<div id="exr-cats-dogs-conditional" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.1</strong></span> Continuing <a href="probability-models.html#exr-cats-dogs" class="quarto-xref">Exercise&nbsp;<span>2.1</span></a>. The probability that a randomly selected U.S. household has a pet dog is 0.47. The probability that a randomly selected U.S. household has a pet cat is 0.25. the probability that a randomly selected U.S. household has a pet dog and a pet cat is 0.15.</p>
+<p>In addition to computing, represent the probabilities using appropriate notation.</p>
+</div>
+<ol type="1">
+<li>Compute the probability that a randomly selected U.S. household that has a pet dog also has a pet cat. Is it 0.25?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute the probability that a randomly selected U.S. household that does not have a pet dog has a pet cat. Is it the same as the previous part? Is it one minus the previous part?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Describe in words the probability that results from subtracting the answer to the first part from 1.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Compute the probability that a randomly selected U.S. household that has a pet cat also has a pet dog.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<div id="exr-slice-and-renormalize" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.2</strong></span> Suppose that<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<ul>
+<li>67% of Democrats believe in human-driven climate</li>
+<li>46% of Independents believe in human-driven climate</li>
+<li>34% of Republicans believe in human-driven climate</li>
+</ul>
+<p>Also suppose that<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<ul>
+<li>28% of American adults are Democrats</li>
+<li>42% of American adults are Independents</li>
+<li>30% of American adults are Republicans</li>
+</ul>
+</div>
+<ol type="1">
+<li>Define the event <span class="math inline">\(A\)</span> to represent “believes in human-driven climate change” and <span class="math inline">\(D, I, R\)</span> to correspond to affiliation in each of the parties. If the probability measure <span class="math inline">\(\text{P}\)</span> corresponds to selecting an American adult uniformly at random, write all the percentages above as probabilities using proper notation.<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Construct an appropriate two-way table of probabilities.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Now suppose that the randomly selected American believes in human-driven climate change. How does this information change the probability that the selected American belongs to each political party? Answer by computing appropriate probabilities (and using proper notation).<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>How many times more likely is it for an American <em>adult</em> to believe in human-driven climate change and be Independent than to:
+<ol type="a">
+<li>believe in human-driven climate change and be Democrat<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>believe in human-driven climate change and be Republican<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol></li>
+<li>How many times more likely is it for an American adult <em>who believes in human-driven climate change</em> to be Independent than to be:
+<ol type="a">
+<li>Democrat<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Republican<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol></li>
+<li>What do you notice about the answers to the two previous parts?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<ul>
+<li>The process of conditioning can be thought of as <strong>“slicing and renormalizing”.</strong>
+<ul>
+<li>Extract the “slice” corresponding to the event being conditioned on (and discard the rest). For example, a slice might correspond to a particular row or column of a two-way table.<br>
+</li>
+<li>“Renormalize” the values in the slice so that corresponding probabilities add up to 1.</li>
+</ul></li>
+<li>Slicing determines the <em>shape</em>; renormalizing determines the <em>scale</em>.</li>
+<li>Slicing determines relative probabilities; renormalizing just makes sure they add up to 1.</li>
+</ul>
+<div id="exr-simulate-conditional-probability" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.3</strong></span> Continuing <a href="#exr-slice-and-renormalize" class="quarto-xref">Exercise&nbsp;<span>3.2</span></a>. Explain in detail how you could conduct a simulation, using only the information provided in the problem set up, and how you would use the results to approximate the conditional probability of each party given belief in human driven climate change.</p>
+</div>
+<p><br>
+<br>
+<br>
+<br>
+<br>
+</p>
+<ul>
+<li>Conditional probabilities can be approximated by filtering (or subsetting) based on the condition</li>
+<li>To approximate <span class="math inline">\(\text{P}(A|B)\)</span>, simulate the random phenomenon for a set number of repetitions (say 10000), <em>discard those repetitions on which</em> <span class="math inline">\(B\)</span> does not occur, and compute the relative frequency of <span class="math inline">\(A\)</span> among the remaining repetitions (on which <span class="math inline">\(B\)</span> does occur).<br>
+</li>
+<li>Be careful! The margin of error is based on only the number of repetitions used to compute the relative frequency. So if you perform 10000 repetitions but <span class="math inline">\(B\)</span> occurs only on 2000, then the margin of error for estimate <span class="math inline">\(\text{P}(A|B)\)</span> is roughly on the order of <span class="math inline">\(1/\sqrt{2000} = 0.022\)</span> (rather than <span class="math inline">\(1/\sqrt{10000} = 0.01\)</span>. Especially if <span class="math inline">\(\text{P}(B)\)</span> is small, the margin of error could be large resulting in an imprecise estimate of <span class="math inline">\(\text{P}(A|B)\)</span>. (Advantage: not computationally intensive.)</li>
+</ul>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>The values in this problem are based on a <a href="https://www.pewresearch.org/internet/2021/04/07/social-media-use-in-2021/">April, 2021 report by the Pew Research Center</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Based on data from the <a href="https://www.census.gov/data/tables/2019/demo/age-and-sex/2019-age-sex-composition.html">U.S. Census Bureau</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Probabilities are estimated based on this <a href="https://epic.uchicago.edu/insights/2024-poll-americans-views-on-climate-change-and-policy-in-12-charts/">2024 survey</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Estimate based on <a href="https://news.gallup.com/poll/692978/democrats-regain-advantage-party-affiliation.aspx">Gallup poll</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./probability-models.html" class="pagination-link" aria-label="Probability Models">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Probability Models</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./bayes-rule.html" class="pagination-link" aria-label="Bayes Rule">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bayes Rule</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -40,7 +40,7 @@ Let $R$ be Regina's arrival time and $Y$ Cady's.
 Then $W = |R - Y|$ is the amount of time (minutes) the first person to arrive waits for the second person to arrive.
 It can be shown that $W$ has pdf
 $$
-f_W(w) = (2/3600)(1-w), \qquad 0<w<60.
+f_W(w) = (2/3600)(60-w), \qquad 0<w<60.
 $$
 
 
