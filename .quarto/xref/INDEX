@@ -1,116 +1,131 @@
 {
-  "continuous-pdf.qmd": {
-    "continuous-pdf.html": "1260c544"
+  "anova.qmd": {
+    "anova.html": "e46eafdf"
   },
   "index.qmd": {
-    "index.html": "a7b6eaab"
+    "index.html": "9e675158"
   },
   "randomness-and-probability.qmd": {
-    "randomness-and-probability.html": "bde88ae1"
+    "randomness-and-probability.html": "a97c8583"
   },
   "probability-models.qmd": {
-    "probability-models.html": "f6b5c9dd"
+    "probability-models.html": "efe6986c"
   },
   "conditional-probability.qmd": {
-    "conditional-probability.html": "d5163247"
+    "conditional-probability.html": "69d2e9dc"
   },
   "bayes-rule.qmd": {
-    "bayes-rule.html": "37d299ed"
+    "bayes-rule.html": "a03ba006"
   },
   "independence.qmd": {
-    "independence.html": "f7aec55e"
+    "independence.html": "2a37386c"
   },
   "discrete-rv.qmd": {
-    "discrete-rv.html": "72cb9168"
+    "discrete-rv.html": "da1542b3"
   },
   "probability-mass-functions.qmd": {
-    "probability-mass-functions.html": "fb3fe0ce"
+    "probability-mass-functions.html": "cf6d9743"
   },
   "expected-value.qmd": {
-    "expected-value.html": "e2980f4d"
+    "expected-value.html": "ccb45ef3"
   },
   "variance.qmd": {
-    "variance.html": "d73b159e"
+    "variance.html": "e56e1c59"
   },
   "binomial.qmd": {
-    "binomial.html": "94052f8c"
+    "binomial.html": "1e767ebc"
   },
   "poisson.qmd": {
-    "poisson.html": "a8771700"
+    "poisson.html": "6b696747"
   },
-  "hw-01.qmd": {
-    "hw-01.html": "43fab277"
-  },
-  "hw-02.qmd": {
-    "hw-02.html": "1b9a18b5"
-  },
-  "distribution-summary.qmd": {
-    "distribution-summary.html": "c295b1b6"
-  },
-  "references.qmd": {
-    "references.html": "5ead2166"
-  },
-  "exponential.qmd": {
-    "exponential.html": "919dd68a"
-  },
-  "expected-values-continuous.qmd": {
-    "expected-values-continuous.html": "5132008d"
+  "continuous-pdf.qmd": {
+    "continuous-pdf.html": "15991888"
   },
   "cdf-and-quantile.qmd": {
-    "cdf-and-quantile.html": "b7202a3d"
+    "cdf-and-quantile.html": "2d3ff2fe"
   },
-  "hw-03.qmd": {
-    "hw-03.html": "51a435f1"
+  "expected-values-continuous.qmd": {
+    "expected-values-continuous.html": "bb4072fd"
   },
-  "hw-04.qmd": {
-    "hw-04.html": "9cfd991f"
+  "exponential.qmd": {
+    "exponential.html": "bda39aa1"
   },
   "normal.qmd": {
-    "normal.html": "9bd5b188"
-  },
-  "hw-01-sol.qmd": {
-    "hw-01-sol.html": "5667ad23"
+    "normal.html": "3ad7657f"
   },
   "joint-distributions.qmd": {
-    "joint-distributions.html": "0ffdaaa0"
+    "joint-distributions.html": "58a5221a"
   },
   "covariance.qmd": {
-    "covariance.html": "db64de91"
+    "covariance.html": "fd1ff43e"
   },
   "linear-combinations.qmd": {
-    "linear-combinations.html": "0e9577c3"
+    "linear-combinations.html": "d0c0d11a"
   },
   "joint-normal.qmd": {
-    "joint-normal.html": "2ae8cba5"
+    "joint-normal.html": "64379c09"
   },
   "from-probability-to-statistics.qmd": {
-    "from-probability-to-statistics.html": "c14ba52e"
-  },
-  "hw-02-sol.qmd": {
-    "hw-02-sol.html": "b839fc52"
-  },
-  "hw-05.qmd": {
-    "hw-05.html": "e63c3517"
-  },
-  "hw-06.qmd": {
-    "hw-06.html": "d43d771f"
+    "from-probability-to-statistics.html": "74deb462"
   },
   "maximum-likelihood-estimation.qmd": {
-    "maximum-likelihood-estimation.html": "1847fdc5"
+    "maximum-likelihood-estimation.html": "3087e218"
   },
   "estimators-bias.qmd": {
-    "estimators-bias.html": "c2c87f19"
+    "estimators-bias.html": "4cf814e6"
   },
   "estimators-mse.qmd": {
-    "estimators-mse.html": "6c04baa8"
+    "estimators-mse.html": "747cd06a"
+  },
+  "clt.qmd": {
+    "clt.html": "9ca0b919"
+  },
+  "confidence-intervals.qmd": {
+    "confidence-intervals.html": "9b2919f0"
+  },
+  "bootstrapping.qmd": {
+    "bootstrapping.html": "1033f530"
+  },
+  "hw-01.qmd": {
+    "hw-01.html": "2a9ed1e6"
+  },
+  "hw-02.qmd": {
+    "hw-02.html": "56a75cb1"
+  },
+  "hw-03.qmd": {
+    "hw-03.html": "d26bb7b9"
+  },
+  "hw-04.qmd": {
+    "hw-04.html": "c710ddfa"
+  },
+  "hw-05.qmd": {
+    "hw-05.html": "c78dd3c3"
+  },
+  "hw-06.qmd": {
+    "hw-06.html": "2d7c43dd"
+  },
+  "hw-01-sol.qmd": {
+    "hw-01-sol.html": "18ac892d"
+  },
+  "hw-02-sol.qmd": {
+    "hw-02-sol.html": "484efd74"
   },
   "hw-03-sol.qmd": {
-    "hw-03-sol.html": "b1eecfb3"
+    "hw-03-sol.html": "edd79ff0"
   },
   "hw-04-sol.qmd": {
-    "hw-04-sol.html": "1d9cef5f"
+    "hw-04-sol.html": "68d1fc6d"
   },
   "hw-05-sol.qmd": {
-    "hw-05-sol.html": "d4e73ca4"
+    "hw-05-sol.html": "7407ce87"
+  },
+  "distribution-summary.qmd": {
+    "distribution-summary.html": "e11e4c28"
+  },
+  "references.qmd": {
+    "references.html": "983f3b1d"
+  },
+  "null-hypothesis-testing.qmd": {
+    "null-hypothesis-testing.html": "ce5feb01"
   }
 }

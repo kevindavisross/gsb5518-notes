@@ -28,6 +28,38 @@
         parameter value.
         -   By far, the most commonly used confidence level is 95%.
         -   But see @exm-multiple-ci and related material about multiple confidence intervals
+
+
+
+::: {#exm-ci-intro}
+In a [recent survey](https://www.pewresearch.org/chart/adults-under-50-are-especially-likely-to-say-theyve-been-to-the-movies-recently/) of a representative sample of U.S. adults aged 18-29, 67% saw a movie in the theater in the last 12 months. 
+The survey reports a margin of error for 95% confidence of 4.2 percentage points.
+:::
+
+1.	Use the information provided to compute and interpret a 95% confidence interval.
+    \
+    \
+    \
+    \
+    \
+2.	The study also surveyed 3257 U.S. adults aged 30-49, and 60% saw a movie in the theater in the last year. 
+Without computing, will the margin of error for 95% confidence for the 30-49 age group be greater than, less than, or equal to 4.2 percentage points?
+    \
+    \
+    \
+    \
+    \
+3.	For the 30-49 age group the margin of error for 95% confidence is 2.2 percentage points. 
+Compute and interpret a 95% confidence interval.
+    \
+    \
+    \
+    \
+    \
+
+
+
+
 -   A $1-\alpha$ **confidence interval** for $\theta$ is an *interval
     estimator* of $\theta$ based on the sample $X_1, \ldots, X_n$ of the form
     $[L(X_1,\ldots,X_n), U(X_1,\ldots,X_n)]$ which satisfies
@@ -184,6 +216,12 @@ In the sample, there are `{python} len(df_sf)` single family homes with a sample
 \
 \
 \
+1.	What if we wanted 95% confidence, but we wanted the margin of error to be no bigger than 1K. How could we achieve this?
+\
+\
+\
+\
+\
 1.  Assuming that this is a random sample from the appropriate population, does the 95% confidence interval you computed in the previous part provide an accurate estimate of the corresponding parameter?
     That is, is $\mu$ contained within the CI? Explain.
 \
@@ -191,20 +229,7 @@ In the sample, there are `{python} len(df_sf)` single family homes with a sample
 \
 \
 \
-1.  Assuming that this is a random sample from the appropriate population, are we reasonably confidence that $\mu$ is greater than 180K?
-    Explain.
-\
-\
-\
-\
-\
-1.  What if we wanted 95% confidence, but we wanted the margin of error
-    to be no bigger than 1K. How could we achieve this?
-\
-\
-\
-\
-\
+
 
 
 
@@ -260,74 +285,6 @@ ci_ub = df_sf["SalePriceK"].mean() + 2 * df_sf["SalePriceK"].std() / len(df_sf)*
 ```
 
 
-::: {#exm-ci-interpret}
-For each of the following statements, identify if it is
-a valid interpretation of the confidence interval from @exm-ci-one-sample.
-If not, explain why.
-:::
-
-1.  We estimate that 95% of single family homes in the population have sale price (\$K) between `{python} "{:.0f}".format(ci_lb)` and `{python} "{:.0f}".format(ci_ub)`.
-\
-\
-\
-\
-\
-1.  We estimate with 95% confidence that the sample mean sale price (\$K) of single family homes is between `{python} "{:.0f}".format(ci_lb)` and `{python} "{:.0f}".format(ci_ub)`.
-\
-\
-\
-\
-\
-1.  If many samples of this size were selected about 95% would produce a CI of (`{python} "{:.0f}".format(ci_lb)`,  `{python} "{:.0f}".format(ci_ub)`).
-\
-\
-\
-\
-\
-1.  In about 95% of samples of this size, the population mean sale price of single family homes will be between `{python} "{:.0f}".format(ci_lb)` and `{python} "{:.0f}".format(ci_ub)`.
-\
-\
-\
-\
-\
-1.  If many hypothetical unbiased random samples of this size were
-    selected, and a 95% confidence interval computed based on each
-    sample, about 95% of these confidence intervals would contain the
-    population mean sale price.
-\
-\
-\
-\
-\
-
--   A CI is a conclusion about a population parameter --- a number that
-    *summarizes* the population (e.g. the population mean) --- and not
-    about individual values of a variable.
--   The conclusions from inference regard the *population* from which
-    the random sample was selected; there is nothing to conclude for the
-    sample.
--   No one particular sample (e.g. the one observed) or CI is
-    necessarily good or representative of the many other possible
-    samples or CIs.
--   The randomness is in the *sampling procedure*, which determines $L$
-    and $U$, and not the parameter. The parameter $\theta$ is a fixed
-    number. After selecting the sample, there is no randomness left.
-    Either the CI contains the parameter or not; you just don't know
-    which it is.
--   We are confident in our observed estimate because we are confident
-    in our estimation *procedure*
-    -   By considering what would happen over many hypothetical random
-        samples we are able to determine the necessary margin of error
-        so that our CIs would contain the parameter in 95% of samples.
-    -   Because the value of the parameter is unknown, we never know for
-        sure whether any one confidence interval contains the parameter
-        or not.
-    -   But the procedure guarantees that in the long run --- that is,
-        over many unbiased random samples --- "most" confidence
-        intervals will contain the parameter, regardless of what the
-        true value of the parameter is. "Most" is determined by the
-        level of confidence.
-
 
 
 ::: {#exm-ci-median}
@@ -375,7 +332,74 @@ Continuing @exm-ci-one-sample.
     population it's supposed to represent.
 
 
-::: {#exm-multiple-ci}
+## Exercises
+
+
+::: {#exr-ci-interpret}
+For each of the following statements, identify if it is
+a valid interpretation of the confidence interval from @exm-ci-one-sample.
+If not, explain why.
+:::
+
+1.  We estimate that 95% of single family homes in the population have sale price (\$K) between `{python} "{:.0f}".format(ci_lb)` and `{python} "{:.0f}".format(ci_ub)`.
+\
+\
+\
+\
+\
+1.  We estimate with 95% confidence that the sample mean sale price (\$K) of single family homes is between `{python} "{:.0f}".format(ci_lb)` and `{python} "{:.0f}".format(ci_ub)`.
+\
+\
+\
+\
+\
+1.  If many samples of this size were selected about 95% would produce a CI of (`{python} "{:.0f}".format(ci_lb)`,  `{python} "{:.0f}".format(ci_ub)`).
+\
+\
+\
+\
+\
+1.  If many hypothetical unbiased random samples of this size were
+    selected, and a 95% confidence interval computed based on each
+    sample, about 95% of these confidence intervals would contain the
+    population mean sale price.
+\
+\
+\
+\
+\
+
+-   A CI is a conclusion about a population parameter --- a number that
+    *summarizes* the population (e.g. the population mean) --- and not
+    about individual values of a variable.
+-   The conclusions from inference regard the *population* from which
+    the random sample was selected; there is nothing to conclude for the
+    sample.
+-   No one particular sample (e.g. the one observed) or CI is
+    necessarily good or representative of the many other possible
+    samples or CIs.
+-   The randomness is in the *sampling procedure*, which determines $L$
+    and $U$, and not the parameter. The parameter $\theta$ is a fixed
+    number. After selecting the sample, there is no randomness left.
+    Either the CI contains the parameter or not; you just don't know
+    which it is.
+-   We are confident in our observed estimate because we are confident
+    in our estimation *procedure*
+    -   By considering what would happen over many hypothetical random
+        samples we are able to determine the necessary margin of error
+        so that our CIs would contain the parameter in 95% of samples.
+    -   Because the value of the parameter is unknown, we never know for
+        sure whether any one confidence interval contains the parameter
+        or not.
+    -   But the procedure guarantees that in the long run --- that is,
+        over many unbiased random samples --- "most" confidence
+        intervals will contain the parameter, regardless of what the
+        true value of the parameter is. "Most" is determined by the
+        level of confidence.
+
+
+
+::: {#exr-multiple-ci}
 Suppose we wish to estimate population mean GPA of
 students at each of the 23 CSU campuses. For each campus, you select a
 random sample of students, collect the GPAs of the students, and then
@@ -454,11 +478,18 @@ means.
     $0.95^{10}\approx 0.60$ --- but similar ideas apply more generally.
 
 
-::: {#exm-ci-two-sample}
+::: {#exr-ci-two-sample}
 Continuing with the Ames housing data set.
 Now suppose we want to compare sale price of single family homes with other homes (including condos, townhouses, etc).
-In particular, suppose we wish to estimate $\mu_S - \mu_N$, the difference in population mean sale price between single family homes and non-single family homes.
+In particular, suppose we wish to estimate $\mu_S - \mu_N$, the difference in population mean sale price between single family homes and non-single family homes. 
+The table below summarizes the sample data.
 :::
+
+```{python}
+#| echo: false
+
+df.groupby("SingleFamily")["SalePriceK"].describe()
+```
 
 1.  Suggest a point estimator, compute its variance, and suggest a formula for a CI for $\mu_S - \mu_N$.
 \
@@ -467,13 +498,7 @@ In particular, suppose we wish to estimate $\mu_S - \mu_N$, the difference in po
 \
 \
 
-1.  The table below summarizes the sample data.
-    Compute a 95% confidence interval.
-    ```{python}
-    #| echo: false
-
-    df.groupby("SingleFamily")["SalePriceK"].describe()
-    ```
+1.  Compute a 95% confidence interval.
     \
     \
     \
@@ -522,4 +547,6 @@ In particular, suppose we wish to estimate $\mu_S - \mu_N$, the difference in po
 -   A difference provides an absolute comparison between groups.
     -   Ratios can be used to provide relative comparisons; however, the
         CI formulas are more complicated, but we'll see another approach soon
+
+
 

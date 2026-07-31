@@ -32,11 +32,11 @@ book:
     - maximum-likelihood-estimation.qmd
     - estimators-bias.qmd
     - estimators-mse.qmd
-    # - clt.qmd
-    # - confidence-intervals.qmd
-    # - bootstrapping.qmd
-    # - null-hypothesis-testing.qmd
-    # - anova.qmd
+    - clt.qmd
+    - confidence-intervals.qmd
+    - bootstrapping.qmd
+    - null-hypothesis-testing.qmd
+    - anova.qmd
     - hw-01.qmd
     - hw-02.qmd
     - hw-03.qmd

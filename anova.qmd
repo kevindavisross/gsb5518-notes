@@ -1,78 +1,17 @@
 # Comparing multiple means: ANOVA $F$ procedures
 
-```{python}
-#| echo: false
-#| 
-import pandas as pd
-```
-
-
-```{python}
-#| echo: false
-#| 
-df_ks = pd.read_csv("https://raw.githubusercontent.com/kevindavisross/data301/refs/heads/main/data/knee_surgery.csv")
-
-
-```
-
-
-::: {#exm-anova}
-When medical therapy fails to relieve the pain of osteoarthritis of the knee, arthroscopic lavage or debridement is often recommended. More than 650,000 such procedures are performed each year at a cost of roughly \$5,000 each.
-A recent double blind experiment investigated the effectiveness of these procedures[^1].  180 subjects with osteoarthritis of the knee  were randomly assigned to receive one of three treatments: arthroscopic lavage (which involved flushing the knee joint with fluid), arthroscopic debridement (which involved both lavage and shaving of cartilage and removal of debris), and placebo surgery (which involved incisions in the knee, but no insertion of instruments).  Various outcomes were measured; the summaries below summarize scores two years after the procedure on a knee-specific pain scale (0-100, with with higher scores indicating more severe pain).
-Does any procedure tend to result in better pain scores on average?
-:::
-
-[^1]: Source: <http://www.nejm.org/doi/full/10.1056/NEJMoa013259>
-
-1.  State the null and alternative hypotheses (in words is fine).
-\
-\
-\
-\
-\
-1.  The summarizes the sample data.
-Do you think there will be any evidence to reject the null hypothesis?
-\
-\
-\
-\
-\
-1.  Suggest a statistic which could be used to perform a hypothesis test.
-\
-\
-\
-\
-\
-
-```{python}
-#| echo: false
-
-df_ks.groupby("treatment")["ksps2yr"].describe()
-```
-
-```{python}
-#| echo: false
-
-from plotnine import ggplot, aes, geom_histogram, facet_grid, theme, element_text, xlab
-
-(ggplot(df_ks, aes(x="ksps2yr", fill="treatment"))
-      + geom_histogram(bins=10)
-      + facet_grid("treatment ~ .")
-     + xlab("Knee specific pain score")  # custom x-axis label
-     + theme(
-         legend_position="none", 
-         axis_text_x=element_text(rotation=45, hjust=1)
-       )
-)
-```
+When dealing with a numerical variable, we often summarize the variable with its mean. 
+We have seen how to perform inference for a single mean and for comparing two means. 
+Now we will see how to compare multiple means. The process is called "analysis of variance" or ANOVA, but that name is a little misleading. 
+Our conclusions will still be about means.
 
 ::: {#exm-anova-idea}
 Consider the following plots, which are all on the same
 scale.
 (This example just illustrates some general ideas so the context isn't important, but the data relate to a study on different types of diet plans
-(Atkins, etc) and weight loss.) Plot A displays the study data.
+(Atkins, etc) and weight loss. Plot A displays the study data.
 Plots B and C show hypothetical data sets with the same group sizes as
-in Plot A.
+in Plot A.)
 Group means are indicated by the colored vertical lines.
 
 -   The SD for each group in Plot B equals the SD for the corresponding
@@ -84,9 +23,9 @@ group in Plot B.
 ![](_graphics/ANOVA_idea_plot_diet.png)
 
 
-1.  Rank the plots in order from weakest to strongest evidence to reject the
-null hypothesis of no difference in means between treatments. That is,
-rank the plots in order from largest to smallest p-value.
+1.  Rank the three scenarios (A, B, C) in order from weakest to strongest evidence to reject the
+null hypothesis of no difference in means between groups. 
+That is, rank the plots in order from largest to smallest p-value.
 
 1.  Compare plots A and B.
     -   The variability *between* groups in Plot B is **(choose one: >, <, =)** the variability *between* groups in Plot A.
@@ -120,15 +59,56 @@ hypothesis (of no difference) in favor of the alternative hypothesis (of
 some difference). That is, the largest the $F$ statistic the smaller the p-value.
 
 
+
+```{python}
+#| echo: false
+#| 
+import pandas as pd
+```
+
+
+```{python}
+#| echo: false
+#| 
+df_ks = pd.read_csv("https://raw.githubusercontent.com/kevindavisross/data301/refs/heads/main/data/knee_surgery.csv")
+
+
+```
+
+
 ::: {#exm-anova-calc}
-Continuing @exm-anova.
-The computation of the $F$ statistic is full of
-technical details.
-We will only do a rough hand computation which
-illustrates the main ideas, but we'll usually rely on software to compute it.
-The computation is somewhat simplified
-when the sample size is the same for each explanatory variable group.
+When medical therapy fails to relieve the pain of osteoarthritis of the knee, arthroscopic lavage or debridement is often recommended. More than 650,000 such procedures are performed each year at a cost of roughly \$5,000 each.
+A recent double blind experiment investigated the effectiveness of these procedures[^1].  180 subjects with osteoarthritis of the knee  were randomly assigned to receive one of three treatments: arthroscopic lavage (which involved flushing the knee joint with fluid), arthroscopic debridement (which involved both lavage and shaving of cartilage and removal of debris), and placebo surgery (which involved incisions in the knee, but no insertion of instruments).  Various outcomes were measured; the summaries below summarize scores two years after the procedure on a knee-specific pain scale (0-100, with with higher scores indicating more severe pain).
+Does any procedure tend to result in better pain scores on average?
+
+The following summarizes the sample data.
+Note that the sample size is the same within each group, which somewhat simplifies the computation of the ANOVA $F$ statistic.
 :::
+
+
+
+```{python}
+#| echo: false
+
+df_ks.groupby("treatment")["ksps2yr"].describe()
+```
+
+```{python}
+#| echo: false
+
+from plotnine import ggplot, aes, geom_histogram, facet_grid, theme, element_text, xlab
+
+(ggplot(df_ks, aes(x="ksps2yr", fill="treatment"))
+      + geom_histogram(bins=10)
+      + facet_grid("treatment ~ .")
+     + xlab("Knee specific pain score")  # custom x-axis label
+     + theme(
+         legend_position="none", 
+         axis_text_x=element_text(rotation=45, hjust=1)
+       )
+)
+```
+
 
 1.  What statistic can be used to measure the variability *within* the
 Debridement group? Lavage? Placebo? How could you combine these numbers
@@ -139,26 +119,32 @@ to to measure, in a single number, *variability within groups*?
 \
 \
 1.  If the null hypothesis is true, what would you expect about the group
-means? What statistic can be used to measure the variability *between*
+means?
+\
+\
+\
+\
+\
+1.  What statistic can be used to measure the observed variability *between*
 groups?
 \
 \
 \
 \
 \
-1.  Regardless of whether or not the null hypothesis is true, which of the values from the previous parts would you expect to be larger? Why?
+1.  Regardless of whether or not the null hypothesis is true, which of the values from parts 1 nand 3 would you expect to be larger? Why?
 \
 \
 \
 \
 \
-1.  So far, we have used the group means and group SDs in our calculations. What other feature of the groups do you think will influence the results? How?
+1.	How could use measure the expected variability between groups if the null hypothesis is true?
 \
 \
 \
 \
 \
-1.  Compute the $F$ statistic.
+1.  Compute the $F$ statistic as the value from part 3 divided by the value from part 5.
 \
 \
 \
@@ -166,7 +152,12 @@ groups?
 \
 1.  What value would you expect $F$ to be if the
 null hypothesis is true?
-Specify in detail how you could use simulation to approximate the null distribution of the $F$ statistic.
+\
+\
+\
+\
+\
+1.  Specify in detail how you could use simulation to approximate the null distribution of the $F$ statistic.
 \
 \
 \
@@ -177,23 +168,15 @@ repetitions of the simulation.
 How could you use the simulation results to approximate the p-value?
 Could you use the empirical rule for Normal distributions?
 
-    ![Permutation null distribution of $F$ statistic for @exm-anova.](_graphics/knee_surgery_applet.png){#fig-anova-applet}
+    ![Permutation null distribution of $F$ statistic for @exm-anova-calc.](_graphics/knee_surgery_applet.png){#fig-anova-applet}
 
-1.  State a conclusion in context. Are the results "significant"?
+1.  The p-value is about 0.6. State a conclusion in context. Are the results "significant"?
 \
 \
 \
 \
 \
-1.  If we were to compute a series of pairwise confidence intervals for the
-difference in group means --- Debridement $-$ Lavage, Debridement $-$
-Placebo, Lavage $-$ Placebo --- what value would each of the confidence
-intervals contain? Why?
-\
-\
-\
-\
-\
+
 
 
 **Hypothesis test for comparing multiple means: "One-way ANOVA $F$
@@ -248,9 +231,10 @@ F & = \frac{\text{group size} \times \text{variance of group means}}{\text{mean 
 | Total                              | $N-1$ | (SS(between) + SS(within)) = $\sum_{i=1}^N\left(x_{i} - \bar{x}\right)^2$ |                                  |                                                |
 
 
-::: {#exm-anova-ci}
+::: {#exm-anova-ci-motivation}
 Continuing with the Ames housing data set.
-Now suppose we want to compare sale price of homes by building type: single-family (1Fam), two-family (2fmCon), duplex, townhouse end unit (TwnhsE), townhouse inside unit (Twnhs).
+Now suppose we want to compare sale price of homes by building type: single-family (1Fam), two-family (2fmCon), duplex, townhouse end unit (TwnhsE), townhouse inside unit (Twnhs). 
+The following summarizes the sample data.
 :::
 
 
@@ -277,6 +261,7 @@ df_ames.groupby("BldgType")["SalePriceK"].describe()
 
 ```{python}
 #| echo: false
+#| eval: false
 
 from plotnine import geom_density
 
@@ -286,6 +271,55 @@ ggplot(df_ames, aes(x="SalePriceK", color="BldgType", fill="BldgType"))
     + xlab("Sale Price (K)")
 )
 ```
+
+
+```{python}
+#| echo: false
+
+from plotnine import (
+    ggplot, aes, geom_histogram, facet_wrap, scale_fill_manual,
+    labs, theme_minimal, theme, element_blank, after_stat
+)
+
+cp_colors = [
+    "#154734",  # Cal Poly Green
+    "#C69214",  # CP Mustard
+    "#5B7F95",  # Morro Blue
+    "#D9782D",  # Heritage Orange
+    "#8A8D8F",  # Kennedy Gray
+]
+
+(
+    ggplot(df_ames, aes(x="SalePriceK", fill="BldgType"))
+    + geom_histogram(aes(y=after_stat("density")), bins=30)
+    + facet_wrap("~BldgType", ncol=1)
+    + scale_fill_manual(values=cp_colors)
+    + labs(x="Sale Price ($K)", y="Density")
+    + theme_minimal()
+    + theme(
+        legend_position="none"
+    )
+)
+```
+
+
+1.  @tbl-ames-anova is the ANOVA table. 
+The $F$ statistic is 26.1 and the p-value is basically 0. 
+State the conclusion of the ANOVA $F$ test in
+context.
+\
+\
+\
+\
+\
+1.  What are some natural follow-up
+questions? How might you use the data to answer them?
+\
+\
+\
+\
+\
+
 
 
 
@@ -307,28 +341,43 @@ print(anova_table)
 ```
 
 
-1.  @tbl-ames-anova is the ANOVA table. State the conclusion of the ANOVA $F$ test in
-context.
-\
-\
-\
-\
-\
-1.  Consider the conclusion of the $F$ test. What are some natural follow-up
-questions? How might you use the data to answer them?
-\
-\
-\
-\
-\
-1.  @tbl-tukey contains the results of Tukey pairwise 95% confidence intervals.
-Interpret these intervals in context.
+-   Rejecting the null hypothesis based on an $F$ statistic only tells you
+that "the mean for at least one of the treatments (populations) is not
+the same as the mean for at least one of the other treatments
+(populations)".
+-   The natural follow-up questions are: which treatment (population) means
+differ? and by how much?
+-   One approach when you have rejected the null hypothesis is to calculate
+--- using software --- all pairwise confidence intervals. In particular,
+which intervals do not contain zero?
+-   When computing multiple confidence intervals, the multiple ($z^*$ or
+$t^*$) should be increased[^3] to account for the **issue of multiple
+comparisons** (recall @exr-multiple-ci and related notes).
+-   **Tukey's method** is a widely used method for constructing simultaneous
+confidence intervals for *all pairwise comparisons of means*. The
+confidence intervals computed using Tukey's method already contain an
+adjustment to account for multiple comparisons.
+
+
+::: {#exm-anova-ci}
+Continuing @exm-anova-ci-motivation. 
+@tbl-tukey contains the results of Tukey pairwise 95% confidence intervals.
+:::
+
+1.  For which pairs of building types is there reasonable evidence of a difference in mean sale price?
+For which pairs is there NOT reasonable evidence of a difference?
 \
 \
 \
 \
 \
 
+1.  Interpret in context each of the confidence intervals that does NOT contain 0.
+\
+\
+\
+\
+\
 
 
 ```{python}
@@ -352,28 +401,10 @@ tukey_result.plot_simultaneous()
 ```
 
 
--   Rejecting the null hypothesis based on an $F$ statistic only tells you
-that "the mean for at least one of the treatments (populations) is not
-the same as the mean for at least one of the other treatments
-(populations)".
--   The natural follow-up questions are: which treatment (population) means
-differ? and by how much?
--   One approach when you have rejected the null hypothesis is to calculate
---- using software --- all pairwise confidence intervals. In particular,
-which intervals do not contain zero?
--   When computing multiple confidence intervals, the multiple ($z^*$ or
-$t^*$) should be increased[^3] to account for the **issue of multiple
-comparisons** (recall @exm-multiple-ci and related notes).
--   **Tukey's method** is a widely used method for constructing simultaneous
-confidence intervals for *all pairwise comparisons of means*. The
-confidence intervals computed using Tukey's method already contain an
-adjustment to account for multiple comparisons.
 
 
 [^1]: Source: <http://www.nejm.org/doi/full/10.1056/NEJMoa013259>
 
-[^2]: If the group sizes are not the same, you would compute a weighted
-    average.
 
 [^3]: There are several ways to do this. The simplest is a *Bonferroni*
     adjustment, which splits the error rate evenly across all intervals.
@@ -383,5 +414,124 @@ adjustment to account for multiple comparisons.
     intervals. But the Tukey method is more widely used when comparing
     means.
 
-[^4]: This number assumes independence of confidence intervals ---
-    $0.95^{10}\approx 0.60$ --- but similar ideas apply more generally.
+
+
+
+
+## Exercises
+
+::: {#exr-knee-ci}
+Continuing @exm-anova-calc. 
+If we were to compute a series of pairwise confidence intervals for the
+difference in group means --- Debridement $-$ Lavage, Debridement $-$
+Placebo, Lavage $-$ Placebo --- what value would each of the confidence
+intervals contain? Why?
+\
+\
+\
+\
+\
+:::
+
+::: {#exr-anova-concussion}
+A study[^4] on brain trauma in football players included 3 groups, with 25 cases in each group. 
+The control group consisted of healthy individuals with no history of brain trauma who were comparable to the other groups in age, sex, and education. 
+The second group consisted of NCAA Division 1 college football players with no history of concussion, while the third group consisted of NCAA Division 1 college football players with a history of concussion. 
+High resolution MRI was used to collect brain hippocampus volume (microliters). 
+
+Plots and summary statistics of hippocampus volume (microliters) for all three groups
+:::
+
+```{python}
+#| echo: false
+#| 
+df_brain = pd.read_csv("https://raw.githubusercontent.com/kevindavisross/gsb5518-notes/refs/heads/main/_data/FootballBrain.txt", sep = "\t")
+
+
+```
+
+
+```{python}
+#| echo: false
+
+df_brain.groupby("Group")["Hipp"].describe()
+```
+
+
+```{python}
+#| echo: false
+
+
+(
+    ggplot(df_brain, aes(x="Hipp", fill="Group"))
+    + geom_histogram(aes(y=after_stat("density")), bins=30)
+    + facet_wrap("~Group", ncol=1)
+    + labs(x="Hippocampus volume (microliters)", y="Density")
+    + theme_minimal()
+    + theme(
+        legend_position="none"
+    )
+)
+```
+
+
+
+
+
+
+1.  Specify in words the null hypothesis.
+1.  The SD of the numbers 7602.6, 6459.2, and 5734.6 is 941.8. 
+Compute by hand the ANOVA $F$ statistic. 
+1.  The ANOVA $F$ statistic is 31.5.
+Describe in full detail how (in principle) you could use index cards to simulate the null distribution of the ANOVA $F$ statistic and how you would use the simulation results to find the p-value. (You don't have to compute the p-value; just explain how you could find it after you performed the simulation.)
+1.  Use [this applet](https://www.rossmanchance.com/applets/2021/anovashuffle/AnovaShuffle.htm) to conduct the simulation from the previous part. 
+    -   You will first need to copy and paste [the data](https://raw.githubusercontent.com/kevindavisross/gsb5518-notes/refs/heads/main/_data/FootballBrain.txt) from this study into the applet.
+    -   In the Select Statistic box in the lower left, select F-statistic. Check that the Observed F-statistic is 31.473, and that your summary statistics match those from the summaries.
+    -   Click the "Show Shuffle Options" box and then run the simulation. 
+    -   Enter the appropriate value in the "Count Samples" box and click "Count" to compute the p-value.
+1.  The p-value is basically 0 (see @tbl-anova-concussion). 
+Write a clearly worded sentence containing the conclusion of the hypothesis test in the context of the problem.
+1.  @tbl-tukey-concussion contains the Tukey confidence intervals. Which of the confidence intervals contain 0, and which do not?  Explain what this means.
+1.  Write a clearly worded sentence interpreting each of the three confidence intervals in context.
+
+
+
+
+
+```{python}
+#| echo: false
+#| label: tbl-anova-concussion
+#| tbl-cap: ANOVA table for @exr-anova-concussion.
+
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+
+# Fit an OLS model
+model = ols('Hipp ~ C(Group)', data=df_brain).fit()
+
+# Perform ANOVA
+anova_table = sm.stats.anova_lm(model, typ=2)
+print(anova_table)
+
+```
+
+
+
+
+```{python}
+#| echo: false
+#| label: tbl-tukey-concussion
+#| tbl-cap: Tukey pairwise 95% confidence intervals for @exr-anova-concussion.
+
+from statsmodels.stats.multicomp import pairwise_tukeyhsd, MultiComparison
+
+mc = MultiComparison(df_brain['Hipp'], df_brain['Group'])
+tukey_result = mc.tukeyhsd(alpha=0.05)
+print(tukey_result.summary())
+
+```
+
+
+
+
+[^4]: Source: [Singh R, Meier T, Kuplicki R, Savitz J, et al., "Relationship of Collegiate Football Experience and Concussion With Hippocampal Volume and Cognitive Outcome," JAMA, 311(18), 2014.](https://jamanetwork.com/journals/jama/fullarticle/1869211#google_vignette)

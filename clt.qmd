@@ -25,32 +25,285 @@ but not all ---
 sample to sample, than statistics from smaller random samples.
     -   The pattern of sample-to-sample variability of the statistic follows, approximately, a Normal distribution
 
-::: {#exm-clt-applet}
-In a previous example, we consider a discrete population
-with a population mean of $\mu = 72$ and a population standard deviation
-of $\sigma = 69.4$. Now we'll consider several other populations with a
-population mean of 72 and a population standard deviation of 69.4. We'll
-use an
-[applet](http://www.rossmanchance.com/applets/2021/sampling/OneSample.html?population=model)
-to simulate the sampling distribution of the sample mean $\bar{X}$ for
-samples of size $n$ from several different populations. Enter 72 in the
-box for population mean, and 69.4 in the box for population SD.
+
+
+::: {#exm-sample-mean-setup}
+
+A random sample of $n$ customers at a snack bar is selected, independently. 
+Let $\bar{X_n}$ represent the sample mean dollar amount spent by the $n$ customers in the sample.
+
+Assume that
+
+-   40% of customers spend 5 dollars
+-   40% of customers spend 6 dollars
+-   20% of customers spend 7 dollars
+
+Let $X$ denote the amount spent by a single randomly selected customer.
 :::
 
-1.  Regardless of the shape of the population, what will
-$\textrm{E}(\bar{X})$ be? How we do interpret this?
+
+1.  Compute $\text{E}(X)$. 
+We'll call this value the population mean $\mu$; explain what this means.
 \
 \
 \
 \
 \
-1.  Regardless of the shape of the population, what will
-$\textrm{SD}(\bar{X})$ be? How do we interpret this?
+1.  Compute $\text{SD}(X)$. 
+We'll call this value the population standard deviation $\sigma$; explain what this means.
 \
 \
 \
 \
 \
+
+
+-   The **population distribution** describes the distribution of values of a variable over all *individuals* in the population.
+    -   The **population mean**, denoted $\mu$, is the average of the values of the variable over all individuals in the population.  
+    -   The **population standard deviation**, denoted $\sigma$, is the standard deviation of all the individual values in the population.  
+-   A **(simple) random sample** of size $n$ is a collection of  random variables $X_1,\ldots,X_n$ that are *independent* and *identically distributed* (*i.i.d.*)
+
+
+::: {#exm-sample-mean-dist-table}
+Continuing @exm-sample-mean-setup. 
+Now we'll consider samples of size $n=2$.
+Randomly select two customers, independently, and let $X_1$ and $X_2$ denote the amounts spent by the two people selected.
+Let $\bar{X}_2$ represent the sample mean.
+:::
+
+1.  Make a table of all possible $(X_1, X_2)$ pairs and their probabilities, and use the table to find the distribution of $\bar{X}_2$. 
+Interpret in words in context what this distribution represent.
+\
+\
+\
+\
+\
+1.  Compute and interpret $\text{P}(\bar{X}_{2} > 6)$.
+\
+\
+\
+\
+\
+1.  Compute $\text{E}(\bar{X}_2)$. 
+How does it relate to $\mu$?
+\
+\
+\
+\
+\
+1.  There are 3 "means" in the previous part. 
+What do they all mean?
+\
+\
+\
+\
+\
+1.  Compute $\text{Var}(\bar{X}_2)$ and  $\text{SD}(\bar{X}_2)$. 
+How do these values relate to the population variance $\sigma^2$ and population standard deviation $\sigma$?
+\
+\
+\
+\
+\
+1.  Describe in words in context what $\text{SD}(\bar{X}_2)$ measures variability of.
+\
+\
+\
+\
+\
+
+
+-   The **sample mean** is
+    $$
+    \bar{X}_n = \frac{X_1 + \cdots + X_n}{n},
+    $$
+-   Because the sample is randomly selected, the sample mean $\bar{X}_n$ is a random variable that has a distribution.
+This distribution describes how sample means vary from sample-to-sample over many random samples of size $n$.
+-   Over many random samples, sample means do not systematically overestimate or underestimate the population mean.
+    $$
+    \text{E}(\bar{X}_n) = \mu
+    $$
+-   Variability of sample means depends on the variability of individual values of the variable; the more the values of the variable vary from individual-to-individual in the population, the more the sample means will vary from sample-to-sample.
+However, sample means are less variable than individual values of the variable. Furthermore, the sample-to-sample variability of sample means decreases as the sample size increases
+    \begin{align*}
+    \text{Var}(\bar{X}_n) & = \frac{\sigma^2}{n}\\
+    \text{SD}(\bar{X}_n) & = \frac{\sigma}{\sqrt{n}}
+    \end{align*}
+
+::: {#exm-sample-mean-dist-clt}
+Continuing @exm-sample-mean-dist-table.
+Now suppose we take a random sample of 20 customers; consider $n=20$ and $\bar{X}_{20}$. 
+:::
+
+1.  Find $\text{E}(\bar{X}_{20})$, $\text{Var}(\bar{X}_{20})$, and $\text{SD}(\bar{X}_{20})$.
+\
+\
+\
+\
+\
+1.  Describe in words in context what $\text{SD}(\bar{X}_{20})$ measures variability of.
+\
+\
+\
+\
+\
+1.  Use simulation to determine the approximate shape of the distribution of $\bar{X}_{20}$.
+\
+\
+\
+\
+\
+1.  Simulation shows that $\bar{X}_{20}$ has an approximate Normal distribution. 
+Use this Normal distribution to approximate $\text{P}(\bar{X}_{20} > 6)$, and interpret the probability.
+\
+\
+\
+\
+\
+
+-   The **(Standard) Central Limit Theorem**. Let $X_1,X_2,\ldots$ be independent and identically distributed (i.i.d.) random variables with finite mean $\mu$ and finite standard deviation $\sigma$. Then
+    $$
+    \text{$\bar{X}_n$ has an approximate $N\left(\mu,\frac{\sigma}{\sqrt{n}}\right)$ distribution, if $n$ is large enough.}
+    $$
+-   The CLT says that if the sample size is large enough, the sample-to-sample distribution of sample means is approximately Normal, *regardless of the shape of the population distribution.*
+
+::: {#exm-sample-mean-dist-outlier}
+Continuing @exm-sample-mean-dist-table.
+Now suppose that each customer spends
+
+-   5 dollars with probability 0.4
+-   6 with probability 0.4
+-   7 with probability 0.19
+-   30 with probability 0.01 (maybe they treat a few friends).
+
+For this distribution, the population mean is $\mu = 6.03$ and the population standard deviation is $\sigma = 2.52$.
+:::
+
+
+1.  Use simulation to approximate the distribution of $\bar{X}_{30}$; is it approximately Normal?
+\
+\
+\
+\
+\
+1.  Use simulation to approximate the distribution of $\bar{X}_{100}$; is it approximately Normal?
+\
+\
+\
+\
+\
+1.  Use simulation to approximate the distribution of $\bar{X}_{300}$; is it approximately Normal?
+\
+\
+\
+\
+\
+
+-   The CLT says that if the sample size is large enough, the sample-to-sample distribution of sample means is approximately Normal, *regardless of the shape of the population distribution.*
+-   However, the shape of the population distribution --- which describes the distribution of individual values of the variable --- does matter in determining *how large* is large enough.
+    -   If the population distribution is Normal, then the sample-to-sample distribution of sample means is Normal for any sample size. 
+    -   If the population distribution is "close to Normal" --- e.g., symmetric, light tails, single peak --- then smaller samples sizes are sufficient for the sample-to-sample distribution of sample means to be approximately Normal.
+    -   If the population distribution is "far from Normal" --- e.g., severe skewness, heavy tails, extreme outliers, multiple peaks --- then larger sample sizes are required for the sample-to-sample distribution of sample means to be approximately Normal.
+-   You should certainly be aware that there is no magic number and that some population distributions require a large sample size for the CLT to kick in. 
+However, in many situations the sample-to-sample distributions of sample means (or other statistics) is approximately Normal even for small or moderate sample sizes.
+
+
+::: {#exm-clt-exponential}
+Suppose a business is tracking when online orders are placed on their website. We times between orders, in hours, follow an Exponential distribution with rate parameter 3.2 per hour.
+Approximate the probability that it takes more than a week for the 500th order to be placed.
+
+Hints:
+
+-   What plays the role of the population distribution?
+-   What is the population mean?
+-   What is the population SD?
+-   How can you express the probability in question in terms of a sample mean?
+-   What does the CLT say about sample means from this population?
+\
+\
+\
+\
+\
+:::
+
+
+::: {#exm-clt-income}
+
+Suppose that average annual income for U.S. households is about $120,000, and that the standard deviation of income is about $160,000.
+
+:::
+
+1.  What can you say about the probability that a single randomly selected household has an income above $200,000?
+\
+\
+\
+\
+\
+1.  Donny Don't says: "Since a sample size of one million is extremely large, the CLT says that the incomes in a sample of one million households should follow a Normal distribution". Do you agree? If not, explain to Donny what the CLT does say.
+\
+\
+\
+\
+\
+1.  Use the CLT to approximate the probability that in a sample of 1000 households the sample mean income is above $130,000.
+\
+\
+\
+\
+\
+1.  Donny says: "Wait, the distribution of household income is highly skewed to the right. Wouldn't it be more appropriate to use the sample median than the sample mean"? Do you agree? Explain.
+\
+\
+\
+\
+\
+
+
+
+-   Be careful to distinguish between what the CLT does say, and what it doesn't say.
+-   The CLT does NOT say anything about the shape of the population distribution of individual values of the variable; it can be anything.
+    -   Randomly selected samples tend to be representative of the population they're sampled from, so we expect the shape of the distribution of individual values in the sample to resemble the shape of the distribution of individual values in the population, regardless of the sample size.
+    -   Over many samples, the distribution of individual values within each sample will resemble the population distribution. 
+    For example, if the population distribution has an Exponential shape, then the distribution of values in any single randomly selected sample will tend to have a roughly Exponential shape.
+-   The CLT applies to how sample *means* behave over many samples, not what happens within any single sample.
+    -   If $n$ is large enough, then over many *samples* of size $n$ the *sample-to-sample distribution of sample means* will be approximately Normal, regardless of the shape of the population distribution of individual values of the variable.
+
+
+## Exercises
+
+::: {#exr-clt-poisson}
+The number of free throws that a particular basketball player attempts in a game has a Poisson distribution with parameter 2.7, independently from game to game. 
+Approximate the probability that the player attempts more than 60 free throws in the next 20 games.
+:::
+\
+\
+\
+\
+\
+
+
+::: {#exr-clt-dice-sum}
+A fair six-sided die is rolled until the total sum of all rolls exceeds 300. 
+Approximate the probability that at least 80 rolls are necessary.
+:::
+\
+\
+\
+\
+\
+
+
+
+
+
+
+::: {#exr-clt-applet}
+This [applet](http://www.rossmanchance.com/applets/2021/sampling/OneSample.html?population=model)
+can used to investigate the CLT (and other ideas).
+Enter 100 for the population mean and 25 for the population standard deviation.
+(These are just made up numbers, but for some context you can imagine that the variable is income in thousands of dollars.)
+:::
+
 1.  Choose a super-small sample size, like $n=2$. 
 Choose a population shape,
 and then run the simulation to generate many values of the sample mean.
@@ -88,57 +341,3 @@ of sample means* depend on the shape of the population?
 \
 \
 \
-
--   For a representative random sample, the *distribution of individual
-values within the observed sample* should resemble the population
-distribution
-    -   Regardless of the sample size
--   For many statistics (e.g., proportions, means, differences of means) ---
-but not all --- if the sample size is large enough the pattern of
-*sample-to-sample variability of values of the statistic* follows a Normal
-distribution
-    -   Regardless of the shape of the population distribution of individual
-values of the variable.
--   The **Central Limit Theorem (CLT)** says that if $n$ is large enough,
-$$
-\text{$\bar{X}_n$ has an approximate $N\left(\mu,\frac{\sigma}{\sqrt{n}}\right)$ distribution.}
-$$
--   The CLT says that if the sample size is large enough, the
-sample-to-sample distribution of sample means is approximately Normal,
-*regardless of the shape of the population distribution.*
--   The above CLT is for a single population mean, but similar results apply for other statistics like sample proportions, differences in two sample means, differences in two sample proportions.
-
-::: {#exm-clt-outlier}
-Recall the population where every individual has an income of 10, 70, or 200 with probability 0.4, 0.4, 0.2.
-Now suppose that every individual has an income of 10, 70, 200, or 2000 with
-probability 0.4, 0.4, 0.19, 0.01.
-Simulate sample means for many samples
-of size $n=30$ from this population.
-Is the distribution of sample means approximately Normal?
-What if $n=100$?
-\
-\
-\
-\
-\
-:::
-
-
--   How large a sample size is required for normality of the sampling
-distribution of sample means does depend on the shape of the population
-distribution of individual values.
-    -   If the population distribution is Normal, then the sample-to-sample
-    distribution of sample means is Normal for any sample size.
-    -   If the population distribution is "close to Normal" --- e.g. symmetric,
-    light tails --- then smaller samples sizes are sufficient for the
-    sample-to-sample distribution of sample means to be approximately
-    Normal.
-    -   If the population distribution is "far from Normal" --- e.g. severe
-    skewness, heavy tails, extreme outliers --- then larger sample sizes are
-    required for the sample-to-sample distribution of sample means to be
-    approximately Normal.
--   You should certainly be aware that some population distributions require
-a large sample size for the CLT to kick in. However, in many situations
-the sample-to-sample distributions of sample means (or other statistics)
-is approximately Normal even for small or moderate sample sizes.
-

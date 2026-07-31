@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>26&nbsp; Confidence Intervals – GSB518 Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./bootstrapping.html" rel="next">
+<link href="./clt.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./confidence-intervals.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">GSB518 Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./randomness-and-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Randomness and Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Probability Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conditional-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bayes-rule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bayes Rule</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./independence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Independence of Events</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./discrete-rv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Discrete Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-mass-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Probability Mass Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expected-value.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Expected Value</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./variance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Variance and Standard Deviation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./binomial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Binomial Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Poisson Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./continuous-pdf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Continuous Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cdf-and-quantile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Percentiles: Cumulative Distribution Functions and Quantile Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expected-values-continuous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Expected Values of Continuous Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exponential.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Exponential Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Normal Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joint-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Joint and Conditional Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./covariance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Covariance and Correlation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear-combinations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Linear Combinations of Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joint-normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Joint Normal Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./from-probability-to-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Estimation: From Probability to Statistics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./maximum-likelihood-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimators-bias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Bias of Estimators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimators-mse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Variance and Mean Square Error of an Estimator</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Central Limit Theorem</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bootstrapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bootstrap Confidence Intervals</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./null-hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Null Hypothesis Testing</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Comparing multiple means: ANOVA <span class="math inline">\(F\)</span> procedures</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 5</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 6</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-01-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-02-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-03-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-04-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-05-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 5 solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./distribution-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Summary of Some Common Distributions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link active" data-scroll-target="#exercises"><span class="header-section-number">26.1</span> Exercises</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<ul>
+<li>The estimators we have considered so far are <em>point</em> estimators; we estimate the population parameter <span class="math inline">\(\theta\)</span>, an unknown number, by the observed sample statistic <span class="math inline">\(\hat{\theta}\)</span>, a number which can be computed based on sample data <span class="math inline">\(X_1, \ldots, X_n\)</span></li>
+<li>For a particular sample a particular numerical value of <span class="math inline">\(\hat{\theta}\)</span> is observed, but there are many possible randomly selected samples and many possible values of the random variable <span class="math inline">\(\hat{\theta}\)</span>.</li>
+<li>While for any particular sample we hope the observed value of <span class="math inline">\(\hat{\theta}\)</span> is close to the true value of <span class="math inline">\(\theta\)</span>, there will be some error in estimation due to natural sample-to-sample variability.</li>
+<li>Because of this natural sample-to-sample variability, it is usually better to provide a range of values when estimating a parameter</li>
+<li>In determining a plausible range of values, there is a trade-off between
+<ul>
+<li>Accuracy: the wider the interval the more confident we are that it actually contains the true parameter value</li>
+<li>Precision: but the wider the interval the less precise of an estimate it provides</li>
+</ul></li>
+<li>The usual approach is to specify a desired degree of accuracy. Specifically, interval estimate procedures are constructed so that they will be accurate “most of the time”.</li>
+<li>A <em>confidence interval</em> estimates a population parameter based on sample data with
+<ul>
+<li>a plausible range of values and</li>
+<li>a <em>confidence level</em> that the estimated range contains the true parameter value.
+<ul>
+<li>By far, the most commonly used confidence level is 95%.</li>
+<li>But see <span class="quarto-unresolved-ref">?exm-multiple-ci</span> and related material about multiple confidence intervals</li>
+</ul></li>
+</ul></li>
+</ul>
+<div id="exm-ci-intro" class="theorem example">
+<p><span class="theorem-title"><strong>Example 26.1</strong></span> In a <a href="https://www.pewresearch.org/chart/adults-under-50-are-especially-likely-to-say-theyve-been-to-the-movies-recently/">recent survey</a> of a representative sample of U.S. adults aged 18-29, 67% saw a movie in the theater in the last 12 months. The survey reports a margin of error for 95% confidence of 4.2 percentage points.</p>
+</div>
+<ol type="1">
+<li>Use the information provided to compute and interpret a 95% confidence interval.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>The study also surveyed 3257 U.S. adults aged 30-49, and 60% saw a movie in the theater in the last year. Without computing, will the margin of error for 95% confidence for the 30-49 age group be greater than, less than, or equal to 4.2 percentage points?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>For the 30-49 age group the margin of error for 95% confidence is 2.2 percentage points. Compute and interpret a 95% confidence interval.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<ul>
+<li>A <span class="math inline">\(1-\alpha\)</span> <strong>confidence interval</strong> for <span class="math inline">\(\theta\)</span> is an <em>interval estimator</em> of <span class="math inline">\(\theta\)</span> based on the sample <span class="math inline">\(X_1, \ldots, X_n\)</span> of the form <span class="math inline">\([L(X_1,\ldots,X_n), U(X_1,\ldots,X_n)]\)</span> which satisfies <span class="math display">\[\textrm{P}\left(L(X_1,\ldots,X_n)\le \theta\le U(X_1,\ldots,X_n)\right) = 1-\alpha\]</span></li>
+<li><span class="math inline">\(L(X_1,\ldots,X_n)\)</span> and <span class="math inline">\(U(X_1,\ldots,X_n)\)</span> represent, respectively, the lower and upper endpoints of the interval. <span class="math inline">\(L\)</span> and <span class="math inline">\(U\)</span> are <em>random variables</em> that vary from sample-to-sample.</li>
+<li>Typical values of <span class="math inline">\(\alpha\)</span> include 0.05 and 0.01. We express <span class="math inline">\(1-\alpha\)</span> as a percentage. For example, <span class="math inline">\(\alpha=0.05\)</span> corresponds to a 95% confidence interval.</li>
+<li>Often <span class="math inline">\(L=\hat{\theta}-M\)</span> and <span class="math inline">\(U=\hat{\theta}+M\)</span>, where the <strong>margin of error</strong> <span class="math inline">\(M\)</span> — where <span class="math inline">\(M\)</span> can be a RV — accounts for both the sample-to-sample variability of <span class="math inline">\(\hat{\theta}\)</span> and the confidence level.
+<ul>
+<li>The margin of error is often of the form: multiple of standard error</li>
+<li>The multiple is determined by the confidence level and the distribution of the point estimator <span class="math inline">\(\hat{\theta}\)</span> (e.g., 2 for 95% confidence when the estimator follows a Normal distribution.)
+<ul>
+<li>The larger the confidence level, the larger the margin of error — and the wider the range of plausible values — required to achieve that level of confidence.</li>
+</ul></li>
+<li>The <strong>standard error</strong> is the estimated sample-to-sample SD of the estimator, <span class="math inline">\(\textrm{SE}(\hat{\theta})= \widehat{\textrm{SD}}(\hat{\theta})\)</span>.
+<ul>
+<li>The less variable the statistic (from sample to sample) the smaller the margin of error and the narrower the interval.</li>
+<li>In general, the larger the sample size, the smaller the SE of the statistic, the smaller the margin of error, and the narrower the interval.</li>
+</ul></li>
+</ul></li>
+</ul>
+<div id="exm-ci-derivation" class="theorem example">
+<p><span class="theorem-title"><strong>Example 26.2</strong></span> Consider the general problem of estimating a population mean <span class="math inline">\(\mu\)</span> based on a random sample of size <span class="math inline">\(n\)</span>. A natural point estimator of <span class="math inline">\(\mu\)</span> is the sample mean <span class="math inline">\(\bar{X}\)</span>. The central limit theorem says that, if <span class="math inline">\(n\)</span> is large enough, <span class="math inline">\(\bar{X}\)</span> has an approximate Normal(<span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma/\sqrt{n}\)</span>) distribution, where <span class="math inline">\(\sigma\)</span> is the population standard deviation. We’ll use this theory to derive a confidence interval for <span class="math inline">\(\mu\)</span>.</p>
+</div>
+<ol type="1">
+<li><p>Fill in the blank: for 95% of samples, the sample mean <span class="math inline">\(\bar{X}\)</span> is within [blank] of the population mean <span class="math inline">\(\mu\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>Fill in the blank: for 95% of samples, the interval with endpoints <span class="math inline">\(\bar{X}\pm\)</span> [blank] will contain the population mean <span class="math inline">\(\mu\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>The previous part suggests a formula for a CI for <span class="math inline">\(\mu\)</span>. However, this is not a practically useful formula; esplain why. Then suggest how we can fix it.<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>Everything else being equal, how does the sample size affect the confidence interval and its margin of error: the larger the sample size…? Does this make sense?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>Everything else being equal, how does the confidence level (e.g.&nbsp;95%) affect the confidence interval and its margin of error: the larger the confidence level…? Does this make sense?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+</ol>
+<ul>
+<li>A <strong>one-sample <span class="math inline">\(t\)</span> confidence interval for a population mean</strong> <span class="math inline">\(\mu\)</span> has endpoints <span class="math display">\[\bar{X}\pm t^* \frac{S}{\sqrt{n}}\]</span> where <span class="math inline">\(S\)</span> is the sample standard deviation <span class="math inline">\(S = \sqrt{\frac{1}{n-1}\sum_{i=1}^n\left(X_i - \bar{X}\right)^2}\)</span> and <span class="math inline">\(t^*\)</span>, the multiple corresponding to the confidence level, is from the <em><span class="math inline">\(t\)</span> distribution with <span class="math inline">\(n-1\)</span> degrees of freedom</em>.</li>
+<li>For all practical purposes you can treat <span class="math inline">\(t\)</span> distributions like Normal distributions and use the usual empirical rule
+<ul>
+<li>Technically, <span class="math inline">\(t^*\)</span> is a little bigger than <span class="math inline">\(z^*\)</span> to account for the additional sample-to-sample variability in <span class="math inline">\(S\)</span>.</li>
+<li>But in most situations encountered in practice, <span class="math inline">\(t^*\)</span> and <span class="math inline">\(z^*\)</span> are essentially the same.</li>
+</ul></li>
+<li>Assumptions:
+<ul>
+<li>Simple random sample from a large population, that is, independent observations</li>
+<li>No bias in data collection</li>
+<li>Population mean is the parameter you want to estimate</li>
+</ul></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Confidence level</th>
+<th style="text-align: right;">90%</th>
+<th style="text-align: right;">95%</th>
+<th style="text-align: right;">99%</th>
+<th style="text-align: right;">99.7%</th>
+<th style="text-align: right;">99.99%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Multiple (<span class="math inline">\(z^*\approx t^*\)</span>)</td>
+<td style="text-align: right;">1.7</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">2.6</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">4.0</td>
+</tr>
+</tbody>
+</table>
+<div id="exm-ci-one-sample" class="theorem example">
+<p><span class="theorem-title"><strong>Example 26.3</strong></span> A frequently used example data set is the <a href="https://raw.githubusercontent.com/kevindavisross/data301/main/data/AmesHousing.txt">Ames housing data set</a> which consists of residential properties sold in Ames, Iowa from 2006 to 2010. For more information about the variables in this data set, refer to the <a href="https://jse.amstat.org/v19n3/decock/DataDocumentation.txt">data documentation</a>.</p>
+<p>Suppose we wish to use this data set to estimate <span class="math inline">\(\mu\)</span>, the <em>population mean sale price of single family homes</em>.</p>
+<p>In the sample, there are 2425 single family homes with a sample mean sale price ($K) of 185 and sample standard deviation 83.</p>
+</div>
+<ol type="1">
+<li>Compute a 95% confidence interval.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Write a clearly worded sentence containing the conclusion of the confidence interval in context.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>To what extent can you generalize your results? That is, what is the relevant “population”? What are some issues to consider?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>What if we wanted 95% confidence, but we wanted the margin of error to be no bigger than 1K. How could we achieve this?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Assuming that this is a random sample from the appropriate population, does the 95% confidence interval you computed in the previous part provide an accurate estimate of the corresponding parameter? That is, is <span class="math inline">\(\mu\)</span> contained within the CI? Explain.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<ul>
+<li>Because the value of the parameter is <em>unknown</em>, we never know for sure whether any one confidence interval contains the parameter or not.</li>
+<li>But the procedure guarantees that in the long run — that is, over many unbiased random samples — “most” confidence intervals will contain the parameter, regardless of what the true value of the parameter is. “Most” is determined by the level of confidence.</li>
+<li>Any value within the confidence interval is a plausible value of the parameter</li>
+<li>Values outside of the confidence interval are not plausible values of the parameter</li>
+<li>The CI could be wrong; we are confident that it is correct, but we’ll never know for sure</li>
+<li>There are two sources of differences between a statistic and a corresponding parameter
+<ul>
+<li>systematic errors due to <strong>bias</strong></li>
+<li>“chance errors” due to <strong>sampling variability</strong></li>
+</ul></li>
+<li>While there is no bias inherent in simple random sampling from a population, bias can be present in other ways, including undercoverage, nonresponse, wording of questions, etc.</li>
+<li>Bias concerns the <em>center</em> of the sampling distribution of a statistic. A biased sampling procedure produces values which consistently overestimate or consistently underestimate the respective parameter.</li>
+<li>The inference procedures — confidence intervals and hypothesis tests — we will encounter assume that the data are collected in an unbiased way from a random sample.</li>
+<li>If there is bias present in data collection then the observed statistic (i.e.&nbsp;the center of the confidence interval) is likely to be a poor estimate of the parameter.</li>
+<li>The margin of error in a confidence interval only accounts for sampling variability, NOT bias.</li>
+<li>To see if bias is present — in which case the confidence interval cannot be trusted — ask:&nbsp;how was the data collected?</li>
+</ul>
+<div id="exm-ci-median" class="theorem example">
+<p><span class="theorem-title"><strong>Example 26.4</strong></span> Continuing <a href="#exm-ci-one-sample" class="quarto-xref">Example&nbsp;<span>26.3</span></a>.</p>
+</div>
+<ol type="1">
+<li>Consider the distribution of sale price. What shape do you expect this distribution to have? Why?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>A student says, “The distribution of sale price is clearly skewed to the right. Since it’s not Normal the confidence interval we computed, and the resulting conclusion about the population mean, is not valid.” Do you agree with this critique? Explain.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>Considering that the distribution of sale price is skewed to the right, suggest a valid criticism of the confidence interval we computed. Hint: what parameter is it estimating?<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<ul>
+<li>The <span class="math inline">\(t\)</span> interval for the population <em>mean</em> is valid as long as the sample size is large enough, regardless of the shape of the population distribution.</li>
+<li>However, if the population distribution is highly skewed, then the population <em>median</em> might be a more appropriate parameter to consider as a measure of center.</li>
+<li>Which is more appropriate, the population mean or the population median, depends on the purpose for the inference.</li>
+<li>ALWAYS PLOT YOUR DATA, and consider the distribution of the variable. If the values in a representative sample are skewed or include large outliers, the same is also plausibly true for the population it’s supposed to represent.</li>
+</ul>
+<section id="exercises" class="level2" data-number="26.1">
+<h2 data-number="26.1" class="anchored" data-anchor-id="exercises"><span class="header-section-number">26.1</span> Exercises</h2>
+<div id="exr-ci-interpret" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 26.1</strong></span> For each of the following statements, identify if it is a valid interpretation of the confidence interval from <a href="#exm-ci-one-sample" class="quarto-xref">Example&nbsp;<span>26.3</span></a>. If not, explain why.</p>
+</div>
+<ol type="1">
+<li>We estimate that 95% of single family homes in the population have sale price ($K) between 181 and 188.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>We estimate with 95% confidence that the sample mean sale price ($K) of single family homes is between 181 and 188.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>If many samples of this size were selected about 95% would produce a CI of (181, 188).<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+<li>If many hypothetical unbiased random samples of this size were selected, and a 95% confidence interval computed based on each sample, about 95% of these confidence intervals would contain the population mean sale price.<br>
+<br>
+<br>
+<br>
+<br>
+</li>
+</ol>
+<ul>
+<li>A CI is a conclusion about a population parameter — a number that <em>summarizes</em> the population (e.g.&nbsp;the population mean) — and not about individual values of a variable.</li>
+<li>The conclusions from inference regard the <em>population</em> from which the random sample was selected; there is nothing to conclude for the sample.</li>
+<li>No one particular sample (e.g.&nbsp;the one observed) or CI is necessarily good or representative of the many other possible samples or CIs.</li>
+<li>The randomness is in the <em>sampling procedure</em>, which determines <span class="math inline">\(L\)</span> and <span class="math inline">\(U\)</span>, and not the parameter. The parameter <span class="math inline">\(\theta\)</span> is a fixed number. After selecting the sample, there is no randomness left. Either the CI contains the parameter or not; you just don’t know which it is.</li>
+<li>We are confident in our observed estimate because we are confident in our estimation <em>procedure</em>
+<ul>
+<li>By considering what would happen over many hypothetical random samples we are able to determine the necessary margin of error so that our CIs would contain the parameter in 95% of samples.</li>
+<li>Because the value of the parameter is unknown, we never know for sure whether any one confidence interval contains the parameter or not.</li>
+<li>But the procedure guarantees that in the long run — that is, over many unbiased random samples — “most” confidence intervals will contain the parameter, regardless of what the true value of the parameter is. “Most” is determined by the level of confidence.</li>
+</ul></li>
+</ul>
+<div id="exr-multiple-ci" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 26.2</strong></span> Suppose we wish to estimate population mean GPA of students at each of the 23 CSU campuses. For each campus, you select a random sample of students, collect the GPAs of the students, and then use the sample data to compute a 95% confidence interval. That is you compute 23 separate 95% confidence intervals, based on 23 independent random samples, for each of 23 population means.</p>
+</div>
+<ol type="1">
+<li><p>First just consider Cal Poly. What is the probability that your confidence interval based on the Cal Poly sample contains the true population mean GPA at Cal Poly?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>What is the probability that all 23 of your 95% confidence intervals contain their respective population mean?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>How confident are you that all 23 of your 95% confidence intervals contain their respective population mean?<br>
+<br>
+<br>
+<br>
+<br>
+</p>
+<ul>
+<li>When computing multiple confidence intervals, the multiple (<span class="math inline">\(z^*\)</span> or <span class="math inline">\(t^*\)</span>) of each confidence interval should be increased to account for the <strong>issue of multiple comparisons</strong>.
+<ul>
+<li>For example, with a multiple of 2 in a <em>single</em> confidence interval, we are 95% confident that the interval contains the corresponding parameter.</li>
+<li>However, if we use a multiple of 2 for each of 10 confidence intervals, we are only 60% confident<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> that <em>all</em> of the 10 95% confidence intervals contain their respective parameters.</li>
+</ul></li>
+<li>A <strong>Bonferroni</strong> adjustment, splits the error rate evenly across all intervals. For example, for simultaneous 95% confidence in 10 intervals (i.e.&nbsp;a total error rate of 0.05), use the <span class="math inline">\(z^*/t^*\)</span> multiple for 99.5% confidence when constructing each interval.
+<ul>
+<li>A Bonferroni adjustment guarantees <strong>simultaneous confidence</strong></li>
+<li>But it is conservative, and tends to produce wider intervals than necessary</li>
+<li>There are other methods; for example, the <em>Tukey-Kramer method</em> is often used for <em>all pairwise comparisons of means</em> (e.g., in ANOVA)</li>
+</ul></li>
+</ul></li>
+<li><p>Suppose we want simultaneous 95% confidence that all 23 CIs contain their respective mean. Find the <span class="math inline">\(z^*\)</span> multiple corresponding to a Bonferroni adjustment. How many times wider will each CI be than the unadjusted intervals?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>How confident are you that all 23 of your adjusted confidence intervals contain their respective population mean?<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+</ol>
+<div id="exr-ci-two-sample" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 26.3</strong></span> Continuing with the Ames housing data set. Now suppose we want to compare sale price of single family homes with other homes (including condos, townhouses, etc). In particular, suppose we wish to estimate <span class="math inline">\(\mu_S - \mu_N\)</span>, the difference in population mean sale price between single family homes and non-single family homes. The table below summarizes the sample data.</p>
+</div>
+<div id="b819ed31" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">25%</th>
+<th data-quarto-table-cell-role="th">50%</th>
+<th data-quarto-table-cell-role="th">75%</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">SingleFamily</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">False</th>
+<td>505.0</td>
+<td>161.511398</td>
+<td>60.394023</td>
+<td>55.000</td>
+<td>120.0</td>
+<td>147.4</td>
+<td>190.0</td>
+<td>392.5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">True</th>
+<td>2425.0</td>
+<td>184.812041</td>
+<td>82.821802</td>
+<td>12.789</td>
+<td>130.0</td>
+<td>165.0</td>
+<td>220.0</td>
+<td>755.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<ol type="1">
+<li><p>Suggest a point estimator, compute its variance, and suggest a formula for a CI for <span class="math inline">\(\mu_S - \mu_N\)</span>.<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>Compute a 95% confidence interval.<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>Write a clearly worded sentence interpreting the confidence interval from the previous part in context.<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+<li><p>Are we reasonably confindent that single family homes tend to have higher sale prices than other homes? Explain.<br>
+<br>
+<br>
+<br>
+<br>
+</p></li>
+</ol>
+<ul>
+<li>For many statistics (e.g.&nbsp;means, differences in means, proportions, differences in proportions) the sample-to-sample pattern of variability of values of the statistic over many unbiased random samples has an approximate Normal shape centered at the true value of the population parameter
+<ul>
+<li>In such situations confidence intervals take the form <span class="math display">\[
+\text{statistic} \pm \text{multiple of its SE}
+\]</span></li>
+</ul></li>
+<li>If two samples are selected <em>independently</em> from each of two populations with parameters <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span>, then an approximate <span class="math inline">\(1-\alpha\)</span> CI for <span class="math inline">\(\theta_1-\theta_2\)</span> has endpoints <span class="math display">\[\hat{\theta}_1 - \hat{\theta}_2 \pm t^*\, \textrm{SE}(\hat{\theta}_1 - \hat{\theta}_2)\]</span> where <span class="math display">\[
+\textrm{SE}(\hat{\theta}_1 - \hat{\theta}_2) = \sqrt{\textrm{SE}(\hat{\theta}_1)^2 + \textrm{SE}(\hat{\theta}_2)^2}
+\]</span></li>
+<li>The above assumes that <span class="math inline">\(\hat{\theta}_1\)</span> and <span class="math inline">\(\hat{\theta}_2\)</span> each have an approximate Normal distribution, and so, since they are independent, <span class="math inline">\(\hat{\theta}_1 - \hat{\theta}_2\)</span> also has an approximate Normal distribution.</li>
+<li>A difference provides an absolute comparison between groups.
+<ul>
+<li>Ratios can be used to provide relative comparisons; however, the CI formulas are more complicated, but we’ll see another approach soon</li>
+</ul></li>
+</ul>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>This number assumes independence of confidence intervals — <span class="math inline">\(0.95^{10}\approx 0.60\)</span> — but similar ideas apply more generally.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./clt.html" class="pagination-link" aria-label="Central Limit Theorem">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Central Limit Theorem</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./bootstrapping.html" class="pagination-link" aria-label="Bootstrap Confidence Intervals">
+        <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bootstrap Confidence Intervals</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

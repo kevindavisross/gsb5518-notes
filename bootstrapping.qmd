@@ -26,7 +26,7 @@ But how do we estimate the sampling distribution of a
 statistic based only on sample data? Bootstrapping provides a simple but
 extremely versatile and powerful method for doing so.
 
-::: {#exm-bootstrap-mean}
+::: {#exm-bootstrap-mean-warmup}
 For purposes of illustration, we'll start with a small
 data set.
 The table below contains data on all the quidditch matches
@@ -63,7 +63,11 @@ $$
     \
     \
 
-3.  Now suppose we make no assumptions about the population
+::: {#exm-bootstrap-mean}
+Continuing @exm-bootstrap-mean-warmup. 
+::: 
+
+1.  Now suppose we make no assumptions about the population
     distribution.
     How could you estimate the population distribution
     based only on the observed sample data? 
@@ -75,7 +79,7 @@ $$
     \
     \
 
-4.  Continuing the previous part, explain how you would use simulation
+1.  Continuing the previous part, explain how you would use simulation
     to approximate the sampling distribution of the sample mean *without
     knowing the population distribution*.
     \
@@ -103,8 +107,7 @@ $$
     \
 
 7.  Use software to perform the simulation. How would you use the
-    simulation results to approximate the SE? Compare to the usual
-    formula; hint: what plays the role of "population" SD in this simulation?
+    simulation results to approximate the SE?
     \
     \
     \
@@ -166,7 +169,7 @@ $$
     to approximate the SE of *any statistic*.\
 
 ::: {#exm-bootstrap-median}
-Continuing the previous exercise, say we want to
+Continuing @exm-bootstrap-mean, say we want to
 estimate the population *median* quidditch score.
 :::
 
@@ -188,7 +191,15 @@ estimate the population *median* quidditch score.
     \
     \
 
-::: {#exm-bootstrap-median-2}
+
+-   The accuracy of bootstrap procedures is primarily influenced by the
+    size of the original sample.
+-   Bootstrapping methods do not overcome the weaknesses of small
+    samples.
+
+## Exercises
+
+::: {#exr-bootstrap-median-2}
 Using the Ames housing data set,
 suppose we wish to estimate the population *median* sale price of single family homes.
 :::
@@ -208,7 +219,7 @@ suppose we wish to estimate the population *median* sale price of single family 
     \
     \
 
-::: {#exm-bootstrap-two-groups}
+::: {#exr-bootstrap-two-groups}
 Continuing with the Ames housing data set.
 Now suppose we want to compare sale price of single family homes with other homes.
 :::
@@ -245,7 +256,7 @@ Now suppose we want to compare sale price of single family homes with other home
     \
     \
 
-::: {#exm-bootstrap-correlation}
+::: {#exr-bootstrap-correlation}
 Continuing with the Ames housing data.
 Suppose we want to estimate the *correlation* between sale price and square footage ("Gr Liv Area").
 :::
@@ -266,140 +277,15 @@ Suppose we want to estimate the *correlation* between sale price and square foot
     \
     \
 
-1.  Describe in detail how you would use bootstrapping to find a
-    confidence interval for the *difference in population correlation coefficients* between sale price and square footage for single family homes and other homes.
-    \
-    \
-    \
-    \
-    \
-
-1.  Conduct the simulation and find and interpret the confidence
-    interval.
-    \
-    \
-    \
-    \
-    \
 
 
--   The accuracy of bootstrap procedures is primarily influenced by the
-    size of the original sample.
--   Bootstrapping methods do not overcome the weaknesses of small
-    samples.
-
-::: {#exm-bootstrap-pivotal}
- Consider again the quidditch data
-$$200 \qquad 230 \qquad 250 \qquad 260 \qquad 380 \qquad 470 \qquad 590$$
-:::
-
-1.  What is the center of the *sampling distribution* of the sample
-    mean? Why? Given a single observed sample, what is the center of the
-    *boostrap distribution* of the sample mean?
-    \
-    \
-    \
-    \
-    \
-    
-
-2.  Suppose we want to estimate the population SD? Is the sample SD an
-    unbiased estimator of the population SD? Does this cause any issues
-    for CIs?
-    \
-    \
-    \
-    \
-    \
-
-
-3.  How could we use bootstrapping to estimate the bias of the sample SD
-    (as an estimator of the population SD)?
-    \
-    \
-    \
-    \
-    \
-
-
-    -   The bootstrap distribution of a statistic approximates many, but
-        not all, features of the sampling distribution of the statistic.
-        -   In particular, the center of the bootstrap distribution will
-            generally not be the same as the center of the sampling
-            distribution.
-        -   This can lead to coverage problems (e.g., less than the
-            stated 95%) for bootstrap percentile intervals, especially
-            for statistics which are biased estimators of their
-            parameters.
-    -   Bootstrap percentile intervals do not fully account for
-        differences between the observed statistic and the true
-        parameter
-    -   Remember, there are two sources of differences between a
-        statistic and a corresponding parameter
-        -   systematic errors due to *estimation bias*[^2]
-        -   "chance errors" due to natural *sample-to-sample
-            variability*
-    -   The usual confidence procedures assume that there is no bias in
-        estimation. The margin of error of a confidence interval
-        typically only accounts for natural sample-to-sample
-        variability. So if there is bias in estimation, the actual
-        coverage probability of the confidence interval procedure might
-        be less than the nominal confidence level.
-    -   Recall that the bias of an estimator $\hat{\theta}$ of a
-        parameter $\theta$ is $\textrm{E}(\hat{\theta}) - \theta$
-        -   That is, the bias of an estimator is the difference between
-            the center of its sampling distribution and the true (but
-            unknown) value of the parameter
-        -   If a statistic is *unbiased*, the center of its sampling
-            distribution should be equal to the true (but unknown) value
-            of the parameter.
-    -   Bootstrapping treats the observed sample data as the population
-        for the purposes of simulation. Therefore, bootstrapping treats
-        the observed value of the statistic as the true value of the
-        parameter for the purposes of simulation.
-    -   If a statistic is an unbiased estimator of a parameter, the
-        center of its bootstrap distribution should be equal to *the
-        observed value of the statistic*.
-    -   The difference between the center of the bootstrap distribution
-        of the statistic and the observed value of the statistic
-        provides a bootstrap estimate of the statistic's bias
-    -   A *bootstrap pivotal confidence interval* essentially uses the
-        distribution of $\hat{\theta}-\theta$, rather than just
-        $\hat{\theta}$, to construct a confidence interval that more
-        fully accounts for both bias and variability.
-    -   The 95% **bootstrap pivotal confidence interval** is the
-        interval with endpoints
-        \begin{align*}
-            \text{lower endpoint} & = 2\times \text{observed statistic} - \text{97.5th percentile of bootstrap distribution}\\
-            \text{upper endpoint} & = 2\times \text{observed statistic} - \text{2.5th percentile of bootstrap distribution}\\
-        \end{align*}
-
-4.  Find a 95% bootstrap pivotal interval for the population mean.
-    Compare to the percentile interval.
-    \
-    \
-    \
-    \
-    \
-
-
-5.  Find a 95% bootstrap pivotal interval for the population SD. Compare
-    to the percentile interval.
-    \
-    \
-    \
-    \
-    \
 
 
     
 [^1]: Source:
     <http://harrypotter.wikia.com/wiki/Inter-House_Quidditch_Cup>
 
-[^2]: Of course there is also lots of potential for bias in data
-    collection, but we always assume we have an unbiased random sample.
-    Even when the data are a random sample from the population, there
-    can still be bias in estimation.
+
 
 [^3]: Using the $1/n$ version of sample SD here for reasons that we'll see later.
     Spoile alert: in bootstrapping, we treat the sample as if were the population, so we're treating the sample mean as if it were the population mean, so we really do want the average distance from the sample mean without "unbiasing" it (which is what dividing by $n-1$ instead of $n$ does.)

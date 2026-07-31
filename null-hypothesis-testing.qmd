@@ -46,60 +46,79 @@ team that were checked at halftime by officials.
 | Patriots |            1.00 | 1.65 | 1.35 | 1.80 | 1.40 | 0.90 | 0.65 | 1.40 | 1.55 | 2.00 | 1.60 |   11 | 1.391 | 0.402 |
 | Colts    |            0.30 | 0.25 | 0.50 | 0.45 |      |      |      |      |      |      |      |    4 | 0.375 | 0.119 |                                                 4   0.375   0.119
 
+1.  State the null and the alternative hypotheses in words.
+    \
+    \
+    \
+    \
+    \
 1.  Compute the observed difference in sample means.
-\
-\
-\
-\
-\
-2.  If there were no difference between the Patriots and the Colts footballs, what would you expect the difference in sample means to be?
+    \
+    \
+    \
+    \
+    \
+1.  If there were no difference between the Patriots and the Colts footballs, what would you expect the difference in sample means to be?
     Is the fact that we observed another value necessarily evidence that the Patriots footballs tended to deflate more than the Colts?
-\
-\
-\
-\
-\
-3.  Suppose we want to assess if it is plausible that the Patriots
+    \
+    \
+    \
+    \
+    \
+1.  Suppose we want to assess if it is plausible that the Patriots
     didn't interfere with the footballs, and the observed difference in
     sample means is just due to chance variability.
     Specify how the "null distribution" of the statistic could be
     simulated with cards.
     Note: this is NOT bootstrapping; how is it different?
-\
-\
-\
-\
-\
-4.  Use cards to perform one repetition of the above simulation, record
+    \
+    \
+    \
+    \
+    \
+1.  Use cards to perform one repetition of the above simulation, record
     the results here, and compute the appropriate difference in means.
-    
-| Team     | Deflation (psi) |   |   |   |   |   |   |   |   |   |   | Size | Mean | SD |
-|----------|----------------:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|-----:|-----:|---:|
-| Patriots |                 |   |   |   |   |   |   |   |   |   |   |   11 |      |    |
-| Colts    |                 |   |   |   |   | X | X | X | X | X | X |    4 |      |    |
+        
+    | Team     | Deflation (psi) |   |   |   |   |   |   |   |   |   |   | Size | Mean | SD |
+    |----------|----------------:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|-----:|-----:|---:|
+    | Patriots |                 |   |   |   |   |   |   |   |   |   |   |   11 |      |    |
+    | Colts    |                 |   |   |   | X | X | X | X | X | X | X |    4 |      |    |
 
-5.  The following plot displays results from an [applet](https://www.rossmanchance.com/applets/2021/anovashuffle/AnovaShuffle.htm?hideExtras=2) used to run 10000
+    : {.table-bordered}
+
+1.	How could we use the results of many repetitions to assess if the data provides evidence that the Patriots footballs really tended to deflate more than the Colts?
+    \
+    \
+    \
+    \
+    \
+1.  The following plot displays results from an [applet](https://www.rossmanchance.com/applets/2021/anovashuffle/AnovaShuffle.htm?hideExtras=2) used to run 10000
     repetitions of the simulation (the plot on the left displays the results
     from just the first 100 repetitions). Estimate the probability of
     observing a difference in sample means as extreme as the observed difference just by chance 
     if there were no real difference between the Patriots and Colts footballs.
 
-::: {#fig-permutation-applet layout-ncol=2}
-![First 100 repetitions](_graphics/applet_patriots1.png){#fig-permutation-applet-1}
+    ::: {#fig-permutation-applet layout-ncol=2}
+    ![First 100 repetitions](_graphics/applet_patriots1.png){#fig-permutation-applet-1}
 
-![10000 repetitions](_graphics/applet_patriots1.png){#fig-permutation-applet-2}
+    ![10000 repetitions](_graphics/applet_patriots2.png){#fig-permutation-applet-2}
 
-Permutation simulation of null distribution in @exm-nht-permutation.
-:::
+    Permutation simulation of null distribution in @exm-nht-permutation.
+    :::
 
-6.  Is it plausible that the observed difference in means is just due to
-    random chance?
-    To support your answer, interpret the probability from the previous part in context.
-\
-\
-\
-\
-\
+1.	The simulation outputs the p-value, which is close to 0. 
+Interpret this p-value.
+    \
+    \
+    \
+    \
+    \
+1.	One explanation is "there is no real difference and the observed difference of 1.016 is just random chance". Is that a plausible explanation? If not, what is a more plausible explanation?
+    \
+    \
+    \
+    \
+    \
 
 -   To assess the plausibility of the "random chance" explanation for the
     observed result --- corresponding to the null hypothesis being true --- we
@@ -140,7 +159,7 @@ Permutation simulation of null distribution in @exm-nht-permutation.
     the null hypothesis in favor of the alternative hypothesis.**
 -   If the observed results provide strong evidence that the data did
     not arise by random chance alone --- that is, when the p-value is
-    small --- then there is evidence of a **statistical difference**.
+    small --- then there is evidence of a **statistically discernible difference**.
 -   How small is a small p-value? You should think of a sliding scale: the
     closer the p-value gets to 0 the stronger the evidence to reject the
     null hypothesis in favor of the alternative. Some guidelines are below, but these
@@ -148,191 +167,100 @@ Permutation simulation of null distribution in @exm-nht-permutation.
     many hypothesis tests simultaneously):
 -   Do NOT rely strictly on arbitrary thresholds like p-value $<$ 0.05.
 
-| p-value                  | Evidence to reject the null hypothesis? |
+| p-value                  | Evidence to reject the null hypothesis?    |
 |--------------------------|-----------------------------------------|
-| Above 0.10               | Little to no evidence                   |
-| Between 0.01 and 0.10    | Weak evidence                           |
-| Between 0.001 and 0.01   | Moderate evidence                       |
-| Between 0.0001 and 0.001 | Strong evidence                         |
-| Less than 0.0001         | Very strong evidence                    |
-
-
-
-
-
-::: {#exm-one-sample-t}
-Carrying a heavy backpack can cause chronic shoulder, neck, and back pain.
-A [common recommendation](https://www.chla.org/blog/advice-experts/your-childs-backpack-too-heavy#:~:text=Did%20you%20know%20the%20American,than%208%20to%2012%20pounds.) is that a daily backpack
-should not weigh more than 10 percent of the wearer's body weight. Do Cal Poly
-students follow this recommendation? That is, do the backpacks of Cal
-Poly students weigh, on average, less than 10% of their bodyweight?
-In a random sample of 100 Cal Poly students the sample mean backpack weight as percent of bodyweight is 7.71 percent with sample standard deviation 0.366 percent.
-:::
-
-
-
-1.  Identify the main parameter of interest with both words and an
-    appropriate symbol.
-\
-\
-\
-\
-\
-2.  Translate the research question into a hypothesis testing problem by
-    specifying, with both words and appropriate symbols, the null
-    hypothesis and the alternative hypothesis.
-\
-\
-\
-\
-\
-3.  Identify the null distribution of sample means.
-    (You might need to make some assumptions.)
-\
-\
-\
-\
-\
-4.  Compute the p-value.
-\
-\
-\
-\
-\
-5.  Interpret the p-value in context.
-\
-\
-\
-\
-\
-6.  Does the p-value provide evidence that backpacks of CalPoly students weigh, on average, less than 10% of their bodyweight?
-Explain.
-\
-\
-\
-\
-\
-7.  Does the p-value provide evidence that backpacks of CalPoly students weigh, on average, *much* less than 10% of their bodyweight?
-Explain.
-\
-\
-\
-\
-\
-8.  How could we address the question in the previous part?
-\
-\
-\
-\
-\
-9.  Do Cal Poly students follow the 10% recommendation?
-    Is the analysis
-    above the only way to address this question?
-    Can you suggest another?
-\
-\
-\
-\
-\
-
-
-**One-sample $t$ test**
-
--   Situation: question concerns a single numerical variable of interest
--   Parameter: $\mu$ is the population mean (i.e. the mean value of the
-    variable over all units in the population)
--   Goal: assess the plausibility of a claim about $\mu$ regarding a
-    hypothesized value $\mu_0$
--   The null hypothesis is $H_0: \mu= \mu_0$
--   The alternative hypothesis is one of $H_a: \mu >\mu_0$,
-    $H_a: \mu<\mu_0$, or $H_a: \mu\neq \mu_0$
-    -   When in doubt, use a two-sided alternative and a two-tailed
-    p-value.
--   Statistics: $\bar{x}$ is the sample mean; $s$ is the sample standard
-    deviation
--   Test statistic: the standardized value of $\bar{x}$, where
-    -   the mean is computed assuming the null hypothesis,
-        $H_0: \mu=\mu_0$, is true, and
-    -   the unknown SD ($\sigma/\sqrt{n}$) is estimated with the
-        standard error $s/\sqrt{n}$
-    $$
-    t = \frac{\text{observed}-\text{hypothesized}}{\text{SE}} = \frac{\bar{x}-\mu_0}{s/\sqrt{n}}
-    $$
--   The p-value is the probability of observing a value at least as
-    extreme as $t$, in the tail direction indicated by the alternative
-    hypothesis, for the $t$-distribution with $n-1$ degrees of freedom.
-    -   In almost all situations encountered in practice you can use the usual empirical rule for Normal distributions
--   Assumptions:
-    -   Simple random sample from a large population, that is,
-        independent observations
-    -   No bias in data collection
-    -   Population mean is the parameter you want to estimate
-
-```{python}
-#| echo: false
-#| 
-import pandas as pd
-
-df = pd.read_csv("https://raw.githubusercontent.com/kevindavisross/data301/main/data/AmesHousing.txt", sep="\t")
-
-df["SingleFamily"] = (df["Bldg Type"] == "1Fam")
-
-df["SalePriceK"] = df["SalePrice"] / 1000
-
-df = df[["Bldg Type", "SingleFamily", "SalePriceK", "Gr Liv Area"]]
-
-df_sf = df[df["SingleFamily"] == True]
-```
+| Above 0.10               | Little to no evidence                      |
+| Between 0.01 and 0.10    | Weak-ish evidence                           |
+| Between 0.001 and 0.01   | Moderate-ish evidence                       |
+| Between 0.0001 and 0.001 | Strong-ish evidence                         |
+| Less than 0.0001         | Very strong-ish evidence                    |
 
 
 ::: {#exm-two-sample-t}
-Continuing with the Ames housing data set.
-Now suppose we want to compare sale prices of single family homes with other homes (including condos, townhouses, etc).
-In particular, do single family homes tend to have higher sale prices on average than other homes?
+In a study published in 2016, participants were asked "How much does an average new small car cost?"
+But participants were randomly assigned to one of two versions of this question:
 
-The table below summarizes the sample data.
+-   Does an average new car cost less or more than **100 hundred thousand** dollars? 
+How much does an average new small car cost?
+-   Does an average new car cost less or more than **1 thousand** dollars? 
+How much does an average new small car cost?
+
+Did people tend to responded with different amounts for the new car price based on the wording of the question?
+
+The following summarizes the sample data.
 :::
+
 
 ```{python}
 #| echo: false
 
-df.groupby("SingleFamily")["SalePriceK"].describe()
+import pandas as pd
+
+df = pd.read_csv("https://raw.githubusercontent.com/kevindavisross/gsb5518-notes/refs/heads/main/_data/anchoring.csv")
+
+```
+
+```{python}
+#| echo: false
+df.groupby('anchor')['estimate'].describe()
 ```
 
 
-1.  Explain how you could use simulation to approximate the p-value.
+```{python}
+#| echo: false
+
+from plotnine import (
+    ggplot, aes, geom_histogram, facet_wrap, scale_fill_manual,
+    labs, theme_minimal, theme, element_blank, after_stat
+)
+
+
+(
+    ggplot(df, aes(x="estimate", fill="anchor"))
+    + geom_histogram(aes(y=after_stat("density")), bins=30)
+    + facet_wrap("~anchor", ncol=1)
+    + labs(x="Estimated new car price (dollars)", y="Density")
+    + theme_minimal()
+    + theme(
+        legend_position="none"
+    )
+)
+```
+
+
+1.	Identify the null hypothesis.
 \
 \
 \
 \
 \
-1.  Use the sample data to conduct by hand an appropriate hypothesis test.
+1.	Describe in detail how to use simulation to compute the p-value.
 \
 \
 \
 \
 \
-1.  Write a clearly worded sentence interpreting the p-value in context.
+1.	Describe in detail how to use theory to compute the p-value.
 \
 \
 \
 \
 \
-1.  Does the p-value provide evidence that single family homes tend to have higher sale prices on average than other homes?
+1.	The p-value is <0.0001. State a conclusion in context.
+\
+\
+\
+\
+\
+1.  Does the p-value by itself provide evidence that the people who saw the 100 thousand dollar "anchor" tended to give *much* higher estimates than those who saw the 1 thousand dollar "anchor"? 
 Explain.
 \
 \
 \
 \
 \
-1.  Does the p-value provide evidence that single family homes tend to have *much* higher sale prices on average than other homes?
-Explain.
-\
-\
-\
-\
-\
-1.  How could we address the question in the previous part?
+1.  How could we address the question in the previous part? 
+Perform a relevant analysis and interpret the results in context.
 \
 \
 \
@@ -391,15 +319,128 @@ Explain.
     are sensitive to outliers and extreme values.
 
 
-::: {#exm-ci-nht-compare}
-In @exm-one-sample-t and @exm-two-sample-t we both performed a null hypothesis test and computed a confidence interval.
-Discuss the advantages and disadvantages of each approach.
-\
-\
-\
-\
-\
+
+
+::: {#exm-two-sample-median}
+Continuing @exm-two-sample-t. 
+In this data set there are some outliers that influence the sample means. 
+What if instead we wanted to compare sample medians? 
+There is no theory-based test for comparing medians like the two-sample $t$ test for comparing means. 
 :::
+
+1.  Explain in full detail how you could perform a simulation to approximate the p-value based on the difference in sample medians.
+\
+\
+\
+\
+\
+1.  Conduct the simulation and use it to compute the p-value. 
+Then interpret the result in context.
+\
+\
+\
+\
+\
+
+## Exercises
+
+
+::: {#exr-two-sample-t-ames}
+Continuing with the Ames housing data set.
+Now suppose we want to compare sale prices of single family homes with other homes (including condos, townhouses, etc).
+In particular, do single family homes tend to have higher sale prices on average than other homes?
+
+The following summarizes the sample data.
+:::
+
+
+```{python}
+#| echo: false
+
+import numpy as np
+
+df_ames = pd.read_csv("https://raw.githubusercontent.com/kevindavisross/data301/main/data/AmesHousing.txt", sep="\t")
+
+df_ames["SingleFamily"] = np.where(df_ames["Bldg Type"] == "1Fam", "SingleFamily", "Other")
+
+df_ames["SalePriceK"] = df_ames["SalePrice"] / 1000
+
+df_ames["BldgType"] = df_ames["Bldg Type"]
+
+df_ames = df_ames[["BldgType", "SingleFamily", "SalePriceK", "Gr Liv Area"]]
+```
+
+```{python}
+#| echo: false
+
+df_ames.groupby("SingleFamily")["SalePriceK"].describe()
+```
+
+
+```{python}
+#| echo: false
+
+from plotnine import (
+    ggplot, aes, geom_histogram, facet_wrap, scale_fill_manual,
+    labs, theme_minimal, theme, element_blank, after_stat
+)
+
+
+(
+    ggplot(df_ames, aes(x="SalePriceK", fill="SingleFamily"))
+    + geom_histogram(aes(y=after_stat("density")), bins=30)
+    + facet_wrap("~SingleFamily", ncol=1)
+    + labs(x="Sale Price (thousand dollars)", y="Density")
+    + theme_minimal()
+    + theme(
+        legend_position="none"
+    )
+)
+```
+
+
+
+
+1.  Explain in detail how you could use simulation to approximate the p-value.
+\
+\
+\
+\
+\
+1.  Use the sample data to conduct by hand an appropriate hypothesis test.
+\
+\
+\
+\
+\
+1.  Write a clearly worded sentence interpreting the p-value in context.
+\
+\
+\
+\
+\
+1.  Does the p-value by itself provide evidence that single family homes tend to have higher sale prices on average than other homes?
+Explain.
+\
+\
+\
+\
+\
+1.  Does the p-value by itself provide evidence that single family homes tend to have *much* higher sale prices on average than other homes?
+Explain.
+\
+\
+\
+\
+\
+1.  How could we address the question in the previous part?
+Perform a relevant analysis and interpret the results in context.
+\
+\
+\
+\
+\
+
 
 -   Confidence intervals and hypothesis tests are commonly used in
     conjunction, but they address different questions
@@ -413,40 +454,15 @@ Discuss the advantages and disadvantages of each approach.
             conducting multiple confidence intervals.
 -   A null hypothesis test
     -   Considers the plausibility of only a single hypothesized value
-    -   But provides a precise measure --- the p-value --- of the
+    -   But provides a precise measure---the p-value---of the
         plausibility of the particular hypothesized value in light of
         the observed data
         -   But be especially careful about interpreting p-values when
             conducting multiple hypothesis tests.
 
 
-[^1]: Source:
-    <http://a.espncdn.com/pdf/2015/0506/PatriotsWellsReport.pdf>
-
-
-
-
-
--   Remember: the smaller the p-value, the stronger the evidence to
-    reject the null hypothesis.
-    -   But how small is small enough?
--   A "significance level", usually denoted $\alpha$, is a pre-specified
-    cut-off for how small the p-value must be in order to reject the
-    null hypothesis. The most common value is $\alpha=0.05$.
-    -   HOWEVER, in general, do NOT rely too strictly on a significance
-    level $\alpha$.
-    -   In fact, for years the the [American Statistical Association](https://www.tandfonline.com/doi/full/10.1080/00031305.2019.1583913#d1e335) has said to stop using values like 0.05 to make binary reject/not reject decisions.
--   If the p-value is small the result is sometimes
-        referred to as "statistically significant".
-    -   HOWEVER, we will see that this is a poor choice of words.
-    -   In fact, for years the [American Statistical Association](https://www.amstat.org/news-listing/2021/10/08/editorial-calls-time-on-statistically-significant-in-research) has said to stop using the term "statistically significant". Quote: "'statistically significant'---don't say it and don't use it."
--   Reporting the actual p-value and interpreting it as a sliding scale of weak/moderate/strong evidence to reject the null hypothesis is is
-    much more informative than just reporting "reject $H_0$ at level
-    $\alpha=0.05$" or "p-value $<0.05$".
--   Remember that hypothesis testing and p-values are just small parts of a much bigger picture. A hypothesis test provides some information, but there are many important questions that hypothesis testing and p-values do not have the ability to address.
-
-::: {#exm-ht-coin}
-A 2007 paper[^1] suggests that in coin-tossing there is
+::: {#exr-ht-coin}
+A 2007 paper[^coin] suggests that in coin-tossing there is
 a particular "dynamical bias" that causes a coin to be slightly more
 likely to land the same way up as it started. That is, the paper claims
 that a coin is more likely to land facing Heads up if it starts facing
@@ -455,16 +471,12 @@ Tails up. Is this really true? Two students at Berkeley investigated
 this phenomenon by tossing a coin many, many times.
 :::
 
-1.  Define the parameter $p$ in words and state the null and alternative hypotheses using symbols.
-\
-\
-\
-\
-\
-2.  Suppose that out of 10000 flips, 5083 landed the same way they started. Based on this data, can you conclude that a coin is more
+
+1.  Suppose that out of 10000 flips, 5083 landed the same way they started, for a sample proportion of 0.5083. Based on this data, can you conclude that a coin is more
     likely to land the same way it started using a strict "significance
     level" of $\alpha=0.05$?
-    Compute the p-value and state your conclusion at level $\alpha=0.05$ in
+    The p-value is 0.0495. 
+    State your conclusion at strict level $\alpha=0.05$ in
     context. Note: One goal of the example is to show you one reason why using a strict $\alpha$ is a bad idea.
 \
 \
@@ -472,7 +484,7 @@ this phenomenon by tossing a coin many, many times.
 \
 \
 3.  Repeat the previous part assuming 5082 out of 10000 flips landed the same way
-    they started.
+    they started; the sample proportion is 0.5082 and the p-value is now 0.0515.
 \
 \
 \
@@ -486,8 +498,8 @@ this phenomenon by tossing a coin many, many times.
 \
 \
 \
-5.  The students actually tossed the coin 40,000 times![^2]. Of the
-    40,000 flips, 20,245 landed the same way they started. Compute the p-value and state a conclusion in context. (Do NOT
+5.  The students actually tossed the coin 40,000 times![^coin2]. Of the
+    40,000 flips, 20,245 landed the same way they started, for a sample proportion of 0.5062. The p-value is 0.0072 and state a conclusion in context. (Do NOT
     use a strict $\alpha$ level.)
     Which result---20245 out of 40000 or 5083 out of 10000---gives stronger evidence to reject the null hypothesis?
 \
@@ -506,12 +518,23 @@ this phenomenon by tossing a coin many, many times.
 \
 \
 
--   In general, do NOT rely too strictly on a significance level
-    $\alpha$.
--   Reporting the actual p-value and interpreting it as
-    strong/moderate/weak evidence to reject the null hypothesis is
-    more informative than just reporting "reject $H_0$ at level
+-   Remember: the smaller the p-value, the stronger the evidence to
+    reject the null hypothesis.
+    -   But how small is small enough?
+-   A "significance level", usually denoted $\alpha$, is a pre-specified
+    cut-off for how small the p-value must be in order to reject the
+    null hypothesis. The most common value is $\alpha=0.05$.
+    -   HOWEVER, in general, do NOT rely too strictly on a significance
+    level $\alpha$.
+    -   In fact, for years the the [American Statistical Association](https://www.tandfonline.com/doi/full/10.1080/00031305.2019.1583913#d1e335) has said to stop using values like 0.05 to make binary reject/not reject decisions.
+-   If the p-value is small the result is sometimes
+        referred to as "statistically significant".
+    -   HOWEVER, this is a poor choice of words.
+    -   In fact, for years the [American Statistical Association](https://www.amstat.org/news-listing/2021/10/08/editorial-calls-time-on-statistically-significant-in-research) has said to stop using the term "statistically significant". Quote: "'statistically significant'---don't say it and don't use it."
+-   Reporting the actual p-value and interpreting it as a sliding scale of weak/moderate/strong evidence to reject the null hypothesis is is
+    much more informative than just reporting "reject $H_0$ at level
     $\alpha=0.05$" or "p-value $<0.05$".
+-   Remember that hypothesis testing and p-values are just small parts of a much bigger picture. A hypothesis test provides some information, but there are many important questions that hypothesis testing and p-values do not have the ability to address.
 -   Beware the meaning of "significant".
 -   A "statistically significant" result is not necessarily
     practically important or meaningful. Rather, it is just is more extreme than what would
@@ -524,10 +547,10 @@ this phenomenon by tossing a coin many, many times.
 -   A confidence interval estimates the size of the difference,
     which helps in judging practical significance. It is also
     important to consider *effect size*.
--   Do NOT use the terminology "statistically significant".
+-   In short: Do NOT use $\alpha = 0.05$ and do NOT use the terminology "statistically significant" do NOT pay too much attention to hypothesis tests.
 
 
-::: {#exm-ht-esp}
+::: {#exr-ht-esp}
 (For this exercise, you'll need to believe it's possible for a person to have ESP.)
 "Ganzfeld studies" test psychic ability (like ESP).
 Ganzfeld studies involve two people, a "sender" and a "receiver", who
@@ -560,7 +583,7 @@ receiver must choose the one transmitted by the sender[^4].
 \
 \
 \
-1.  Suppose we had set a cut-off of 0.05. Based on this strict cutoff, do you have enough evidence to reject the null hypothesis? That is, based on this cutoff, is your p-value small enough to conclude that you have ESP? (Hint: if you got at least 5 out of 9 correct your answer should be "yes".)
+1.  Suppose we had set a cut-off of 0.05. Based on this strict cutoff, do you have enough evidence to reject the null hypothesis? That is, based on this cutoff, is your p-value small enough to conclude that you have ESP? (Hint: if you got at least 5 out of 9 correct your answer should be "yes"; the p-value for 5 correct out of 9 guesses is 0.0489, and it's even smaller if you get more than 5 correct out of 9.)
 \
 \
 \
@@ -646,9 +669,9 @@ Should we be surprised that this happened?
 -   Remember that hypothesis testing and p-values are just small parts of a much bigger picture. A hypothesis test provides some information, but there are many important questions that hypothesis testing and p-values do not have the ability to address.
 
 
-[^1]: <http://statweb.stanford.edu/~cgates/PERSI/papers/dyn_coin_07.pdf>
+[^coin]: <http://statweb.stanford.edu/~cgates/PERSI/papers/dyn_coin_07.pdf>
 
-[^2]: <https://www.stat.berkeley.edu/~aldous/Real-World/coin_tosses.html>
+[^coin2]: <https://www.stat.berkeley.edu/~aldous/Real-World/coin_tosses.html>
 
 
 
@@ -656,8 +679,11 @@ Should we be surprised that this happened?
     *Ghostbusters*](https://www.youtube.com/watch?v=fn7-JZq0Yxs)
 
 
-[^6]: <http://www.npr.org/sections/thesalt/2015/05/28/410313446/why-a-journalist-scammed-the-media-into-spreading-bad-chocolate-science>
 
-[^7]: <http://io9.com/i-fooled-millions-into-thinking-chocolate-helps-weight-1707251800>
 
-[^8]: <https://xkcd.com/882/>
+
+
+[^1]: Source:
+    <http://a.espncdn.com/pdf/2015/0506/PatriotsWellsReport.pdf>
+
+
