@@ -27,7 +27,7 @@
     -   a *confidence level* that the estimated range contains the true
         parameter value.
         -   By far, the most commonly used confidence level is 95%.
-        -   But see @exm-multiple-ci and related material about multiple confidence intervals
+        -   But see @exr-multiple-ci and related material about multiple confidence intervals
 
 
 
@@ -547,6 +547,29 @@ df.groupby("SingleFamily")["SalePriceK"].describe()
 -   A difference provides an absolute comparison between groups.
     -   Ratios can be used to provide relative comparisons; however, the
         CI formulas are more complicated, but we'll see another approach soon
+
+
+::: {#exr-ci-applet}
+You'll use a [simulation applet](https://www.rossmanchance.com/applets/2021/confsim/ConfSim.html) that randomly generates confidence interals for a population mean to help you understand some ideas. The applet calculates a confidence interval for each set of randomly generated data.
+
+-   In the box for "Statistic" select means "Means".
+-   In the box next to "Method" select "t".
+-   Start with "Number of intervals" equal to 1 at first to see what is happening, but then change it to lots.
+
+Experiment with different simulations; be sure to change
+
+-   Distribution
+-   Population Mean
+-   Population SD
+-   Sample size
+-   Confidence level
+
+
+Then write a paragraph or two or some bullet points of your main observations.
+Based on this applet, what can you say about how confidence intervals work?
+How does changing each of the inputs affect the confidence intervals and the Results?
+Include a few screenshots from the applet to support your conclusions.
+:::
 
 
 

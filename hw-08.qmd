@@ -1,152 +1,114 @@
 # Homework 8 {.unnumbered}
 
 
-```{r}
-#| echo: false
-#| warning: false
-#| message: false
 
-library(knitr)
-library(kableExtra)
-library(ggplot2)
-library(janitor)
-```
 
 
 
 ## Problem 1
 
-You have a brand new coin and you want to estimate $p$, the probability that it lands on heads.
-You flip the coin $n$ times and observe $X$ heads.
+Consider the general problem of estimating a population proportion $p$ for some binary (success/failure) categorical variable of interest in a large population.
+Select a sample of size $n$ and let $X$ be the number of successes in the sample. 
+(We are considering a general problem here, but recall your particular context from a previous homework.)
 
+We'll consider two estimators of $p$:
 
-a. Suggest an estimator of $p$; it should be an expression involving $X$ and $n$. Describe in words what your estimator is. (Hint: what is the most obvious estimator you can think of?)
-a. Suppose you observe $x = 6$ heads in $n=10$ flips. Use your estimator to compute an estimate of $p$ based on this sample.
-a. Consider the estimator (called the "plus four" estimator)
-    $$
-    \frac{X + 2}{n + 4} = \left(\frac{4}{n+4}\right)\left(0.5\right) + \left(\frac{n}{n+4}\right)\left(\frac{X}{n}\right)
-    $$
-    Explain in words what this estimator does.
-    (The two expressions in the equation above are just different ways of expressing the estimator.)
-a. Use the estimator from the previous part and compute an estimate of $p$ based on a sample with 6 heads in 10 flips.
-a. If you observe 6 heads in 10 flips, which of your two estimates is a better estimate of $p$? Explain.
-a. Compute and interpret the probability of observing 6 heads in 10 flips if $p = 0.6$.
-a. Compute and intepret the probability of observing 6 heads in 10 flips if $p = 0.571$.
-a. Compare the values from the two previous parts. If you observed 6 heads in 10 flips, which of the values --- 0.6 or 0.571 --- would you choose as your estimate of $p$? Explain your reasoning.
-a. Suppose you observe 6 heads in 10 flips. Carefully write the likelihood function.
-a. Continuing the previous part, use any software of your choice and plot the likelihood function. Based on your plot, what value appears to be the maximum likelihood estimate of $p$ based on a sample with 6 heads in 10 flips?
-(You can do this just by zooming in on the plot.)
-a. Continuing the previous part, carefully write the log-likelihood function.
-a. Use calculus to find the maximum likelihood estimate of $p$ based on observing 6 heads in 10 flips.
-a. Now suppose you observe $x$ heads in 10 flips. Carefully write the likelihood function.
-a. Continuing the previous part, carefully write the log-likelihood function.
-a. Use calculus to find a general expression for the maximum likelihood estimate of $p$ based on observing $x$ heads in 10 flips. (Your answer will be an expression involving $x$.)
+\begin{align*}
+\text{Sample proportion:} & & \hat{p} & = \frac{X}{n}\\
+\text{Plus four:} & & \tilde{p} & = \frac{X+2}{n+4}
+\end{align*}
 
+Suppose we observe $x=6$ successes in a sample of size $n=10$.
+For this sample $\hat{p} = 0.6$ and $\tilde{p} = 0.571$.
 
-
-## Problem 2
-
-
-Suppose that times (minutes) between earthquakes (of any magnitude in a certain region) follow an Exponential distribution with rate parameter $\lambda$.
-Let $X_1, \ldots, X_n$ be a random sample of times (minutes) between earthquakes for  $n$ earthquakes.
-It can be shown that the MLE of $\lambda$ is $1/\bar{X}$.
-
-1. Explain intuitively why $1/\bar{X}$ is a reasonable estimator of $\lambda$. 
-Hint: it's not just because it's the MLE; think of properties of Exponential distributions.
-1. Suppose the observed sample is: 20, 37, 13, 10, 25 minutes.
+1.  Compute and interpret the probability of observing $x=6$ successes in a sample of size $n=10$ if $p = 0.6$.
+1.  Compute and interpret the probability of observing $x=6$ successes in a sample of size $n=10$ if $p = 0.571$.
+1.  Which of the estimates, 0.6 or 0.571, is a *better estimate* of $p$ based on a sample of size $n=10$ with $x=6$ successes? That is, which estimate, 0.6 or 0.571, is closer to the true $p$? 
+Explain.
+1.  Which of the estimates, 0.6 or 0.571, would you choose as your point estimate of $p$ based on a sample of size $n=10$ with $x=6$ successes? Explain.
+Hint: consider parts 1 and 2.
+1.  Suppose you observe $x=6$ successes in a sample of size $n=10$. 
 Carefully write the likelihood function.
-(For a random sample from a continuous distribution, to find the likelihood function you plug each observed value into the pdf and then form the product.)
-1. Use any software you want to carefully plot the likelihood function from the previous part.
-Then use your plot to verify that the MLE of $\lambda$ based on this sample is $1/\bar{x} = 5/105 = 0.0476$.
-(You can just zoom in on the plot.)
-1. Write a clearly worded sentence reporting in context your estimate of $\lambda$ from the previous part.
-
-
-
-## Problem 1
-
-In roulette, a bet on a single number has a 1/38 probability of success and pays 35-to-1.
-That is, if you bet 1 dollar, your net winnings are -1 with probability 37/38 and +35 with probability 1/38.
-Consider betting on a single number on each of $n$ spins of a roulette wheel.
-Let $\bar{X}_n$ be your average net winnings per bet.
-
-**For each of the values $n = 10$, $n = 100$, $n = 1000$:**
-
-1.  Compute $\text{E}(\bar{X}_n)$
-1.  Compute $\text{SD}(\bar{X}_n)$
-1.  **Coding required.** Run a simulation to determine if the distribution of $\bar{X}_n$ is approximately Normal
-1.  **Coding required.** Use simulation to approximate $\text{P}(\bar{X}_n >0)$, the probability that you come out ahead after $n$ bets
-1.  If $n=1000$ use the Central Limit Theorem to approximate $\text{P}(\bar{X}_{1000} >0)$, the probability that you come out ahead after 1000 bets.
-1. The casino wants to determine how many bets on a single number are needed before they have (at least) a 99% probability of making a profit.
-(Remember, the casino profits if you lose; that is, if $\bar{X}_n <0$.)
-Use the Central Limit Theorem to determine the minimum number of bets (keeping in mind that $n$ must be an integer). You can assume that whatever $n$ is, it's large for the CLT to kick in.
-
+Hint: what is the distribution of $X$?
+1.  Use any software of your choice to plot the likelihood function. Based on your plot, what value appears to be the maximum likelihood estimate of $p$ based on this sample?
+(You can do this just by zooming in on the plot.)
+1.  Carefully write the log-likelihood function.
+1.  Use calculus to find the maximum likelihood estimate of $p$ based on $x=6$ successes in a sample of size $n=10$.
 
 ## Problem 2
 
-The standard measurement of the alcohol content of drinks is alcohol by volume (ABV), which is given as the volume of ethanol as a percent of the total volume of the drink.
-In a sample of 67 brands of beer,  the mean ABV is 4.61 percent and the standard deviation of ABV is 0.754 percent.
+Continuing Problem 1, now consider a general sample of size $n$ with $x$ successes.
 
--   First, to get some practice, answer the following questions by computing by hand using only the information provided here.
--   **Coding required.** Then, use Python to produce the summaries and analysis needed to answer the questions. Be sure to also include appropriate plots of the [beer data](https://raw.githubusercontent.com/kevindavisross/data301/refs/heads/main/data/beer.csv).
+1.  Carefully write the likelihood function. (The expression should contain $x$ and $n$.)
+1.  Continuing the previous part, carefully write the log-likelihood function. (The expression should contain $x$ and $n$.)
+1.  Use calculus to find a general expression for the maximum likelihood estimate of $p$. Your answer should be an expression involving $x$ and $n$.
 
 
-1.  Compute a 95% confidence interval for the appropriate population mean.
-1.  Write a clearly worded sentence reporting your confidence interval in context.
-1.  Is 4.5% a plausible value of the parameter?  Explain briefly.
-1.  One of the brands of beer in the sample is O'Doul's, a non-alcoholic beer.
-The ABV for O'Doul's is 0.4% (it has a bit of alcohol.)
-Suppose O'Doul's is removed from the data set.
-Compute the sample mean ABV of the remaining 66 brands.
-1.  The sample SD of ABV of the remaining 66 brands is 0.55 percent.
-Explain intuitively why this value is smaller than the sample SD of all 67 brands.
-1.  Compute the 95% confidence interval based on the sample with O'Doul's removed.  Compare to the original interval, both in terms of center of the CI and its width.  Explain briefly.
-1.  Based on the interval based on the sample with O'Doul's removed, is 4.5% a plausible value of the parameter?  Explain briefly.
-1.  Which of the analyses is more appropriate: with or without O'Doul's? Explain your reasoning.
 
 
 ## Problem 3
 
-Do non-smokers have better lungs than smokers?
-One measure of lung function is forced expiratory volume (FEV), the amount of air (in liters) an individual can exhale in the first second of forceful breath.
-Larger values of FEV are indicative of better functioning lungs. In a study, FEV was measured for a group of 654 subjects, along with whether they smoked and other variables like age (years).
-Note: I’m purposely not yet giving you much information about how the sample was collected.
+Assume a Poisson($\mu$) model for the number of home runs hit (in total by both teams) in a MLB game.
+Let $X_1, \ldots, X_n$ be a random sample of home run counts for $n$ games.
+(The context doesn't matter, but it helps to have something in mind rather than just the general problem.)
 
-1.  **Coding required.** Use Python to summarize the [FEV data](https://raw.githubusercontent.com/kevindavisross/data301/refs/heads/main/data/FEV.csv).
-Summarize the distribution of FEV both overall and separately for smokers and non-smokers.
-1.  Suppose you want to fill in the blanks in the following sentence: 95% of FEV values in the population are between [blank] and [blank].
-Assuming this sample is representative, provide reasonable values that fill in the blanks, and explain your reasoning.
-Hint: it is better to give a correct rough estimate than a precise but incorrect answer, so think before trying to compute anything.
-(Since you don’t have much information about the sample, you don’t have to clarify yet what "population" is appropriate.)
-1.  Using appropriate summary statistics, compute by hand a 95% confidence for the appropriate difference in population means.
-1.  **Coding required.** Use Python to compute the confidence interval and compare to what you computed by hand.
-1.  Write a clearly worded sentence interpreting the confidence interval in context.
-1.  Assuming this is a representative sample, are we reasonably confident that one group (smokers or non-smokers) tends to have better FEV? Why? Which group?
-1.  **Coding required.** You should have observed something surprising in the previous parts.
-Investigate some of the other variables in the data set and produce a few appropriate plots or summaries that provide an explanation for the surprising result.
-Write a clearly worded sentence or two summarizing your explanation.
+Suppose we want to estimate $\theta = \mu e^{-\mu}$, the probability that any single game has exactly 1 HR (for Poisson($\mu$), $P(X = 1) = e^{-\mu}\,u^1/1! = \mu e^{-\mu}$).
+Consider two estimators of $\theta$:
+
+-   $\hat{\theta} = \bar{X} e^{-\bar{X}}$
+-   $\hat{p} =\text{sample proportion of 1s} = \frac{\text{number of games in the sample with 1 HR}}{\text{sample size}}$
+
+1.  Compute the value of $\hat{\theta}$ based on the sample (3, 0, 1, 4, 0). Write a clearly worded sentence reporting in context this estimate of $\theta$.
+1.  Compute the value of $\hat{p}$ based on the sample (3, 0, 1, 4, 0).
+Write a clearly worded sentence reporting in context your estimate of $\theta$.
+1.  Which of these two estimators is the MLE of $\theta$ in this situation? Explain, without doing any calculations.
+1.  It can be shown that $\hat{p}$ is an unbiased estimator of $\theta$.
+Explain in words what this means.
+1.  Is $\hat{\theta}$ an unbiased estimator of $\theta$?
+Explain.
+(You don't have to derive anything; just apply a general principle.)
+1.  Suppose $\mu = 3.4$ and $n=5$.
+Explain in full detail how you would use simulation to approximate the bias of $\hat{\theta}$ in this case. 
+In particular, specify the spinner you would use to simulate values.
+1.  Explain in full detail how you would use simulation to approximate the bias *function* of $\hat{\theta}$ when $n=5$.
+
+
 
 ## Problem 4
 
+Continuing Problem 3.
 
-(I had much longer instructions written, but I think they weren't helpful. If you have questions about how the applet is working, don't hesitate to ask.)
-
-You are going to use a [simulation applet](https://www.rossmanchance.com/applets/2021/confsim/ConfSim.html) that randomly generates confidence interals for a population mean to help you understand some ideas. The applet calculates a confidence interval for each set of randomly generated data.
-
-- In the box for "Statistic" select means "Means".
-- In the box next to "Method" select "t".
-- Start with "Number of intervals" equal to 1 at first to see what is happening, but then change it to lots.
-
-Experiment with different simulations; be sure to change
-
-- Distribution
-- Population Mean
-- Population SD
-- Sample size
-- Confidence level
+1.  It can be shown that $\text{Var}(\hat{p}) = \frac{\theta(1-\theta)}{n}$. Compute  $\text{Var}(\hat{p})$ when $\mu = 3.4$ and $n=5$.
+Then write a clearly worded sentence interpreting this value.
+1.  Suppose $\mu = 3.4$ and $n=5$.
+Explain in full detail how you would use simulation to approximate the variance of $\hat{\theta}$.
+1.  Explain in full detail how you would use simulation to approximate the variance function of $\hat{\theta}$ (if $n=5$).
 
 
-Then write a paragraph or two or some bullet points of your main observations.
-Based on this applet, what can you say about how confidence intervals work?
-How does changing each of the inputs affect the confidence intervals and the Results?
-Include a few screenshots from the applet to support your conclusions.
+## Problem 5
+
+Continuing Problems 3 and 4
+
+1.  Compute $\text{MSE}(\hat{p})$ when $\mu = 3.4$ and $n=5$.
+(You can do the next part first if you want, but it helps to work with specific numbers first.)
+1.  Derive the MSE function of $\hat{p}$.
+(Hint: use facts from previous parts.)
+1.  Suppose $\mu = 3.4$ (and $n=5$).
+Explain in full detail how you would use simulation to approximate the MSE of $\hat{\theta}$.
+1.  Suppose $\hat{\theta}$ has smaller MSE than $\hat{p}$ when $\mu = 3.4$ (and $n=5$).
+Which estimator would you prefer?
+Answer, but then explain why this information alone is not really useful.
+1.  Explain in full detail how you would use simulation to approximate the MSE *function* of $\hat{\theta}$ (if $n=5$).
+1.  Suppose you determine that $\hat{\theta}$ has smaller MSE for almost all values of $\mu$ regardless of $n$. 
+Recall parts 1 and 2 of Problem 3.
+Which value of these two estimates (the values from parts 1 and 2 of Problem 3) is a better estimate of $\theta$? 
+That is, which of the two estimates is closer to the true $\theta$? 
+Explain.
+1.  Suppose you determine that $\hat{\theta}$ has smaller MSE for almost all values of $\mu$ regardless of $n$. 
+Recall parts 1 and 2 of Problem 3.
+Which value of these two estimates (the values from parts 1 and 2 of Problem 3) would you choose as your point estimate of $\theta$? 
+Explain.
+
+
+
+

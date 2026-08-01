@@ -43,9 +43,9 @@ book:
     - hw-04.qmd
     - hw-05.qmd
     - hw-06.qmd
-    # - hw-07.qmd
-    # - hw-08.qmd
-    # - hw-09.qmd
+    - hw-07.qmd
+    - hw-08.qmd
+    - hw-09.qmd
     # # - project.qmd
     - hw-01-sol.qmd
     - hw-02-sol.qmd

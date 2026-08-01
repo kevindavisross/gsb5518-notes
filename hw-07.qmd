@@ -3,22 +3,30 @@
 
 
 
-## Problem 2
+## Problem 1
 
 Xavier and Yolanda are playing roulette.
 They both place bets on red on the same 3 spins of the roulette wheel before Xavier has to leave.
 (Remember, the probability that any bet on red on a single spin wins is 18/38.) After Xavier leaves, Yolanda places bets on red on 2 more spins of the wheel.
 Let $X$ be the number of bets that Xavier wins and let $Y$ be the number that Yolanda wins.
 
-a.  Identify by name the marginal distribution of $X$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(X)$.
-b.  Identify by name the marginal distribution of $Y$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(Y)$.
-c.  The joint distribution of $X$ and $Y$ is represented in the table below. Explain why $p_{X, Y}(1, 4) = 0$ and $p_{X, Y}(2, 1) = 0$.
-d.  Compute $p_{X, Y}(2, 3)$. (Yes, the table tells you it's 0.1766, but you have to show how this number can be computed based on the assumptions of the problem.)
-e.  Are $X$ and $Y$ independent? Justify your answer with an appropriate calculation.
-f.  Compute and interpret $\text{P}(X + Y) = 4$.
-g.  Make a table representing the marginal distribution of $X+Y$.
-h.  Use the table from the previous part to compute $\text{E}(X+Y)$, and verify that it is equal to $\text{E}(X)+\text{E}(Y)$.
-i.  Without doing any computation, determine if $\text{Var}(X+Y)$ will be greater than, less than, or equal to $\text{Var}(X) + \text{Var}(Y)$. Explain your reasoning.
+
+1.  Compute and interpret $\text{P}(X + Y = 4)$.
+
+1.  Make a table representing the marginal distribution of $X+Y$.
+
+1.  Use the table from the previous part to compute $\text{E}(X+Y)$, and verify that it is equal to $\text{E}(X)+\text{E}(Y)$.
+(You computed $\text{E}(X)$ and $\text{E}(Y)$ in a previous homework.)
+
+1.  Without doing any computation, determine if $\text{Var}(X+Y)$ will be greater than, less than, or equal to $\text{Var}(X) + \text{Var}(Y)$. Explain your reasoning.
+
+1.  Use the marginal distribution of $X+Y$ (from earlier in this problem) to compute $\text{Var}(X+Y)$.
+
+1.  In a previous HW you identified the marginal distribution of $X$ by name. Use facts about that distribution to compute $\text{Var}(X)$.
+
+1.  In a previous HW you identified the marginal distribution of $Y$ by name. Use facts about that distribution to compute $\text{Var}(Y)$.
+
+1.  Verify that $\text{Var}(X+Y)$ is equal to $\text{Var}(X)+ \text{Var}(Y)+2\text{Cov}(X,Y)$. (You computed the covariance in a previous homework.)
 
 | $x$, $y$ |      0 |      1 |      2 |      3 |      4 |      5 |
 |----------|-------:|-------:|-------:|-------:|-------:|-------:|
@@ -29,132 +37,77 @@ i.  Without doing any computation, determine if $\text{Var}(X+Y)$ will be greate
 
 
 
+## Problem 2
+
+A vendor at a weekend farmers market sells three products: jars of honey, 
+loaves of sourdough bread, and bags of ice. 
+Let $X$ be the number of jars of honey sold, $Y$ the number of loaves sold, and $Z$ the number of bags of ice sold.
+Based on several seasons of sales data, the number of units sold 
+on a given Saturday follows a joint distribution with
+
+-   Mean 40 and standard deviation 8 for honey jars sold,
+-   Mean 25 and standard deviation 5 for bread loaves sold,
+-   Mean 15 and standard deviation 6 for ice bags sold,
+-   Correlation of 0.5 between honey jars sold and bread loaves sold,
+-   Correlation of −0.4 between honey jars sold and ice bags sold. (Cooler 
+    days tend to bring out more shoppers browsing specialty foods like 
+    honey, but fewer people buying ice.)
+
+Honey jars sell for \$12 each, bread loaves sell for \$7 each, and ice bags 
+sell for \$4 each.
+
+1.  Let $R_1 = 12X + 7Y$ be the vendor's revenue from honey and bread 
+    combined. Compute $E(R_1)$ and $SD(R_1)$.
+
+1.  Let $R_2 = 12X + 4Z$ be the vendor's revenue from honey and ice 
+    combined. Compute $E(R_2)$ and $SD(R_2)$.
+
+1.  Without doing any additional calculation, explain whether you'd expect each of $SD(R_1)$ and $SD(R_2)$ to be larger or smaller if the variables were uncorrelated.
 
 ## Problem 3
 
-Percent returns for assets $X$, $Y$, and $Z$ follow a joint distribution with
+Devi and Paxton are meeting.
+Arrival times are measured in minutes after noon, with negative times representing arrivals before noon.
+Devi's arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton's arrival time follows a Normal distribution with mean 25 and SD 10 minutes.
 
--   Mean 10 and standard deviation 15 for asset X,
--   Mean 5 and standard deviation 3 for asset Y,
--   Correlation of −0.6 between asset X and asset Y
--   Asset Z yields a constant return of 1 percent.
+All of the probability calculations will involve a Normal distribution, but make sure you clearly identify the correct mean and SD.
+You should also compute standardized values and use a table to make a ballpark estimate of probabilities before jumping straight to software/calculator.
 
-An investment portfolio has 60% of its funds in asset X, 30% in asset Y, and 10% in asset Z.
+You will compute all of the following probabilities in each of the 3 scenarios below.
 
-a.  Let $R$ be the portfolio return. Express $R$ in terms of $X, Y, Z$.
-b.  Compute $\text{E}(R)$.
-c.  Compute $\text{Cov}(X, Y)$.
-d.  Compute $\text{Cov}(X, Z)$.
-e.  Compute $\text{SD}(R)$.
+a.  The probability that Devi arrives before noon.
+a.  The probability that Devi arrives before Paxton.
+a.  The probability that Devi arrives before Paxton given that Paxton arrives at 12:10.
+a.  The probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
 
 
+1.  Scenario 1: Assume the arrival times are independent
+
+1.  Scenario 2: Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation 0.8
+
+1.  Scenario 3: Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation -0.7
 
 
 ## Problem 4
 
-Devi and Paxton are meeting.
-Arrival times are measured in minutes after noon, with negative times representing arrivals before noon.
-Devi's arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton's arrival time follows a Normal distribution with mean 25 and SD 10 minutes, independently of each other.
-
-For each of the following, find the appropriate standardized value and make a ballpark estimate of the probability.
-Then use software to compute the probability.
-
-a.  Compute the probability that Devi arrives before noon.
-b.  Compute the probability that Devi arrives first.
-c.  Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
-d.  **Coding required.** Code and run a simulation and use the results to approximate the probability from the previous part (just part c). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
-
-## Problem 5
-
-(Continued.) Devi and Paxton are meeting.
-Arrival times are measured in minutes after noon, with negative times representing arrivals before noon.
-Devi's arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton's arrival time follows a Normal distribution with mean 25 and SD 10 minutes.
-
-For each of the following, find the appropriate standardized value and make a ballpark estimate of the probability.
-Then use software to compute the probability.
-
-1.  Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation 0.8
-    a.  Compute the probability that Devi arrives first given that Paxton arrives at 12:10.
-    b.  Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
-    c.  **This part is optional.** Code and run a simulation and use the results to approximate the probability from the previous part (just part b). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
-2.  Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation -0.7
-    a.  Compute the probability that Devi arrives first given that Paxton arrives at 12:10.
-    b.  Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
-    c.  **This part is optional.** Code and run a simulation and use the results to approximate the probability from the previous part (just part b). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
 
 
 
-## Problem 1
+Consider the general problem of estimating a population proportion $p$ for some binary (success/failure) categorical variable of interest.
+Select a sample of size $n$ and let $X$ be the number of successes in the sample.
 
-Assume a Poisson($\mu$) model for the number of home runs hit (in total by both teams) in a MLB game.
-Let $X_1, \ldots, X_n$ be a random sample of home run counts for  $n$ games.
-
-Suppose we want to estimate $\theta = \mu e^{-\mu}$, the probability that any single game has exactly 1 HR (for Poisson($\mu$), $P(X = 1) = e^{-\mu}\,u^1/1! = \mu e^{-\mu}$).
-Consider two estimators of $\theta$:
-
--   $\hat{\theta} = \bar{X} e^{-\bar{X}}$
--   $\hat{p} =\text{sample proportion of 1s} = \frac{\text{number of games in the sample with 1 HR}}{\text{sample size}}$
-
-a.  Compute the value of $\hat{\theta}$ based on the sample (3, 0, 1, 4, 0). Write a clearly worded sentence reporting in context this estimate of $\theta$.
-a.  Compute the value of $\hat{p}$ based on the sample (3, 0, 1, 4, 0).
-Write a clearly worded sentence reporting in context your estimate of $\theta$.
-a.  Which of these two estimators is the MLE of $\theta$ in this situation? Explain, without doing any calculations.
-a.  It can be shown that $\hat{p}$ is an unbiased estimator of $\theta$.
-Explain in words what this means.
-a.  Is $\hat{\theta}$ an unbiased estimator of $\theta$?
-Explain.
-(You don't have to derive anything; just apply a general principle.)
-a.  Suppose $\mu = 2.3$ and $n=5$.
-Explain in full detail how you would use simulation to approximate the bias of $\hat{\theta}$ in this case.
-a.  **Coding required.**
-Conduct the simulation from the previous part and approximate bias of $\hat{\theta}$ when $\mu = 2.3$ and $n = 5$.
-a.  Explain in full detail how you would use simulation to approximate the bias *function* of $\hat{\theta}$ when $n=5$.
-a.  **Coding required.**
-Conduct the simulation from the previous part and plot the approximate bias function when $n=5$.
-For what values of $\mu$ does $\hat{\theta}$ tend to overestimate $\mu$? Underestimate?
-For what values of $\mu$ is the bias the worst?
-
-
-
-## Problem 2
-
-Continuing Problem 1.
-
-a.  It can be shown that $\text{Var}(\hat{p}) = \frac{\theta(1-\theta)}{n}$. Compute  $\text{Var}(\hat{p})$ when $\mu = 2.3$ and $n=5$.
-Then write a clearly worded sentence interpreting this value.
-a.  Suppose $\mu = 2.3$ and $n=5$.
-Explain in full detail how you would use simulation to approximate the variance of $\hat{\theta}$.
-a.  **Coding required.**
-Conduct the simulation from the previous part and approximate  the variance of $\hat{\theta}$ when $\mu = 2.3$ and $n=5$.
-Then write a clearly worded sentence interpreting this value.
-a.  Which estimator has smaller variance when $\mu = 2.3$ (and $n=5$)?
-Answer, but then explain why this information alone is not really useful.
-a.  Explain in full detail how you would use simulation to approximate the variance function of $\hat{\theta}$ (if $n=5$).
-a.  **Coding required.**
-Conduct the simulation from the previous part and plot the approximate variance function.
-Compare to the variance function of $\hat{p}$.
-Based on variability alone, which estimator is preferred?
-
-
-## Problem 3
-
-Continuing Problems 1 and 2
-
-a.  Compute $\text{MSE}(\hat{p})$ when $\mu = 2.3$ and $n=5$.
-(You can do the next part first if you want, but it helps to work with specific numbers first.)
-a.  Derive the MSE function of $\hat{p}$.
-(Hint: use facts from previous parts.)
-a.  Suppose $\mu = 2.3$ (and $n=5$).
-Explain in full detail how you would use simulation to approximate the MSE of $\hat{\theta}$.
-a.  **Coding required.**
-Conduct the simulation from the previous part and approximate the MSE of $\hat{\theta}$ when $\mu =2.3$ (and $n=5$).
-a.  Which estimator has smaller MSE when $\mu = 2.3$ (and $n=5$)?
-Answer, but then explain why this information alone is not really useful.
-a.  Explain in full detail how you would use simulation to approximate the MSE *function* of $\hat{\theta}$ (if $n=5$).
-a.  **Coding required.**
-Conduct the simulation from the previous part and plot the approximate MSE function.
-Compare to the MSE function of $\hat{p}$.
-a.  Compare the MSEs of the two estimators for $n=5$ and a few other values of $n$.
-Is there a clear preference between these two estimators? Discuss.
+1.  We are considering a general problem here, but describe a specific context where you might want to do this: what is the population and its rough size, what is the variable of interest and what is "success", what is the sample, how do you measure $X$ for the sample? (For example, the handouts covered the general problem of estimating $\mu$ for a Poisson population, but we thought of it in terms of the car dealership problem.)
+1.  Suggest an estimator of $p$; it should be an expression involving $X$ and $n$. Describe in words what your estimator is. (Hint: what is the most obvious estimator you can think of?)
+1.  Suppose you observe $x = 6$ successes in a sample of size $n=10$. 
+Use your estimator to compute a point estimate of $p$ based on this sample.
+1.  Consider the estimator (called the "plus four" estimator)
+    $$
+    \frac{X + 2}{n + 4} = \left(\frac{4}{n+4}\right)\left(0.5\right) + \left(\frac{n}{n+4}\right)\left(\frac{X}{n}\right)
+    $$
+    Explain in words what this estimator does.
+    (The two expressions in the equation above are just different ways of expressing the estimator.)
+1.  Suppose you observe $x = 6$ successes in a sample of size $n=10$. 
+Use the plus four estimator to compute a point estimate of $p$ based on this sample.
+1.  If you observe $x = 6$ successes in a sample of size $n=10$, which of your two estimates is a better estimate of $p$?  Explain.
 
 
