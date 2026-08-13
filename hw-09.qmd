@@ -95,6 +95,15 @@ display(p2)
 
 ```
 
+```{python}
+#| echo: false
+
+df_fev.groupby("Smoking status")["FEV"].describe()
+```
+
+
+
+
 
 
 1.  Suppose you want to fill in the blanks in the following sentence: 95% of FEV values in the population are between [blank] and [blank].

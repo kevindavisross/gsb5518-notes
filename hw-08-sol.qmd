@@ -1,157 +1,447 @@
 # Homework 8 solutions {.unnumbered}
 
-**See code and results in [Colab notebook](https://colab.research.google.com/drive/1uESk3VQ89TThaqFjiUarlB3l7GJ00NJa?usp=sharing).**
+
+
+
+
+
+
+
 
 ## Problem 1
 
-In roulette, a bet on a single number has a 1/38 probability of success and pays 35-to-1.
-That is, if you bet 1 dollar, your net winnings are -1 with probability 37/38 and +35 with probability 1/38.
-Consider betting on a single number on each of $n$ spins of a roulette wheel.
-Let $\bar{X}_n$ be your average net winnings per bet.
+Consider the general problem of estimating a population proportion $p$ for some binary (success/failure) categorical variable of interest in a large population.
+Select a sample of size $n$ and let $X$ be the number of successes in the sample. 
+(We are considering a general problem here, but recall your particular context from a previous homework.)
 
-**For each of the values $n = 10$, $n = 100$, $n = 1000$:**
+We'll consider two estimators of $p$:
 
-1.  Compute $\text{E}(\bar{X}_n)$
-1.  Compute $\text{SD}(\bar{X}_n)$
-1.  **Coding required.** Run a simulation to determine if the distribution of $\bar{X}_n$ is approximately Normal
-1.  **Coding required.** Use simulation to approximate $\text{P}(\bar{X}_n >0)$, the probability that you come out ahead after $n$ bets
-1.  If $n=1000$ use the Central Limit Theorem to approximate $\text{P}(\bar{X}_{1000} >0)$, the probability that you come out ahead after 1000 bets.
-1. The casino wants to determine how many bets on a single number are needed before they have (at least) a 99% probability of making a profit.
-(Remember, the casino profits if you lose; that is, if $\bar{X}_n <0$.)
-Use the Central Limit Theorem to determine the minimum number of bets (keeping in mind that $n$ must be an integer). You can assume that whatever $n$ is, it's large for the CLT to kick in.
+\begin{align*}
+\text{Sample proportion:} & & \hat{p} & = \frac{X}{n}\\
+\text{Plus four:} & & \tilde{p} & = \frac{X+2}{n+4}
+\end{align*}
+
+Suppose we observe $x=6$ successes in a sample of size $n=10$.
+For this sample $\hat{p} = 0.6$ and $\tilde{p} = 0.571$.
+
+1.  Compute and interpret the probability of observing $x=6$ successes in a sample of size $n=10$ if $p = 0.6$.
+1.  Compute and interpret the probability of observing $x=6$ successes in a sample of size $n=10$ if $p = 0.571$.
+1.  Which of the estimates, 0.6 or 0.571, is a *better estimate* of $p$ based on a sample of size $n=10$ with $x=6$ successes? That is, which estimate, 0.6 or 0.571, is closer to the true $p$? 
+Explain.
+1.  Which of the estimates, 0.6 or 0.571, would you choose as your point estimate of $p$ based on a sample of size $n=10$ with $x=6$ successes? Explain.
+Hint: consider parts 1 and 2.
+1.  Suppose you observe $x=6$ successes in a sample of size $n=10$. 
+Carefully write the likelihood function.
+Hint: what is the distribution of $X$?
+1.  Use any software of your choice to plot the likelihood function. Based on your plot, what value appears to be the maximum likelihood estimate of $p$ based on this sample?
+(You can do this just by zooming in on the plot.)
+1.  Carefully write the log-likelihood function.
+1.  Use calculus to find the maximum likelihood estimate of $p$ based on $x=6$ successes in a sample of size $n=10$.
+
 
 ### Solution
 
 
-Let $X$ be the winnings on a single bet. The population mean is
-$$
-\mu = \text{E}(X) = (35)(1/38) + (-1)(37/38) = -2/38 \approx -0.05
-$$
-The population variance is
-$$
-\sigma^2 = \text{Var}(X) = \text{E}(X^2) - (\text{E}(X))^2 = (35)^2(1/38) + (-1)^2(37/38) - (-2/38)^2 = 33.2
-$$
-The population SD is $\sigma = 5.76$ dollars.
+1.  `scipy.stats.binom.pmf(6, 10, 0.6)` = 0.251 = $\binom{10}{6}(0.6)^6(1-0.6)^{10-6}$. If the population proportion of success is 0.6, then about 25.1 percent of samples of size 10 would result in 6 successes.
+1.  `scipy.stats.binom.pmf(6, 10, 0.571)` = 0.186 = $\binom{10}{6}(0.571)^6(1-0.571)^{10-6}$. If the population proportion of success is 0.571, then about 18.6 percent of samples of size 10 would result in 6 successes.
+1.  We don't know which of 0.6 and 0.571 is a better estimate because we don't know what $p$ is; that's the reason why we're trying to estimate it.
+1.  The likelihood of observing 6 H in 10 flips is greater if $p = 0.6$ than if $p = 0.571$, so if we're trying to maximum the likelihood, we could pick 0.6 as our estimate of $p$ based on the 6/10 sample.
+1.  When $n=10$, $X$ has a Binomial(10, $p$) distribution. The pmf is $\binom{10}{x}p^x(1-p)^{10-x}.$ Plug in the observed data $x=6$ and view the likelihood as a function of $p$
+    $$
+    L(p) = \binom{10}{6}p^6(1-p)^{10-6}, \qquad 0<p<1
+    $$
+1.  See below. It seems like the overall maximum occurs at a value of 0.6.
+1.  Take logs
+    $$
+    \ell(p) = \log L(p) = \log\left(\binom{10}{6}p^6(1-p)^{10-6}\right) = 6\log p + (10 - 6)\log(1-p) + \log\binom{10}{6}
+    $$
+1.  Differentiate the log-likelihood with respect to $p$. (Don't forget the chain rule for $\log(1-p)$; the derivate of $1-p$ on the inside is $-1$.)
+    $$
+    \ell'(p) = \frac{6}{p} + \frac{10 - 6}{1-p}(-1) + 0
+    $$
+    Set $\ell'(\hat{p}) = 0$ and solve to get $\hat{p} = 0.6$. So the MLE of of $p$ based on a sample of size 10 with 6 successes is 6/10 = 0.6, the observed sample proportion of success.
 
-1.  $\text{E}(\bar{X}_n)=\mu = -2/38$ for any $n$
-1.  $\text{SD}(\bar{X}_n) = \frac{\sigma}{\sqrt{n}} = \frac{5.76}{\sqrt{n}}$, so `{r} round(5.7626 / sqrt(c(10, 100, 1000)), 3)` for $n$ = 10, 100, 1000. As the sample size increases the sample-to-sample variability of sample means decreases
-1.  See simulation results in Colab notebook. Distribution does not look anything like Normal for $n=10$ or $n=100$.  Shape of sample-to-sample distribution of sample means looks approximately Normal for $n=1000$ (but there is still discrete versus continuous issue).
-1.  See simulation results in the Colab notebook. Your expected winnings are negative so the game is biased against you. In the long run, you lose, and the casino wins. So you don't want to play in the long run.  In the short run, there is a tradeoff: the more games you play the more chances you have to win at least once, and winning at least once can offset your losses. If you just play 10 games, the probability of winning at least once doesn't offset your losses as effectively as when you play 100 games. In the short run, your probability of coming out ahead increases as you play more games, but eventually it starts to decrease with $n$ as you play more and more games. (There is some weird discreteness in terms of number of possibilities that happens so the pattern is a little more complicated.)
-    However, remember that $\text{E}(\bar{X}_n)$ is negative for any $n$. For example, consider $n=35$. Suppose that every day you go to the casino and play 35 games. Then on about 60% of days you'll end up ahead for that day.  However, even though you end up ahead on more days than not, your winnings on the days you end up ahead are not enough to offset your losses on the other days. Over many days of 35 bets every day, you will lose about 35(2/38) = 1.84) dollars on average per day. 
-1.  Assuming $n=1000$ is large enough to the CLT to kick, $\bar{X}_n$ has a Normal distribution with mean $-2/38$ and SD $5.76/\sqrt{1000}=$ `r round(5.7626 / sqrt(1000), 3)`. A value of 0 is $(0 - (-2/38))/0.182 = 0.289$ SDs above the mean. From the empirical rule, the probability will be between 0.5 and 0.31. Software (below) shows it's 0.386.
-1.  Assuming $n$ is large enough to the CLT to kick, $\bar{X}_n$ has a Normal distribution with mean $-2/38$ and SD $5.76/\sqrt{n}$. We want to find $n$ so that $\text{P}(\bar{X}_n <0)= 0.99$. That is, we want 0 to be the 99th percentile. For a Normal distribution, the 99th percentile is 2.33 SDs above the mean.  So we want to find $n$ so that $0 = -2/38 + 2.33(5.76/\sqrt{n})$. Solving for $n$ gives $n = (2.33(5.76)/(2/38))^2 = 64878$. (Roulette spins happen about once every minute at a casino. Even if the casino only has a single wheel with a single bet on each spin, the casino would easily clear more than the required number of bets in a day. Your bets are essentially free money for the casino.)
 
 
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import binom
 
+# Sequence from 0 to 1 in increments of 0.001
+p = np.arange(0, 1.001, 0.001)
 
+# Binomial likelihood: P(X = 6) for n = 10
+likelihood = binom.pmf(6, 10, p)
+
+# Plot likelihood
+plt.plot(p, likelihood)
+
+plt.xlabel("p")
+plt.ylabel("L(p)")
+plt.title("Likelihood of 6 successes in 10 trials")
+
+# Vertical dashed orange line at p = 0.6
+plt.vlines(
+    x=0.6,
+    ymin=0,
+    ymax=binom.pmf(6, 10, 0.6),
+    color="orange",
+    linestyle="--"
+)
+
+plt.show()
+
+```
 
 ## Problem 2
 
+Continuing Problem 1, now consider a general sample of size $n$ with $x$ successes.
 
-The standard measurement of the alcohol content of drinks is alcohol by volume (ABV), which is given as the volume of ethanol as a percent of the total volume of the drink.
-In a sample of 67 brands of beer,  the mean ABV is 4.61 percent and the standard deviation of ABV is 0.754 percent.
-
--   First, to get some practice, answer the following questions by computing by hand using only the information provided here.
--   **Coding required.** Then, use Python to produce the summaries and analysis needed to answer the questions. Be sure to also include appropriate plots of the [beer data](https://raw.githubusercontent.com/kevindavisross/data301/refs/heads/main/data/beer.csv).
-
-
-1.  Compute a 95% confidence interval for the appropriate population mean.
-1.  Write a clearly worded sentence reporting your confidence interval in context.
-1.  Is 4.5% a plausible value of the parameter?  Explain briefly.
-1.  One of the brands of beer in the sample is O'Doul's, a non-alcoholic beer.
-The ABV for O'Doul's is 0.4% (it has a bit of alcohol.)
-Suppose O'Doul's is removed from the data set.
-Compute the sample mean ABV of the remaining 66 brands.
-1.  The sample SD of ABV of the remaining 66 brands is 0.55 percent.
-Explain intuitively why this value is smaller than the sample SD of all 67 brands.
-1.  Compute the 95% confidence interval based on the sample with O'Doul's removed.  Compare to the original interval, both in terms of center of the CI and its width.  Explain briefly.
-1.  Based on the interval based on the sample with O'Doul's removed, is 4.5% a plausible value of the parameter?  Explain briefly.
-1.  Which of the analyses is more appropriate: with or without O'Doul's? Explain your reasoning.
+1.  Carefully write the likelihood function. (The expression should contain $x$ and $n$.)
+1.  Continuing the previous part, carefully write the log-likelihood function. (The expression should contain $x$ and $n$.)
+1.  Use calculus to find a general expression for the maximum likelihood estimate of $p$. Your answer should be an expression involving $x$ and $n$.
 
 
 ### Solution
 
 
+1.  Replace $x=6$ from problem 1 with a general $x$ and $n=10$ with a general $n$. The expression has lots of symbols but $n$ and $x$ are treated as fixed (like 10 and 6) and the function is just a function of $p$.
+    $$
+    L(p) = \binom{n}{x}p^x(1-p)^{n-x}, \qquad 0<p<1
+    $$
+1.  Continuing the previous part, carefully write the log-likelihood function.
+    $$
+    \ell(p) = \log L(p) = \log\left(\binom{n}{x}p^x(1-p)^{n-x}\right) = x\log p + (n - x)\log(1-p) + \log\binom{n}{x}
+    $$
+a. Differentiate the log-likelihood with respect to $p$. $x$ is treated like a constant just like 6 above. (Don't forget the chain rule for $\log(1-p)$; the derivative of $1-p$ on the inside is $-1$.)
+    $$
+    \ell'(p) = \frac{x}{p} + \frac{n - x}{1-p}(-1) + 0
+    $$
+    Set $\ell'(\hat{p}) = 0$ and solve to get $\hat{p} = x/n$. So the MLE of of $p$ based on a sample of size $n$ with $X$ successes is $X/n$, the observed sample proportion of success $\hat{p}$.
 
-1.  The SE of $0.754/\sqrt{67}= 0.092$ measures the sample-to-sample variability of sample mean ABV over many samples of 67 brands of beer each. The 95\% CI is $4.61 \pm 2 × 0.092 \Rightarrow 4.61 \pm 0.184 \Rightarrow [4.42, 4.79].$
-1.  We estimate with 95% confidence that the population mean ABV for brands of beer is between 4.42 and 4.79 percent.
-1.  4.5 percent is in the confidence interval, so yes it is a plausible value of the parameter (if 95% confidence represents our criteria for plausibility.)
-1.  The original sample mean of 67 values is 4.61, so the sum of the 67 values is $67\times 4.61 = 308.87$. Removing the outlier leaves 66 values with a sum of $308.87-0.4 = 308.47$, so the sample mean of the 66 values is $308.47/66 = 4.67$.The outlier pulled the mean down, so the mean is larger without it.
-1.  The sample SD of ABV was larger with O'Doul's; the outlier pulled up the average distance from the mean.
-1.  O'Doul's was bringing down the mean, so removing it increase the sample mean and increases the center of the confidence interval. Removing O'Douls results in a smaller sample SD, and a narrower CI.
-1. Technically, no since the value 4.5 percent lies outside the CI. (Though if we really want to assess the plausibility of a particular value like 4.5 we would want to compute a p-value to measure the strength of the evidence; here we're basically just saying that the p-value is less than 0.05.)
-1.  In general, EXCLUDING OUTLIERS WITHOUT A COMPELLING REASON IS BAD.  However, in this case the population we are interested in is brands of beer, probably meaning beer with actual alcohol in it.  So it makes sense to only consider a sample of alcoholic beers, and so I think the more appropriate analysis with the non-alcoholic beer excluded.
+
 
 ## Problem 3
 
-Do non-smokers have better lungs than smokers?
-One measure of lung function is forced expiratory volume (FEV), the amount of air (in liters) an individual can exhale in the first second of forceful breath.
-Larger values of FEV are indicative of better functioning lungs. In a study, FEV was measured for a group of 654 subjects, along with whether they smoked and other variables like age (years).
-Note: I’m purposely not yet giving you much information about how the sample was collected.
+Assume a Poisson($\mu$) model for the number of home runs hit (in total by both teams) in a MLB game.
+Let $X_1, \ldots, X_n$ be a random sample of home run counts for $n$ games.
+(The context doesn't matter, but it helps to have something in mind rather than just the general problem.)
 
-1.  **Coding required.** Use Python to summarize the [FEV data](https://raw.githubusercontent.com/kevindavisross/data301/refs/heads/main/data/FEV.csv).
-Summarize the distribution of FEV both overall and separately for smokers and non-smokers.
-1.  Suppose you want to fill in the blanks in the following sentence: 95% of FEV values in the population are between [blank] and [blank].
-Assuming this sample is representative, provide reasonable values that fill in the blanks, and explain your reasoning.
-Hint: it is better to give a correct rough estimate than a precise but incorrect answer, so think before trying to compute anything.
-(Since you don’t have much information about the sample, you don’t have to clarify yet what "population" is appropriate.)
-1.  Using appropriate summary statistics, compute by hand a 95% confidence for the appropriate difference in population means.
-1.  **Coding required.** Use Python to compute the confidence interval and compare to what you computed by hand.
-1.  Write a clearly worded sentence interpreting the confidence interval in context.
-1.  Assuming this is a representative sample, are we reasonably confident that one group (smokers or non-smokers) tends to have better FEV? Why? Which group?
-1.  **Coding required.** You should have observed something surprising in the previous parts.
-Investigate some of the other variables in the data set and produce a few appropriate plots or summaries that provide an explanation for the surprising result.
-Write a clearly worded sentence or two summarizing your explanation.
+Suppose we want to estimate $\theta = \mu e^{-\mu}$, the probability that any single game has exactly 1 HR (for Poisson($\mu$), $P(X = 1) = e^{-\mu}\,u^1/1! = \mu e^{-\mu}$).
+Consider two estimators of $\theta$:
 
-### Solution
+-   $\hat{\theta} = \bar{X} e^{-\bar{X}}$
+-   $\hat{p} =\text{sample proportion of 1s} = \frac{\text{number of games in the sample with 1 HR}}{\text{sample size}}$
 
-1.  See Colab notebook for results. FEV for smokers tends to be *higher* than for non-smokers (which is the opposite of what you would expect.)
-1.  This is NOT a confidence interval question. Find the 2.5th and 97.5th percentile of values: between 1.3 and 4.6. But just eyeballing from the histogram, it seems like most values are between about 1 and 5 liters.
-1.  Observed difference in means 3.28-2.56 =0.72.  The SE is  $\sqrt{\frac{0.85^2}{589}+\frac{0.75^2}{65}} = 0.1$. The endpoints of the 95% CI are $0.72\pm 2 \times 0.1= 0.72 \pm 0.2$, an interval of [0.51, 0.91].
-1.  See Colab notebook; results are comparable.
-1.  We estimate with 95% confidence that the population mean FEV for smokers is between 0.51 and 0.91 liters greater than the population mean FEV for smokers.(We'll clarify "population" below.)
-1.  Smokers because of the previous part.
-1.  See Colab notebook for some plots.
-The 654 subjects in this study were all children!
-Their ages varied from 3 to 19 years old. This would certainly limit the "population" we would be willing to generalize to.
+1.  Compute the value of $\hat{\theta}$ based on the sample (3, 0, 1, 4, 0). Write a clearly worded sentence reporting in context this estimate of $\theta$.
+1.  Compute the value of $\hat{p}$ based on the sample (3, 0, 1, 4, 0).
+Write a clearly worded sentence reporting in context your estimate of $\theta$.
+1.  Which of these two estimators is the MLE of $\theta$ in this situation? Explain, without doing any calculations.
+1.  It can be shown that $\hat{p}$ is an unbiased estimator of $\theta$.
+Explain in words what this means.
+1.  Is $\hat{\theta}$ an unbiased estimator of $\theta$?
+Explain.
+(You don't have to derive anything; just apply a general principle.)
+1.  Suppose $\mu = 3.4$ and $n=5$.
+Explain in full detail how you would use simulation to approximate the bias of $\hat{\theta}$ in this case. 
+In particular, specify the spinner you would use to simulate values.
+1.  Explain in full detail how you would use simulation to approximate the bias *function* of $\hat{\theta}$ when $n=5$.
 
-    Regarding why smokers tend to have higher FEV:
-    -   Smokers tend to be older.
-    -   Older kids to tend to have larger and better lung capacities.
-    -   In statistical terms, age is a *confounding variable*.
-(We could use regression to *control* for age.)
+### Solution (see the end for some code and results)
+
+
+1.  For the sample (3, 0, 1, 4, 0), the value of $\bar{X}$ is 8/5 and  the value of $\hat{\theta}$ is $(8/5)e^{-8/5}=0.323$. Using this estimator, based on this sample we would estimate that 32.3 percent of baseball games have 1 home run.
+1.  For the sample (3, 0, 1, 4, 0) there is 1 game with 1 HR so $\hat{p} = 1/5 = 0.2$. Using this estimator, based on this sample we would estimate that 20 percent of baseball games have 1 home run.
+1.  We know that the MLE of $\mu$ for a Poisson distribution is $\bar{X}$, so by the invariance principle of MLEs, $\bar{X}e^{-\bar{X}}$ is the MLE of $\mu e^{-\mu}$.
+1.  Over many samples, $\hat{p}$ does not consistently over or under estimate $\theta$.
+1.  No. $\bar{X}$ is an unbiased estimator of $\mu$ but nonlinear transformations do not preserve unbiasedness.
+$\hat{\theta}$ is not unbiased estimator of $\theta$.
+    $$
+    \text{E}(\hat{\theta}) = \text{E}(\bar{X}e^{-\bar{X}})\neq     \text{E}(\bar{X})e^{-\text{E}(\bar{X})} = \mu e^{-\mu} = \theta
+    $$
+1.  For $\mu = 3.4$
+    -   Create a spinner corresponding to the Poisson(3.4) distribution. For example, $P(X=0)=e^{-3.4} = 0.034$, $P(X=1) = 3.4e^{-3.4} = 0.113$, etc.
+    -   Simulate a sample of size $n$ from a Poisson(3.4) distribution by spinning the spinner $n$ times, say (3, 0, 1, 4, 0) for $n=5$.
+    -   For the simulated sample compute the sample mean $\bar{X}$ and the value of $\hat{\theta} = \bar{X}e^{-\bar{X}}$, say 8/5 and $(8/5)e^{-8/5}=0.323$.
+    -   Repeat many times, simulating many samples of size $n$ and many values of $\hat{\theta}$ for the chosen $\mu$.
+    -   Average the values of $\hat{\theta}$ and subtract $\theta=3.4 e^{-3.4}=0.113$ to approximate the bias when $\mu = 3.4$.
+1.  We carry out the process in the previous part for many values of $\mu$. Choose a grid of $\mu$ values, say 0.01, 0.02, $\ldots$, 10
+    -   Choose a value of $\mu$ from the grid, say 3.4
+    -   Create a spinner corresponding to the Poisson($\mu$) distribution. For example, if $\mu=3.4$ then $P(X=0)=e^{-3.4} = 0.034$, $P(X=1) = 3.4e^{-3.4} = 0.113$, etc. The spinner will change depending on $\mu$.
+    -   Simulate a sample of size $n$ from a Poisson($\mu$) distribution by spinning the spinner $n$ times, say (3, 0, 1, 4, 0) for $n=5$ if $\mu=3.4$.
+    -   For the simulated sample compute the sample mean $\bar{X}$ and the value of $\hat{\theta} = \bar{X}e^{-\bar{X}}$, say 8/5 and $(8/5)e^{-8/5}=0.323$.
+    -   Repeat many times, simulating many samples of size $n$ and many values of $\hat{\theta}$ for the chosen $\mu$.
+    -   Average the values of $\hat{\theta}$ and subtract $\theta=\mu e^{-\mu}$ to approximate the bias for that $\mu$; for example subtract $\theta=3.4 e^{-3.4}=0.113$ when $\mu = 3.4$.
+    -   Repeat the above process for all the values of $\mu$ in the grid and plot the approximate bias as a function of $\mu$ to approximate the bias function.
+
 
 
 ## Problem 4
 
+Continuing Problem 3.
 
-(I had much longer instructions written, but I think they weren't helpful. If you have questions about how the applet is working, don't hesitate to ask.)
-
-You are going to use a simulation applet that randomly generates confidence interals for a population mean to help you understand some ideas. The applet calculates a confidence interval for each set of randomly generated data.
-
-- In the box for "Statistic" select means "Means".
-- In the box next to "Method" select "t".
-- Start with "Number of intervals" equal to 1 at first to see what is happening, but then change it to lots.
-
-Experiment with different simulations; be sure to change
-
-- Distribution
-- Population Mean
-- Population SD
-- Sample size
-- Confidence level
+1.  It can be shown that $\text{Var}(\hat{p}) = \frac{\theta(1-\theta)}{n}$. Compute  $\text{Var}(\hat{p})$ when $\mu = 3.4$ and $n=5$.
+Then write a clearly worded sentence interpreting this value.
+1.  Suppose $\mu = 3.4$ and $n=5$.
+Explain in full detail how you would use simulation to approximate the variance of $\hat{\theta}$.
+1.  Explain in full detail how you would use simulation to approximate the variance function of $\hat{\theta}$ (if $n=5$).
 
 
-Then write a paragraph or two or some bullet points of your main observations. Based on this applet, what can you say about how confidence intervals work? How does changing the inputs affect the confidence intervals and the Results?
-
-### Solution
-
--   Simulated coverage level is generally close to confidence level, unless sample size is small and population is not Normal
--   Increasing population SD makes the intervals wider (but you would have no control over this in practice)
--   Increasing the sample size make the intervals narrower (that is, more precise estimates for the same level of confidence)
--   Increasing the confidence level makes the intervals wider
--   Since sample means are unbiased estimators of the population mean, when the population mean changes, the sample means follow it.
+### Solution (see the end for some code and results)
 
 
+1.  When $\mu = 3.4$, $\theta = 3.4e^{-3.4} = 0.113$, so if $n=5$
+    $$
+    \text{Var}_{\mu = 3.4}(\hat{p}) = \frac{0.113(1-0.113)}{5} = 0.020
+    $$ 
+    This number measures the sample-to-sample variance of sample proportions of games with 1 HR over many samples of 5 games, assuming that the long run average number of HRs per game is $\mu = 3.4$.
+1.  For $\mu = 3.4$
+    -   Create a spinner corresponding to the Poisson(3.4) distribution. For example, $P(X=0)=e^{-3.4} = 0.034$, $P(X=1) = 3.4e^{-3.4} = 0.113$, etc.
+    -   Simulate a sample of size $n$ from a Poisson(3.4) distribution by spinning the spinner $n$ times, say (3, 0, 1, 4, 0) for $n=5$.
+    -   For the simulated sample compute the sample mean $\bar{X}$ and the value of $\hat{\theta} = \bar{X}e^{-\bar{X}}$, say 8/5 and $(8/5)e^{-8/5}=0.323$.
+    -   Repeat many times, simulating many samples of size $n$ and many values of $\hat{\theta}$ for the chosen $\mu$.
+    -   Average the values of $\hat{\theta}$, for each value of $\hat{\theta}$ find its deviation from the average, and then average the squared deviations. This number approximates $\text{Var}(\hat{\theta})$ when $\mu = 3.4$
+1.  We carry out the process in the previous part for many values of $\mu$. Choose a grid of $\mu$ values, say 0.01, 0.02, $\ldots$, 10
+    -   Choose a value of $\mu$ from the grid, say 3.4
+    -   Create a spinner corresponding to the Poisson($\mu$) distribution. For example, if $\mu=3.4$ then $P(X=0)=e^{-3.4} = 0.034$, $P(X=1) = 3.4e^{-3.4} = 0.113$, etc. The spinner will change depending on $\mu$.
+    -   Simulate a sample of size $n$ from a Poisson($\mu$) distribution by spinning the spinner $n$ times, say (3, 0, 1, 4, 0) for $n=5$ if $\mu=3.4$.
+    -   For the simulated sample compute the sample mean $\bar{X}$ and the value of $\hat{\theta} = \bar{X}e^{-\bar{X}}$, say 8/5 and $(8/5)e^{-8/5}=0.323$.
+    -   Repeat many times, simulating many samples of size $n$ and many values of $\hat{\theta}$ for the chosen $\mu$.
+    -   Average the values of $\hat{\theta}$, for each value of $\hat{\theta}$ find its deviation from the average, and then average the squared deviations. This number approximates $\text{Var}(\hat{\theta})$ for the chosen $\mu$
+    -   Repeat the above process for all the values of $\mu$ in the grid and plot the approximate variance as a function of $\mu$ to approximate the variance function.
 
 
+
+
+## Problem 5
+
+Continuing Problems 3 and 4
+
+1.  Compute $\text{MSE}(\hat{p})$ when $\mu = 3.4$ and $n=5$.
+(You can do the next part first if you want, but it helps to work with specific numbers first.)
+1.  Derive the MSE function of $\hat{p}$.
+(Hint: use facts from previous parts.)
+1.  Suppose $\mu = 3.4$ (and $n=5$).
+Explain in full detail how you would use simulation to approximate the MSE of $\hat{\theta}$.
+1.  Suppose $\hat{\theta}$ has smaller MSE than $\hat{p}$ when $\mu = 3.4$ (and $n=5$).
+Which estimator would you prefer?
+Answer, but then explain why this information alone is not really useful.
+1.  Explain in full detail how you would use simulation to approximate the MSE *function* of $\hat{\theta}$ (if $n=5$).
+1.  Suppose you determine that $\hat{\theta}$ has smaller MSE for almost all values of $\mu$ regardless of $n$. 
+Recall parts 1 and 2 of Problem 3.
+Which value of these two estimates (the values from parts 1 and 2 of Problem 3) is a better estimate of $\theta$? 
+That is, which of the two estimates is closer to the true $\theta$? 
+Explain.
+1.  Suppose you determine that $\hat{\theta}$ has smaller MSE for almost all values of $\mu$ regardless of $n$. 
+Recall parts 1 and 2 of Problem 3.
+Which value of these two estimates (the values from parts 1 and 2 of Problem 3) would you choose as your point estimate of $\theta$? 
+Explain.
+
+
+
+### Solution (see the end for some code and results)
+
+
+1.  Since $\hat{p}$ is unbiased, its MSE is just its variance, 0.020 from part 4
+1.  Since $\hat{p}$ is unbiased, its MSE function is just its variance function, $\text{Var}(\hat{p}) = \frac{\theta(1-\theta)}{n}$ from part 4.
+1.  We would prefer the estimator with smaller MSE, so $\hat{\theta}$ when $\mu=3.4$, but that's not useful information because we don't know what $\mu$ is.
+1.  For $\mu = 3.4$
+    -   Create a spinner corresponding to the Poisson(3.4) distribution. For example, $P(X=0)=e^{-3.4} = 0.034$, $P(X=1) = 3.4e^{-3.4} = 0.113$, etc.
+    -   Simulate a sample of size $n$ from a Poisson(3.4) distribution by spinning the spinner $n$ times, say (3, 0, 1, 4, 0) for $n=5$.
+    -   For the simulated sample compute the sample mean $\bar{X}$ and the value of $\hat{\theta} = \bar{X}e^{-\bar{X}}$, say 8/5 and $(8/5)e^{-8/5}=0.323$.
+    -   Repeat many times, simulating many samples of size $n$ and many values of $\hat{\theta}$ for the chosen $\mu$.
+    -   For each value of $\hat{\theta}$ subtract $\theta=3.4 e^{-3.4}=0.113$ and square the difference, then average these squared differences to approximate the MSE when $\mu = 3.4$. (Or you could square the bias from part 3 and add the variance from part.)
+1.  We carry out the process in the previous part for many values of $\mu$. Choose a grid of $\mu$ values, say 0.01, 0.02, $\ldots$, 10
+    -   Choose a value of $\mu$ from the grid, say 3.4
+    -   Create a spinner corresponding to the Poisson($\mu$) distribution. For example, if $\mu=3.4$ then $P(X=0)=e^{-3.4} = 0.034$, $P(X=1) = 3.4e^{-3.4} = 0.113$, etc. The spinner will change depending on $\mu$.
+    -   Simulate a sample of size $n$ from a Poisson($\mu$) distribution by spinning the spinner $n$ times, say (3, 0, 1, 4, 0) for $n=5$ if $\mu=3.4$.
+    -   For the simulated sample compute the sample mean $\bar{X}$ and the value of $\hat{\theta} = \bar{X}e^{-\bar{X}}$, say 8/5 and $(8/5)e^{-8/5}=0.323$.
+    -   Repeat many times, simulating many samples of size $n$ and many values of $\hat{\theta}$ for the chosen $\mu$.
+    -   For each value of $\hat{\theta}$ subtract $\theta= \mu e^{-\mu}$ (e.g., $\theta= e^{-3.4}=0.113$ if $\mu=3.4$) and square the difference, then average these squared differences to approximate the MSE for this $\mu$. (Or you could square the bias from part 3 and add the variance from part.)
+    -   Repeat the above process for all the values of $\mu$ in the grid and plot the approximate MSE as a function of $\mu$ to approximate the MSE function.
+1.  We don't know what $\theta$ is, so we don't know which of the values 0.323 or 0.20 is a better estimate of $\theta$.
+1.  We would chose 0.323 as our estimate because our analysis has shown that $\hat{\theta}$ is (1) the MLE, so observing the sample we observed is more likely when $\mu$ is 0.323 than when $\mu$ is 0.2, (2) as a procedure $\hat{\theta}$ tends to perform better than $\hat{p}$ for estimating $\mu$ in the Poisson case over many samples and over many potential values of $\mu$.
+
+
+
+## Simulation for Parts 3-5
+
+For $mu$ = 3.4. With a for loop but you could also do in a vectorized way (see Colab notebooks)
+
+```{python}
+import numpy as np
+
+n = 5
+mu = 3.4
+N_samples = 10_000
+
+theta_hats = np.empty(N_samples)
+
+for i in range(N_samples):
+    # simulate a sample of size n from Poisson(mu)
+    x = np.random.poisson(mu, size=n)
+
+    # compute theta-hat
+    x_bar = np.mean(x)
+    theta_hats[i] = x_bar * np.exp(-x_bar)
+
+# True value of theta = mu * exp(-mu)
+theta = mu * np.exp(-mu)
+
+# Approximate bias
+bias = np.mean(theta_hats) - theta
+
+# Approximate variance
+# ddof=1 matches R's var(), which uses sample variance
+variance = np.var(theta_hats, ddof=1)
+
+# Approximate MSE
+mse = np.mean((theta_hats - theta) ** 2)
+
+print("Bias:", bias)
+print("Variance:", variance)
+print("MSE:", mse)
+```
+
+
+For all $\mu$
+
+```{python}
+import numpy as np
+
+n = 5
+
+# grid of mu values: 0.1, 0.2, ..., 5.0
+mus = np.arange(0.1, 5.1, 0.1)
+
+N_samples = 10_000
+
+# initialize lists to record bias, variance, and MSE
+bias_thetahat = []
+var_thetahat = []
+mse_thetahat = []
+
+for mu in mus:
+    # true value of theta for this mu
+    theta = mu * np.exp(-mu)
+
+    # store simulated theta-hat values
+    theta_hats = np.empty(N_samples)
+
+    for i in range(N_samples):
+        # simulate sample of size n from Poisson(mu)
+        x = np.random.poisson(mu, size=n)
+
+        # compute theta-hat
+        x_bar = np.mean(x)
+        theta_hats[i] = x_bar * np.exp(-x_bar)
+
+    # approximate bias
+    bias_thetahat.append(np.mean(theta_hats) - theta)
+
+    # approximate variance
+    # ddof=1 matches R's var()
+    var_thetahat.append(np.var(theta_hats, ddof=1))
+
+    # approximate MSE
+    mse_thetahat.append(
+        np.mean((theta_hats - theta) ** 2)
+    )
+
+# optionally convert lists to NumPy arrays
+bias_thetahat = np.array(bias_thetahat)
+var_thetahat = np.array(var_thetahat)
+mse_thetahat = np.array(mse_thetahat)
+
+```
+
+
+
+### Bias function
+
+Any "wiggles" are due to natural simulation margin of error (can make these go away by simulating even more samples)
+
+```{python}
+import matplotlib.pyplot as plt
+
+plt.plot(mus, bias_thetahat)
+
+plt.xlabel("mu")
+plt.ylabel("Bias of thetahat")
+
+plt.show()
+```
+
+### Squared bias function
+
+Any "wiggles" are due to natural simulation margin of error (can make these go away by simulating even more samples)
+
+```{python}
+import matplotlib.pyplot as plt
+
+plt.plot(mus, bias_thetahat**2)
+
+plt.xlabel("mu")
+plt.ylabel("Squared Bias of thetahat")
+plt.ylim(0, 0.05) # set common y-axis scale
+
+plt.show()
+```
+
+### Variance function
+
+Any "wiggles" are due to natural simulation margin of error (can make these go away by simulating even more samples)
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Plot variance of theta-hat
+plt.plot(mus, var_thetahat, ".")
+
+plt.xlabel("mu")
+plt.ylabel("Variance")
+plt.ylim(0, 0.05)
+
+plt.title("Variance functions of theta-hat (dots) and p-hat (dashed)")
+
+# Create x values for theoretical curve
+x = np.linspace(min(mus), max(mus), 500)
+
+# Calculate theoretical variance
+y = x * np.exp(-x) * (1 - x * np.exp(-x)) / n
+
+# Add dashed theoretical curve
+plt.plot(x, y, linestyle="--")
+
+plt.show()
+```
+
+
+### MSE function
+
+Any "wiggles" are due to natural simulation margin of error (can make these go away by simulating even more samples)
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Plot MSE of theta-hat
+plt.plot(mus, mse_thetahat, ".")
+
+plt.xlabel("mu")
+plt.ylabel("MSE")
+plt.ylim(0, 0.05)
+
+plt.title("MSE functions of theta-hat (dots) and p-hat (dashed)")
+
+# Add theoretical curve as a dashed line
+x = np.linspace(min(mus), max(mus), 500)
+
+y = x * np.exp(-x) * (1 - x * np.exp(-x)) / n
+
+plt.plot(x, y, linestyle = "--")
+
+plt.show()
+```

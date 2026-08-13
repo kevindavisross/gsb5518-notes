@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Homework 8 solutions – GSB518 Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./hw-09-sol.html" rel="next">
+<link href="./hw-07-sol.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./hw-08-sol.html">Homework 8 solutions</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">GSB518 Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./randomness-and-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Randomness and Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Probability Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conditional-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bayes-rule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bayes Rule</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./independence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Independence of Events</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./discrete-rv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Discrete Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-mass-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Probability Mass Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expected-value.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Expected Value</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./variance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Variance and Standard Deviation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./binomial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Binomial Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Poisson Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./continuous-pdf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Continuous Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cdf-and-quantile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Percentiles: Cumulative Distribution Functions and Quantile Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expected-values-continuous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Expected Values of Continuous Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exponential.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Exponential Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Normal Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joint-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Joint and Conditional Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./covariance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Covariance and Correlation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear-combinations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Linear Combinations of Random Variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./joint-normal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Joint Normal Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./from-probability-to-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Estimation: From Probability to Statistics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./maximum-likelihood-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Maximum Likelihood Estimation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimators-bias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Bias of Estimators</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimators-mse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Variance and Mean Square Error of an Estimator</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Central Limit Theorem</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bootstrapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Bootstrap Confidence Intervals</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./null-hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Null Hypothesis Testing</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Comparing multiple means: ANOVA <span class="math inline">\(F\)</span> procedures</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 5</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 6</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 7</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 8</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-09.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 9</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-01-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-02-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-03-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-04-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4 Solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-05-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 5 solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-06-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 6 solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-07-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 7 solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-08-sol.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Homework 8 solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hw-09-sol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 9 solutions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./distribution-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Summary of Some Common Distributions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#problem-1" id="toc-problem-1" class="nav-link active" data-scroll-target="#problem-1">Problem 1</a>
+  <ul class="collapse">
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution">Solution</a></li>
+  </ul></li>
+  <li><a href="#problem-2" id="toc-problem-2" class="nav-link" data-scroll-target="#problem-2">Problem 2</a>
+  <ul class="collapse">
+  <li><a href="#solution-1" id="toc-solution-1" class="nav-link" data-scroll-target="#solution-1">Solution</a></li>
+  </ul></li>
+  <li><a href="#problem-3" id="toc-problem-3" class="nav-link" data-scroll-target="#problem-3">Problem 3</a>
+  <ul class="collapse">
+  <li><a href="#solution-see-the-end-for-some-code-and-results" id="toc-solution-see-the-end-for-some-code-and-results" class="nav-link" data-scroll-target="#solution-see-the-end-for-some-code-and-results">Solution (see the end for some code and results)</a></li>
+  </ul></li>
+  <li><a href="#problem-4" id="toc-problem-4" class="nav-link" data-scroll-target="#problem-4">Problem 4</a>
+  <ul class="collapse">
+  <li><a href="#solution-see-the-end-for-some-code-and-results-1" id="toc-solution-see-the-end-for-some-code-and-results-1" class="nav-link" data-scroll-target="#solution-see-the-end-for-some-code-and-results-1">Solution (see the end for some code and results)</a></li>
+  </ul></li>
+  <li><a href="#problem-5" id="toc-problem-5" class="nav-link" data-scroll-target="#problem-5">Problem 5</a>
+  <ul class="collapse">
+  <li><a href="#solution-see-the-end-for-some-code-and-results-2" id="toc-solution-see-the-end-for-some-code-and-results-2" class="nav-link" data-scroll-target="#solution-see-the-end-for-some-code-and-results-2">Solution (see the end for some code and results)</a></li>
+  </ul></li>
+  <li><a href="#simulation-for-parts-3-5" id="toc-simulation-for-parts-3-5" class="nav-link" data-scroll-target="#simulation-for-parts-3-5">Simulation for Parts 3-5</a>
+  <ul class="collapse">
+  <li><a href="#bias-function" id="toc-bias-function" class="nav-link" data-scroll-target="#bias-function">Bias function</a></li>
+  <li><a href="#squared-bias-function" id="toc-squared-bias-function" class="nav-link" data-scroll-target="#squared-bias-function">Squared bias function</a></li>
+  <li><a href="#variance-function" id="toc-variance-function" class="nav-link" data-scroll-target="#variance-function">Variance function</a></li>
+  <li><a href="#mse-function" id="toc-mse-function" class="nav-link" data-scroll-target="#mse-function">MSE function</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Homework 8 solutions</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="problem-1" class="level2">
+<h2 class="anchored" data-anchor-id="problem-1">Problem 1</h2>
+<p>Consider the general problem of estimating a population proportion <span class="math inline">\(p\)</span> for some binary (success/failure) categorical variable of interest in a large population. Select a sample of size <span class="math inline">\(n\)</span> and let <span class="math inline">\(X\)</span> be the number of successes in the sample. (We are considering a general problem here, but recall your particular context from a previous homework.)</p>
+<p>We’ll consider two estimators of <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[\begin{align*}
+\text{Sample proportion:} &amp; &amp; \hat{p} &amp; = \frac{X}{n}\\
+\text{Plus four:} &amp; &amp; \tilde{p} &amp; = \frac{X+2}{n+4}
+\end{align*}\]</span></p>
+<p>Suppose we observe <span class="math inline">\(x=6\)</span> successes in a sample of size <span class="math inline">\(n=10\)</span>. For this sample <span class="math inline">\(\hat{p} = 0.6\)</span> and <span class="math inline">\(\tilde{p} = 0.571\)</span>.</p>
+<ol type="1">
+<li>Compute and interpret the probability of observing <span class="math inline">\(x=6\)</span> successes in a sample of size <span class="math inline">\(n=10\)</span> if <span class="math inline">\(p = 0.6\)</span>.</li>
+<li>Compute and interpret the probability of observing <span class="math inline">\(x=6\)</span> successes in a sample of size <span class="math inline">\(n=10\)</span> if <span class="math inline">\(p = 0.571\)</span>.</li>
+<li>Which of the estimates, 0.6 or 0.571, is a <em>better estimate</em> of <span class="math inline">\(p\)</span> based on a sample of size <span class="math inline">\(n=10\)</span> with <span class="math inline">\(x=6\)</span> successes? That is, which estimate, 0.6 or 0.571, is closer to the true <span class="math inline">\(p\)</span>? Explain.</li>
+<li>Which of the estimates, 0.6 or 0.571, would you choose as your point estimate of <span class="math inline">\(p\)</span> based on a sample of size <span class="math inline">\(n=10\)</span> with <span class="math inline">\(x=6\)</span> successes? Explain. Hint: consider parts 1 and 2.</li>
+<li>Suppose you observe <span class="math inline">\(x=6\)</span> successes in a sample of size <span class="math inline">\(n=10\)</span>. Carefully write the likelihood function. Hint: what is the distribution of <span class="math inline">\(X\)</span>?</li>
+<li>Use any software of your choice to plot the likelihood function. Based on your plot, what value appears to be the maximum likelihood estimate of <span class="math inline">\(p\)</span> based on this sample? (You can do this just by zooming in on the plot.)</li>
+<li>Carefully write the log-likelihood function.</li>
+<li>Use calculus to find the maximum likelihood estimate of <span class="math inline">\(p\)</span> based on <span class="math inline">\(x=6\)</span> successes in a sample of size <span class="math inline">\(n=10\)</span>.</li>
+</ol>
+<section id="solution" class="level3">
+<h3 class="anchored" data-anchor-id="solution">Solution</h3>
+<ol type="1">
+<li><code>scipy.stats.binom.pmf(6, 10, 0.6)</code> = 0.251 = <span class="math inline">\(\binom{10}{6}(0.6)^6(1-0.6)^{10-6}\)</span>. If the population proportion of success is 0.6, then about 25.1 percent of samples of size 10 would result in 6 successes.</li>
+<li><code>scipy.stats.binom.pmf(6, 10, 0.571)</code> = 0.186 = <span class="math inline">\(\binom{10}{6}(0.571)^6(1-0.571)^{10-6}\)</span>. If the population proportion of success is 0.571, then about 18.6 percent of samples of size 10 would result in 6 successes.</li>
+<li>We don’t know which of 0.6 and 0.571 is a better estimate because we don’t know what <span class="math inline">\(p\)</span> is; that’s the reason why we’re trying to estimate it.</li>
+<li>The likelihood of observing 6 H in 10 flips is greater if <span class="math inline">\(p = 0.6\)</span> than if <span class="math inline">\(p = 0.571\)</span>, so if we’re trying to maximum the likelihood, we could pick 0.6 as our estimate of <span class="math inline">\(p\)</span> based on the 6/10 sample.</li>
+<li>When <span class="math inline">\(n=10\)</span>, <span class="math inline">\(X\)</span> has a Binomial(10, <span class="math inline">\(p\)</span>) distribution. The pmf is <span class="math inline">\(\binom{10}{x}p^x(1-p)^{10-x}.\)</span> Plug in the observed data <span class="math inline">\(x=6\)</span> and view the likelihood as a function of <span class="math inline">\(p\)</span> <span class="math display">\[
+L(p) = \binom{10}{6}p^6(1-p)^{10-6}, \qquad 0&lt;p&lt;1
+\]</span></li>
+<li>See below. It seems like the overall maximum occurs at a value of 0.6.</li>
+<li>Take logs <span class="math display">\[
+\ell(p) = \log L(p) = \log\left(\binom{10}{6}p^6(1-p)^{10-6}\right) = 6\log p + (10 - 6)\log(1-p) + \log\binom{10}{6}
+\]</span></li>
+<li>Differentiate the log-likelihood with respect to <span class="math inline">\(p\)</span>. (Don’t forget the chain rule for <span class="math inline">\(\log(1-p)\)</span>; the derivate of <span class="math inline">\(1-p\)</span> on the inside is <span class="math inline">\(-1\)</span>.) <span class="math display">\[
+\ell'(p) = \frac{6}{p} + \frac{10 - 6}{1-p}(-1) + 0
+\]</span> Set <span class="math inline">\(\ell'(\hat{p}) = 0\)</span> and solve to get <span class="math inline">\(\hat{p} = 0.6\)</span>. So the MLE of of <span class="math inline">\(p\)</span> based on a sample of size 10 with 6 successes is 6/10 = 0.6, the observed sample proportion of success.</li>
+</ol>
+<div id="016686d6" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> binom</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Sequence from 0 to 1 in increments of 0.001</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="fl">1.001</span>, <span class="fl">0.001</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Binomial likelihood: P(X = 6) for n = 10</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>likelihood <span class="op">=</span> binom.pmf(<span class="dv">6</span>, <span class="dv">10</span>, p)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot likelihood</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.plot(p, likelihood)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"p"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"L(p)"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Likelihood of 6 successes in 10 trials"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Vertical dashed orange line at p = 0.6</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.vlines(</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="fl">0.6</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    ymin<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    ymax<span class="op">=</span>binom.pmf(<span class="dv">6</span>, <span class="dv">10</span>, <span class="fl">0.6</span>),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"orange"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    linestyle<span class="op">=</span><span class="st">"--"</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-08-sol_files/figure-html/cell-2-output-1.png" width="597" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="problem-2" class="level2">
+<h2 class="anchored" data-anchor-id="problem-2">Problem 2</h2>
+<p>Continuing Problem 1, now consider a general sample of size <span class="math inline">\(n\)</span> with <span class="math inline">\(x\)</span> successes.</p>
+<ol type="1">
+<li>Carefully write the likelihood function. (The expression should contain <span class="math inline">\(x\)</span> and <span class="math inline">\(n\)</span>.)</li>
+<li>Continuing the previous part, carefully write the log-likelihood function. (The expression should contain <span class="math inline">\(x\)</span> and <span class="math inline">\(n\)</span>.)</li>
+<li>Use calculus to find a general expression for the maximum likelihood estimate of <span class="math inline">\(p\)</span>. Your answer should be an expression involving <span class="math inline">\(x\)</span> and <span class="math inline">\(n\)</span>.</li>
+</ol>
+<section id="solution-1" class="level3">
+<h3 class="anchored" data-anchor-id="solution-1">Solution</h3>
+<ol type="1">
+<li>Replace <span class="math inline">\(x=6\)</span> from problem 1 with a general <span class="math inline">\(x\)</span> and <span class="math inline">\(n=10\)</span> with a general <span class="math inline">\(n\)</span>. The expression has lots of symbols but <span class="math inline">\(n\)</span> and <span class="math inline">\(x\)</span> are treated as fixed (like 10 and 6) and the function is just a function of <span class="math inline">\(p\)</span>. <span class="math display">\[
+L(p) = \binom{n}{x}p^x(1-p)^{n-x}, \qquad 0&lt;p&lt;1
+\]</span></li>
+<li>Continuing the previous part, carefully write the log-likelihood function. <span class="math display">\[
+\ell(p) = \log L(p) = \log\left(\binom{n}{x}p^x(1-p)^{n-x}\right) = x\log p + (n - x)\log(1-p) + \log\binom{n}{x}
+\]</span></li>
+</ol>
+<ol type="a">
+<li>Differentiate the log-likelihood with respect to <span class="math inline">\(p\)</span>. <span class="math inline">\(x\)</span> is treated like a constant just like 6 above. (Don’t forget the chain rule for <span class="math inline">\(\log(1-p)\)</span>; the derivative of <span class="math inline">\(1-p\)</span> on the inside is <span class="math inline">\(-1\)</span>.) <span class="math display">\[
+\ell'(p) = \frac{x}{p} + \frac{n - x}{1-p}(-1) + 0
+\]</span> Set <span class="math inline">\(\ell'(\hat{p}) = 0\)</span> and solve to get <span class="math inline">\(\hat{p} = x/n\)</span>. So the MLE of of <span class="math inline">\(p\)</span> based on a sample of size <span class="math inline">\(n\)</span> with <span class="math inline">\(X\)</span> successes is <span class="math inline">\(X/n\)</span>, the observed sample proportion of success <span class="math inline">\(\hat{p}\)</span>.</li>
+</ol>
+</section>
+</section>
+<section id="problem-3" class="level2">
+<h2 class="anchored" data-anchor-id="problem-3">Problem 3</h2>
+<p>Assume a Poisson(<span class="math inline">\(\mu\)</span>) model for the number of home runs hit (in total by both teams) in a MLB game. Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be a random sample of home run counts for <span class="math inline">\(n\)</span> games. (The context doesn’t matter, but it helps to have something in mind rather than just the general problem.)</p>
+<p>Suppose we want to estimate <span class="math inline">\(\theta = \mu e^{-\mu}\)</span>, the probability that any single game has exactly 1 HR (for Poisson(<span class="math inline">\(\mu\)</span>), <span class="math inline">\(P(X = 1) = e^{-\mu}\,u^1/1! = \mu e^{-\mu}\)</span>). Consider two estimators of <span class="math inline">\(\theta\)</span>:</p>
+<ul>
+<li><span class="math inline">\(\hat{\theta} = \bar{X} e^{-\bar{X}}\)</span></li>
+<li><span class="math inline">\(\hat{p} =\text{sample proportion of 1s} = \frac{\text{number of games in the sample with 1 HR}}{\text{sample size}}\)</span></li>
+</ul>
+<ol type="1">
+<li>Compute the value of <span class="math inline">\(\hat{\theta}\)</span> based on the sample (3, 0, 1, 4, 0). Write a clearly worded sentence reporting in context this estimate of <span class="math inline">\(\theta\)</span>.</li>
+<li>Compute the value of <span class="math inline">\(\hat{p}\)</span> based on the sample (3, 0, 1, 4, 0). Write a clearly worded sentence reporting in context your estimate of <span class="math inline">\(\theta\)</span>.</li>
+<li>Which of these two estimators is the MLE of <span class="math inline">\(\theta\)</span> in this situation? Explain, without doing any calculations.</li>
+<li>It can be shown that <span class="math inline">\(\hat{p}\)</span> is an unbiased estimator of <span class="math inline">\(\theta\)</span>. Explain in words what this means.</li>
+<li>Is <span class="math inline">\(\hat{\theta}\)</span> an unbiased estimator of <span class="math inline">\(\theta\)</span>? Explain. (You don’t have to derive anything; just apply a general principle.)</li>
+<li>Suppose <span class="math inline">\(\mu = 3.4\)</span> and <span class="math inline">\(n=5\)</span>. Explain in full detail how you would use simulation to approximate the bias of <span class="math inline">\(\hat{\theta}\)</span> in this case. In particular, specify the spinner you would use to simulate values.</li>
+<li>Explain in full detail how you would use simulation to approximate the bias <em>function</em> of <span class="math inline">\(\hat{\theta}\)</span> when <span class="math inline">\(n=5\)</span>.</li>
+</ol>
+<section id="solution-see-the-end-for-some-code-and-results" class="level3">
+<h3 class="anchored" data-anchor-id="solution-see-the-end-for-some-code-and-results">Solution (see the end for some code and results)</h3>
+<ol type="1">
+<li>For the sample (3, 0, 1, 4, 0), the value of <span class="math inline">\(\bar{X}\)</span> is 8/5 and the value of <span class="math inline">\(\hat{\theta}\)</span> is <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>. Using this estimator, based on this sample we would estimate that 32.3 percent of baseball games have 1 home run.</li>
+<li>For the sample (3, 0, 1, 4, 0) there is 1 game with 1 HR so <span class="math inline">\(\hat{p} = 1/5 = 0.2\)</span>. Using this estimator, based on this sample we would estimate that 20 percent of baseball games have 1 home run.</li>
+<li>We know that the MLE of <span class="math inline">\(\mu\)</span> for a Poisson distribution is <span class="math inline">\(\bar{X}\)</span>, so by the invariance principle of MLEs, <span class="math inline">\(\bar{X}e^{-\bar{X}}\)</span> is the MLE of <span class="math inline">\(\mu e^{-\mu}\)</span>.</li>
+<li>Over many samples, <span class="math inline">\(\hat{p}\)</span> does not consistently over or under estimate <span class="math inline">\(\theta\)</span>.</li>
+<li>No.&nbsp;<span class="math inline">\(\bar{X}\)</span> is an unbiased estimator of <span class="math inline">\(\mu\)</span> but nonlinear transformations do not preserve unbiasedness. <span class="math inline">\(\hat{\theta}\)</span> is not unbiased estimator of <span class="math inline">\(\theta\)</span>. <span class="math display">\[
+\text{E}(\hat{\theta}) = \text{E}(\bar{X}e^{-\bar{X}})\neq     \text{E}(\bar{X})e^{-\text{E}(\bar{X})} = \mu e^{-\mu} = \theta
+\]</span></li>
+<li>For <span class="math inline">\(\mu = 3.4\)</span>
+<ul>
+<li>Create a spinner corresponding to the Poisson(3.4) distribution. For example, <span class="math inline">\(P(X=0)=e^{-3.4} = 0.034\)</span>, <span class="math inline">\(P(X=1) = 3.4e^{-3.4} = 0.113\)</span>, etc.</li>
+<li>Simulate a sample of size <span class="math inline">\(n\)</span> from a Poisson(3.4) distribution by spinning the spinner <span class="math inline">\(n\)</span> times, say (3, 0, 1, 4, 0) for <span class="math inline">\(n=5\)</span>.</li>
+<li>For the simulated sample compute the sample mean <span class="math inline">\(\bar{X}\)</span> and the value of <span class="math inline">\(\hat{\theta} = \bar{X}e^{-\bar{X}}\)</span>, say 8/5 and <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>.</li>
+<li>Repeat many times, simulating many samples of size <span class="math inline">\(n\)</span> and many values of <span class="math inline">\(\hat{\theta}\)</span> for the chosen <span class="math inline">\(\mu\)</span>.</li>
+<li>Average the values of <span class="math inline">\(\hat{\theta}\)</span> and subtract <span class="math inline">\(\theta=3.4 e^{-3.4}=0.113\)</span> to approximate the bias when <span class="math inline">\(\mu = 3.4\)</span>.</li>
+</ul></li>
+<li>We carry out the process in the previous part for many values of <span class="math inline">\(\mu\)</span>. Choose a grid of <span class="math inline">\(\mu\)</span> values, say 0.01, 0.02, <span class="math inline">\(\ldots\)</span>, 10
+<ul>
+<li>Choose a value of <span class="math inline">\(\mu\)</span> from the grid, say 3.4</li>
+<li>Create a spinner corresponding to the Poisson(<span class="math inline">\(\mu\)</span>) distribution. For example, if <span class="math inline">\(\mu=3.4\)</span> then <span class="math inline">\(P(X=0)=e^{-3.4} = 0.034\)</span>, <span class="math inline">\(P(X=1) = 3.4e^{-3.4} = 0.113\)</span>, etc. The spinner will change depending on <span class="math inline">\(\mu\)</span>.</li>
+<li>Simulate a sample of size <span class="math inline">\(n\)</span> from a Poisson(<span class="math inline">\(\mu\)</span>) distribution by spinning the spinner <span class="math inline">\(n\)</span> times, say (3, 0, 1, 4, 0) for <span class="math inline">\(n=5\)</span> if <span class="math inline">\(\mu=3.4\)</span>.</li>
+<li>For the simulated sample compute the sample mean <span class="math inline">\(\bar{X}\)</span> and the value of <span class="math inline">\(\hat{\theta} = \bar{X}e^{-\bar{X}}\)</span>, say 8/5 and <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>.</li>
+<li>Repeat many times, simulating many samples of size <span class="math inline">\(n\)</span> and many values of <span class="math inline">\(\hat{\theta}\)</span> for the chosen <span class="math inline">\(\mu\)</span>.</li>
+<li>Average the values of <span class="math inline">\(\hat{\theta}\)</span> and subtract <span class="math inline">\(\theta=\mu e^{-\mu}\)</span> to approximate the bias for that <span class="math inline">\(\mu\)</span>; for example subtract <span class="math inline">\(\theta=3.4 e^{-3.4}=0.113\)</span> when <span class="math inline">\(\mu = 3.4\)</span>.</li>
+<li>Repeat the above process for all the values of <span class="math inline">\(\mu\)</span> in the grid and plot the approximate bias as a function of <span class="math inline">\(\mu\)</span> to approximate the bias function.</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="problem-4" class="level2">
+<h2 class="anchored" data-anchor-id="problem-4">Problem 4</h2>
+<p>Continuing Problem 3.</p>
+<ol type="1">
+<li>It can be shown that <span class="math inline">\(\text{Var}(\hat{p}) = \frac{\theta(1-\theta)}{n}\)</span>. Compute <span class="math inline">\(\text{Var}(\hat{p})\)</span> when <span class="math inline">\(\mu = 3.4\)</span> and <span class="math inline">\(n=5\)</span>. Then write a clearly worded sentence interpreting this value.</li>
+<li>Suppose <span class="math inline">\(\mu = 3.4\)</span> and <span class="math inline">\(n=5\)</span>. Explain in full detail how you would use simulation to approximate the variance of <span class="math inline">\(\hat{\theta}\)</span>.</li>
+<li>Explain in full detail how you would use simulation to approximate the variance function of <span class="math inline">\(\hat{\theta}\)</span> (if <span class="math inline">\(n=5\)</span>).</li>
+</ol>
+<section id="solution-see-the-end-for-some-code-and-results-1" class="level3">
+<h3 class="anchored" data-anchor-id="solution-see-the-end-for-some-code-and-results-1">Solution (see the end for some code and results)</h3>
+<ol type="1">
+<li>When <span class="math inline">\(\mu = 3.4\)</span>, <span class="math inline">\(\theta = 3.4e^{-3.4} = 0.113\)</span>, so if <span class="math inline">\(n=5\)</span> <span class="math display">\[
+\text{Var}_{\mu = 3.4}(\hat{p}) = \frac{0.113(1-0.113)}{5} = 0.020
+\]</span> This number measures the sample-to-sample variance of sample proportions of games with 1 HR over many samples of 5 games, assuming that the long run average number of HRs per game is <span class="math inline">\(\mu = 3.4\)</span>.</li>
+<li>For <span class="math inline">\(\mu = 3.4\)</span>
+<ul>
+<li>Create a spinner corresponding to the Poisson(3.4) distribution. For example, <span class="math inline">\(P(X=0)=e^{-3.4} = 0.034\)</span>, <span class="math inline">\(P(X=1) = 3.4e^{-3.4} = 0.113\)</span>, etc.</li>
+<li>Simulate a sample of size <span class="math inline">\(n\)</span> from a Poisson(3.4) distribution by spinning the spinner <span class="math inline">\(n\)</span> times, say (3, 0, 1, 4, 0) for <span class="math inline">\(n=5\)</span>.</li>
+<li>For the simulated sample compute the sample mean <span class="math inline">\(\bar{X}\)</span> and the value of <span class="math inline">\(\hat{\theta} = \bar{X}e^{-\bar{X}}\)</span>, say 8/5 and <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>.</li>
+<li>Repeat many times, simulating many samples of size <span class="math inline">\(n\)</span> and many values of <span class="math inline">\(\hat{\theta}\)</span> for the chosen <span class="math inline">\(\mu\)</span>.</li>
+<li>Average the values of <span class="math inline">\(\hat{\theta}\)</span>, for each value of <span class="math inline">\(\hat{\theta}\)</span> find its deviation from the average, and then average the squared deviations. This number approximates <span class="math inline">\(\text{Var}(\hat{\theta})\)</span> when <span class="math inline">\(\mu = 3.4\)</span></li>
+</ul></li>
+<li>We carry out the process in the previous part for many values of <span class="math inline">\(\mu\)</span>. Choose a grid of <span class="math inline">\(\mu\)</span> values, say 0.01, 0.02, <span class="math inline">\(\ldots\)</span>, 10
+<ul>
+<li>Choose a value of <span class="math inline">\(\mu\)</span> from the grid, say 3.4</li>
+<li>Create a spinner corresponding to the Poisson(<span class="math inline">\(\mu\)</span>) distribution. For example, if <span class="math inline">\(\mu=3.4\)</span> then <span class="math inline">\(P(X=0)=e^{-3.4} = 0.034\)</span>, <span class="math inline">\(P(X=1) = 3.4e^{-3.4} = 0.113\)</span>, etc. The spinner will change depending on <span class="math inline">\(\mu\)</span>.</li>
+<li>Simulate a sample of size <span class="math inline">\(n\)</span> from a Poisson(<span class="math inline">\(\mu\)</span>) distribution by spinning the spinner <span class="math inline">\(n\)</span> times, say (3, 0, 1, 4, 0) for <span class="math inline">\(n=5\)</span> if <span class="math inline">\(\mu=3.4\)</span>.</li>
+<li>For the simulated sample compute the sample mean <span class="math inline">\(\bar{X}\)</span> and the value of <span class="math inline">\(\hat{\theta} = \bar{X}e^{-\bar{X}}\)</span>, say 8/5 and <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>.</li>
+<li>Repeat many times, simulating many samples of size <span class="math inline">\(n\)</span> and many values of <span class="math inline">\(\hat{\theta}\)</span> for the chosen <span class="math inline">\(\mu\)</span>.</li>
+<li>Average the values of <span class="math inline">\(\hat{\theta}\)</span>, for each value of <span class="math inline">\(\hat{\theta}\)</span> find its deviation from the average, and then average the squared deviations. This number approximates <span class="math inline">\(\text{Var}(\hat{\theta})\)</span> for the chosen <span class="math inline">\(\mu\)</span></li>
+<li>Repeat the above process for all the values of <span class="math inline">\(\mu\)</span> in the grid and plot the approximate variance as a function of <span class="math inline">\(\mu\)</span> to approximate the variance function.</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="problem-5" class="level2">
+<h2 class="anchored" data-anchor-id="problem-5">Problem 5</h2>
+<p>Continuing Problems 3 and 4</p>
+<ol type="1">
+<li>Compute <span class="math inline">\(\text{MSE}(\hat{p})\)</span> when <span class="math inline">\(\mu = 3.4\)</span> and <span class="math inline">\(n=5\)</span>. (You can do the next part first if you want, but it helps to work with specific numbers first.)</li>
+<li>Derive the MSE function of <span class="math inline">\(\hat{p}\)</span>. (Hint: use facts from previous parts.)</li>
+<li>Suppose <span class="math inline">\(\mu = 3.4\)</span> (and <span class="math inline">\(n=5\)</span>). Explain in full detail how you would use simulation to approximate the MSE of <span class="math inline">\(\hat{\theta}\)</span>.</li>
+<li>Suppose <span class="math inline">\(\hat{\theta}\)</span> has smaller MSE than <span class="math inline">\(\hat{p}\)</span> when <span class="math inline">\(\mu = 3.4\)</span> (and <span class="math inline">\(n=5\)</span>). Which estimator would you prefer? Answer, but then explain why this information alone is not really useful.</li>
+<li>Explain in full detail how you would use simulation to approximate the MSE <em>function</em> of <span class="math inline">\(\hat{\theta}\)</span> (if <span class="math inline">\(n=5\)</span>).</li>
+<li>Suppose you determine that <span class="math inline">\(\hat{\theta}\)</span> has smaller MSE for almost all values of <span class="math inline">\(\mu\)</span> regardless of <span class="math inline">\(n\)</span>. Recall parts 1 and 2 of Problem 3. Which value of these two estimates (the values from parts 1 and 2 of Problem 3) is a better estimate of <span class="math inline">\(\theta\)</span>? That is, which of the two estimates is closer to the true <span class="math inline">\(\theta\)</span>? Explain.</li>
+<li>Suppose you determine that <span class="math inline">\(\hat{\theta}\)</span> has smaller MSE for almost all values of <span class="math inline">\(\mu\)</span> regardless of <span class="math inline">\(n\)</span>. Recall parts 1 and 2 of Problem 3. Which value of these two estimates (the values from parts 1 and 2 of Problem 3) would you choose as your point estimate of <span class="math inline">\(\theta\)</span>? Explain.</li>
+</ol>
+<section id="solution-see-the-end-for-some-code-and-results-2" class="level3">
+<h3 class="anchored" data-anchor-id="solution-see-the-end-for-some-code-and-results-2">Solution (see the end for some code and results)</h3>
+<ol type="1">
+<li>Since <span class="math inline">\(\hat{p}\)</span> is unbiased, its MSE is just its variance, 0.020 from part 4</li>
+<li>Since <span class="math inline">\(\hat{p}\)</span> is unbiased, its MSE function is just its variance function, <span class="math inline">\(\text{Var}(\hat{p}) = \frac{\theta(1-\theta)}{n}\)</span> from part 4.</li>
+<li>We would prefer the estimator with smaller MSE, so <span class="math inline">\(\hat{\theta}\)</span> when <span class="math inline">\(\mu=3.4\)</span>, but that’s not useful information because we don’t know what <span class="math inline">\(\mu\)</span> is.</li>
+<li>For <span class="math inline">\(\mu = 3.4\)</span>
+<ul>
+<li>Create a spinner corresponding to the Poisson(3.4) distribution. For example, <span class="math inline">\(P(X=0)=e^{-3.4} = 0.034\)</span>, <span class="math inline">\(P(X=1) = 3.4e^{-3.4} = 0.113\)</span>, etc.</li>
+<li>Simulate a sample of size <span class="math inline">\(n\)</span> from a Poisson(3.4) distribution by spinning the spinner <span class="math inline">\(n\)</span> times, say (3, 0, 1, 4, 0) for <span class="math inline">\(n=5\)</span>.</li>
+<li>For the simulated sample compute the sample mean <span class="math inline">\(\bar{X}\)</span> and the value of <span class="math inline">\(\hat{\theta} = \bar{X}e^{-\bar{X}}\)</span>, say 8/5 and <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>.</li>
+<li>Repeat many times, simulating many samples of size <span class="math inline">\(n\)</span> and many values of <span class="math inline">\(\hat{\theta}\)</span> for the chosen <span class="math inline">\(\mu\)</span>.</li>
+<li>For each value of <span class="math inline">\(\hat{\theta}\)</span> subtract <span class="math inline">\(\theta=3.4 e^{-3.4}=0.113\)</span> and square the difference, then average these squared differences to approximate the MSE when <span class="math inline">\(\mu = 3.4\)</span>. (Or you could square the bias from part 3 and add the variance from part.)</li>
+</ul></li>
+<li>We carry out the process in the previous part for many values of <span class="math inline">\(\mu\)</span>. Choose a grid of <span class="math inline">\(\mu\)</span> values, say 0.01, 0.02, <span class="math inline">\(\ldots\)</span>, 10
+<ul>
+<li>Choose a value of <span class="math inline">\(\mu\)</span> from the grid, say 3.4</li>
+<li>Create a spinner corresponding to the Poisson(<span class="math inline">\(\mu\)</span>) distribution. For example, if <span class="math inline">\(\mu=3.4\)</span> then <span class="math inline">\(P(X=0)=e^{-3.4} = 0.034\)</span>, <span class="math inline">\(P(X=1) = 3.4e^{-3.4} = 0.113\)</span>, etc. The spinner will change depending on <span class="math inline">\(\mu\)</span>.</li>
+<li>Simulate a sample of size <span class="math inline">\(n\)</span> from a Poisson(<span class="math inline">\(\mu\)</span>) distribution by spinning the spinner <span class="math inline">\(n\)</span> times, say (3, 0, 1, 4, 0) for <span class="math inline">\(n=5\)</span> if <span class="math inline">\(\mu=3.4\)</span>.</li>
+<li>For the simulated sample compute the sample mean <span class="math inline">\(\bar{X}\)</span> and the value of <span class="math inline">\(\hat{\theta} = \bar{X}e^{-\bar{X}}\)</span>, say 8/5 and <span class="math inline">\((8/5)e^{-8/5}=0.323\)</span>.</li>
+<li>Repeat many times, simulating many samples of size <span class="math inline">\(n\)</span> and many values of <span class="math inline">\(\hat{\theta}\)</span> for the chosen <span class="math inline">\(\mu\)</span>.</li>
+<li>For each value of <span class="math inline">\(\hat{\theta}\)</span> subtract <span class="math inline">\(\theta= \mu e^{-\mu}\)</span> (e.g., <span class="math inline">\(\theta= e^{-3.4}=0.113\)</span> if <span class="math inline">\(\mu=3.4\)</span>) and square the difference, then average these squared differences to approximate the MSE for this <span class="math inline">\(\mu\)</span>. (Or you could square the bias from part 3 and add the variance from part.)</li>
+<li>Repeat the above process for all the values of <span class="math inline">\(\mu\)</span> in the grid and plot the approximate MSE as a function of <span class="math inline">\(\mu\)</span> to approximate the MSE function.</li>
+</ul></li>
+<li>We don’t know what <span class="math inline">\(\theta\)</span> is, so we don’t know which of the values 0.323 or 0.20 is a better estimate of <span class="math inline">\(\theta\)</span>.</li>
+<li>We would chose 0.323 as our estimate because our analysis has shown that <span class="math inline">\(\hat{\theta}\)</span> is (1) the MLE, so observing the sample we observed is more likely when <span class="math inline">\(\mu\)</span> is 0.323 than when <span class="math inline">\(\mu\)</span> is 0.2, (2) as a procedure <span class="math inline">\(\hat{\theta}\)</span> tends to perform better than <span class="math inline">\(\hat{p}\)</span> for estimating <span class="math inline">\(\mu\)</span> in the Poisson case over many samples and over many potential values of <span class="math inline">\(\mu\)</span>.</li>
+</ol>
+</section>
+</section>
+<section id="simulation-for-parts-3-5" class="level2">
+<h2 class="anchored" data-anchor-id="simulation-for-parts-3-5">Simulation for Parts 3-5</h2>
+<p>For <span class="math inline">\(mu\)</span> = 3.4. With a for loop but you could also do in a vectorized way (see Colab notebooks)</p>
+<div id="f144993d" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> <span class="fl">3.4</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>N_samples <span class="op">=</span> <span class="dv">10_000</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>theta_hats <span class="op">=</span> np.empty(N_samples)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N_samples):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># simulate a sample of size n from Poisson(mu)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.random.poisson(mu, size<span class="op">=</span>n)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># compute theta-hat</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    x_bar <span class="op">=</span> np.mean(x)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    theta_hats[i] <span class="op">=</span> x_bar <span class="op">*</span> np.exp(<span class="op">-</span>x_bar)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># True value of theta = mu * exp(-mu)</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> mu <span class="op">*</span> np.exp(<span class="op">-</span>mu)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximate bias</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>bias <span class="op">=</span> np.mean(theta_hats) <span class="op">-</span> theta</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximate variance</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># ddof=1 matches R's var(), which uses sample variance</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>variance <span class="op">=</span> np.var(theta_hats, ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Approximate MSE</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>mse <span class="op">=</span> np.mean((theta_hats <span class="op">-</span> theta) <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Bias:"</span>, bias)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Variance:"</span>, variance)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"MSE:"</span>, mse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bias: 0.012661524678997435
+Variance: 0.004426830326416862
+MSE: 0.004586701850581082</code></pre>
+</div>
+</div>
+<p>For all <span class="math inline">\(\mu\)</span></p>
+<div id="a6c1c6e0" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># grid of mu values: 0.1, 0.2, ..., 5.0</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>mus <span class="op">=</span> np.arange(<span class="fl">0.1</span>, <span class="fl">5.1</span>, <span class="fl">0.1</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>N_samples <span class="op">=</span> <span class="dv">10_000</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize lists to record bias, variance, and MSE</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>bias_thetahat <span class="op">=</span> []</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>var_thetahat <span class="op">=</span> []</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>mse_thetahat <span class="op">=</span> []</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> mu <span class="kw">in</span> mus:</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># true value of theta for this mu</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    theta <span class="op">=</span> mu <span class="op">*</span> np.exp(<span class="op">-</span>mu)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># store simulated theta-hat values</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    theta_hats <span class="op">=</span> np.empty(N_samples)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N_samples):</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># simulate sample of size n from Poisson(mu)</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> np.random.poisson(mu, size<span class="op">=</span>n)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="co"># compute theta-hat</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        x_bar <span class="op">=</span> np.mean(x)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        theta_hats[i] <span class="op">=</span> x_bar <span class="op">*</span> np.exp(<span class="op">-</span>x_bar)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># approximate bias</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    bias_thetahat.append(np.mean(theta_hats) <span class="op">-</span> theta)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># approximate variance</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ddof=1 matches R's var()</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    var_thetahat.append(np.var(theta_hats, ddof<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># approximate MSE</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    mse_thetahat.append(</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>        np.mean((theta_hats <span class="op">-</span> theta) <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co"># optionally convert lists to NumPy arrays</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>bias_thetahat <span class="op">=</span> np.array(bias_thetahat)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>var_thetahat <span class="op">=</span> np.array(var_thetahat)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>mse_thetahat <span class="op">=</span> np.array(mse_thetahat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="bias-function" class="level3">
+<h3 class="anchored" data-anchor-id="bias-function">Bias function</h3>
+<p>Any “wiggles” are due to natural simulation margin of error (can make these go away by simulating even more samples)</p>
+<div id="f2dd3e07" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(mus, bias_thetahat)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"mu"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Bias of thetahat"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-08-sol_files/figure-html/cell-5-output-1.png" width="609" height="429" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="squared-bias-function" class="level3">
+<h3 class="anchored" data-anchor-id="squared-bias-function">Squared bias function</h3>
+<p>Any “wiggles” are due to natural simulation margin of error (can make these go away by simulating even more samples)</p>
+<div id="9336dfa4" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.plot(mus, bias_thetahat<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"mu"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Squared Bias of thetahat"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="fl">0.05</span>) <span class="co"># set common y-axis scale</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-08-sol_files/figure-html/cell-6-output-1.png" width="597" height="434" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="variance-function" class="level3">
+<h3 class="anchored" data-anchor-id="variance-function">Variance function</h3>
+<p>Any “wiggles” are due to natural simulation margin of error (can make these go away by simulating even more samples)</p>
+<div id="f4044480" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot variance of theta-hat</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plt.plot(mus, var_thetahat, <span class="st">"."</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"mu"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Variance"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="fl">0.05</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Variance functions of theta-hat (dots) and p-hat (dashed)"</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create x values for theoretical curve</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="bu">min</span>(mus), <span class="bu">max</span>(mus), <span class="dv">500</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate theoretical variance</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">*</span> np.exp(<span class="op">-</span>x) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> x <span class="op">*</span> np.exp(<span class="op">-</span>x)) <span class="op">/</span> n</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Add dashed theoretical curve</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, linestyle<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-08-sol_files/figure-html/cell-7-output-1.png" width="597" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="mse-function" class="level3">
+<h3 class="anchored" data-anchor-id="mse-function">MSE function</h3>
+<p>Any “wiggles” are due to natural simulation margin of error (can make these go away by simulating even more samples)</p>
+<div id="168a1f8e" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot MSE of theta-hat</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.plot(mus, mse_thetahat, <span class="st">"."</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"mu"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"MSE"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="fl">0.05</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"MSE functions of theta-hat (dots) and p-hat (dashed)"</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Add theoretical curve as a dashed line</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="bu">min</span>(mus), <span class="bu">max</span>(mus), <span class="dv">500</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">*</span> np.exp(<span class="op">-</span>x) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> x <span class="op">*</span> np.exp(<span class="op">-</span>x)) <span class="op">/</span> n</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, linestyle <span class="op">=</span> <span class="st">"--"</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hw-08-sol_files/figure-html/cell-8-output-1.png" width="597" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./hw-07-sol.html" class="pagination-link" aria-label="Homework 7 solutions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Homework 7 solutions</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./hw-09-sol.html" class="pagination-link" aria-label="Homework 9 solutions">
+        <span class="nav-page-text">Homework 9 solutions</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

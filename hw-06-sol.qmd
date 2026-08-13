@@ -2,167 +2,68 @@
 
 
 
+{{< include _r_setup.qmd >}}
+
 ## Problem 1
 
-You have a brand new coin and you want to estimate $p$, the probability that it lands on heads.
-You flip the coin $n$ times and observe $X$ heads.
+For many animal species, the lengths of particular bones follow a Normal distribution.
+For adult male humans, the length of the femur (thigh bone, the longest bone in humans) has an approximate Normal distribution with mean 48.2 cm and standard deviation of 4.5 cm.  
+Complete each of the following parts by standardizing, drawing appropriate plots, and then providing an educated ballpark estimate based on the empirical rule. 
+Then you can use software to get more precise values. 
+But software should be your last step, not the first.
 
-
-a. Suggest an estimator of $p$; it should be an expression involving $X$ and $n$. Describe in words what your estimator is. (Hint: what is the most obvious estimator you can think of?)
-a. Suppose you observe $x = 6$ heads in $n=10$ flips. Use your estimator to compute an estimate of $p$ based on this sample.
-a. Consider the estimator (called the "plus four" estimator)
-    $$
-    \frac{X + 2}{n + 4} = \left(\frac{4}{n+4}\right)\left(0.5\right) + \left(\frac{n}{n+4}\right)\left(\frac{X}{n}\right)
-    $$
-    Explain in words what this estimator does.
-    (The two expressions in the equation above are just different ways of expressing the estimator.)
-a. Use the estimator from the previous part and compute an estimate of $p$ based on a sample with 6 heads in 10 flips.
-a. If you observe 6 heads in 10 flips, which of your two estimates is a better estimate of $p$? Explain.
-a. Compute and interpret the probability of observing 6 heads in 10 flips if $p = 0.6$.
-a. Compute and intepret the probability of observing 6 heads in 10 flips if $p = 0.571$.
-a. Compare the values from the two previous parts. If you observed 6 heads in 10 flips, which of the values --- 0.6 or 0.571 --- would you choose as your estimate of $p$? Explain your reasoning.
-a. Suppose you observe 6 heads in 10 flips. Carefully write the likelihood function.
-a. Continuing the previous part, use any software of your choice and plot the likelihood function. Based on your plot, what value appears to be the maximum likelihood estimate of $p$ based on a sample with 6 heads in 10 flips?
-(You can do this just by zooming in on the plot.)
-a. Continuing the previous part, carefully write the log-likelihood function.
-a. Use calculus to find the maximum likelihood estimate of $p$ based on observing 6 heads in 10 flips.
-a. Now suppose you observe $x$ heads in 10 flips. Carefully write the likelihood function.
-a. Continuing the previous part, carefully write the log-likelihood function.
-a. Use calculus to find a general expression for the maximum likelihood estimate of $p$ based on observing $x$ heads in 10 flips. (Your answer will be an expression involving $x$.)
-
-
-
-
-
+1.  What percent of adult male humans have a femur length above 50cm?
+1.  What percent of adult male humans have a femur length between 40cm and 50cm?
+1.  What is the 99th percentile of femur lengths for adult male humans?
 
 
 ### Solutions
 
 
-a. Seems like the most natural estimator is $X/n$, the sample proportion of H.
-a. The observed sample proportion is $6/10 = 0.6$, so the estimator $X/n$ would estimate $p$ to be 0.6 for this sample.
-a. The "plus four" estimator basically appends 2 successes and 2 failures to the sample data and then computes the sample proportion based on the appended sample. (It is also a weighted average between the observe sample proportion $X/n$ and 0.5.)
-a. Based on the 6/10 sample, the plus four estimator estimates $p$ to be $(6+2)/(10+4) = 8/14 = 0.571 = (10/14)(0.6) + (4/14)(0.5) = 0.571$.
-a. We don't know which of 0.6 and 0.571 is a better estimate because we don't know what $p$ is; that's the reason why we're trying to estimate it.
-a. `dbinom(6, 10, 0.6)` = `r round(dbinom(6, 10, 0.6), 3)` = $\binom{10}{6}(0.6)^6(1-0.6)^{10-6}$. If the probability that the coin lands on H is 0.6, then about `r round(dbinom(6, 10, 0.6), 3) * 100` percent of sets of 10 flips would result in 6 H.
-a. `dbinom(6, 10, 0.571)` = `r round(dbinom(6, 10, 10 / 14), 3)` = $\binom{10}{6}(0.571)^6(1-0.571)^{10-6}$. If the probability that the coin lands on H is 0.571, then about `r round(dbinom(6, 10, 10 / 14), 3) * 100` percent of sets of 10 flips would result in 6 H.
-a. The likelihood of observing 6 H in 10 flips is greater if $p = 0.6$ than if $p = 0.571$, so if we're trying to maximum the likelihood, we could pick 0.6 as our estimate of $p$ based on the 6/10 sample.
-a.  When $n=10$, $X$ has a Binomial(10, $p$) distribution. The pmf is $\binom{10}{x}p^x(1-p)^{10-x}.$ Plug in the observed data $x=6$ and view the likelihood as a function of $p$
-    $$
-    L(p) = \binom{10}{6}p^6(1-p)^{10-6}, \qquad 0<p<1
-    $$
-a. See below. It seems like the overall maximum occurs at a value of 0.6.
-a. Take logs
-    $$
-    \ell(p) = \log L(p) = \log\left(\binom{10}{6}p^6(1-p)^{10-6}\right) = 6\log p + (10 - 6)\log(1-p) + \log\binom{10}{6}
-    $$
-a. Differentiate the log-likelihood with respect to $p$. (Don't forget the chain rule for $\log(1-p)$; the derivate of $1-p$ on the inside is $-1$.)
-    $$
-    \ell'(p) = \frac{6}{p} + \frac{10 - 6}{1-p}(-1) + 0
-    $$
-    Set $\ell'(\hat{p}) = 0$ and solve to get $\hat{p} = 0.6$. So the MLE of of $p$ based on a sample of size 10 with 6 successes is 6/10 = 0.6, the observed sample proportion of success.
-a. Replace 6 with a general $x$
-    $$
-    L(p) = \binom{10}{x}p^x(1-p)^{10-x}, \qquad 0<p<1
-    $$
-a. Continuing the previous part, carefully write the log-likelihood function.
-    $$
-    \ell(p) = \log L(p) = \log\left(\binom{10}{x}p^x(1-p)^{10-x}\right) = x\log p + (10 - x)\log(1-p) + \log\binom{10}{x}
-    $$
-a. Differentiate the log-likelihood with respect to $p$. $x$ is treated like a constant just like 6 above. (Don't forget the chain rule for $\log(1-p)$; the derivate of $1-p$ on the inside is $-1$.)
-    $$
-    \ell'(p) = \frac{x}{p} + \frac{10 - x}{1-p}(-1) + 0
-    $$
-    Set $\ell'(\hat{p}) = 0$ and solve to get $\hat{p} = x/10$. So the MLE of of $p$ based on a sample of size 10 with $x$ successes is $x/10$, the observed sample proportion of success.
 
 
 
+1.  50 cm is (50-48.2)/4.5 = 0.4 SDs above the mean.  0.4 is close to 0.5; 38% of values are within 0.5 SDs of the mean, so 0.5 SDs above the mean is the 69th percentile.  So 31% of values are 0.5 or more SDs above the mean. Since 0.4 is less than 0.5 SDs above the mean, more than 31% of femur lengths will be greater than 50cm.  From software, we find 34.5%.
+The z-score for 50 cm is (50-48.2)/4.5 = 0.4 SDs above the mean.  0.4 is close to 0.5; 38% of values are within 0.5 SDs of the mean, so 0.5 SDs above the mean is the 69th percentile.  Since 0.4 is less than 0.5 SDs above the mean, 
 
-```{r}
-#| echo: true
+1.  From the previous part, less than 69% of femur lengths will be less than 50cm. 
+From software, we find 65.5%. 
+40cm is (40-48.2)/4.5 = -1.82, i.e. 1.82 SDs below the mean.  So a little more than more than 2.5% (from 2 SDs below the mean) of femur lengths will be less than 40cm.  From software we find 3.4%.  Subtracting shows 62.1% of femur lengths are between 40cm and 50cm.
 
-p <- seq(0, 1, 0.001)
 
-plot(
-  p,
-  dbinom(6, 10, p),
-  type = "l",
-  xlab = "p",
-  ylab = "L(p)",
-  main = "Likelihood of 6 successes in 10 trials"
-)
-segments(
-  x0 = 0.6,
-  x1 = 0.6,
-  y0 = -1,
-  y1 = dbinom(6, 10, 0.6),
-  col = "orange",
-  lty = 2
-)
-```
+1. From the empirical rule, we know that 97.5% of values are no more than 2 SDs above the mean, so we know the 99th percentile will be more than 2 SDs above the mean. Table or software shows that for a Normal distribution, the 99th percentile is 2.33 SDs above the mean.  So the 99th percentile for femur lengths is 48.2 + 2.33 × 4.5 = 58.7 cm.
 
+ 
 
 
 ## Problem 2
 
+Daily high temperatures (degrees Fahrenheit) in San Luis Obispo in August follow (approximately) a Normal distribution with a mean of 76.9 degrees F.
+The temperature exceeds 100 degrees Fahrenheit on about 1.5% of August days.
 
-Suppose that times (minutes) between earthquakes (of any magnitude in a certain region) follow an Exponential distribution with rate parameter $\lambda$.
-Let $X_1, \ldots, X_n$ be a random sample of times (minutes) between earthquakes for  $n$ earthquakes.
-It can be shown that the MLE of $\lambda$ is $1/\bar{X}$.
-
-1. Explain intuitively why $1/\bar{X}$ is a reasonable estimator of $\lambda$. 
-Hint: it's not just because it's the MLE; think of properties of Exponential distributions.
-1. Suppose the observed sample is: 20, 37, 13, 10, 25 minutes.
-Carefully write the likelihood function.
-(For a random sample from a continuous distribution, to find the likelihood function you plug each observed value into the pdf and then form the product.)
-1. Use any software you want to carefully plot the likelihood function from the previous part.
-Then use your plot to verify that the MLE of $\lambda$ based on this sample is $1/\bar{x} = 5/105 = 0.0476$.
-(You can just zoom in on the plot.)
-1. Write a clearly worded sentence reporting in context your estimate of $\lambda$ from the previous part.
-
-
+1.  Compute the standard deviation.
+1.  Suppose the mean increases by 2 degrees Fahrenheit. 
+On what percentage of August days will the daily high temperature exceed 100 degrees Fahrenheit? (Assume the standard deviation does not change.)
+1.  A mean of 78.9 is 1.02 times greater than a mean of 76.9. 
+By what (multiplicative) factor has the percentage of 100-degree days increased? What do you notice?
 
 
 ### Solution
 
-1. For Exponential, the population mean is the reciprocal of the rate, $1/\lambda$. It seems reasonable to estimate the Exponential population mean $1/\lambda$ with $\bar{X}$, so it seems reasonable to estimate the rate $\lambda$ with $1/\bar{X}$.
-1. Remember the Exponential pdf is $\lambda e^{-\lambda x}$. There will be a factor in the likelihood for each observed $x$ values.
-    $$
-    L(\lambda) = \left(\lambda e^{-20\lambda }\right)\left(\lambda e^{-37\lambda }\right)\left(\lambda e^{-13\lambda }\right)\left(\lambda e^{-10\lambda }\right)\left(\lambda e^{-25\lambda }\right) = \lambda^5 e^{-\lambda(20 + 37 +  13 +  10 + 25 )}, \qquad \lambda >0
-    $$
-1. See below. It looks like the MLE of $\lambda$ based on this sample is $1/\bar{x} = 5/105 = 0.0476$.
-1. We estimate that earthquakes occur on average at rate 0.0476 earthquakes per minute (2.86 earthquakes per hour).
+1.  We are given that 100 is the 98.5th percentile.
+Software shows that for a Normal distribution the 98.5th percentile is 2.17 standard deviations above the mean.
+Set $100 = 76.9 + 2.17\sigma$ and solve for the standard deviation $\sigma = 10.65$ degrees F.
 
-```{r}
-#| echo: true
+1.  The mean is now 78.9. Now the value 100 is $(100-78.9)/10.65 = 1.98$ standard deviations above the mean, around 2 so the probability we want is around 2.5%.
+Software shows that for a Normal distribution the probability of a value more than 1.98 standard deviations above the mean is 0.023.
+On 2.3% of August days the daily high temperature will exceed 100 degrees F.
 
-x <- c(20, 37, 13, 10, 25)
-
-xbar <- mean(x)
-
-lambda <- seq(0, 0.2, 0.001)
-
-plot(
-  lambda,
-  lambda^5 * exp(-lambda * sum(x)),
-  type = "l",
-  xlab = "p",
-  ylab = "L(p)",
-  main = "Likelihood of a total time of 105 minutes for 5 quakes"
-)
-segments(
-  x0 = 1 / xbar,
-  x1 = 1 / xbar,
-  y0 = -1,
-  y1 = (1 / xbar)^5 * exp(-(1 / xbar) * sum(x)),
-  col = "orange",
-  lty = 2
-)
-```
+1.  $0.023/0.015 = 1.53$. A 2 percent increase in the mean results in a 53 percent increase in the probability that a day has a daily high temperature above 100 degrees F.
+Relatively small changes in the mean can have relatively large impacts on tail probabilities.
 
 
 
-
+## Problem 3
 
 The latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3).
 Each package contains a single unknown prize.
@@ -170,11 +71,12 @@ Suppose we only buy 3 packages and we consider as our sample space outcome the r
 For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package.
 Let $X$ be the number of distinct prizes obtained in these 3 packages.
 Let $Y$ be the number of these 3 packages that contain prize 1.
-Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages.
+Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages; let $\text{P}$ denote the corresponding probability measure.
 There are 27 possible, equally likely outcomes
 
 ```{r}
 #| echo: false
+#| message: false
 
 k <- 3
 
@@ -183,58 +85,37 @@ outcomes <- expand.grid(1:k, 1:k, 1:k)
 
 n_outcomes <- nrow(outcomes)
 
-X <- rep(NA, n_outcomes)
-Y <- rep(NA, n_outcomes)
+X <- rep("", n_outcomes)
+Y <- rep("", n_outcomes)
 
-for (i in 1:n_outcomes) {
-  X[i] <- outcomes %>% slice(i) %>% unlist() %>% n_distinct()
-  Y[i] <- sum(outcomes[i, ] == 1)
-}
-
-outcomes <- outcomes %>%
+outcomes <- outcomes |>
   bind_cols(X, Y)
 
 names(outcomes) <- c(paste("box", 1:k, sep = ""), "X", "Y")
 
-outcomes %>%
-  kbl() %>%
-  kable_styling(fixed_thead = TRUE)
+outcomes |> kable()
 ```
 
-a.  Evaluate $X$ and $Y$ for each of the outcomes.
-b.  Construct a two-way table representing the *joint distribution* of $X$ and $Y$.
-c.  Sketch a plot representing the joint distribution of $X$ and $Y$.
-d.  Construct a spinner corresponding to the joint distribution of $X$ and $Y$.
-e.  Describe two ways to simulate an $(X, Y)$ pair.
-f.  Identify the *marginal* distribution of $X$, and construct a corresponding spinner.
-g.  Identify the *marginal* distribution of $Y$, and construct a corresponding spinner.
-h.  Describe in detail in words how you could conduct a simulation and use the results to approximate. (This part is asking you to describe the process in words; not to write code.)
-    i.  $\text{P}(X = 3)$
-    ii. $\text{P}(X = 2, Y = 1)$ iii.$\text{E}(X)$ iii.$\text{E}(Y)$
-    iii. $\text{E}(XY)$
-    iv. $\text{SD}(X)$ iii.$\text{SD}(Y)$
-    v.  $\text{Cov}(X, Y)$
-    vi. $\text{Corr}(X, Y)$
-i.  **Coding required.** Code and run the simulation from the previous part and use the simulation results to approximate each of
-    i.  $\text{P}(X = 3)$
-    ii. $\text{P}(X = 2, Y = 1)$ iii.$\text{E}(X)$ iii.$\text{E}(Y)$
-    iii. $\text{E}(XY)$
-    iv. $\text{SD}(X)$ iii.$\text{SD}(Y)$
-    v.  $\text{Cov}(X, Y)$
-    vi. $\text{Corr}(X, Y)$
-j.  Compute
-    i.  $\text{P}(X = 3)$
-    ii. $\text{P}(X = 2, Y = 1)$ iii.$\text{E}(X)$ iii.$\text{E}(Y)$
-    iii. $\text{E}(XY)$
-    iv. $\text{SD}(X)$ iii.$\text{SD}(Y)$
-    v.  $\text{Cov}(X, Y)$
-    vi. $\text{Corr}(X, Y)$
+1.  Evaluate $X$ and $Y$ for each of the outcomes.
+1.  Construct a two-way table representing the joint distribution of $X$ and $Y$.
+1.  Specify the marginal distribution of $X$ and compute $\text{E}(X)$.
+1.  Specify the marginal distribution of $Y$ and compute $\text{E}(Y)$.
+1.  Compute $\text{Cov}(X, Y)$
+1.  Find the conditional distribution of $Y$ given $X=x$ for each possible value of $x$ of $X$.
+1.  Compute and interpret $\text{E}(Y|X=x)$ for each possible value of $x$ of $X$.
+1.  Find the conditional distribution of $X$ given $Y=y$ for each possible value of $y$ of $Y$.
+1.  Compute and interpret $\text{E}(X|Y=y)$ for each possible value of $y$ of $Y$.
+1.  Are $X$ and $Y$ independent? Explain; support your answer with appropriate numbers.
+
+
 
 ### Solution
 
-These don't quite match the assignment, but the ideas are similar.
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
+
+```{r}
+#| echo: false
+#| warning: false
 library(dplyr)
 library(knitr)
 library(kableExtra)
@@ -265,275 +146,103 @@ outcomes %>%
 ```
 
 
-a.  One dimension will have possible values of $x$, the other possible values of $y$.
-    The interior cells should contain the probability of each $(x, y)$ pair.
+Two-way table: One dimension will have possible values of $x$, the other possible values of $y$.
+The interior cells should contain the probability of each $(x, y)$ pair.
 
-    |       |      |       |      |      |       |
-    |:------|-----:|------:|-----:|-----:|------:|
-    |       |  $y$ |       |      |      |       |
-    | $x$   |    0 |     1 |    2 |    3 | Total |
-    | 1     | 2/27 |     0 |    0 | 1/27 |  3/27 |
-    | 2     | 6/27 |  6/27 | 6/27 |    0 | 18/27 |
-    | 3     |    0 |  6/27 |    0 |    0 |  6/27 |
-    | Total | 8/27 | 12/27 | 6/27 | 1/27 |     1 |
-
-b.  Make a tile plot with color or shading representing probability; see below.
-
-c.  The spinner is below; it returns the 6 possible $(x, y)$ pairs with the proper probabilities.
-
-d.  Method 1: Simulate from the probability space: Label 3 cards: 1, 2, 3.
-    Shuffle the cards and deal one, then replace the card and repeat, dealing a total of 3 cards, e.g., 212.
-    Measure $X$ and $Y$ for the outcome.
-
-    Method 2: Simulate from the distribution.
-    Spin the spinner from the previous part once to generate an $(X, Y)$ pair.
-
-e.  The possible values of $X$ are in the leftmost column and the probabilities are in the Total column.
-    See previous HW solutions for plot and spinner.
-
-f.  The possible values of $Y$ are in the top row (0, 1, 2, 3) and the probabilities are in the Total row.
-    See previous HW solutions for plot and spinner.
-
-g.  Method 1: Simulate from the probspace: Draw three "boxes" and observe the prize sequence, and measure $X$.
-
-    Method 2: Simulate from marginal dist: Spin the $X$ spinner once and observe the value.
-
-    Method 3: Simulate from joint dist: Spin the joint distribution spinner once to obtain an $(X, Y)$ pair, and ignore $Y$.
-    (This is the one we didn't see on a previous HW.)
-
-h.  Describe in detail how you could conduct a simulation to and use the results to approximate
-
-    a.  $\text{P}(X = 3)$. Simulate many values of $X$, count the number of simulated values equal to 3, and divide by the number of simulated values (i.e., find the simulated relative frequency of 3)
-    b.  $\text{P}(X = 2, Y = 1)$. Simulate many $(X, Y)$ *pairs*, count the number of simulated pairs in which $X = 2$ and $Y = 1$, and divide by the number of simulated values (i.e., find the simulated relative frequency of the event $\{X = 2, Y = 1\}$)
-    c.  The long run average value of $X$. Simulate many values of $X$ and compute their average (i.e., sum the simulated values of $X$ and divide by the number of simulated values.)
-    d.  The long run average value of $XY$. Simulate many $(X, Y)$ *pairs*, find the product $XY$ for each pair, and compute the average value of the products (i.e., sum the simulated values of $XY$ and divide by the number of simulated pairs.)
-
-```{r}
-#| echo: false
-
-x <- c(1, 1, 2, 2, 2, 3)
-y <- c(0, 3, 0, 1, 2, 1)
-p <- c(2, 1, 6, 6, 6, 6) / 27
+|       |      |       |      |      |       |
+|:------|-----:|------:|-----:|-----:|------:|
+|       |  $y$ |       |      |      |       |
+| $x$   |    0 |     1 |    2 |    3 | Total |
+| 1     | 2/27 |     0 |    0 | 1/27 |  3/27 |
+| 2     | 6/27 |  6/27 | 6/27 |    0 | 18/27 |
+| 3     |    0 |  6/27 |    0 |    0 |  6/27 |
+| Total | 8/27 | 12/27 | 6/27 | 1/27 |     1 |
 
 
-data.frame(x, y, p) %>%
-  ggplot(aes(x = x, y = y, fill = p)) +
-  geom_tile(colour = "grey50") +
-  geom_text(aes(label = round(p, 3)), col = "white") +
-  scale_x_continuous(breaks = 1:3) +
-  labs(fill = "Probability") +
-  theme_classic()
-```
+The possible values of $X$ are in the leftmost column and the marginal probabilities are in the Total column.
+$E(X) = (1)(3/27)+(2)(18/27)+(3)(6/27) = 57/27 = 2.11$
 
-```{r}
-#| echo: false
-#| eval: true
-
-include_graphics("_graphics/spinner-hw-collector-joint.png")
-```
-
-There are many ways of doing the simulation.
-I'll use a for loop
-
-```{r}
-
-# Number of repetitions
-N_rep <- 10000
-
-# Initialize place holders for X and Y
-# Each of X and Y will eventually contain 10000 values
-# but initially they are empty
-X <- vector(length = N_rep)
-Y <- vector(length = N_rep)
+The possible values of $Y$ are in the top row (0, 1, 2, 3) and the marginal probabilities are in the Total row.
+$E(Y) = (0)(8/27)+(1)(12/27)+(2)(6/27)+(3)(1/27) = 1$
 
 
-for (i in 1:N_rep) {
-  # within the loop a single repetition is performed
+Covariance is 0. $E(XY) = (1)(0)(2/27) + (1)(3)(2/27)+\cdots+(3)(1)(6/27) = 57/27$. $E(XY)-E(X)E(Y)= (57/27)-(57/27)(1) = 0.$
 
-  # simulate the 3 prizes
-  outcome <- sample(1:3, size = 3, replace = TRUE)
+Each row of the table below represents a different conditional distribution of $Y$ given $X=x$. For example, the row for $x=1$ represents the conditional distribution of $Y$ given $X=1$: Given $X=1$, $Y$ is 0 with probability 2/3 and 3 with probability 1/3.
 
-  # find the number of distinct prizes
-  x <- length(unique(outcome))
-
-  # count the number of prize 1s
-  y <- sum(outcome == 1)
-
-  # record the values in X and Y
-  X[i] <- x
-  Y[i] <- y
-}
-
-# After the loop runs each of X and Y will have 10000 values
-
-# X counts
-table(X)
-
-# Rough plot of approximate distribution of X
-plot(table(X) / N_rep, xlab = "X", ylab = "Relative frequency")
+|     |     |     |     |     |       |
+|-----|----:|----:|----:|----:|------:|
+|     | $y$ |     |     |     |       |
+|     |   0 |   1 |   2 |   3 | Total |
+| $x$ |     |     |     |     |       |
+| 1   | 2/3 |   0 |   0 | 1/3 |     1 |
+| 2   | 1/3 | 1/3 | 1/3 |   0 |     1 |
+| 3   |   0 |   1 |   0 |   0 |     1 |
 
 
-# Y counts
-table(Y)
+Take expected values according to each conditional distribution.  In general, $\text{E}(Y|X=x)$ depends on $x$, but in this case $\text{E}(Y|X=x) = 1$ for all values of $x$.; regardless of how many distinct prizez people obtain in their, the average number of prize 1s obtains is 1.
+
+\begin{align*}
+x & \quad \text{E}(Y|X=x)\\
+1 & \quad 0(2/3) + 3(1/3) = 1\\
+2 & \quad 0(1/3) + 1(1/3) + 2(1/3) = 1\\
+3 & \quad 1(1) = 1
+\end{align*}
+
+Each column of the table below represents a different conditional distribution of $X$ given $Y=y$. For example, the column for $y=1$ represents the conditional distribution of $X$ given $Y=1$: Given $Y=1$, $X$ is 1 with probability 1/4 and 2 with probability 3/4.
+
+|       |     |     |     |     |
+|-------|----:|----:|----:|----:|
+|       | $y$ |     |     |     |
+|       |   0 |   1 |   2 |   3 |
+| $x$   |     |     |     |     |
+| 1     | 1/4 |   0 |   0 |   1 |
+| 2     | 3/4 | 1/2 |   1 |   0 |
+| 3     |   0 | 1/2 |   0 |   0 |
+| Total |   1 |   1 |   1 |   1 |
 
 
-# Rough plot of approximate distribution of Y
-plot(table(Y) / N_rep, xlab = "Y", ylab = "Relative frequency")
+Take expected values according to each conditional distribution. For example, $\text{E}(X|Y = 0) = 1.75$; among the people who never get prize 1 in their 3 boxes, the average number of distinct prizes they obtain is 1.75.
+
+\begin{align*}
+y & \quad \text{E}(X|Y=y)\\
+0 & \quad 1(1/4) + 2(3/4) = 1.75\\
+1 & \quad 2(1/2) + 3(1/2) = 2.5\\
+2 & \quad 2(1) = 2\\
+3 & \quad 1(1) = 1
+\end{align*}
+
+$X$ and $Y$ are NOT independent, despite the fact that their covariance is 0. The conditional distribution of $X$ changes based on the value of $Y$.
+
+## Problem 4
+
+Xavier and Yolanda are playing roulette.
+They both place bets on red on the same 3 spins of the roulette wheel before Xavier has to leave.
+(Remember, the probability that any bet on red on a single spin wins is 18/38.) 
+After Xavier leaves, Yolanda places bets on red on 2 more spins of the wheel.
+Let $X$ be the number of bets that Xavier wins (out of 3) and let $Y$ be the number that Yolanda wins (out of 5).
+
+1.  Identify by name the marginal distribution of $X$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(X)$.
+1.  Identify by name the marginal distribution of $Y$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(Y)$.
+1.  The joint distribution of $X$ and $Y$ is represented in the table below. Explain why $p_{X, Y}(1, 4) = 0$ and $p_{X, Y}(2, 1) = 0$.
+1.  Compute $p_{X, Y}(2, 3)$. (Yes, the table tells you it's 0.1766, but you have to show how this number can be computed based on the assumptions of the problem.)
+1.  Compute $\text{Cov}(X, Y)$.
+1.  Are $X$ and $Y$ independent? Explain; support your answer with appropriate numbers.
 
 
-# (X, Y) counts
-table(X, Y)
+| $x$, $y$ |      0 |      1 |      2 |      3 |      4 |      5 |
+|----------|-------:|-------:|-------:|-------:|-------:|-------:|
+| 0        | 0.0404 | 0.0727 | 0.0327 |      0 |      0 |      0 |
+| 1        |      0 | 0.1090 | 0.1963 | 0.0883 |      0 |      0 |
+| 2        |      0 |      0 | 0.0981 | 0.1766 | 0.0795 |      0 |
+| 3        |      0 |      0 |      0 | 0.0294 | 0.0530 | 0.0238 |
 
-# Approximate E(X)
-mean(X)
-
-# Approximate E(Y)
-mean(Y)
-
-# Approximate SD(X)
-sd(X)
-
-# Approximate SD(Y)
-sd(Y)
-
-# Approximate E(XY)
-mean(X * Y)
-
-# Approximate Cov(X, Y)
-cov(X, Y)
-
-# Approximate Corr(X, Y)
-cor(X, Y)
-
-# Approximate P(X = 3)
-sum(X == 3) / N_rep
-
-# Approximate P(X = 2, Y = 1)
-sum((X == 2) * (Y == 1)) / N_rep
-```
-
-
-a.  The smallest possible value of $X$ is 30 (thousand dollars). The pdf has a peak at 30 and decreases as $x$ increases. The density is 0 for $x<30$. We can sketch the general shape of $f(x)$ without knowing the value of $c$; $c$ just tells us how to label the density axis so the total area under the curve is 1.
-b.  $c$ is such that the total area under the curve is 1
-    $$
-     1 = \int_{30}^\infty c x^{-2.5} dx = c 30^{-1.5}/1.5
-     $$
-     Solve for $c= (1.5)30^{1.5}=246.5$. That is
-     $$
-     f_X(x) = (1.5)(30^{1.5}) x^{-2.5}, \quad x \ge 30
-     $$
-c.  The probability that a household has an income over \$200K is
-    $$
-     \text{P}(X > 200) = \int_{200}^\infty (1.5)30^{1.5} x^{-2.5} dx = (30/200)^{1.5} = 0.058
-     $$
-     About 5.8% percent of households in this area have an income over 200 thousand dollars.
-d.  $X$ is continuous so $\text{P}(X = 200) = 0$
-e.  In the measure units of $X$, 1 thousand dollars is 1 unit long, a small range in the scale of the variable. Can integrate but since it's a small range of values in the scale of the variable, can approximate
-    $$
-     \text{P}(200 - 0.5 < X < 200 + 0.5) \approx f_X(200)(1) = (1.5)30^{1.5}200^{-2.5}(1) = 0.000436
-     $$
-     About 0.04% of households in this area have an income, to the nearest thousand dollars, of 200 thousand dollars.
-f.  Ratio of the densities; note we don't need to know the value of $c$ to solve this part.
-    $$
-     \frac{f_X(100)}{f_X(200)} = \frac{100^{-2.5}}{200^{-2.5}} = 5.66
-     $$
-     In this area, a household is 5.66 times more likely to have an income, rounded to the nearest thousand dollars, of \$100K than \$200K.
-
-```{r}
-#| echo: false
-
-x <- seq(30, 300, 0.01)
-
-fx <- 1.5 * 30^1.5 * x^(-2.5)
-
-plot(
-  x,
-  fx,
-  type = "l",
-  xlab = "x (thousand dollars)",
-  ylab = "f(x)",
-  xlim = c(0, 300)
-)
-segments(x0 = -10, x1 = 30, y0 = 0, y1 = 0)
-```
-
-
-
-
-
-(Continuing from a previous HW) The latest series of collectible Lego Minifigures contains 3 different Minifigure prizes (labeled 1, 2, 3).
-Each package contains a single unknown prize.
-Suppose we only buy 3 packages and we consider as our sample space outcome the results of just these 3 packages (prize in package 1, prize in package 2, prize in package 3).
-For example, 323 (or (3, 2, 3)) represents prize 3 in the first package, prize 2 in the second package, prize 3 in the third package.
-Let $X$ be the number of distinct prizes obtained in these 3 packages.
-Let $Y$ be the number of these 3 packages that contain prize 1.
-Suppose that each package is equally likely to contain any of the 3 prizes, regardless of the contents of other packages; let $\text{P}$ denote the corresponding probability measure.
-
-a.  Find the conditional distribution of $Y$ given $X=x$ for each possible value of $x$ of $X$.
-a.  Compute and interpret $\text{E}(Y|X=x)$ for each possible value of $x$ of $X$.
-b.  Find the conditional distribution of $X$ given $Y=y$ for each possible value of $y$ of $Y$.
-a.  Compute and interpret $\text{E}(X|Y=y)$ for each possible value of $y$ of $Y$.
-c.  Explain how you could use spinners to implement the "marginal then conditional" method to simulate an $(X, Y)$ pair.
-d.  Suppose you have simulated many $(X, Y)$ pairs. Explain how you could use the simulation results to approximate:
-    i.  $\text{P}(X = 1 | Y = 0)$
-    ii. the conditional distribution of $X$ given $Y=0$
-    iii. $\text{E}(X = 1 | Y = 0)$
 
 ### Solution
 
-a.  Each row of the table below represents a different conditional distribution of $Y$ given $X=x$. For example, the row for $x=1$ represents the conditional distribution of $Y$ given $X=1$: Given $X=1$, $Y$ is 0 with probability 2/3 and 3 with probability 1/3.
-
-    |     |     |     |     |     |       |
-    |-----|----:|----:|----:|----:|------:|
-    |     | $y$ |     |     |     |       |
-    |     |   0 |   1 |   2 |   3 | Total |
-    | $x$ |     |     |     |     |       |
-    | 1   | 2/3 |   0 |   0 | 1/3 |     1 |
-    | 2   | 1/3 | 1/3 | 1/3 |   0 |     1 |
-    | 3   |   0 |   1 |   0 |   0 |     1 |
-
-
-a. Take expected values according to each conditional distribution.  In general, $\text{E}(Y|X=x)$ depends on $x$, but in this case $\text{E}(Y|X=x) = 1$ for all values of $x$.; regardless of how many distinct prizez people obtain in their, the average number of prize 1s obtains is 1.
-
-    \begin{align*}
-    x & \quad \text{E}(Y|X=x)\\
-    1 & \quad 0(2/3) + 3(1/3) = 1\\
-    2 & \quad 0(1/3) + 1(1/3) + 2(1/3) = 1\\
-    3 & \quad 1(1) = 1
-    \end{align*}
-
-b.  Each column of the table below represents a different conditional distribution of $X$ given $Y=y$. For example, the column for $y=1$ represents the conditional distribution of $X$ given $Y=1$: Given $Y=1$, $X$ is 1 with probability 1/4 and 2 with probability 3/4.
-
-    |       |     |     |     |     |
-    |-------|----:|----:|----:|----:|
-    |       | $y$ |     |     |     |
-    |       |   0 |   1 |   2 |   3 |
-    | $x$   |     |     |     |     |
-    | 1     | 1/4 |   0 |   0 |   1 |
-    | 2     | 3/4 | 1/2 |   1 |   0 |
-    | 3     |   0 | 1/2 |   0 |   0 |
-    | Total |   1 |   1 |   1 |   1 |
-
-
-a. Take expected values according to each conditional distribution. For example, $\text{E}(X|Y = 0) = 1.75$; among the people who never get prize 1 in their 3 boxes, the average number of distinct prizes they obtain is 1.75.
-
-    \begin{align*}
-    y & \quad \text{E}(X|Y=y)\\
-    0 & \quad 1(1/4) + 2(3/4) = 1.75\\
-    1 & \quad 2(1/2) + 3(1/2) = 2.5\\
-    2 & \quad 2(1) = 2\\
-    3 & \quad 1(1) = 1
-    \end{align*}
-
-
-c.  Simulate a value of $X$ from its marginal distribution: 1, 2, 3 with probability 3/27, 18/27, 6/27 (see previous HW for spinner). Given the value of $x$, simulate $Y$ from the appropriate conditional distribution of $Y$ given $X=x$:
-    -   if $x =1$, simulate $Y$ from a spinner that returns values 0, 3 with probability 2/3, 1/3
-    -   if $x = 2$, simulate $Y$ from a spinner that returns values 0, 1, 2 with probability 1/3, 1/3, 1/3
-    -   if $x =3$ then $Y$ is 1 with probability 1.
-    -   (You could also simulate $Y$ first and then given $Y=y$ simulate $X$ from the appropriate conditional distribution of $X$ given $Y=y$.)
-d.  Simulate many $(X, Y)$ pairs using any appropriate method.
-    i.  Discard all pairs for which $Y$ is not 0, count the number of remaining pairs in which $X=1$ and divide by the number of non-discarded pairs (all with $Y=0$).
-    ii. Discard all pairs for which $Y$ is not 0, and summarize the $X$ values to find the conditional relative frequency of each possible $X$ value as in the previous part (given $Y=0$, the possible values of $X$ are 1 and 2).
-    iii. Discard all pairs for which $Y$ is not 0 and sum all the $X$ values for the remaining pairs and divide by the number of non-discarded pairs to find the conditional average.
-    iv. (In all the above, be careful about the margin of error.)
-
+1.  $X$ has a Binomial(3, 18/38) distribution so $\text{E}(X) = (3)(18/38)$.
+1.  $Y$ has a Binomial(5, 18/38) distribution so $\text{E}(Y) = (5)(18/38)$.
+1.  Since $X$ is the number of wins in the first 3 bets and $Y$ is the number of wins in the first 5 bets, $Y$ needs to be at least as big as $X$, and $Y$ cannot be bigger than $X+2$.
+1.  $p_{X, Y}(2, 3)=P(X=2, Y=3)$. $X=2$ and $Y=3$ can only happen if there are 2 wins in the first 3 bets and 1 win in the last 2 bets. Since the bets are independent, the probability is $\left(\binom{3}{2}(18/38)^2(18/38)^1\right)\left(\binom{2}{1}(18/38)^1(18/38)^1\right)$
+1.  $\text{Cov}(X, Y)=E(XY)-E(X)E(Y)=E(XY)-(3(18/38))(5(18/38)) = 0.75$. To find $E(XY)$ for each $(x, y)$ pair, find the product $xy$ then multiply by its probability and sum: $(0)(0)(0.0404) + (0)(1)(0.0727) + \cdots + (3)(5)(0.0238)$.
+1.  The covariance is not 0, so $X$ and $Y$ are NOT independent.

@@ -1,424 +1,54 @@
 # Homework 7 solutions {.unnumbered}
 
 
-```{r}
-#| echo: false
-#| warning: false
-#| message: false
-
-library(knitr)
-library(kableExtra)
-library(ggplot2)
-library(janitor)
-```
 
 ## Problem 1
 
-Assume a Poisson($\mu$) model for the number of home runs hit (in total by both teams) in a MLB game.
-Let $X_1, \ldots, X_n$ be a random sample of home run counts for  $n$ games.
+Xavier and Yolanda are playing roulette.
+They both place bets on red on the same 3 spins of the roulette wheel before Xavier has to leave.
+(Remember, the probability that any bet on red on a single spin wins is 18/38.) After Xavier leaves, Yolanda places bets on red on 2 more spins of the wheel.
+Let $X$ be the number of bets that Xavier wins and let $Y$ be the number that Yolanda wins.
 
-Suppose we want to estimate $\theta = \mu e^{-\mu}$, the probability that any single game has exactly 1 HR. Consider two estimators of $\theta$
 
-- $\hat{\theta} = \bar{X} e^{-\bar{X}}$
-- $\hat{p} =\text{sample proportion of 1s} = \frac{\text{number of games in the sample with 1 HR}}{\text{sample size}}$
+1.  Compute and interpret $\text{P}(X + Y = 4)$.
 
-a.  Compute the value of $\hat{\theta}$ based on the sample (3, 0, 1, 4, 0). Write a clearly worded sentence reporting in context this estimate of $\theta$.
-a.  Compute the value of $\hat{p}$ based on the sample (3, 0, 1, 4, 0). Write a clearly worded sentence reporting in context your estimate of $\theta$.
-a.  Which of these two estimators is the MLE of $\theta$ in this situation? Explain, without doing any calculations.
-a.  It can be shown that $\hat{p}$ is an unbiased estimator of $\theta$. Explain what this means.
-a.  Is $\hat{\theta}$ an unbiased estimator of $\theta$? Explain. (You don't have to derive anything; just apply a general principle.)
-a.  Suppose $\mu = 2.3$ and $n=5$. Explain in full detail how you would use simulation to approximate the bias of $\hat{\theta}$.
-a.  Conduct the simulation from the previous part and plot the approximate of $\hat{\theta}$ when $\mu = 2.3$ and $n = 5$.
-a.  Explain in full detail how you would use simulation to approximate the bias function of $\hat{\theta}$ when $n=5$.
-a.  Conduct the simulation from the previous part and plot the approximate bias function when $n=5$. For what values of $\mu$ does $\hat{\theta}$ tend to overestimate $\mu$? Underestimate? For what values of $\mu$ is the bias the worst?
+1.  Make a table representing the marginal distribution of $X+Y$.
 
+1.  Use the table from the previous part to compute $\text{E}(X+Y)$, and verify that it is equal to $\text{E}(X)+\text{E}(Y)$.
+(You computed $\text{E}(X)$ and $\text{E}(Y)$ in a previous homework.)
 
+1.  Without doing any computation, determine if $\text{Var}(X+Y)$ will be greater than, less than, or equal to $\text{Var}(X) + \text{Var}(Y)$. Explain your reasoning.
 
+1.  Use the marginal distribution of $X+Y$ (from earlier in this problem) to compute $\text{Var}(X+Y)$.
 
-### Solution
+1.  In a previous HW you identified the marginal distribution of $X$ by name. Use facts about that distribution to compute $\text{Var}(X)$.
 
+1.  In a previous HW you identified the marginal distribution of $Y$ by name. Use facts about that distribution to compute $\text{Var}(Y)$.
 
-a.  For the sample (3, 0, 1, 4, 0), the value of $\bar{X}$ is 8/5 and  the value of $\hat{\theta}$ is $(8/5)e^{-8/5}=0.323$. Using this estimator, based on this sample we would estimate that 32.3 percent of baseball games have 1 home run.
-a.  For the sample (3, 0, 1, 4, 0) there is 1 game with 1 HR so $\hat{p} = 1/5 = 0.2$. Using this estimator, based on this sample we would estimate that 20 percent of baseball games have 1 home run.
-a.  We know that the MLE of $\mu$ for a Poisson distribution is $\bar{X}$, so by the invariance principle of MLEs, $\bar{X}e^{-\bar{X}}$ is the MLE of $\mu e^{-\mu}$.
-a.  Over many samples, $\hat{p}$ does not consistent over or under estimate $\theta$.
-a.  No. $\bar{X}$ is an unbiased estimator of $\mu$ but nonlinear transformations do not preserve unbiasedness.
-$\hat{\theta}$ is not unbiased estimator of $\theta$.
-    $$
-    \text{E}(\hat{\theta}) = \text{E}(\bar{X}e^{-\bar{X}})\neq     \text{E}(\bar{X})e^{-\text{E}(\bar{X})} = \mu e^{-\mu} = \theta
-    $$
-a.  For $\mu = 2.3$
-    -   Simulate a sample of size $n$ from a Poisson(2.3) distribution, say (3, 0, 1, 4, 0) for $n=5$.
-    -   For the simulated sample compute the sample mean $\bar{X}$ and the value of $\hat{\theta} = \bar{X}e^{-\bar{X}}$, say 8/5 and $(8/5)e^{-8/5}=0.323$.
-    -   Repeat many times, simulating many samples of size $n$ and many values of $\hat{\theta}$ for the chosen $\mu$.
-    -   Average the values of $\hat{\theta}$ and subtract $\theta=2.3 e^{-2.3}$ to approximate the bias when $\mu = 2.3$.
-a.  See below.
-a.  We carry out the process in the previous part for many values of $\mu$. Choose a grid of $\mu$ values, say 0.01, 0.02, $\ldots$, 10
-    -   Choose a value of $\mu$ from the grid, say 2.3
-    -   Simulate a sample of size $n$ from a Poisson($\mu$) distribution, say (3, 0, 1, 4, 0) for $n=5$.
-    -   For the simulated sample compute the sample mean $\bar{X}$ and the value of $\hat{\theta} = \bar{X}e^{-\bar{X}}$, say 8/5 and $(8/5)e^{-8/5}=0.323$.
-    -   Repeat many times, simulating many samples of size $n$ and many values of $\hat{\theta}$ for the chosen $\mu$.
-    -   Average the values of $\hat{\theta}$ and subtract $\theta=\mu e^{-\mu}$ to approximate the bias for the chosen $\mu$.
-    -   Repeat the above process for all the values of $\mu$ in the grid and plot the approximate bias as a function of $\mu$ to approximate the bias function.
-a.  See below. 
-
-
-
-
-## Problem 2
-
-Continuing Problem 2.
-
-a.  It can be shown that $\text{Var}(\hat{p}) = \frac{\theta(1-\theta)}{n}$. Compute  $\text{Var}(\hat{p})$ when $\mu = 2.3$ and $n=5$. Then write a clearly worded sentence interpreting this value.
-a.  Suppose $\mu = 2.3$ and $n=5$. Explain in full detail how you would use simulation to approximate the variance of $\hat{\theta}$.
-a.  Conduct the simulation from the previous part and approximate  the variance of $\hat{\theta}$ when $\mu = 2.3$ and $n=5$. Then write a clearly worded sentence interpreting this value.
-a.  Which estimator has smaller variance when $\mu = 2.3$ (and $n=5$)? Answer, but then explain why this information alone is not really useful.
-a.  Explain in full detail how you would use simulation to approximate the variance function of $\hat{\theta}$ (if $n=5$).
-a.  Conduct the simulation from the previous part and plot the approximate variance function. Compare to the variance function of $\hat{p}$. Based on variability alone, which estimator is preferred?
-
-
-
-### Solution
-
-a.  When $\mu = 2.3$, $\theta = 2.3e^{-2.3} = 0.231$, so if $n=5$
-    $$
-    \text{Var}_{\mu = 2.3}(\hat{p}) = \frac{0.231(1-0.231)}{5} = 0.035
-    $$ 
-    This number measures the sample-to-sample variance of sample proportions of games with 1 HR over many samples of 5 games, assuming that $\mu = 2.3$.
-a.  For $\mu = 2.3$
-    -   Simulate a sample of size $n$ from a Poisson(2.3) distribution, say (3, 0, 1, 4, 0) for $n=5$.
-    -   For the simulated sample compute the sample mean $\bar{X}$ and the value of $\hat{\theta} = \bar{X}e^{-\bar{X}}$, say 8/5 and $(8/5)e^{-8/5}=0.323$.
-    -   Repeat many times, simulating many samples of size $n$ and many values of $\hat{\theta}$ for the chosen $\mu$.
-    -   Average the values of $\hat{\theta}$, for each value of $\hat{\theta}$ find its deviation from the average, and then average the squared deviations. This number approximates $\text{Var}(\hat{\theta})$ when $\mu = 2.3$
-a.  See below. The value measures the sample-to-sample variance of values of $\hat{\theta}$ (estimates of the probability that a game has 1 HR), assuming that $\mu = 2.3$.
-a.  $\hat{\theta}$ has smaller variance when $\mu = 2.3$, but that by itself isn't useful because we don't know what $\mu$ is.
-a.  We carry out the process in the previous part for many values of $\mu$. Choose a grid of $\mu$ values, say 0.01, 0.02, $\ldots$, 10
-    -   Choose a value of $\mu$ from the grid, say 2.3
-    -   Simulate a sample of size $n$ from a Poisson($\mu$) distribution, say (3, 0, 1, 4, 0) for $n=5$.
-    -   For the simulated sample compute the sample mean $\bar{X}$ and the value of $\hat{\theta} = \bar{X}e^{-\bar{X}}$, say 8/5 and $(8/5)e^{-8/5}=0.323$.
-    -   Repeat many times, simulating many samples of size $n$ and many values of $\hat{\theta}$ for the chosen $\mu$.
-    -   Average the values of $\hat{\theta}$, for each value of $\hat{\theta}$ find its deviation from the average, and then average the squared deviations. This number approximates $\text{Var}(\hat{\theta})$ for the chosen $\mu$
-    -   Repeat the above process for all the values of $\mu$ in the grid and plot the approximate bias as a function of $\mu$ to approximate the bias function.
-a.  See below. Seems like $\hat{\theta}$ has smaller variance regardless of $\mu$.
-
-
-
-
-## Problem 3
-
-Continuing Problems 2 and 3
-
-a.  Compute $\text{MSE}(\hat{p})$ when $\mu = 2.3$ and $n=5$. (You can do the next part first if you want, but it helps to work with specific numbers first.)
-a.  Derive the MSE function of $\hat{p}$. (Hint: see facts from previous parts.)
-a.  Suppose $\mu = 2.3$ (and $n=5$). Explain in full detail how you would use simulation to approximate the MSE of $\hat{\theta}$.
-a.  Conduct the simulation from the previous part and approximate the MSE of $\hat{\theta}$ when $\mu =2.3$ (and $n=5$).
-a.  Which estimator has smaller MSE when $\mu = 2.3$ (and $n=5$)? Answer, but then explain why this information alone is not really useful.
-a.  Conduct the simulation from the previous part and plot the approximate MSE function. Compare to the MSE function of $\hat{p}$.
-a.  Compare the MSEs of the two estimators for $n=5$ and a few other values of $n$. Is there a clear preference between these two estimators? Discuss.
-
-
-
-### Solution
-
-
-a.  Since $\hat{p}$ is unbiased, its MSE is just its variance.
-a.  Since $\hat{p}$ is unbiased, its MSE function is just its variance function.
-a.  For $\mu = 2.3$
-    -   Simulate a sample of size $n$ from a Poisson(2.3) distribution, say (3, 0, 1, 4, 0) for $n=5$.
-    -   For the simulated sample compute the sample mean $\bar{X}$ and the value of $\hat{\theta} = \bar{X}e^{-\bar{X}}$, say 8/5 and $(8/5)e^{-8/5}=0.323$.
-    -   Repeat many times, simulating many samples of size $n$ and many values of $\hat{\theta}$ for the chosen $\mu$.
-    -   For each value of $\hat{\theta}$ subtract $\theta=2.3 e^{-2.3}$ and square the difference, then average these squared differences to approximate the MSE when $\mu = 2.3$.
-a.  See below. The squared bias is fairly small compared to the variance, so the MSE is pretty close to the variance function. 
-a.  $\hat{\theta}$ has smaller MSE when $\mu = 2.3$, but this isn't really useful because we don't know what $\mu$ is.
-a.  See below.
-a.  It seems that (at least for the values of $n$ that we considered) $\hat{\theta}$ has smaller MSE than $\hat{p}$ for all $\mu$.
-The sample proportion doesn't use the fact that the population distribution is Poisson, and it treats each value as either 1 or not. $\bar{X} e^{-\bar{X}}$ uses all the data and the fact that the population distribution is Poisson, so its better tuned to this problem.
-
-
-## Simulation
-
-### For mu = 2.3
-
-```{r}
-n = 5
-
-mu = 2.3
-
-N_samples = 10000
-
-theta_hats = vector(length = N_samples)
-
-for (i in 1:N_samples) {
-  # simulate a sample of size n from the Poisson(mu) population
-  x = rpois(n, mu)
-  
-  # compute theta-hat
-  theta_hats[i] = mean(x) * exp(-mean(x))
-}
-
-# Approximate the bias of theta-hat for this mu
-mean(theta_hats) - mu * exp(-mu)
-
-# Approximate the variance of theta-hat for this mu
-var(theta_hats)
-
-# Approximate the MSE of theta-hat for this mu
-mean((theta_hats - mu * exp(-mu)) ^ 2)
-
-```
-
-
-### For all mu
-
-```{r}
-n = 5
-
-# grid of mu values: 0.1, 0.2, 0.3, ..., 4.9, 5
-mus = seq(0.1, 5, 0.1)
-
-N_samples = 10000
-
-# initialize vectors that will record bias, var, mse as functions of mu
-bias_thetahat = vector()
-var_thetahat = vector()
-mse_thetahat = vector()
-
-for (mu in mus) {
-  
-  # true value of theta for this mu
-  theta = mu * exp(-mu)
-  
-  # for each mu simulate many samples and many values of sigma-hat^2
-  theta_hats = vector(length = N_samples)
-  
-  for (i in 1:N_samples) {
-    # simulate a sample of size n from the Poisson(mu) population
-    x = rpois(n, mu)
-    
-    # compute theta-hat
-    theta_hats[i] = mean(x) * exp(-mean(x))
-    
-  }
-  
-  # Approximate bias of theta-hat for this mu and add to the list
-  bias_thetahat = c(bias_thetahat, mean(theta_hats) - theta)
-  
-  # Approximate variance of sigma-hat^2 for this mu and add to the list
-  var_thetahat = c(var_thetahat, var(theta_hats))
-  
-  # Approximate MSE of sigma-hat^2 for this mu and add to the list
-  # Can just do bias^2 + var, but can also use definition of MSE
-  mse_thetahat = c(mse_thetahat, mean((theta_hats - theta) ^ 2))
-  
-}
-
-```
-
-
-
-### Bias function
-
-Any "wiggles" are due to natural simulation margin of error (can make these go away by simulating even more samples)
-
-```{r}
-plot(mus, bias_thetahat,
-     xlab = "mu",
-     ylab = "Bias of thetahat")
-
-```
-
-### Squared bias function
-
-Any "wiggles" are due to natural simulation margin of error (can make these go away by simulating even more samples)
-
-```{r}
-plot(mus, bias_thetahat ^ 2,
-     xlab = "mu",
-     ylab = "Squared Bias of thetahat",
-     ylim = c(0, 0.05)) # set common y-axis scale
-
-```
-
-### Variance function
-
-Any "wiggles" are due to natural simulation margin of error (can make these go away by simulating even more samples)
-
-```{r}
-plot(mus, var_thetahat,
-     xlab = "mu",
-     ylab = "Variance",
-     ylim = c(0, 0.05), # set common y-axis scale
-     main = "Variance functions of theta-hat (dots) and p-hat (dashed)")
-curve(x * exp(-x) * (1 - x * exp(-x)) / n, add = TRUE,
-      lty = 2)
-
-```
-
-
-### MSE function
-
-Any "wiggles" are due to natural simulation margin of error (can make these go away by simulating even more samples)
-
-```{r}
-plot(mus, mse_thetahat,
-     xlab = "mu",
-     ylab = "MSE",
-     ylim = c(0, 0.05), # set common y-axis scale
-     main = "MSE functions of theta-hat (dots) and p-hat (dashed)")
-curve(x * exp(-x) * (1 - x * exp(-x)) / n, add = TRUE,
-      lty = 2)
-
-```
-
-### Different n
-
-```{r}
-n = 50
-
-# grid of mu values: 0.1, 0.2, 0.3, ..., 4.9, 5
-mus = seq(0.1, 5, 0.1)
-
-N_samples = 10000
-
-# initialize vectors that will record bias, var, mse as functions of mu
-bias_thetahat = vector()
-var_thetahat = vector()
-mse_thetahat = vector()
-
-for (mu in mus) {
-  
-  # true value of theta for this mu
-  theta = mu * exp(-mu)
-  
-  # for each mu simulate many samples and many values of sigma-hat^2
-  theta_hats = vector(length = N_samples)
-  
-  for (i in 1:N_samples) {
-    # simulate a sample of size n from the Poisson(mu) population
-    x = rpois(n, mu)
-    
-    # compute theta-hat
-    theta_hats[i] = mean(x) * exp(-mean(x))
-    
-  }
-  
-  # Approximate bias of theta-hat for this mu and add to the list
-  bias_thetahat = c(bias_thetahat, mean(theta_hats) - theta)
-  
-  # Approximate variance of sigma-hat^2 for this mu and add to the list
-  var_thetahat = c(var_thetahat, var(theta_hats))
-  
-  # Approximate MSE of sigma-hat^2 for this mu and add to the list
-  # Can just do bias^2 + var, but can also use definition of MSE
-  mse_thetahat = c(mse_thetahat, mean((theta_hats - theta) ^ 2))
-  
-}
-
-```
-
-
-```{r}
-plot(mus, mse_thetahat,
-     xlab = "mu",
-     ylab = "MSE",
-     ylim = c(0, 0.006), # set common y-axis scale
-     main = "n = 50:MSE functions of theta-hat (dots) and p-hat (dashed)")
-curve(x * exp(-x) * (1 - x * exp(-x)) / n, add = TRUE,
-      lty = 2)
-```
-
-
-
-```{r}
-n = 20
-
-# grid of mu values: 0.1, 0.2, 0.3, ..., 4.9, 5
-mus = seq(0.1, 5, 0.1)
-
-N_samples = 10000
-
-# initialize vectors that will record bias, var, mse as functions of mu
-bias_thetahat = vector()
-var_thetahat = vector()
-mse_thetahat = vector()
-
-for (mu in mus) {
-  
-  # true value of theta for this mu
-  theta = mu * exp(-mu)
-  
-  # for each mu simulate many samples and many values of sigma-hat^2
-  theta_hats = vector(length = N_samples)
-  
-  for (i in 1:N_samples) {
-    # simulate a sample of size n from the Poisson(mu) population
-    x = rpois(n, mu)
-    
-    # compute theta-hat
-    theta_hats[i] = mean(x) * exp(-mean(x))
-    
-  }
-  
-  # Approximate bias of theta-hat for this mu and add to the list
-  bias_thetahat = c(bias_thetahat, mean(theta_hats) - theta)
-  
-  # Approximate variance of sigma-hat^2 for this mu and add to the list
-  var_thetahat = c(var_thetahat, var(theta_hats))
-  
-  # Approximate MSE of sigma-hat^2 for this mu and add to the list
-  # Can just do bias^2 + var, but can also use definition of MSE
-  mse_thetahat = c(mse_thetahat, mean((theta_hats - theta) ^ 2))
-  
-}
-
-```
-
-
-```{r}
-plot(mus, mse_thetahat,
-     xlab = "mu",
-     ylab = "MSE",
-     ylim = c(0, 0.015), # set common y-axis scale
-     main = "n = 20:MSE functions of theta-hat (dots) and p-hat (dashed)")
-curve(x * exp(-x) * (1 - x * exp(-x)) / n, add = TRUE,
-      lty = 2)
-```
-
-
-
-Xavier and Yolanda are playing roulette. They both place bets on red on the same 3 spins of the roulette wheel before Xavier has to leave. (Remember, the probability that any bet on red on a single spin wins is 18/38.) After Xavier leaves, Yolanda places bets on red on 2 more spins of the wheel. Let $X$ be the number of bets that Xavier wins and  let $Y$ be the number that Yolanda wins.
-
-a. Identify by name the marginal distribution of $X$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(X)$.
-a. Identify by name the marginal distribution of $Y$. Be sure to specify the values of any relevant parameters. Compute $\text{E}(Y)$.
-a. The joint distribution of $X$ and $Y$ is represented in the table below. Explain why $p_{X, Y}(1, 4) = 0$ and $p_{X, Y}(2, 1) = 0$.
-a. Compute $p_{X, Y}(2, 3)$. (Yes, the table tells you it's 0.1766, but you have to show how this number can be computed based on the assumptions of the problem.)
-a. Are $X$ and $Y$ independent? Justify your answer with an appropriate calculation.
-a. Compute and interpret $\text{P}(X + Y) = 4$.
-a. Make a table representing the marginal distribution of $X+Y$.
-a. Use the table from the previous part to compute $\text{E}(X+Y)$, and verify that it is equal to $\text{E}(X)+\text{E}(Y)$.
-a. Without doing any computation, determine if $\text{Var}(X+Y)$ will be greater than, less than, or equal to $\text{Var}(X) + \text{Var}(Y)$. Explain your reasoning.
-
+1.  Verify that $\text{Var}(X+Y)$ is equal to $\text{Var}(X)+ \text{Var}(Y)+2\text{Cov}(X,Y)$. (You computed the covariance in a previous homework.)
 
 | $x$, $y$ |      0 |      1 |      2 |      3 |      4 |      5 |
 |----------|-------:|-------:|-------:|-------:|-------:|-------:|
 | 0        | 0.0404 | 0.0727 | 0.0327 |      0 |      0 |      0 |
-| 1        |      0 |  0.109 | 0.1963 | 0.0883 |      0 |      0 |
+| 1        |      0 | 0.1090 | 0.1963 | 0.0883 |      0 |      0 |
 | 2        |      0 |      0 | 0.0981 | 0.1766 | 0.0795 |      0 |
-| 3        |      0 |      0 |      0 | 0.0294 |  0.053 | 0.0238 |
+| 3        |      0 |      0 |      0 | 0.0294 | 0.0530 | 0.0238 |
 
 
 ### Solution
 
-a. $X$ has a Binomial distribution with parameters $n=3$ and $p = 18/38$, so $\text{E}(X) = np = 3(18/38) = 1.42$.
-a. $Y$ has a Binomial distribution with parameters $n=5$ and $p = 18/38$, so $\text{E}(X) = np = 5(18/38) = 2.37$.
-a. In the first 3 bets Yolanda wins the same number of games as Xavier, and Yolanda only plays two more games. So $Y$ can't be more than $X+2$, and $Y$ can't be less than $X$.
-a. To have $X = 2$ and $Y=3$ we need to have exactly two wins in the first 3 bets (where both play) exactly 1 win in the last 2 bets (Yolanda only). The number of wins in the first 3 bests is Binomial(3, 18/38), the number of wins in the last two bets is Binomial(2, 18/38) and the first 3 bets are independent of the last two bets. So the probability is `dbinom(2, 3, 18 / 38) * dbinom(1, 2, 18 / 38)` = `r round(dbinom(2, 3, 18 / 38) * dbinom(1, 2, 18 / 38), 3)` or
+### Solution
+
+1.  $X$ has a Binomial distribution with parameters $n=3$ and $p = 18/38$, so $\text{E}(X) = np = 3(18/38) = 1.42$.
+1.  $Y$ has a Binomial distribution with parameters $n=5$ and $p = 18/38$, so $\text{E}(X) = np = 5(18/38) = 2.37$.
+1.  In the first 3 bets Yolanda wins the same number of games as Xavier, and Yolanda only plays two more games. So $Y$ can't be more than $X+2$, and $Y$ can't be less than $X$.
+1.  To have $X = 2$ and $Y=3$ we need to have exactly two wins in the first 3 bets (where both play) exactly 1 win in the last 2 bets (Yolanda only). The number of wins in the first 3 bests is Binomial(3, 18/38), the number of wins in the last two bets is Binomial(2, 18/38) and the first 3 bets are independent of the last two bets. So the probability is `dbinom(2, 3, 18 / 38) * dbinom(1, 2, 18 / 38)` = `r round(dbinom(2, 3, 18 / 38) * dbinom(1, 2, 18 / 38), 3)` or
     $$
     p_{X, Y}(2, 3) = \text{P}(X = 2, Y = 3) = \left(\binom{3}{1}(18/38)^2(20/38)^1\right)\left(\binom{2}{1}(18/38)^1(20/38)^1\right) = 0.177
     $$
-a. No. $X$ and $Y$ are not independent. For example $\text{P}(X = 0) = 0.15$ but $\text{P}(X=0|Y = 0) = 1$.
-a. Sum over the $(X, Y)$ pairs for which $X + Y = 4$: (0, 4), (1, 3), (2, 2), (3, 1), (4, 0). So 0 + 0.0883 + 0.0981 + 0 = 0.1864. Suppose they do this every time they visit the casino. Over many visits to the casino, together they win a total of 4 bets in 18.6% of visits
-a. The possible values are $0, 1, \ldots, 8$. Fill in the probabilities like in the previous part. (Alternative $X + Y$ has the same distribution as $2X + Z$ where $X$ and $Z$ are independent and $Z$ (number of wins in last two bets) has a Binomial(2, 18/38) distribution).
+1.  No. $X$ and $Y$ are not independent. For example $\text{P}(X = 0) = 0.15$ but $\text{P}(X=0|Y = 0) = 1$.
+1.  Sum over the $(X, Y)$ pairs for which $X + Y = 4$: (0, 4), (1, 3), (2, 2), (3, 1), (4, 0). So 0 + 0.0883 + 0.0981 + 0 = 0.1864. Suppose they do this every time they visit the casino. Over many visits to the casino, together they win a total of 4 bets in 18.6% of visits
+1.  The possible values are $0, 1, \ldots, 8$. Fill in the probabilities like in the previous part. (Alternative $X + Y$ has the same distribution as $2X + Z$ where $X$ and $Z$ are independent and $Z$ (number of wins in last two bets) has a Binomial(2, 18/38) distribution).
 
     | Value | Probability |
     |-------|------------:|
@@ -432,304 +62,199 @@ a. The possible values are $0, 1, \ldots, 8$. Fill in the probabilities like in 
     | 7     |      0.0530 |
     | 8     |      0.0238 |
      
-a. From the table $\text{E}(X+Y) = 0(0.404) + 1(0.0727 + \cdots + 8(0.0238) = 3.79$, and  $\text{E}(X)+\text{E}(Y) = 3(18/38) + 5(18/38) = 3.79$. (These are exactly equal; any differences are just rounding errors)
-a. There is a positive association so $\text{Var}(X+Y)$ will be greater than $\text{Var}(X) + \text{Var}(Y)$.
+1.  From the table $\text{E}(X+Y) = 0(0.404) + 1(0.0727 + \cdots + 8(0.0238) = 3.79$, and  $\text{E}(X)+\text{E}(Y) = 3(18/38) + 5(18/38) = 3.79$. (These are exactly equal; any differences are just rounding errors)
+1.  There is a positive association so $\text{Var}(X+Y)$ will be greater than $\text{Var}(X) + \text{Var}(Y)$.
 
+
+
+
+
+
+## Problem 2
+
+A vendor at a weekend farmers market sells three products: jars of honey, 
+loaves of sourdough bread, and bags of ice. 
+Let $X$ be the number of jars of honey sold, $Y$ the number of loaves sold, and $Z$ the number of bags of ice sold.
+Based on several seasons of sales data, the number of units sold 
+on a given Saturday follows a joint distribution with
+
+-   Mean 40 and standard deviation 8 for honey jars sold,
+-   Mean 25 and standard deviation 5 for bread loaves sold,
+-   Mean 15 and standard deviation 6 for ice bags sold,
+-   Correlation of 0.5 between honey jars sold and bread loaves sold,
+-   Correlation of −0.4 between honey jars sold and ice bags sold. (Cooler 
+    days tend to bring out more shoppers browsing specialty foods like 
+    honey, but fewer people buying ice.)
+
+Honey jars sell for \$12 each, bread loaves sell for \$7 each, and ice bags 
+sell for \$4 each.
+
+1.  Let $R_1 = 12X + 7Y$ be the vendor's revenue from honey and bread 
+    combined. Compute $E(R_1)$ and $SD(R_1)$.
+
+1.  Let $R_2 = 12X + 4Z$ be the vendor's revenue from honey and ice 
+    combined. Compute $E(R_2)$ and $SD(R_2)$.
+
+1.  Without doing any additional calculation, explain whether you'd expect each of $SD(R_1)$ and $SD(R_2)$ to be larger or smaller if the variables were uncorrelated.
+
+
+### Solution
+
+Part 1
+
+$$
+E(R_1) = 12E(X) + 7E(Y) = 12(40) + 7(25) = 480 + 175 = 655
+$$
+
+\begin{align*}
+Var(R_1) & = 12^2 SD(X)^2 + 7^2 SD(Y)^2 + 2(12)(7)\,\text{Corr}(X,Y)\,SD(X)\,SD(Y)\\
+& = 144(64) + 49(25) + 2(12)(7)(0.5)(8)(5)\\
+SD(R_1) & = \sqrt{12121} \approx 110.10
+\end{align*}
+
+Part 2
+
+$$
+E(R_2) = 12E(X) + 4E(Z) = 12(40) + 4(15) = 480 + 60 = 540
+$$
+
+\begin{align*}
+Var(R_2) & = 12^2 SD(X)^2 + 4^2 SD(Z)^2 + 2(12)(4)\,\text{Corr}(X,Z)\,SD(X)\,SD(Z)\\
+& = 144(64) + 16(36) + 2(12)(4)(-0.4)(8)(6)=7949\\
+SD(R_2) & = \sqrt{7949} = 89
+\end{align*}
+
+Part 3
+
+Since honey jars sold and ice bags sold are negatively correlated, $SD(R_2)$ 
+would be *smaller* than it would be if they were uncorrelated. Both 
+coefficients in $R_2 = 12X + 4Z$ are positive, so a negative correlation 
+between $X$ and $Z$ means that when one variable is unusually high, the 
+other tends to be unusually low — the two terms partially offset each 
+other's variability rather than reinforcing it. This makes the covariance 
+term $2(12)(4)\,\text{Corr}(X,Z)\,SD(X)\,SD(Z)$ negative, which lowers the 
+total variance (and therefore the standard deviation) compared to the 
+uncorrelated case.
 
 
 
 ## Problem 3
 
-
-Percent returns for assets $X$, $Y$, and $Z$ follow a joint distribution with
-
-- Mean 10 and standard deviation 15 for asset X,
-- Mean 5 and standard deviation 3 for asset Y,
-- Correlation of −0.6 between asset X and asset Y
-- Asset Z yields a constant return of 1 percent.
-
-An investment portfolio has 60% of its funds in asset X, 30% in asset Y, and 10% in asset Z.
-
-a. Let $R$ be the portfolio return. Express $R$ in terms of $X, Y, Z$. 
-a. Compute $\text{E}(R)$.
-a. Compute $\text{Cov}(X, Y)$.
-a. Compute $\text{Cov}(X, Z)$.
-a. Compute $\text{SD}(R)$.
-
-
-### Solution
-
-
-
-a. $R = 0.6X + 0.3Y + 0.1Z$
-a. Linearity of expected value
-    $$
-    \text{E}(R)=\text{E}(0.6X + 0.3Y + 0.1Z) = 0.6\text{E}(X) + 0.3\text{E}(Y) + 0.1\text{E}(Z) = 0.6(10) + 0.3(5) + 0.1(1) = 7.6
-    $$
-a. $\text{Cov}(X, Y) = \text{Corr}(X, Y)\text{SD}(X)\text{SD}(Y) = (-0.6)(15)(3) = -27$
-a. $Z$ is constant so $\text{Cov}(X, Z)=0$
-a. Use properties of variance and covariance
-\begin{align*}
-& \text{Var}(0.6X + 0.3Y + 0.1Z) & &  
-\\ & = \text{Var}(0.6X + 0.3Y) & & \text{$Z$ is constant, no affect variability}\\
- & = \text{Var}(0.6X) + \text{Var}(0.3Y) + 2\text{Cov}(0.6X, 0.3Y) & & \text{variance of sum}\\
- & = 0.6^2\text{Var}(X) + 0.3^2\text{Var}(Y) + 2(0.6)(0.3)\text{Cov}(X, Y) && \text{rules for variance}\\
- & =  0.6^2\text{SD}(X)^2 + 0.3^2\text{SD}(Y)^2 + 2(0.6)(0.3)\text{Corr}(X, Y)\text{SD}(X)\text{SD}(Y) && \text{correlation}\\
- & = 0.6^2(15^2) + 0.3^2(3)^2 + 2(0.6)(0.3)(-0.6)(15)(3) & & \\
- & = 72.09
- \end{align*}
- So $\text{SD}(R) = \sqrt{\text{Var}(R)} = \sqrt{72} = 8.49$.
-
-
-
- 
-## Problem 4
-
 Devi and Paxton are meeting.
 Arrival times are measured in minutes after noon, with negative times representing arrivals before noon.
-Devi's arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton's arrival time follows a Normal distribution with mean 25 and SD 10 minutes, independently of each other.
+Devi's arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton's arrival time follows a Normal distribution with mean 25 and SD 10 minutes.
 
-For each of the following, find the appropriate standardized value and make a ballpark estimate of the probability. Then use software to compute the probability.
+All of the probability calculations will involve a Normal distribution, but make sure you clearly identify the correct mean and SD.
+You should also compute standardized values and use a table to make a ballpark estimate of probabilities before jumping straight to software/calculator.
 
-a. Compute the probability that Devi arrives before noon.
-a. Compute the probability that Devi arrives first.
-a. Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
-a. **Coding required.** Code and run a simulation and use the results to approximate the probability from the previous part (just part c). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
+You will compute all of the following probabilities in each of the 3 scenarios below.
 
-### Solution
-
-
-a. If $V$ is Devi's arrival time, $V\sim N(20, 15)$. We want $\text{P}(V < 0)$. The standardized value for 0 is $(0 - 20)/15=-1.333$; that is, 0 is 1.333 SDs below the mean. From the empirical rule, 87% of values are within 1.5 SDs of the mean, so our estimated probability is more than 6.5%. For software, see below; $\text{P}(V < 0)=0.09$.
-a. If $X$ is Paxton's arrival time, we want $\text{P}(X > V) = \text{P}(X - V >0)$. Since $X$ and $V$ are independent each with a Normal distribution, then $X - V$ has a Normal distribution. The mean is $20-15 = 5$, and since $X$ and $V$ are independent
-    $$
-    \text{Var}(X - V) = \text{Var}(X) + \text{Var}(V) - 2\text{Cov}(X, V) = 10^2 + 15^2 - 0 = 325
-    $$
-    So $\text{SD}(X - V) = \sqrt{325} = 18.0$. 
-    We want $\text{P}(X - V > 0)$. The standardized value for 0 is $(0 - 5)/18=-0.277$; that is, 0 is 0.277 SDs below the mean.
-    The probability will be more than 50%. For software, see below; $\text{P}(X - V > 0)=0.61$.
-a. We want $\text{P}(|X - V| >15) = \text{P}(X - V > 15) + \text{P}(X - V < -15)$. The standardized value for 15 is $(15 - 5) / 18 = 0.556$. The standardized value for -15 is $(-15 - 5) / 18 = -1.11$. The probability that a value is more than 1 SD below the mean is about 0.16; the probability that a value is more than 0.5 SDs above the mean is about 0.31. So the probability that we want is less than 0.47. It's $\text{P}(|X - V| > 15) = 0.42$.
+a.  The probability that Devi arrives before noon.
+a.  The probability that Devi arrives before Paxton.
+a.  The probability that Devi arrives before Paxton given that Paxton arrives at 12:10.
+a.  The probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
 
 
-```{r}
-pnorm((0 - 20) / 15)
+1.  Scenario 1: Assume the arrival times are independent
 
-pnorm(0, 20, 15)
-```
+1.  Scenario 2: Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation 0.8
 
-```{r}
-1 - pnorm((0 - 5) / 18)
-
-1 - pnorm(0, 5, 18)
-```
-
-
-```{r}
-1 - pnorm((15 - 5) / 18) + pnorm((-15 - 5) / 18)
-
-1 - pnorm(15, 5, 18) + pnorm(-15, 5, 18)
-```
-
-
-
-
-
-```{r}
-N_rep <- 10000
-
-V <- rnorm(N_rep, 20, 15)
-X <- rnorm(N_rep, 25, 10)
-
-sum(abs(V - X) > 15) / N_rep
-
-cor(V, X)
-
-mean(V)
-
-sd(V)
-
-mean(X)
-
-sd(X)
-```
-
-
-```{r}
-plot(V, X, col = ifelse(abs(V - X) > 15, "orange", "gray"))
-abline(a = 15, b = 1, col = "orange")
-abline(a = -15, b = 1, col = "orange")
-```
-
-
-
-```{r}
-ggplot(data.frame(V, X), aes(x = V, y = X)) +
-  stat_density_2d(aes(fill = ..level..), geom = "polygon", colour = "white") +
-  geom_abline(slope = 1, intercept = c(-15, 15), col = "orange", size = 2)
-```
-
-## Problem 5 part 1
-
-(Continued.) Devi and Paxton are meeting. Arrival times are measured in minutes after noon, with negative times representing arrivals before noon. Devi’s arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton’s arrival time follows a Normal distribution with mean 25 and SD 10 minutes.
-
-For each of the following, find the appropriate standardized value and make a ballpark estimate of the probability. Then use software to compute the probability.
-
-Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation 0.8
-
-a. Compute the probability that Devi arrives first given that Paxton arrives at 12:10.
-a. Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
-a. **Coding required.** Code and run a simulation and use the results to approximate the probability from the previous part (just part b). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
+1.  Scenario 3: Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation -0.7
 
 
 ### Solution
 
+Part a) is the same in all three scenarios. 
+If $V$ is Devi's arrival time, $V\sim N(20, 15)$. We want $\text{P}(V < 0)$. The standardized value for 0 is $(0 - 20)/15=-1.333$; that is, 0 is 1.333 SDs below the mean. From the empirical rule, 87% of values are within 1.5 SDs of the mean, so our estimated probability is more than 6.5%. From software, $\text{P}(V < 0)=0.09$.
 
 
-Let $V$ be Devi's arrival time and let $X$ be Paxton's arrival time.
+Part b) If $X$ is Paxton's arrival time, we want $\text{P}(X > V) = \text{P}(X - V >0)$. Since $X$ and $V$ have a Bivariate Normal distribution, then $X - V$ has a Normal distribution. The mean is $20-15 = 5$.
+The only difference in the three scenarios is the variance, which affects the probability.
+
+Scenario 1: $X$ and $V$ are independent
+$$
+\text{Var}(X - V) = \text{Var}(X) + \text{Var}(V) - 2\text{Cov}(X, V) = 10^2 + 15^2 - 0 = 325
+$$
+So $\text{SD}(X - V) = \sqrt{85} = 18.0$. 
+We want $\text{P}(X - V > 0)$. The standardized value for 0 is $(0 - 5)/18=-0.277$; that is, 0 is 0.277 SDs below the mean.
+The probability will be more than 50%. From software, $\text{P}(X - V > 0)=0.61$.
 
 
-a. We want $\text{P}(V < X | X = 10) = \text{P}(V < 10 | X = 10)$. Paxton's time is 1.5 SDs below the mean, $\frac{10 - 25}{10} = -1.5$. Devi's conditional mean arrival time is 1.2 SDs below the mean, $0.8(-1.5) = -1.2$, so Devi's conditional mean arrival time is $\text{E}(V | X = 10) = 20 -1.2(15) =2$. Devi's conditional SD is $\text{SD}(V|X = 10) = 15\sqrt{1-0.8^2} = 9$. So $(V | (X = 10))\sim N(2, 9)$. $\text{P}(V < 10 | X = 10) = \text{P}(Z < \frac{10-2}{9}) = \text{P}(Z < 0.889)$; ballpark estimate a little less than 84%. Software (below) gives 0.81.
-a. We want $\text{P}(|X - V| >15) = \text{P}(X - V > 15) + \text{P}(X - V < -15)$.  Since $X$ and $V$ have a Bivariate Normal distribution, then $X - V$ has a Normal distribution. The mean is $20-15 = 5$, and
+Scenario 2:
+$$
+\text{Var}(X - V) = \text{Var}(X) + \text{Var}(V) - 2\text{Cov}(X, V) = 10^2 + 15^2 - 2(0.8)(10)(15) = 85
+$$
+So $\text{SD}(X - V) = \sqrt{85} = 9.2$. 
+We want $\text{P}(X - V > 0)$. The standardized value for 0 is $(0 - 5)/9.2=-0.54$; that is, 0 is 0.54 SDs below the mean.
+The probability will be more than in Scenario 1. From software, $\text{P}(X - V > 0)=0.71$.
+
+
+Scenario 3:
+$$
+\text{Var}(X - V) = \text{Var}(X) + \text{Var}(V) - 2\text{Cov}(X, V) = 10^2 + 15^2 - 2(-0.7)(10)(15) = 535
+$$
+So $\text{SD}(X - V) = \sqrt{535} = 23.1$. 
+We want $\text{P}(X - V > 0)$. The standardized value for 0 is $(0 - 5)/23.1=-0.216$; that is, 0 is 0.216 SDs below the mean.
+The probability will be less than in Scenario 1. From software, $\text{P}(X - V > 0)=0.59$.
+
+Part c) $\text{P}(V < X | X = 10) = \text{P}(V < 10 | X = 10)$. The probability depends on the conditional distribution of $V$ given $X=10$ which will be Normal but the mean and SD depend on the correlation.
+
+Scenario 1: Since $X$ and $V$ are independent, $\text{P}(V < 10 | X = 10)=\text{P}(V < 10)$. This is similar to part a. $V\sim N(20, 15)$. We want $\text{P}(V < 10)$. The standardized value for 10 is $(10 - 20)/15=-0.67$; that is, 0 is 0.67 SDs below the mean. From software, $\text{P}(V < 10)=0.31$.
+
+Scenario 2: Paxton's time is 1.5 SDs below the mean, $\frac{10 - 25}{10} = -1.5$. Devi's conditional mean arrival time is 1.2 SDs below the mean, $0.8(-1.5) = -1.2$, so Devi's conditional mean arrival time is $\text{E}(V | X = 10) = 20 -1.2(15) =2$. Devi's conditional SD is $\text{SD}(V|X = 10) = 15\sqrt{1-0.8^2} = 9$. So $(V | (X = 10))\sim N(2, 9)$. $\text{P}(V < 10 | X = 10) = \text{P}(Z < \frac{10-2}{9}) = \text{P}(Z < 0.889)$; ballpark estimate a little less than 84%. Software (below) gives 0.81.
+
+
+
+Scenario 3: Paxton's time is 1.5 SDs below the mean, $\frac{10 - 25}{10} = -1.5$. Devi's conditional mean arrival time is 1.05 SDs *above* the mean, $(-0.7)(-1.5) = 1.05$, so Devi's conditional mean arrival time is $\text{E}(V | X = 10) = 20 +1.05(15) =35.75$. Devi's conditional SD is $\text{SD}(V|X = 10) = 15\sqrt{1-0.7^2} = 10.7$. So $(V | (X = 10))\sim N(35.75, 10.7)$. $\text{P}(V < 10 | X = 10) = \text{P}(Z < \frac{10-35.75}{10.7}) = \text{P}(Z < -2.4)$; ballpark estimate is about 0.005. Software (below) gives 0.008.
+The probability is small because if Paxton arrives early then Devi is expected to arrive late, so Devi is unlikely to be the first to arrive.
+
+
+
+
+
+Part d) is similar to Part b. We want $\text{P}(|X - V| >15) = \text{P}(X - V > 15) + \text{P}(X - V < -15)$. We have already found the distributon of $X-V$ is part b: it's Normal with mean 5 and SD that depends on the scenario. So we standardized each of 15 and -15 to get the two tail probabilities and then add them together to get the overall probability (though most of the probability is in the "Devi arrives 15 minutes before Paxton" tail).
+
+Scenario 1: The standardized value for 15 is $(15 - 5) / 18 = 0.556$. The standardized value for -15 is $(-15 - 5) / 18 = -1.11$. The probability that a value is more than 1 SD below the mean is about 0.16; the probability that a value is more than 0.5 SDs above the mean is about 0.31. So the probability that we want is less than 0.47. It's $\text{P}(|X - V| > 15) = 0.42$.
+
+
+Scenario 2: The probability should be less than in Scenario 1 because with positive correlation they tend to arrive close together. The standardized value for 15 is $(15 - 5) / 9.2 = 1.09$. The standardized value for -15 is $(-15 - 5) / 9.2 = -2.2$. The probability that a value is more than 1 SD above the mean is about 0.15; the probability that a value is more than 2 SDs below the mean is about 0.02. So the probability that we want is around 0.17. From sofware, it's $\text{P}(|X - V| > 15) = 0.15$.
+
+Scenario 3: With a negative correlation, when one arrives early the other tends to arrive late, so the probability will be higher than in Scenario 1. The standardized value for 15 is $(15 - 5) / 23.1 = 0.433$. The standardized value for -15 is $(-15 - 5) / 23.1 = -0.866$. The probability that a value is more than 0.4 SD above the mean is about 0.32; the probability that a value is around 1 SD below the mean is about 0.17. So the probability that we want is around 0.49. From sofware, it's $\text{P}(|X - V| > 15) = 0.52$.
+
+
+
+
+
+
+
+
+
+
+## Problem 4
+
+Consider the general problem of estimating a population proportion $p$ for some binary (success/failure) categorical variable of interest.
+Select a sample of size $n$ and let $X$ be the number of successes in the sample.
+
+1.  We are considering a general problem here, but describe a specific context where you might want to do this: what is the population and its rough size, what is the variable of interest and what is "success", what is the sample, how do you measure $X$ for the sample? (For example, the handouts covered the general problem of estimating $\mu$ for a Poisson population, but we thought of it in terms of the car dealership problem.)
+1.  Suggest an estimator of $p$; it should be an expression involving $X$ and $n$. Describe in words what your estimator is. (Hint: what is the most obvious estimator you can think of?)
+1.  Suppose you observe $x = 6$ successes in a sample of size $n=10$. 
+Use your estimator to compute a point estimate of $p$ based on this sample.
+1.  Consider the estimator (called the "plus four" estimator)
     $$
-    \text{Var}(X - V) = \text{Var}(X) + \text{Var}(V) - 2\text{Cov}(X, V) = 10^2 + 15^2 - 2(0.8)(10)(15) = 85
+    \frac{X + 2}{n + 4} = \left(\frac{4}{n+4}\right)\left(0.5\right) + \left(\frac{n}{n+4}\right)\left(\frac{X}{n}\right)
     $$
-    So $\text{SD}(X - V) = \sqrt{85} = 9.2$.
-    The standardized value for 15 is $(15 - 5) / 9.2 = 1.08$. The standardized value for -15 is $(-15 - 5) / 9.2 = -2.17$. The probability that a value is more than 2 SDs below the mean is about 0.025; the probability that a value is more than 1 SD above the mean is about 0.16. So the probability that we want is less than 0.185. It's $\text{P}(|X - V| > 15) = 0.15$.
-
-
-
-```{r}
-pnorm((10 - 2) / 9)
-
-pnorm(10, 2, 9)
-```
-
-```{r}
-1 - pnorm((15 - 5) / 9.2) + pnorm((-15 - 5) / 9.2)
-
-1 - pnorm(15, 5, 9.2) + pnorm(-15, 5, 9.2)
-```
-
-
-
-
-
-```{r}
-N_rep <- 10000
-
-V <- rnorm(N_rep, 20, 15)
-X <- rnorm(N_rep, 25 + 10 * 0.8 * (V - 20) / 15, 10 * sqrt(1 - 0.8^2))
-
-sum(abs(V - X) > 15) / N_rep
-
-cor(V, X)
-
-mean(V)
-
-sd(V)
-
-mean(X)
-
-sd(X)
-```
-
-
-```{r}
-plot(V, X, col = ifelse(abs(V - X) > 15, "orange", "gray"))
-abline(a = 15, b = 1, col = "orange")
-abline(a = -15, b = 1, col = "orange")
-```
-
-
-
-```{r}
-ggplot(data.frame(V, X), aes(x = V, y = X)) +
-  stat_density_2d(aes(fill = ..level..), geom = "polygon", colour = "white") +
-  geom_abline(slope = 1, intercept = c(-15, 15), col = "orange", size = 2)
-```
-
-
-
-
-
-## Problem 5 part 2
-
-(Continued.) Devi and Paxton are meeting. Arrival times are measured in minutes after noon, with negative times representing arrivals before noon. Devi’s arrival time follows a Normal distribution with mean 20 and SD 15 minutes, and Paxton’s arrival time follows a Normal distribution with mean 25 and SD 10 minutes.
-
-For each of the following, find the appropriate standardized value and make a ballpark estimate of the probability. Then use software to compute the probability.
-
-Assume the pairs of arrival times follow a Bivariate Normal distribution with correlation -0.7
-
-a. Compute the probability that Devi arrives first given that Paxton arrives at 12:10.
-a. Compute the probability that the first person to arrive has to wait more than 15 minutes for the second person to arrive.
-a. **Coding required.** Code and run a simulation and use the results to approximate the probability from the previous part (just part b). You should first simulate (Devi, Paxton) arrival time pairs, and go from there.
+    Explain in words what this estimator does.
+    (The two expressions in the equation above are just different ways of expressing the estimator.)
+1.  Suppose you observe $x = 6$ successes in a sample of size $n=10$. 
+Use the plus four estimator to compute a point estimate of $p$ based on this sample.
+1.  If you observe $x = 6$ successes in a sample of size $n=10$, which of your two estimates is a better estimate of $p$?  Explain.
 
 
 ### Solution
 
-a. We want $\text{P}(V < X | X = 10) = \text{P}(V < 10 | X = 10)$. Paxton's time is 1.5 SDs below the mean, $\frac{10 - 25}{10} = -1.5$. Devi's conditional mean arrival time is 1.05 SDs *above* the mean, $(-0.7)(-1.5) = 1.05$, so Devi's conditional mean arrival time is $\text{E}(V | X = 10) = 20 +1.05(15) =35.75$. Devi's conditional SD is $\text{SD}(V|X = 10) = 15\sqrt{1-0.7^2} = 10.7$. So $(V | (X = 10))\sim N(35.75, 10.7)$. $\text{P}(V < 10 | X = 10) = \text{P}(Z < \frac{10-35.75}{10.7}) = \text{P}(Z < -2.4)$; ballpark estimate is about 0.005. Software (below) gives 0.008.
-a. We want $\text{P}(|X - V| >15) = \text{P}(X - V > 15) + \text{P}(X - V < -15)$.  Since $X$ and $V$ have a Bivariate Normal distribution, then $X - V$ has a Normal distribution. The mean is $20-15 = 5$, and
-    $$
-    \text{Var}(X - V) = \text{Var}(X) + \text{Var}(V) - 2\text{Cov}(X, V) = 10^2 + 15^2 - 2(-0.7)(10)(15) = 535
-    $$
-    So $\text{SD}(X - V) = \sqrt{535} = 23.1$.
-    The standardized value for 15 is $(15 - 5) / 23.1 = 0.43$. The standardized value for -15 is $(-15 - 5) / 23.1 = -0.86$. The probability that a value is more than 1 SD below the mean is about 0.16; the probability that a value is more than 0.5 SD above the mean is about 0.31. So the probability that we want is about 0.47. It's $\text{P}(|X - V| > 15) = 0.53$.
-
-
-
-
-
-```{r}
-pnorm((10 - 35.75) / 10.7)
-
-pnorm(10, 35.75, 10.7)
-```
-
-```{r}
-1 - pnorm((15 - 5) / 23.1) + pnorm((-15 - 5) / 23.1)
-
-1 - pnorm(15, 5, 23.1) + pnorm(-15, 5, 23.1)
-```
-
-
-
-
-
-```{r}
-N_rep <- 10000
-
-V <- rnorm(N_rep, 20, 15)
-X <- rnorm(N_rep, 25 + 10 * (-0.7) * (V - 20) / 15, 10 * sqrt(1 - 0.7^2))
-
-sum(abs(V - X) > 15) / N_rep
-
-cor(V, X)
-
-mean(V)
-
-sd(V)
-
-mean(X)
-
-sd(X)
-```
-
-
-```{r}
-plot(V, X, col = ifelse(abs(V - X) > 15, "orange", "gray"))
-abline(a = 15, b = 1, col = "orange")
-abline(a = -15, b = 1, col = "orange")
-```
-
-
-
-```{r}
-ggplot(data.frame(V, X), aes(x = V, y = X)) +
-  stat_density_2d(aes(fill = ..level..), geom = "polygon", colour = "white") +
-  geom_abline(slope = 1, intercept = c(-15, 15), col = "orange", size = 2)
-```
-
-
-
-
-
-
+1.  Say the population is all American adults (roughly 300 million), the variable is whether or not the adult supports government-provided health care (yes = "success"), the parameter $p$ is the population proportion of US adults who support government-provided health care. Survey a random sample of $n=1000$ adults, let $X$ be the number in the sample (out of 1000) who support health care.
+1.  One estimator of $p$ is the sample proportion $\hat{p}=X/n$.
+1.  For this sample the sample proportion is $\hat{p}=6/10 = 0.6$.
+1.  The "plus four" estimator basically appends 2 successes and 2 failures to the sample data and then computes the sample proportion based on the appended sample. (It is also a weighted average between the observe sample proportion $X/n$ and 0.5.)
+1.  Based on the 6/10 sample, the plus four estimator estimates $p$ to be $(6+2)/(10+4) = 8/14 = 0.571 = (10/14)(0.6) + (4/14)(0.5) = 0.571$.
+1.  We don't know which of 0.6 and 0.571 is a better estimate because we don't know what $p$ is; that's the reason why we're trying to estimate it.
